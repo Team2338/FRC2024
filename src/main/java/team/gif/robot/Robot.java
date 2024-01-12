@@ -4,7 +4,9 @@
 
 package team.gif.robot;
 
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.motorcontrol.PWMTalonSRX;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import team.gif.robot.subsystems.drivers.Limelight;
@@ -36,7 +38,7 @@ public class Robot extends TimedRobot {
         // autonomous chooser on the dashboard.
         robotContainer = new RobotContainer();
 
-        pigeon = new Pigeon(RobotMap.PIGEON);
+        pigeon = new Pigeon(new TalonSRX(RobotMap.PIGEON));
         limelight = new Limelight();
 
         ui = new UI();
@@ -59,6 +61,7 @@ public class Robot extends TimedRobot {
         // and running subsystem periodic() methods.  This must be called from the robot's periodic
         // block in order for anything in the Command-based framework to work.
         CommandScheduler.getInstance().run();
+
     }
 
     /** This function is called once each time the robot enters Disabled mode. */
