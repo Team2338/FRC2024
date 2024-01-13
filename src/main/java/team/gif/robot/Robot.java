@@ -29,7 +29,6 @@ public class Robot extends TimedRobot {
     public static UiSmartDashboard uiSmartDashboard;
     private Timer elapsedTime;
     private boolean runAutoScheduler;
-    //private boolean runAutoScheduler;
     public static boolean runningAutonomousMode;
     public static Pigeon pigeon;
     public static Limelight limelight;
@@ -45,6 +44,7 @@ public class Robot extends TimedRobot {
     public void robotInit() {
         // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
         // autonomous chooser on the dashboard.
+        elapsedTime = new Timer();
         robotContainer = new RobotContainer();
 
         pigeon = new Pigeon(new TalonSRX(RobotMap.PIGEON));
@@ -89,6 +89,8 @@ public class Robot extends TimedRobot {
         if (autonomousCommand != null) {
             autonomousCommand.schedule();
         }
+        elapsedTime.reset();
+        elapsedTime.start();
         runAutoScheduler = true;
     }
 
