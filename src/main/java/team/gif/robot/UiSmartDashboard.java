@@ -5,16 +5,17 @@ import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import team.gif.lib.logging.delay;
+import team.gif.lib.delay;
 
 public class UiSmartDashboard {
+
     public SendableChooser<delay> delayChooser = new SendableChooser<>();
+
     public UiSmartDashboard() {
         ShuffleboardTab shuffleboardTab = Shuffleboard.getTab("SmartDashboard");
 
-
-
         shuffleboardTab.add("Pigeon Heading", Robot.pigeon.get360Heading());
+
         shuffleboardTab.add("BotHead", (x) -> {
                     x.setSmartDashboardType("Gyro");
                     x.addDoubleProperty("Value", () -> Robot.pigeon.getCompassHeading(), null);
@@ -44,6 +45,7 @@ public class UiSmartDashboard {
                 .withPosition(7, 0)
                 .withSize(1, 1);
     }
+
     public void updateUI() {
         // Timers
         SmartDashboard.putString("Time", String.format("%.4f", Timer.getFPGATimestamp()));

@@ -1,4 +1,4 @@
-package team.gif.lib.logging;
+package team.gif.lib;
 
 public enum delay {
     DELAY_0(0),
