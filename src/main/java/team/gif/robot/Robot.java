@@ -5,6 +5,7 @@
 package team.gif.robot;
 
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -72,6 +73,8 @@ public class Robot extends TimedRobot {
         uiSmartDashboard.updateUI();
         chosenDelay = uiSmartDashboard.delayChooser.getSelected();
 
+        System.out.println("has target: " + limelight.hasTarget());
+        System.out.println("id: " + NetworkTableInstance.getDefault().getTable("limelight").getEntry("tid").getDouble(0));
     }
 
     /** This function is called once each time the robot enters Disabled mode. */
