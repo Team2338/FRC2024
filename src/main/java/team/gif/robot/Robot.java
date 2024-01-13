@@ -62,6 +62,9 @@ public class Robot extends TimedRobot {
         // block in order for anything in the Command-based framework to work.
         CommandScheduler.getInstance().run();
 
+        System.out.printf("x offset: %.2f \n", limelight.getXOffset());
+        System.out.printf("y offset: %.2f \n", limelight.getYOffset());
+        System.out.printf("area offset: %.2f\n", limelight.getArea());
     }
 
     /** This function is called once each time the robot enters Disabled mode. */
