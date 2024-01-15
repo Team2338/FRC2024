@@ -69,6 +69,7 @@ public class OI {
     public final Trigger tDPadLeft = test.povLeft();
 
     public OI() {
+
     /*
      *
      * Create controller actions here

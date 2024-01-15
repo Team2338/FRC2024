@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import team.gif.lib.delay;
+import team.gif.robot.subsystems.drivers.Collector;
 import team.gif.robot.subsystems.drivers.Limelight;
 import team.gif.robot.subsystems.drivers.Pigeon;
 
@@ -32,6 +33,7 @@ public class Robot extends TimedRobot {
     public static Pigeon pigeon;
     public static Limelight limelight;
     public static OI oi;
+    public static Collector collector;
     public static UI ui;
 
 
@@ -41,6 +43,7 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void robotInit() {
+        collector = new Collector();
         // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
         // autonomous chooser on the dashboard.
         elapsedTime = new Timer();
