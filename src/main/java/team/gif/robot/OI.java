@@ -2,6 +2,11 @@ package team.gif.robot;
 
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import team.gif.robot.commands.driveModes.EnableBoost;
+import team.gif.robot.commands.drivetrain.MoveAwaySlow;
+import team.gif.robot.commands.drivetrain.MoveCloserSlow;
+import team.gif.robot.commands.drivetrain.MoveLeftSlow;
+import team.gif.robot.commands.drivetrain.MoveRightSlow;
 
 public class OI {
     /*
@@ -69,23 +74,28 @@ public class OI {
     public final Trigger tDPadLeft = test.povLeft();
 
     public OI() {
-    /*
-     *
-     * Create controller actions here
-     *
-     * Usages:
-     * dRTrigger.whileTrue(new CollectCommand());
-     * dLTrigger.onTrue(new EjectCommand());
-     * dA.whileTrue(new RepeatCommand(new RapidFire());
-     * aStart.onTrue(new InstantCommand(Robot.elevator::zeroEncoder).ignoringDisable(true));
-     *
-     * onTrue (fka whenPressed)    Init->Execute repeats until IsFinished = true->End, will not start again at Init if still held down
-     * whileTrue (fka whenHeld)    Init->Execute repeats until IsFinished = true or button released->End, will not start again at Init if still held down
-     * whileTrue(new RepeatCommand()) (fka whileHeld)   Init->Execute repeats until IsFinished = true or button released->End, will start again at Init if still held down
-     *
-     * Simple Test:
-     *   aX.onTrue(new PrintCommand("aX"));
-     */
+        /*
+        *
+        * Create controller actions here
+        *
+        * Usages:
+        * dRTrigger.whileTrue(new CollectCommand());
+        * dLTrigger.onTrue(new EjectCommand());
+        * dA.whileTrue(new RepeatCommand(new RapidFire());
+        * aStart.onTrue(new InstantCommand(Robot.elevator::zeroEncoder).ignoringDisable(true));
+        *
+        * onTrue (fka whenPressed)    Init->Execute repeats until IsFinished = true->End, will not start again at Init if still held down
+        * whileTrue (fka whenHeld)    Init->Execute repeats until IsFinished = true or button released->End, will not start again at Init if still held down
+        * whileTrue(new RepeatCommand()) (fka whileHeld)   Init->Execute repeats until IsFinished = true or button released->End, will start again at Init if still held down
+        *
+        * Simple Test:
+        *   aX.onTrue(new PrintCommand("aX"));
+        */
 
+        dDPadUp.whileTrue(new MoveAwaySlow());
+        dDPadRight.whileTrue(new MoveRightSlow());
+        dDPadLeft.whileTrue(new MoveLeftSlow());
+        dDPadDown.whileTrue(new MoveCloserSlow());
+        dLStickBtn.whileTrue(new EnableBoost());
     }
 }

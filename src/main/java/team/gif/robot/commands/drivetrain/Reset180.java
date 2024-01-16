@@ -1,8 +1,8 @@
 package team.gif.robot.commands.drivetrain;
-import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.Command;
 import team.gif.robot.Robot;
 
-public class Reset180 extends CommandBase {
+public class Reset180 extends Command {
 
     public Reset180() {}
 

@@ -1,8 +1,8 @@
 package team.gif.robot.commands.drivetrain;
-import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.Command;
 import team.gif.robot.Robot;
 
-public class ResetHeading extends CommandBase {
+public class ResetHeading extends Command {
     private double heading = 0;
 
     public ResetHeading() {}

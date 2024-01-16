@@ -6,6 +6,7 @@ package team.gif.robot;
 
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
+import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.math.util.Units;
 
 /**
@@ -122,6 +123,30 @@ public final class Constants {
             public static final double rearRightP = 0.35; // 0.6
             public static final double rearRightFF = 0.01;
         }
+    }
+
+    public static final class AutoConstants {
+        public static final double MAX_SPEED_METERS_PER_SECOND = 3;
+        public static final double MAX_ACCELERATION_METERS_PER_SECOND_SQUARED = 3;
+        public static final double MAX_ANGULAR_SPEED_RADIANS_PER_SECOND = Math.PI;
+        public static final double MAX_ANGULAR_ACCELERATION_RADIANS_PER_SECOND_SQUARED = Math.PI;
+
+        public static final double PX_CONTROLLER = 5.0;
+        public static final double PY_CONTROLLER = 5.0;
+        public static final double P_THETA_CONTROLLER = 3.7;
+
+        // Constraint for the motion profiled robot angle controller
+        public static final TrapezoidProfile.Constraints kThetaControllerConstraints =
+                new TrapezoidProfile.Constraints(
+                        MAX_ANGULAR_SPEED_RADIANS_PER_SECOND, MAX_ANGULAR_ACCELERATION_RADIANS_PER_SECOND_SQUARED);
+
+        public static final double DRIVE_SUPER_FAST = 1.0;
+        public static final double DRIVE_FAST = 0.7;
+        public static final double DRIVE_MEDIUM = 0.6;
+        public static final double DRIVE_SLOW = 0.27; // 0.3;
+        public static final double DRIVE_SUPER_SLOW = 0.2;
+        public static final double HOLD_AT_ANGLE = 0.15;
+        public static final double DRIVE_TIME_DEFAULT = 1.5; // seconds until the bot gets to the charging station
     }
 
     public static final class Joystick {
