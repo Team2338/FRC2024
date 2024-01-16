@@ -60,7 +60,7 @@ public class Robot extends TimedRobot {
         elapsedTime = new Timer();
         robotContainer = new RobotContainer();
 
-        swerveDrivetrain = new SwerveDrivetrain();
+        swerveDrivetrain = new SwerveDrivetrain(telemetryLogger);
         driveSwerve = new DriveSwerve();
         swerveDrivetrain.setDefaultCommand(driveSwerve);
         swerveDrivetrain.resetHeading();

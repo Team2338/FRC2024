@@ -1,9 +1,9 @@
 package team.gif.robot.subsystems.drivers;
 
-import com.ctre.phoenix6.StatusSignal;
+import com.ctre.phoenix6.configs.CANcoderConfiguration;
+import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.hardware.CANcoder;
 import com.ctre.phoenix6.hardware.TalonFX;
-import com.ctre.phoenix6.signals.AbsoluteSensorRangeValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 import com.revrobotics.CANSparkLowLevel;
 import com.revrobotics.CANSparkMax;
@@ -54,10 +54,10 @@ public class SwerveModuleMK4 {
         this.driveMotor = new TalonFX(driveMotor);
         this.turnMotor = new CANSparkMax(turnMotor, CANSparkLowLevel.MotorType.kBrushless);//CANSparkMaxLowLevel.MotorType.kBrushless);
 
-//        this.driveMotor.configFactoryDefault();
+        this.driveMotor.getConfigurator().apply(new TalonFXConfiguration());
         this.turnMotor.restoreFactoryDefaults();
 
-        this.driveMotor.setNeutralMode(NeutralModeValue.Brake);//NeutralMode.Brake);
+        this.driveMotor.setNeutralMode(NeutralModeValue.Brake); //NeutralMode.Brake);
         this.turnMotor.setIdleMode(CANSparkMax.IdleMode.kBrake);
 
         this.turnMotor.getEncoder().setPositionConversionFactor(Constants.ModuleConstants.TURNING_ENCODER_ROT_TO_RAD);
@@ -68,8 +68,8 @@ public class SwerveModuleMK4 {
         this.isAbsInverted = isAbsInverted;
 
         this.canCoder = new CANcoder(canCoder);
-        this.canCoder.configFactoryDefault();
-        this.canCoder.configAbsoluteSensorRange(AbsoluteSensorRangeValue.Signed_PlusMinusHalf);//AbsoluteSensorRange.Signed_PlusMinus180);
+        this.canCoder.getConfigurator().apply(new CANcoderConfiguration());
+//        this.canCoder.configAbsoluteSensorRange(AbsoluteSensorRangeValue.Signed_PlusMinusHalf); //AbsoluteSensorRange.Signed_PlusMinus180);
 
         this.turnMotor.setSmartCurrentLimit(70, 50);
 
@@ -110,10 +110,12 @@ public class SwerveModuleMK4 {
 
     /**
      * Get the active drive velocity
+     *
      * @return Returns the active drive velocity as a double in RPM
      */
     public double getDriveVelocity() {
-        return driveMotor.getSelectedSensorVelocity() * Constants.ModuleConstants.DRIVE_ENCODER_ROT_2_METER;
+//        return driveMotor.getSelectedSensorVelocity() * Constants.ModuleConstants.DRIVE_ENCODER_ROT_2_METER; //old code.
+        return driveMotor.getMotorVoltage().getValueAsDouble();
     }
 
     /**
@@ -121,7 +123,7 @@ public class SwerveModuleMK4 {
      * @return the current output as a percent
      */
     public double getDriveOutput() {
-        return driveMotor.getMotorOutputPercent();
+        return driveMotor.get();
     }
 
     /**
@@ -129,8 +131,8 @@ public class SwerveModuleMK4 {
      *
      * @return Returns the active turn velocity as a double in EncoderTicks per 100ms
      */
-    public StatusSignal<Double> getTurnVelocity() {
-        return canCoder.getVelocity();
+    public double getTurnVelocity() {
+        return canCoder.getVelocity().getValueAsDouble();
     }
 
     /**
@@ -138,8 +140,8 @@ public class SwerveModuleMK4 {
      *
      * @return Returns the raw heading of the canCoder (deg)
      */
-    public StatusSignal<Double> getRawHeading() {
-        return canCoder.getAbsolutePosition();
+    public double getRawHeading() {
+        return canCoder.getAbsolutePosition().getValueAsDouble();
     }
 
     /**
@@ -147,7 +149,7 @@ public class SwerveModuleMK4 {
      * @return Returns the heading of the module in radians as a double
      */
     public double getTurningHeading() {
-        double heading = Units.degreesToRadians(getRawHeading() - turningOffset) * (isAbsInverted ? -1.0: 1.0);
+        double heading = Units.degreesToRadians(getRawHeading() - turningOffset) * (isAbsInverted ? -1.0: 1.0); //turningOffset
         heading %= 2 * Math.PI;
         return heading;
     }
@@ -248,7 +250,7 @@ public class SwerveModuleMK4 {
      * @return the position of the swerve module
      */
     public SwerveModulePosition getPosition() {
-        return new SwerveModulePosition(driveMotor.getSelectedSensorPosition() * Constants.ModuleConstants.DRIVE_ENCODER_ROT_2_METER, new Rotation2d(getTurningHeading()));
+        return new SwerveModulePosition(driveMotor.getPosition().getValueAsDouble() * Constants.ModuleConstants.DRIVE_ENCODER_ROT_2_METER, new Rotation2d(getTurningHeading()));
     }
 
     /**
@@ -256,6 +258,6 @@ public class SwerveModuleMK4 {
      */
     public void resetDriveEncoders() {
         driveMotor.setPosition(0.0);
-//        driveMotor.setSelectedSensorPosition(0.0);
+//        driveMotor.setSelectedSensorPosition(0.0); //old code
     }
 }

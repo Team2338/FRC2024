@@ -106,10 +106,10 @@ public class SwerveDrivetrain extends SubsystemBase {
         logger.addMetric("RL_Rotation", rL::getTurningHeading);
         logger.addMetric("RR_Rotation", rR::getTurningHeading);
 
-        logger.addMetric("FL_Drive_Command", () -> fL.getDriveMotor().getMotorOutputPercent());
-        logger.addMetric("FR_Drive_Command", () -> fR.getDriveMotor().getMotorOutputPercent());
-        logger.addMetric("RL_Drive_Command", () -> rL.getDriveMotor().getMotorOutputPercent());
-        logger.addMetric("RR_Drive_Command", () -> rR.getDriveMotor().getMotorOutputPercent());
+        logger.addMetric("FL_Drive_Command", () -> fL.getDriveMotor().get());
+//        logger.addMetric("FR_Drive_Command", () -> fR.getDriveMotor().getMotorOutputPercent());
+//        logger.addMetric("RL_Drive_Command", () -> rL.getDriveMotor().getMotorOutputPercent());
+//        logger.addMetric("RR_Drive_Command", () -> rR.getDriveMotor().getMotorOutputPercent());
 
         logger.addMetric("FL_Turn_Command", () -> fL.getTurnMotor().getAppliedOutput());
         logger.addMetric("FR_Turn_Command", () -> fR.getTurnMotor().getAppliedOutput());
@@ -154,8 +154,6 @@ public class SwerveDrivetrain extends SubsystemBase {
      * @param rot dRot
      */
     public void drive(double x, double y, double rot) {
-
-
         SwerveModuleState[] swerveModuleStates =
                 Constants.Drivetrain.DRIVE_KINEMATICS.toSwerveModuleStates(
                         drivePace.getIsFieldRelative() ?

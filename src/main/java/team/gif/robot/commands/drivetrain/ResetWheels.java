@@ -5,14 +5,14 @@ import team.gif.robot.Robot;
 
 public class ResetWheels extends CommandBase {
     public ResetWheels() {
-        addRequirements(Robot.swervetrain);
+        addRequirements(Robot.swerveDrivetrain);
     }
 
     @Override
     public void execute() {
-        Robot.swervetrain.fL.resetWheel();
-        Robot.swervetrain.fR.resetWheel();
-        Robot.swervetrain.rL.resetWheel();
-        Robot.swervetrain.rR.resetWheel();
+        Robot.swerveDrivetrain.fL.resetWheel();
+        Robot.swerveDrivetrain.fR.resetWheel();
+        Robot.swerveDrivetrain.rL.resetWheel();
+        Robot.swerveDrivetrain.rR.resetWheel();
     }
 }
