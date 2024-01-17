@@ -7,9 +7,10 @@ package team.gif.robot;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj.motorcontrol.PWMTalonSRX;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import team.gif.lib.delay;
 import team.gif.robot.subsystems.drivers.Limelight;
 import team.gif.robot.subsystems.drivers.Pigeon;
 
@@ -23,11 +24,17 @@ public class Robot extends TimedRobot {
     private Command autonomousCommand;
 
     private RobotContainer robotContainer;
+
+    private static delay chosenDelay;
+    public static UiSmartDashboard uiSmartDashboard;
+    private Timer elapsedTime;
+    private boolean runAutoScheduler;
+    public static boolean runningAutonomousMode;
     public static Pigeon pigeon;
     public static Limelight limelight;
     public static OI oi;
     public static UI ui;
-    public static UiSmartDashboard uiSmartDashboard;
+
 
     /**
      * This function is run when the robot is first started up and should be used for any
@@ -37,6 +44,7 @@ public class Robot extends TimedRobot {
     public void robotInit() {
         // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
         // autonomous chooser on the dashboard.
+        elapsedTime = new Timer();
         robotContainer = new RobotContainer();
 
         pigeon = new Pigeon(new TalonSRX(RobotMap.PIGEON));
@@ -62,6 +70,8 @@ public class Robot extends TimedRobot {
         // and running subsystem periodic() methods.  This must be called from the robot's periodic
         // block in order for anything in the Command-based framework to work.
         CommandScheduler.getInstance().run();
+        uiSmartDashboard.updateUI();
+        chosenDelay = uiSmartDashboard.delayChooser.getSelected();
 
     }
 
@@ -79,11 +89,22 @@ public class Robot extends TimedRobot {
         if (autonomousCommand != null) {
             autonomousCommand.schedule();
         }
+        elapsedTime.reset();
+        elapsedTime.start();
+        runAutoScheduler = true;
     }
 
     /** This function is called periodically during autonomous. */
     @Override
-    public void autonomousPeriodic() {}
+    public void autonomousPeriodic() {
+        if (runAutoScheduler && (elapsedTime.get() > (chosenDelay.getValue()))) {
+            if (autonomousCommand != null) {
+                autonomousCommand.schedule();
+            }
+            runAutoScheduler = false;
+            elapsedTime.stop();
+        }
+    }
 
     @Override
     public void teleopInit() {
