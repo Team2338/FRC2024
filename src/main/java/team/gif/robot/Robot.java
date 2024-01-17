@@ -122,6 +122,7 @@ public class Robot extends TimedRobot {
     public void teleopPeriodic() {
         double timeLeft = DriverStation.getMatchTime();
         oi.setRumble((timeLeft <= 40.0 && timeLeft >= 36.0) ||
+                (timeLeft <= 25.0 && timeLeft >= 21.0) ||
                 (timeLeft <= 5.0 && timeLeft >= 3.0));
     }
 
