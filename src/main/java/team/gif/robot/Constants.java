@@ -41,10 +41,10 @@ public final class Constants {
         public static final boolean kFrontRightTurningMotorReversed = false;
         public static final boolean kRearRightTurningMotorReversed = false;
 
-        public static final double FRONT_LEFT_OFFSET = 82.089;
-        public static final double REAR_LEFT_OFFSET = -138.25195;
-        public static final double FRONT_RIGHT_OFFSET = -20.3906;
-        public static final double REAR_RIGHT_OFFSET = 157.85156;
+        public static final double FRONT_LEFT_OFFSET = -2036;
+        public static final double REAR_LEFT_OFFSET = -4418;
+        public static final double FRONT_RIGHT_OFFSET = 18;
+        public static final double REAR_RIGHT_OFFSET = 282;
 
         // Distance between centers of right and left wheels on robot
         public static final double TRACK_LENGTH = Units.inchesToMeters(25);

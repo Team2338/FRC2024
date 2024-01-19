@@ -280,4 +280,21 @@ public class SwerveDrivetrain extends SubsystemBase {
     public static drivePace getDrivePace() {
         return drivePace;
     }
+
+    public double fREncoder() {
+        return fR.getRawHeading();
+    }
+
+    public double fLEncoder() {
+        return fL.getRawHeading();
+    }
+
+    public double rREncoder() {
+        return rR.getRawHeading();
+    }
+
+    public double rLEncoder() {
+        return rL.getRawHeading();
+    }
+
 }
