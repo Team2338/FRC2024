@@ -37,6 +37,7 @@ public class SwerveDrivetrain extends SubsystemBase {
     public SwerveDrivetrain() {
         super();
 
+        //define each of our modules
         fL = new SwerveModuleMK3 (
                 RobotMap.PRACTICE_FRONT_LEFT_DRIVE_ID,
                 RobotMap.PRACTICE_FRONT_LEFT_TURN_ID,
@@ -81,6 +82,7 @@ public class SwerveDrivetrain extends SubsystemBase {
                 Constants.ModuleConstants.DrivetrainPID.rearLeftP
         );
 
+        //for field oriented stuff. helps us estimate where the robot is on the field
         odometry = new SwerveDriveOdometry(Constants.Drivetrain.DRIVE_KINEMATICS, Robot.pigeon.getRotation2d(), getPosition(), new Pose2d(0, 0, new Rotation2d(0)));
 
 //        resetHeading();
@@ -295,6 +297,13 @@ public class SwerveDrivetrain extends SubsystemBase {
 
     public double rLEncoder() {
         return rL.getRawHeading();
+    }
+
+    public void resetWheels() {
+        fR.resetWheel();
+        fL.resetWheel();
+        rR.resetWheel();
+        rL.resetWheel();
     }
 
 }

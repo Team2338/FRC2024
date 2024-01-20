@@ -87,8 +87,8 @@ public final class Constants {
     public static final class ModuleConstants {
         public static final double MAX_MODULE_ANGULAR_SPEED_RADIANS_PER_SECOND = 6 * (2 * Math.PI); //6
         public static final double MAX_MODULE_ANGULAR_ACCELERATION_RADIANS_PER_SECOND_SQUARED = 6 * (2 * Math.PI); //7
-        public static final double GEAR_RATIO = 27.0 / 4.0; // need to ask aaron
-        public static final double ENCODER_CPR = 2048.0;
+        public static final double GEAR_RATIO = 27.0 / 4.0; // TODO: need to ask someone
+        public static final double ENCODER_CPR = 4096; //2048 for can coders 4096  for ctre mag encoder
         public static final double WHEEL_DIAMETER_METERS = Units.inchesToMeters(3.78);
         public static final double DRIVE_ENCODER_ROT_2_METER = Math.PI * WHEEL_DIAMETER_METERS / (GEAR_RATIO * ENCODER_CPR);
         public static final double DRIVE_ENCODER_RPM_2_METER_PER_SEC = DRIVE_ENCODER_ROT_2_METER / 60;

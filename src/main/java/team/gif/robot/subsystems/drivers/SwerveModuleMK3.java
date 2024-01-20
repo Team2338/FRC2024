@@ -48,12 +48,15 @@ public class SwerveModuleMK3 {
             double kFF,
             double kP
     ) {
+        //init motors
         this.driveMotor = new CANSparkMax(driveMotor, CANSparkLowLevel.MotorType.kBrushless);
         this.turnMotor = new WPI_TalonSRX(turnMotor);
 
+        //reset
         this.driveMotor.restoreFactoryDefaults();
         this.turnMotor.configFactoryDefault();
 
+        //stupid brake mode
         this.driveMotor.setIdleMode(CANSparkMax.IdleMode.kBrake);
         this.turnMotor.setNeutralMode(NeutralMode.Brake);
 
@@ -70,6 +73,7 @@ public class SwerveModuleMK3 {
 //        this.canCoder.configAbsoluteSensorRange(AbsoluteSensorRange.Signed_PlusMinus180);
 
         //TODO: is this the right encoder? Other repo shows relative
+        this.turnMotor.setSensorPhase(true);
         this.turnMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
         this.turnMotor.configSelectedFeedbackCoefficient(1);
 
@@ -106,6 +110,7 @@ public class SwerveModuleMK3 {
      * @return Returns the active state of the given swerveModule
      */
     public SwerveModuleState getState() {
+        //return drive velocity and turn velocity
         return new SwerveModuleState(getDriveVelocity(), new Rotation2d(Units.degreesToRadians(getTurnVelocity())));
     }
 
@@ -123,9 +128,8 @@ public class SwerveModuleMK3 {
      * @return the current output as a percent
      */
     public double getDriveOutput() {
-//        return driveMotor.getMotorOutputPercent();
-        //TODO: Make this work, did do it now because we dont use it
-        return 0;
+        //used for logging
+        return driveMotor.getAppliedOutput();
     }
 
     /**
