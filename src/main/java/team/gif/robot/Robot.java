@@ -91,9 +91,6 @@ public class Robot extends TimedRobot {
         CommandScheduler.getInstance().run();
         uiSmartDashboard.updateUI();
         chosenDelay = uiSmartDashboard.delayChooser.getSelected();
-
-        System.out.println("Postion: " + swerveDrivetrain.getPosition());
-
     }
 
     /** This function is called once each time the robot enters Disabled mode. */
@@ -162,7 +159,6 @@ public class Robot extends TimedRobot {
 
     private void addMetricsToLogger() {
         telemetryLogger.addMetric("TimeStamp", Timer::getFPGATimestamp);
-
         telemetryLogger.addMetric("Driver_Left_Y", () -> -Robot.oi.driver.getLeftY());
         telemetryLogger.addMetric("Driver_Left_X", () -> Robot.oi.driver.getLeftX());
         telemetryLogger.addMetric("Driver_Angle", () -> Math.atan(-Robot.oi.driver.getLeftY() / Robot.oi.driver.getLeftX()));
