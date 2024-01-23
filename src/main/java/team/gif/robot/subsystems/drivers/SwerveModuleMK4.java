@@ -1,10 +1,10 @@
 package team.gif.robot.subsystems.drivers;
 
 import com.ctre.phoenix6.configs.CANcoderConfiguration;
-import com.ctre.phoenix6.configs.MagnetSensorConfigs;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.hardware.CANcoder;
 import com.ctre.phoenix6.hardware.TalonFX;
+import com.ctre.phoenix6.signals.AbsoluteSensorRangeValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 import com.revrobotics.CANSparkLowLevel;
 import com.revrobotics.CANSparkMax;
@@ -116,7 +116,7 @@ public class SwerveModuleMK4 {
      */
     public double getDriveVelocity() {
 //        return driveMotor.getSelectedSensorVelocity() * Constants.ModuleConstants.DRIVE_ENCODER_ROT_2_METER; //old code.
-        return driveMotor.getMotorVoltage().getValueAsDouble();
+        return driveMotor.getMotorVoltage().getValueAsDouble() * Constants.ModuleConstants.DRIVE_ENCODER_ROT_2_METER;
     }
 
     /**

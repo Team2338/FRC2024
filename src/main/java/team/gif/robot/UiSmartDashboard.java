@@ -6,6 +6,7 @@ import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import team.gif.lib.delay;
+import team.gif.robot.subsystems.SwerveDrivetrain;
 
 public class UiSmartDashboard {
 
@@ -21,6 +22,8 @@ public class UiSmartDashboard {
                     x.addDoubleProperty("Value", () -> Robot.pigeon.getCompassHeading(), null);
                 })
                 .withPosition(5, 0);
+
+//        shuffleboardTab.add("Front Left", SwerveDrivetrain.fl.get)
 
         //Auto Delay
         delayChooser.setDefaultOption("0", delay.DELAY_0);
