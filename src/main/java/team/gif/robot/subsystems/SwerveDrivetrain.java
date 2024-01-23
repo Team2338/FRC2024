@@ -53,7 +53,7 @@ public class SwerveDrivetrain extends SubsystemBase {
                 RobotMap.PRACTICE_FRONT_RIGHT_DRIVE_ID,
                 RobotMap.PRACTICE_FRONT_RIGHT_TURN_ID,
                 true,
-                true,
+                false,
                 false,
                 Constants.Drivetrain.FRONT_RIGHT_OFFSET,
                 Constants.ModuleConstants.DrivetrainPID.frontRightFF,
@@ -64,7 +64,7 @@ public class SwerveDrivetrain extends SubsystemBase {
                 RobotMap.PRACTICE_REAR_RIGHT_DRIVE_ID,
                 RobotMap.PRACTICE_REAR_RIGHT_TURN_ID,
                 true,
-                true,
+                false,
                 false,
                 Constants.Drivetrain.REAR_RIGHT_OFFSET,
                 Constants.ModuleConstants.DrivetrainPID.rearRightFF,
@@ -297,6 +297,39 @@ public class SwerveDrivetrain extends SubsystemBase {
 
     public double rLEncoder() {
         return rL.getRawHeading();
+    }
+
+    public double fRTarget() {
+        return fR.target;
+    }
+
+    public double fLTarget() {
+        return fL.target;
+    }
+
+    public double rRTarget() {
+        return rR.target;
+    }
+
+    public double rLTarget() {
+        return rL.target;
+    }
+
+
+    public double fRHead() {
+        return fR.getTurningHeading();
+    }
+
+    public double fLHead() {
+        return fL.getTurningHeading();
+    }
+
+    public double rRHead() {
+        return rR.getTurningHeading();
+    }
+
+    public double rLHead() {
+        return rL.getTurningHeading();
     }
 
     public void resetWheels() {

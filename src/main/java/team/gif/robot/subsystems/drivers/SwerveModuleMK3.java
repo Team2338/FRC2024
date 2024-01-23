@@ -28,6 +28,7 @@ public class SwerveModuleMK3 {
     private final boolean isAbsInverted;
 
     private double turningOffset;
+    public double target;
 
     /**
      * Constructor for a TalonSRX, NEO based Swerve Module
@@ -73,7 +74,7 @@ public class SwerveModuleMK3 {
 //        this.canCoder.configAbsoluteSensorRange(AbsoluteSensorRange.Signed_PlusMinus180);
 
         //TODO: is this the right encoder? Other repo shows relative
-        this.turnMotor.setSensorPhase(true);
+//        this.turnMotor.setSensorPhase(true);
         this.turnMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
         this.turnMotor.configSelectedFeedbackCoefficient(1);
 
@@ -150,12 +151,16 @@ public class SwerveModuleMK3 {
         return turnMotor.getSelectedSensorPosition();
     }
 
+    public double encoderDegrees() {
+        return ((((getRawHeading() - turningOffset) % 4096) + 4096) % 4096 - 2048) * 45 / 512;
+    }
+
     /**
      * Get the heading of the swerve module
      * @return Returns the heading of the module in radians as a double
      */
     public double getTurningHeading() {
-        double heading = Units.degreesToRadians(getRawHeading() - turningOffset) * (isAbsInverted ? -1.0: 1.0);
+        double heading = Units.degreesToRadians(encoderDegrees()) * (isAbsInverted ? -1.0: 1.0);
         heading %= 2 * Math.PI;
         return heading;
     }
@@ -235,13 +240,19 @@ public class SwerveModuleMK3 {
      */
     public void setDesiredState(SwerveModuleState state) {
         SwerveModuleState stateOptimized = optimizeState(state);
+//        SwerveModuleState stateOptimized = state;
         double driveOutput = stateOptimized.speedMetersPerSecond / SwerveDrivetrain.getDrivePace().getValue();
         final double error = getTurningHeading() - stateOptimized.angle.getRadians();
+        System.out.println(error);
+        target = stateOptimized.angle.getRadians();
         final double kff = kFF * Math.abs(error) / error;
         //accum += error;
-        final double turnOutput = kff + (kP * error) + (0.001 * accum);
+//        final double turnOutput = kff + (kP * error) + (0.001 * accum);
+        final double turnOutput = (kP * error);
+
         driveMotor.set(driveOutput);
         turnMotor.set(turnOutput);
+
     }
 
     /**

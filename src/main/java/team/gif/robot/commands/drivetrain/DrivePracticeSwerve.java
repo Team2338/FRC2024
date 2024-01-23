@@ -43,7 +43,7 @@ public class DrivePracticeSwerve extends Command {
         x = xLimiter.calculate(x) * Constants.ModuleConstants.TELE_DRIVE_MAX_SPEED_METERS_PER_SECOND;
         y = yLimiter.calculate(y) * Constants.ModuleConstants.TELE_DRIVE_MAX_SPEED_METERS_PER_SECOND;
         rot = turningLimiter.calculate(rot) * Constants.ModuleConstants.TELE_DRIVE_MAX_ANGULAR_SPEED_RADIANS_PER_SECOND;
-
+        System.out.println("x: " + x + "y: " + y + "rot: " + rot);
         //pass in velocity tells which wheels will should be at what angle and speed
         ChassisSpeeds chassisSpeeds = new ChassisSpeeds(x, y, rot);
 

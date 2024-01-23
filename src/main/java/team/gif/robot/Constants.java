@@ -29,22 +29,23 @@ public final class Constants {
         public static final boolean kFrontLeftTurningEncoderReversed = false; //false
         public static final boolean kRearLeftTurningEncoderReversed = true;
         public static final boolean kFrontRightTurningEncoderReversed = true;
-        public static final boolean kRearRightTurningEncoderReversed = true;
+        public static final boolean kRearRightTurningEncoderReversed = false;
 
         public static final boolean kFrontLeftDriveMotorReversed = true;
         public static final boolean kRearLeftDriveMotorReversed = true;
         public static final boolean kFrontRightDriveMotorReversed = false;
         public static final boolean kRearRightDriveMotorReversed = false;
 
-        public static final boolean kFrontLeftTurningMotorReversed = true;
-        public static final boolean kRearLeftTurningMotorReversed = false;
+        public static final boolean kFrontLeftTurningMotorReversed = false;
+        public static final boolean kRearLeftTurningMotorReversed = true;
         public static final boolean kFrontRightTurningMotorReversed = false;
         public static final boolean kRearRightTurningMotorReversed = false;
 
-        public static final double FRONT_LEFT_OFFSET = -2036;
-        public static final double REAR_LEFT_OFFSET = -4418;
-        public static final double FRONT_RIGHT_OFFSET = 18;
-        public static final double REAR_RIGHT_OFFSET = 282;
+
+        public static final double FRONT_LEFT_OFFSET = -1170;
+        public static final double REAR_LEFT_OFFSET = -1010;
+        public static final double FRONT_RIGHT_OFFSET =  183;
+        public static final double REAR_RIGHT_OFFSET = 174;
 
         // Distance between centers of right and left wheels on robot
         public static final double TRACK_LENGTH = Units.inchesToMeters(25);
@@ -87,8 +88,8 @@ public final class Constants {
     public static final class ModuleConstants {
         public static final double MAX_MODULE_ANGULAR_SPEED_RADIANS_PER_SECOND = 6 * (2 * Math.PI); //6
         public static final double MAX_MODULE_ANGULAR_ACCELERATION_RADIANS_PER_SECOND_SQUARED = 6 * (2 * Math.PI); //7
-        public static final double GEAR_RATIO = 27.0 / 4.0; // TODO: need to ask someone
-        public static final double ENCODER_CPR = 4096; //2048 for can coders 4096  for ctre mag encoder
+        public static final double GEAR_RATIO = 8.16; // TODO: need to ask someone
+        public static final double ENCODER_CPR = 42; //This is for DRIVE
         public static final double WHEEL_DIAMETER_METERS = Units.inchesToMeters(3.78);
         public static final double DRIVE_ENCODER_ROT_2_METER = Math.PI * WHEEL_DIAMETER_METERS / (GEAR_RATIO * ENCODER_CPR);
         public static final double DRIVE_ENCODER_RPM_2_METER_PER_SEC = DRIVE_ENCODER_ROT_2_METER / 60;
@@ -119,14 +120,14 @@ public final class Constants {
         public static final double TURNING_ENCODER_RPM_2_RAD_PER_SECOND = TURNING_ENCODER_ROT_TO_RAD / 60;
 
         public static final class DrivetrainPID {
-            public static final double frontLeftP = 0.35; //pBot 0.4 all P
-            public static final double frontLeftFF = 0.01; //pBot 0.01 all FF
-            public static final double frontRightP = 0.35;
-            public static final double frontRightFF = 0.01; //issa good
-            public static final double rearLeftP = 0.35;
-            public static final double rearLeftFF = 0.01;
-            public static final double rearRightP = 0.35; // 0.6
-            public static final double rearRightFF = 0.01;
+            public static final double frontLeftP = -0.35; //pBot 0.4 all P
+            public static final double frontLeftFF = 0.0; //pBot 0.01 all FF
+            public static final double frontRightP = -0.35;
+            public static final double frontRightFF = 0.0; //issa good
+            public static final double rearLeftP = -0.35;
+            public static final double rearLeftFF = 0.0;
+            public static final double rearRightP = -0.35; // 0.6
+            public static final double rearRightFF = 0.0;
         }
     }
 

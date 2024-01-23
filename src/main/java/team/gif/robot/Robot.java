@@ -5,6 +5,7 @@
 package team.gif.robot;
 
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -80,7 +81,6 @@ public class Robot extends TimedRobot {
         CommandScheduler.getInstance().run();
         uiSmartDashboard.updateUI();
         chosenDelay = uiSmartDashboard.delayChooser.getSelected();
-
     }
 
     /** This function is called once each time the robot enters Disabled mode. */
@@ -127,7 +127,10 @@ public class Robot extends TimedRobot {
 
     /** This function is called periodically during operator control. */
     @Override
-    public void teleopPeriodic() {}
+    public void teleopPeriodic() {
+//        practiceDrivetrain.setModuleStates(new ChassisSpeeds(0, 0, .2));
+
+    }
 
     @Override
     public void testInit() {

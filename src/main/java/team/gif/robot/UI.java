@@ -7,10 +7,19 @@ public class UI {
 
     public UI() {
         ShuffleboardTab shuffleboardTab = Shuffleboard.getTab("FRC2024");
-        shuffleboardTab.addDouble("fr", Robot.practiceDrivetrain::fREncoder);
-        shuffleboardTab.addDouble("fl", Robot.practiceDrivetrain::fLEncoder);
-        shuffleboardTab.addDouble("rr", Robot.practiceDrivetrain::rREncoder);
-        shuffleboardTab.addDouble("rl", Robot.practiceDrivetrain::rLEncoder);
+        shuffleboardTab.addDouble("fr raw encoder", Robot.practiceDrivetrain::fREncoder);
+        shuffleboardTab.addDouble("fl raw encoder", Robot.practiceDrivetrain::fLEncoder);
+        shuffleboardTab.addDouble("rr raw encoder", Robot.practiceDrivetrain::rREncoder);
+        shuffleboardTab.addDouble("rl raw encoder", Robot.practiceDrivetrain::rLEncoder);
 
+        shuffleboardTab.addDouble("fr head", Robot.practiceDrivetrain::fRHead);
+        shuffleboardTab.addDouble("fl head", Robot.practiceDrivetrain::fLHead);
+        shuffleboardTab.addDouble("rr head", Robot.practiceDrivetrain::rRHead);
+        shuffleboardTab.addDouble("rl head", Robot.practiceDrivetrain::rLHead);
+
+        shuffleboardTab.addDouble("fr target", Robot.practiceDrivetrain::fRTarget);
+        shuffleboardTab.addDouble("fl target", Robot.practiceDrivetrain::fLTarget);
+        shuffleboardTab.addDouble("rr target", Robot.practiceDrivetrain::rRTarget);
+        shuffleboardTab.addDouble("rl target", Robot.practiceDrivetrain::rLTarget);
     }
 }
