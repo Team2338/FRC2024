@@ -41,8 +41,8 @@ public class SwerveDrivetrain extends SubsystemBase {
         fL = new SwerveModuleMK3 (
                 RobotMap.PRACTICE_FRONT_LEFT_DRIVE_ID,
                 RobotMap.PRACTICE_FRONT_LEFT_TURN_ID,
-                true,
-                true,
+                Constants.Drivetrain.kFrontLeftTurningMotorReversed,
+                Constants.Drivetrain.kFrontLeftDriveMotorReversed,
                 false,
                 Constants.Drivetrain.FRONT_LEFT_OFFSET,
                 Constants.ModuleConstants.DrivetrainPID.frontLeftFF,
@@ -52,8 +52,8 @@ public class SwerveDrivetrain extends SubsystemBase {
         fR = new SwerveModuleMK3 (
                 RobotMap.PRACTICE_FRONT_RIGHT_DRIVE_ID,
                 RobotMap.PRACTICE_FRONT_RIGHT_TURN_ID,
-                true,
-                false,
+                Constants.Drivetrain.kFrontRightTurningMotorReversed,
+                Constants.Drivetrain.kFrontRightDriveMotorReversed,
                 false,
                 Constants.Drivetrain.FRONT_RIGHT_OFFSET,
                 Constants.ModuleConstants.DrivetrainPID.frontRightFF,
@@ -63,8 +63,8 @@ public class SwerveDrivetrain extends SubsystemBase {
         rR = new SwerveModuleMK3 (
                 RobotMap.PRACTICE_REAR_RIGHT_DRIVE_ID,
                 RobotMap.PRACTICE_REAR_RIGHT_TURN_ID,
-                true,
-                false,
+                Constants.Drivetrain.kRearRightTurningMotorReversed,
+                Constants.Drivetrain.kRearRightDriveMotorReversed,
                 false,
                 Constants.Drivetrain.REAR_RIGHT_OFFSET,
                 Constants.ModuleConstants.DrivetrainPID.rearRightFF,
@@ -74,8 +74,8 @@ public class SwerveDrivetrain extends SubsystemBase {
         rL = new SwerveModuleMK3 (
                 RobotMap.PRACTICE_REAR_LEFT_DRIVE_ID,
                 RobotMap.PRACTICE_REAR_LEFT_TURN_ID,
-                true,
-                true,
+                Constants.Drivetrain.kRearLeftTurningMotorReversed,
+                Constants.Drivetrain.kRearLeftDriveMotorReversed,
                 false,
                 Constants.Drivetrain.REAR_LEFT_OFFSET,
                 Constants.ModuleConstants.DrivetrainPID.rearLeftFF,

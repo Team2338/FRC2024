@@ -147,11 +147,14 @@ public class SwerveModuleMK3 {
      * @return Returns the raw heading of the canCoder (deg)
      */
     public double getRawHeading() {
-        //TODO: Does this reutnr the same thing as the can coder equivilant?
         return turnMotor.getSelectedSensorPosition();
     }
 
     public double encoderDegrees() {
+        //The first modulo (%) pulls into the range -4095…4095,
+        // the add and next modulo make it 0…4095,
+        // subtracting 2048 makes it -4096…4095,
+        // and the multiplication and division scale it to 180.
         return ((((getRawHeading() - turningOffset) % 4096) + 4096) % 4096 - 2048) * 45 / 512;
     }
 
@@ -169,7 +172,6 @@ public class SwerveModuleMK3 {
      * Reset the wheels to their 0 positions
      */
     public void resetWheel() {
-        //TODO: chceck this
         final double error = getTurningHeading();
         final double kff = kFF * Math.abs(error) / error;
         final double turnOutput = kff + (kP * error);
@@ -240,15 +242,13 @@ public class SwerveModuleMK3 {
      */
     public void setDesiredState(SwerveModuleState state) {
         SwerveModuleState stateOptimized = optimizeState(state);
-//        SwerveModuleState stateOptimized = state;
         double driveOutput = stateOptimized.speedMetersPerSecond / SwerveDrivetrain.getDrivePace().getValue();
         final double error = getTurningHeading() - stateOptimized.angle.getRadians();
         System.out.println(error);
         target = stateOptimized.angle.getRadians();
         final double kff = kFF * Math.abs(error) / error;
         //accum += error;
-//        final double turnOutput = kff + (kP * error) + (0.001 * accum);
-        final double turnOutput = (kP * error);
+        final double turnOutput = kff + (kP * error) + (0.001 * accum);
 
         driveMotor.set(driveOutput);
         turnMotor.set(turnOutput);
