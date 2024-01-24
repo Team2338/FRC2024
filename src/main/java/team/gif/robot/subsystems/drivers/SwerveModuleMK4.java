@@ -6,6 +6,7 @@ import com.ctre.phoenix6.hardware.CANcoder;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.AbsoluteSensorRangeValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
+import com.ctre.phoenix6.signals.MagnetHealthValue;
 import com.revrobotics.CANSparkLowLevel;
 import com.revrobotics.CANSparkMax;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -69,7 +70,9 @@ public class SwerveModuleMK4 {
         this.isAbsInverted = isAbsInverted;
 
         this.canCoder = new CANcoder(canCoder);
-        this.canCoder.getConfigurator().apply(new CANcoderConfiguration());
+        CANcoderConfiguration config = new CANcoderConfiguration();
+        config.MagnetSensor.AbsoluteSensorRange = AbsoluteSensorRangeValue.Signed_PlusMinusHalf;
+        this.canCoder.getConfigurator().apply(config);
 //        this.canCoder.configAbsoluteSensorRange(AbsoluteSensorRangeValue.Signed_PlusMinusHalf); //AbsoluteSensorRange.Signed_PlusMinus180);
 
         this.turnMotor.setSmartCurrentLimit(70, 50);
