@@ -34,7 +34,7 @@ public class Robot extends TimedRobot {
     public static Limelight limelight;
     public static OI oi;
     public static UI ui;
-
+    public static boolean isCompBot = true;
 
     /**
      * This function is run when the robot is first started up and should be used for any
@@ -47,7 +47,7 @@ public class Robot extends TimedRobot {
         elapsedTime = new Timer();
         robotContainer = new RobotContainer();
 
-        pigeon = new Pigeon(new TalonSRX(RobotMap.PIGEON));
+        pigeon = new Pigeon(RobotMap.PIGEON);
         limelight = new Limelight();
 
         ui = new UI();
