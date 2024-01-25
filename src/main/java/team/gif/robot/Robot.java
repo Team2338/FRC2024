@@ -5,13 +5,12 @@
 package team.gif.robot;
 
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
-import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import team.gif.lib.delay;
-import team.gif.robot.subsystems.SwerveDrivetrain;
+import team.gif.robot.subsystems.SwerveDrivetrainMK3;
 import team.gif.robot.subsystems.drivers.Limelight;
 import team.gif.robot.subsystems.drivers.Pigeon;
 import team.gif.robot.commands.drivetrain.DrivePracticeSwerve;
@@ -23,7 +22,6 @@ import team.gif.robot.commands.drivetrain.DrivePracticeSwerve;
  * project.
  */
 public class Robot extends TimedRobot {
-    public static boolean isCompBot = false;
     private Command autonomousCommand;
 
     private RobotContainer robotContainer;
@@ -33,11 +31,12 @@ public class Robot extends TimedRobot {
     private Timer elapsedTime;
     private boolean runAutoScheduler;
     public static boolean runningAutonomousMode;
-    public static SwerveDrivetrain practiceDrivetrain;
+    public static SwerveDrivetrainMK3 practiceDrivetrain;
     public static Pigeon pigeon;
     public static Limelight limelight;
     public static OI oi;
     public static UI ui;
+    public static boolean isCompBot = true;
 
 
     /**
@@ -55,7 +54,7 @@ public class Robot extends TimedRobot {
         limelight = new Limelight();
 
         if (!isCompBot) {
-            practiceDrivetrain = new SwerveDrivetrain();
+            practiceDrivetrain = new SwerveDrivetrainMK3();
             practiceDrivetrain.setDefaultCommand(new DrivePracticeSwerve());
         }
 

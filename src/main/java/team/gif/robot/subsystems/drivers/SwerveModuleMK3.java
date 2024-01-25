@@ -10,7 +10,7 @@ import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.math.util.Units;
 import team.gif.robot.Constants;
-import team.gif.robot.subsystems.SwerveDrivetrain;
+import team.gif.robot.subsystems.SwerveDrivetrainMK3;
 
 /**
  * @author Rohan Cherukuri
@@ -242,7 +242,7 @@ public class SwerveModuleMK3 {
      */
     public void setDesiredState(SwerveModuleState state) {
         SwerveModuleState stateOptimized = optimizeState(state);
-        double driveOutput = stateOptimized.speedMetersPerSecond / SwerveDrivetrain.getDrivePace().getValue();
+        double driveOutput = stateOptimized.speedMetersPerSecond / SwerveDrivetrainMK3.getDrivePace().getValue();
         final double error = getTurningHeading() - stateOptimized.angle.getRadians();
         System.out.println(error);
         target = stateOptimized.angle.getRadians();

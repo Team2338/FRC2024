@@ -3,9 +3,9 @@ package team.gif.robot.commands.drivetrain;
 import edu.wpi.first.wpilibj2.command.Command;
 import team.gif.robot.Robot;
 
-public class ResetWheels extends Command {
+public class ResetWheelsPbot extends Command {
 
-    public ResetWheels() {
+    public ResetWheelsPbot() {
         //Cap the maximum rate of change
         //hence the max accel.
         addRequirements(Robot.practiceDrivetrain);
