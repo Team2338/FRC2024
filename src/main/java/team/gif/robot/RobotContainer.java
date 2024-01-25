@@ -4,8 +4,24 @@
 
 package team.gif.robot;
 
+import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.auto.NamedCommands;
+import com.pathplanner.lib.commands.PathPlannerAuto;
+import com.pathplanner.lib.path.GoalEndState;
+import com.pathplanner.lib.path.PathConstraints;
+import com.pathplanner.lib.path.PathPlannerPath;
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.math.util.Units;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+
+import java.util.List;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -15,10 +31,21 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
  */
 public class RobotContainer {
 
+
+    private final SendableChooser<Command> autoChooser;
+
     /** The container for the robot. Contains subsystems, OI devices, and commands. */
     public RobotContainer() {
+        // Register named commands
+        NamedCommands.registerCommand("marker1", Commands.print("Passed marker 1"));
+        NamedCommands.registerCommand("marker2", Commands.print("Passed marker 2"));
+        NamedCommands.registerCommand("print hello", Commands.print("hello"));
+
         // Configure the trigger bindings
         configureBindings();
+
+        autoChooser = AutoBuilder.buildAutoChooser(); // Default auto will be `Commands.none()`
+        SmartDashboard.putData("Auto Mode", autoChooser);
     }
 
     /**
@@ -31,5 +58,60 @@ public class RobotContainer {
      * joysticks}.
      */
     private void configureBindings() {
+        // Add a button to run the example auto to SmartDashboard, this will also be in the auto chooser built above
+        SmartDashboard.putData("Example Auto", new PathPlannerAuto("Example Auto"));
+
+        // Add a button to run pathfinding commands to SmartDashboard
+        SmartDashboard.putData("Pathfind to Pickup Pos", AutoBuilder.pathfindToPose(
+                new Pose2d(14.0, 6.5, Rotation2d.fromDegrees(0)),
+                new PathConstraints(
+                        4.0, 4.0,
+                        Units.degreesToRadians(360), Units.degreesToRadians(540)
+                ),
+                0,
+                2.0
+        ));
+        SmartDashboard.putData("Pathfind to Scoring Pos", AutoBuilder.pathfindToPose(
+                new Pose2d(2.15, 3.0, Rotation2d.fromDegrees(180)),
+                new PathConstraints(
+                        4.0, 4.0,
+                        Units.degreesToRadians(360), Units.degreesToRadians(540)
+                ),
+                0,
+                0
+        ));
+
+        // Add a button to SmartDashboard that will create and follow an on-the-fly path
+        // This example will simply move the robot 2m in the +X field direction
+        SmartDashboard.putData("On-the-fly path", Commands.runOnce(() -> {
+            Pose2d currentPose = Robot.swerveDrivetrain.getPose();
+
+            // The rotation component in these poses represents the direction of travel
+            Pose2d startPos = new Pose2d(currentPose.getTranslation(), new Rotation2d());
+            Pose2d endPos = new Pose2d(currentPose.getTranslation().plus(new Translation2d(2.0, 0.0)), new Rotation2d());
+
+            List<Translation2d> bezierPoints = PathPlannerPath.bezierFromPoses(startPos, endPos);
+            PathPlannerPath path = new PathPlannerPath(
+                    bezierPoints,
+                    new PathConstraints(
+                            4.0, 4.0,
+                            Units.degreesToRadians(360), Units.degreesToRadians(540)
+                    ),
+                    new GoalEndState(0.0, currentPose.getRotation())
+            );
+            // Prevent this path from being flipped on the red alliance, since the given positions are already correct
+            path.preventFlipping = true;
+
+            AutoBuilder.followPath(path).schedule();
+        }));
+    }
+
+    /**
+     * Use this to pass the autonomous command to the main {@link Robot} class.
+     *
+     * @return the command to run in autonomous
+     */
+    public Command getAutonomousCommand() {
+        return autoChooser.getSelected();
     }
 }
