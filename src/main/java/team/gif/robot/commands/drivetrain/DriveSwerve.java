@@ -35,6 +35,28 @@ public class DriveSwerve extends Command {
             double rot = -Robot.oi.driver.getRightX(); // need to invert because left is negative, right is positive
             rot = (Math.abs(rot) > Constants.Joystick.DEADBAND) ? rot : 0.0;
 
+//            double xOffset = Robot.limelight3.getXOffset();
+//            double p = -0.015;
+////             double rot = -Robot.oi.driver.getRightX(); // need to invert because left is negative, right is positive
+//            double rot = 0;
+//
+//            if(!Robot.limelight3.hasTarget()) {
+//                rot = -Robot.oi.driver.getRightX();
+//                rot = (Math.abs(rot) > Constants.Joystick.DEADBAND) ? rot : 0.0;
+//            } else if (xOffset < -2.5) {
+//                if(Robot.oi.dLBump.getAsBoolean()) {
+//                    rot = -Robot.oi.driver.getRightX();
+//                    rot = (Math.abs(rot) > Constants.Joystick.DEADBAND) ? rot : 0.0;
+//                }
+//                rot = xOffset * p;
+//            } else if (xOffset > 2.5) {
+//                if(Robot.oi.dLBump.getAsBoolean()) {
+//                    rot = -Robot.oi.driver.getRightX();
+//                    rot = (Math.abs(rot) > Constants.Joystick.DEADBAND) ? rot : 0.0;
+//                }
+//                rot = xOffset * p;
+//            }
+
             forwardSign = forward/Math.abs(forward);
             strafeSign = strafe/Math.abs(strafe);
             // Use a parabolic curve (instead if linear) for the joystick to speed ratio
