@@ -4,15 +4,16 @@
 
 package team.gif.robot;
 
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import team.gif.lib.autoMode;
 import team.gif.lib.delay;
 import team.gif.lib.logging.EventFileLogger;
 import team.gif.lib.logging.TelemetryFileLogger;
+import team.gif.robot.commands.autos.CircleAuto;
 import team.gif.robot.commands.drivetrain.DriveSwerve;
 import team.gif.robot.subsystems.SwerveDrivetrain;
 import team.gif.robot.subsystems.drivers.Limelight;
@@ -30,6 +31,7 @@ public class Robot extends TimedRobot {
     private RobotContainer robotContainer;
 
     private static delay chosenDelay;
+    private static autoMode chosenAuto;
     public static UiSmartDashboard uiSmartDashboard;
     private Timer elapsedTime;
     private boolean runAutoScheduler;
@@ -70,6 +72,8 @@ public class Robot extends TimedRobot {
 
         limelight = new Limelight();
 
+        autonomousCommand = new CircleAuto();
+
         ui = new UI();
         uiSmartDashboard = new UiSmartDashboard();
 
@@ -91,6 +95,7 @@ public class Robot extends TimedRobot {
         // block in order for anything in the Command-based framework to work.
         CommandScheduler.getInstance().run();
         uiSmartDashboard.updateUI();
+        chosenAuto = uiSmartDashboard.autoModeChooser.getSelected();
         chosenDelay = uiSmartDashboard.delayChooser.getSelected();
     }
 

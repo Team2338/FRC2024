@@ -183,17 +183,17 @@ public class SwerveDrivetrain extends SubsystemBase {
      * @param chassisSpeeds Field Relative ChassisSpeeds to apply to wheel speeds
      * @implNote Use only in {@link SwerveDrivetrain} or {@link team.gif.lib.RobotTrajectory}
      */
-    public void setModuleStates(ChassisSpeeds chassisSpeeds) {
-        SwerveModuleState[] swerveModuleStates = Constants.Drivetrain.DRIVE_KINEMATICS.toSwerveModuleStates(chassisSpeeds);
-        SwerveDriveKinematics.desaturateWheelSpeeds(
-                swerveModuleStates, drivePace.getValue()
-        );
-
-        fL.setDesiredState(swerveModuleStates[0]);
-        fR.setDesiredState(swerveModuleStates[1]);
-        rL.setDesiredState(swerveModuleStates[2]);
-        rR.setDesiredState(swerveModuleStates[3]);
-    }
+//    public void setModuleStates(ChassisSpeeds chassisSpeeds) {
+//        SwerveModuleState[] swerveModuleStates = Constants.Drivetrain.DRIVE_KINEMATICS.toSwerveModuleStates(chassisSpeeds);
+//        SwerveDriveKinematics.desaturateWheelSpeeds(
+//                swerveModuleStates, drivePace.getValue()
+//        );
+//
+//        fL.setDesiredState(swerveModuleStates[0]);
+//        fR.setDesiredState(swerveModuleStates[1]);
+//        rL.setDesiredState(swerveModuleStates[2]);
+//        rR.setDesiredState(swerveModuleStates[3]);
+//    }
 
     /**
      * Reset the position of each of the wheels so that they all are pointing straight forward
