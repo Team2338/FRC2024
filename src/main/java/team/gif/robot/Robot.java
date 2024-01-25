@@ -36,6 +36,7 @@ public class Robot extends TimedRobot {
     public static boolean runningAutonomousMode;
     public static Pigeon pigeon;
     public static Limelight limelight;
+    public static Limelight limelight3;
     public static OI oi;
     public static UI ui;
     public static SwerveDrivetrain swerveDrivetrain = null;
@@ -69,6 +70,7 @@ public class Robot extends TimedRobot {
         swerveDrivetrain.resetHeading();
 
         limelight = new Limelight();
+        limelight3 = new Limelight();
 
         ui = new UI();
         uiSmartDashboard = new UiSmartDashboard();
