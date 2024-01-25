@@ -114,14 +114,14 @@ public final class Constants {
         public static final double TURNING_ENCODER_RPM_2_RAD_PER_SECOND = TURNING_ENCODER_ROT_TO_RAD / 60;
 
         public static final class DrivetrainPID {
-            public static final double frontLeftP = 0;// 0.35; //pBot 0.4 all P
-            public static final double frontLeftFF = 0;//0.01; //pBot 0.01 all FF
+            public static final double frontLeftP = 0.35;// 0.35; //pBot 0.4 all P
+            public static final double frontLeftFF = 0.01;//0.01; //pBot 0.01 all FF
             public static final double frontRightP = 0.35;
             public static final double frontRightFF = 0.01; //issa good
-            public static final double rearLeftP = 0;//0.35;
-            public static final double rearLeftFF = 0;//0.01;
-            public static final double rearRightP = 0;//0.35; // 0.6
-            public static final double rearRightFF = 0;//0.01;
+            public static final double rearLeftP = 0.35;//0.35;
+            public static final double rearLeftFF = 0.01;//0.01;
+            public static final double rearRightP = 0.35;//0.35; // 0.6
+            public static final double rearRightFF = 0.01;//0.01;
         }
     }
 

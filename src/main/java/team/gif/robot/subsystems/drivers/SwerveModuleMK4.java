@@ -1,6 +1,7 @@
 package team.gif.robot.subsystems.drivers;
 
 import com.ctre.phoenix6.configs.CANcoderConfiguration;
+import com.ctre.phoenix6.configs.MagnetSensorConfigs;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.hardware.CANcoder;
 import com.ctre.phoenix6.hardware.TalonFX;
@@ -70,9 +71,8 @@ public class SwerveModuleMK4 {
         this.isAbsInverted = isAbsInverted;
 
         this.canCoder = new CANcoder(canCoder);
-        CANcoderConfiguration config = new CANcoderConfiguration();
-        config.MagnetSensor.AbsoluteSensorRange = AbsoluteSensorRangeValue.Signed_PlusMinusHalf;
-        this.canCoder.getConfigurator().apply(config);
+        MagnetSensorConfigs magSensorConfig = new MagnetSensorConfigs().withAbsoluteSensorRange(AbsoluteSensorRangeValue.Signed_PlusMinusHalf);
+        this.canCoder.getConfigurator().apply(new CANcoderConfiguration().withMagnetSensor(magSensorConfig));
 //        this.canCoder.configAbsoluteSensorRange(AbsoluteSensorRangeValue.Signed_PlusMinusHalf); //AbsoluteSensorRange.Signed_PlusMinus180);
 
         this.turnMotor.setSmartCurrentLimit(70, 50);
@@ -139,6 +139,10 @@ public class SwerveModuleMK4 {
         return canCoder.getVelocity().getValueAsDouble();
     }
 
+    public double encoderDegrees() {
+        return getRawHeading() * 360;
+    }
+
     /**
      * Get the heading of the canCoder - will also include the offset
      *
@@ -153,7 +157,7 @@ public class SwerveModuleMK4 {
      * @return Returns the heading of the module in radians as a double
      */
     public double getTurningHeading() {
-        double heading = Units.degreesToRadians(getRawHeading() - turningOffset) * (isAbsInverted ? -1.0: 1.0); //turningOffset
+        double heading = Units.degreesToRadians(encoderDegrees() - turningOffset) * (isAbsInverted ? -1.0: 1.0); //turningOffset
         heading %= 2 * Math.PI;
         return heading;
     }
