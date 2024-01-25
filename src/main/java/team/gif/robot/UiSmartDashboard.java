@@ -6,6 +6,8 @@ import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import team.gif.lib.delay;
+import team.gif.robot.commands.drivetrain.Reset0;
+import team.gif.robot.commands.drivetrain.Reset180;
 import team.gif.robot.subsystems.SwerveDrivetrain;
 
 public class UiSmartDashboard {
@@ -43,7 +45,9 @@ public class UiSmartDashboard {
         delayChooser.addOption("14", delay.DELAY_14);
         delayChooser.addOption("15", delay.DELAY_15);
 
-
+        SmartDashboard.putData("Reset", new Reset0());
+        SmartDashboard.putData("Reset 180", new Reset180());
+        
         shuffleboardTab.add("Delay", delayChooser)
                 .withPosition(7, 0)
                 .withSize(1, 1);
