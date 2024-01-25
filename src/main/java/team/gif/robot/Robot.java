@@ -46,6 +46,8 @@ public class Robot extends TimedRobot {
     public static EventFileLogger eventLogger;
     public static boolean isCompBot = true;
 
+    //https://github.com/mjansen4857/pathplanner/tree/main/examples/java/src/main/java/frc/robot
+
     /**
      * This function is run when the robot is first started up and should be used for any
      * initialization code.
