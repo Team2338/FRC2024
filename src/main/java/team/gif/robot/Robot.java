@@ -11,6 +11,10 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import team.gif.lib.delay;
+import team.gif.lib.logging.EventFileLogger;
+import team.gif.lib.logging.TelemetryFileLogger;
+import team.gif.robot.commands.drivetrain.DriveSwerve;
+import team.gif.robot.subsystems.SwerveDrivetrain;
 import team.gif.robot.subsystems.drivers.Limelight;
 import team.gif.robot.subsystems.drivers.Pigeon;
 
@@ -34,7 +38,11 @@ public class Robot extends TimedRobot {
     public static Limelight limelight;
     public static OI oi;
     public static UI ui;
-
+    public static SwerveDrivetrain swerveDrivetrain = null;
+    public static DriveSwerve driveSwerve;
+    private static TelemetryFileLogger telemetryLogger;
+    public static EventFileLogger eventLogger;
+    public static boolean isCompBot = true;
 
     /**
      * This function is run when the robot is first started up and should be used for any
@@ -42,12 +50,24 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void robotInit() {
+        eventLogger = new EventFileLogger();
+        eventLogger.init();
+
+        telemetryLogger = new TelemetryFileLogger();
+        addMetricsToLogger();
+
         // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
         // autonomous chooser on the dashboard.
         elapsedTime = new Timer();
         robotContainer = new RobotContainer();
 
-        pigeon = new Pigeon(new TalonSRX(RobotMap.PIGEON));
+        pigeon = new Pigeon(42);
+
+        swerveDrivetrain = new SwerveDrivetrain(telemetryLogger);
+        driveSwerve = new DriveSwerve();
+        swerveDrivetrain.setDefaultCommand(driveSwerve);
+        swerveDrivetrain.resetHeading();
+
         limelight = new Limelight();
 
         ui = new UI();
@@ -72,7 +92,6 @@ public class Robot extends TimedRobot {
         CommandScheduler.getInstance().run();
         uiSmartDashboard.updateUI();
         chosenDelay = uiSmartDashboard.delayChooser.getSelected();
-
     }
 
     /** This function is called once each time the robot enters Disabled mode. */
@@ -143,4 +162,12 @@ public class Robot extends TimedRobot {
     /** This function is called periodically whilst in simulation. */
     @Override
     public void simulationPeriodic() {}
+
+    private void addMetricsToLogger() {
+        telemetryLogger.addMetric("TimeStamp", Timer::getFPGATimestamp);
+        telemetryLogger.addMetric("Driver_Left_Y", () -> -Robot.oi.driver.getLeftY());
+        telemetryLogger.addMetric("Driver_Left_X", () -> Robot.oi.driver.getLeftX());
+        telemetryLogger.addMetric("Driver_Angle", () -> Math.atan(-Robot.oi.driver.getLeftY() / Robot.oi.driver.getLeftX()));
+        telemetryLogger.addMetric("Driver_Right_X", () -> Robot.oi.driver.getRightX());
+    }
 }
