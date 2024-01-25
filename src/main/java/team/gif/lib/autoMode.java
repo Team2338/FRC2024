@@ -1,7 +1,7 @@
 package team.gif.lib;
 
 public enum autoMode {
-    NONE(0),
+    CIRCLE_PATH(0),
     ;
 
     private int value;

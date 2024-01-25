@@ -1,8 +1,9 @@
 package team.gif.lib;
 
 import com.pathplanner.lib.path.PathPlannerPath;
-import com.pathplanner.lib.path.PathPlannerTrajectory;
 import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.math.controller.ProfiledPIDController;
+import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
 import team.gif.robot.Constants;
 import team.gif.robot.Robot;
@@ -39,10 +40,10 @@ public class RobotTrajectory {
                 //SA new PIDController(SmartDashboard.getNumber("kPTheta", 3.7), 0, 0),
                 new PIDController(Constants.AutoConstants.PX_CONTROLLER, 0, 0),
                 new PIDController(Constants.AutoConstants.PY_CONTROLLER, 0, 0),
-                new PIDController(Constants.AutoConstants.P_THETA_CONTROLLER, 0, 0),
-                Robot.swerveDrivetrain::setModuleStates,
+                new ProfiledPIDController(Constants.AutoConstants.P_THETA_CONTROLLER, 0, 0,new TrapezoidProfile.Constraints(1.6,3.0)),
+                Robot.swerveDrivetrain::setModuleStates
                 //true <-- currently not working
-                Robot.swerveDrivetrain
+//                Robot.swerveDrivetrain
         );
     }
 }

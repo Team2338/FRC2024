@@ -5,7 +5,6 @@
 package team.gif.robot;
 
 import com.pathplanner.lib.commands.PathPlannerAuto;
-import com.pathplanner.lib.path.PathPlannerPath;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
@@ -43,7 +42,7 @@ public class RobotContainer {
     }
 
     private void buildAutoCommands(){
-        autoCommands.put(autoMode.NONE, new CircleAuto());
+        autoCommands.put(autoMode.CIRCLE_PATH, new CircleAuto());
     }
 
     /**

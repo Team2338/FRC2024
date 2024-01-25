@@ -10,7 +10,6 @@ import team.gif.lib.autoMode;
 import team.gif.lib.delay;
 import team.gif.robot.commands.drivetrain.Reset0;
 import team.gif.robot.commands.drivetrain.Reset180;
-import team.gif.robot.subsystems.SwerveDrivetrain;
 
 public class UiSmartDashboard {
 
@@ -28,7 +27,7 @@ public class UiSmartDashboard {
                 })
                 .withPosition(5, 0);
 
-        autoModeChooser.addOption("NONE", autoMode.NONE);
+        autoModeChooser.addOption("NONE", autoMode.CIRCLE_PATH);
 
         shuffleboardTab.add("Auto Select", autoModeChooser)
                 .withWidget(BuiltInWidgets.kComboBoxChooser)
