@@ -11,6 +11,7 @@ import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -115,10 +116,15 @@ public class SwerveDrivetrain extends SubsystemBase {
                         0.4, // Drive base radius in meters. Distance from robot center to furthest module.
                         new ReplanningConfig() // Default path replanning config. See the API for the options here
                 ),
-                () -> { return false;},
+                () -> {
+                    var alliance = DriverStation.getAlliance();
+                    if( alliance.isPresent() ){
+                        return alliance.get() == DriverStation.Alliance.Red;
+                    }
+                    return false;
+                 },
                 this
         );
-
     }
 
     public SwerveDrivetrain(TelemetryFileLogger logger) {
@@ -316,4 +322,13 @@ public class SwerveDrivetrain extends SubsystemBase {
     public static drivePace getDrivePace() {
         return drivePace;
     }
+
+    public double getPoseX() {
+        return getPose().getX();
+    }
+
+    public double getPoseY() {
+        return getPose().getY();
+    }
+
 }

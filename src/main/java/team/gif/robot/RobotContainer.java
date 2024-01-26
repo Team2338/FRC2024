@@ -4,7 +4,9 @@
 
 package team.gif.robot;
 
+import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.commands.PathPlannerAuto;
+import com.pathplanner.lib.path.PathPlannerPath;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
@@ -61,6 +63,9 @@ public class RobotContainer {
         }
 
 //        return autonomousCommand;
-        return new PathPlannerAuto("Mobility");
+        PathPlannerPath path= PathPlannerPath.fromPathFile("Mobility");
+
+        //return new PathPlannerAuto("Mobility");
+        return AutoBuilder.followPath(path);
     }
 }

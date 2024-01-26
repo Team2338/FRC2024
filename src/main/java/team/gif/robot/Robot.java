@@ -35,7 +35,7 @@ public class Robot extends TimedRobot {
     public static UiSmartDashboard uiSmartDashboard;
     private Timer elapsedTime;
     private boolean runAutoScheduler;
-    public static boolean runningAutonomousMode;
+    public static boolean runningAutonomousMode; // used for other methods to know if robot is in automode
     public static Pigeon pigeon;
     public static Limelight limelight;
     public static OI oi;

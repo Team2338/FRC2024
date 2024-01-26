@@ -9,5 +9,7 @@ import team.gif.lib.autoMode;
 public class UI {
     public UI() {
         ShuffleboardTab tab = Shuffleboard.getTab("FRC2024");
+        tab.addDouble("Odom X", Robot.swerveDrivetrain::getPoseX);
+        tab.addDouble("Odom Y", Robot.swerveDrivetrain::getPoseY);
     }
 }

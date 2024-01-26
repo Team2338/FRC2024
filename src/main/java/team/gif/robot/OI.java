@@ -1,5 +1,6 @@
 package team.gif.robot;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
@@ -76,6 +77,7 @@ public class OI {
 //    public final Trigger tDPadLeft = test.povLeft();
 
     public OI() {
+        DriverStation.silenceJoystickConnectionWarning(true);
         /*
         *
         * Create controller actions here
