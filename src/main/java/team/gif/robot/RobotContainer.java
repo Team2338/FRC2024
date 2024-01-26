@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import team.gif.lib.autoMode;
 import team.gif.robot.commands.autos.CircleAuto;
+import team.gif.robot.commands.autos.Mobility;
 
 import java.util.HashMap;
 
@@ -43,7 +44,8 @@ public class RobotContainer {
     }
 
     private void buildAutoCommands(){
-        autoCommands.put(autoMode.CIRCLE_PATH, new CircleAuto());
+        autoCommands.put(autoMode.NONE, new CircleAuto());
+        autoCommands.put(autoMode.MOBILITY,new Mobility());
     }
 
     /**
@@ -59,6 +61,6 @@ public class RobotContainer {
         }
 
 //        return autonomousCommand;
-        return new PathPlannerAuto("Circle Path");
+        return new PathPlannerAuto("Mobility");
     }
 }

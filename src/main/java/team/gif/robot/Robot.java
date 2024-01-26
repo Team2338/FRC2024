@@ -26,7 +26,7 @@ import team.gif.robot.subsystems.drivers.Pigeon;
  * project.
  */
 public class Robot extends TimedRobot {
-    private Command autonomousCommand;
+    private static Command autonomousCommand;
 
     private RobotContainer robotContainer;
 
@@ -74,12 +74,12 @@ public class Robot extends TimedRobot {
 
         limelight = new Limelight();
 
-        autonomousCommand = new CircleAuto();
-
         ui = new UI();
         uiSmartDashboard = new UiSmartDashboard();
 
         oi = new OI();
+        runningAutonomousMode = false;
+
     }
 
     /**
@@ -111,10 +111,11 @@ public class Robot extends TimedRobot {
     /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */
     @Override
     public void autonomousInit() {
-        // schedule the autonomous command (example)
-        if (autonomousCommand != null) {
-            autonomousCommand.schedule();
-        }
+
+        runningAutonomousMode = true;
+
+        autonomousCommand = robotContainer.getAutonomousCommand(chosenAuto);
+
         elapsedTime.reset();
         elapsedTime.start();
         runAutoScheduler = true;
@@ -141,6 +142,8 @@ public class Robot extends TimedRobot {
         if (autonomousCommand != null) {
             autonomousCommand.cancel();
         }
+        runningAutonomousMode = false;
+
     }
 
     /** This function is called periodically during operator control. */
@@ -177,4 +180,9 @@ public class Robot extends TimedRobot {
         telemetryLogger.addMetric("Driver_Angle", () -> Math.atan(-Robot.oi.driver.getLeftY() / Robot.oi.driver.getLeftX()));
         telemetryLogger.addMetric("Driver_Right_X", () -> Robot.oi.driver.getRightX());
     }
+
+    public static void cancelAuto() {
+        autonomousCommand.cancel();
+    }
+
 }

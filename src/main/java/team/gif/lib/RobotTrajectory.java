@@ -24,7 +24,7 @@ public class RobotTrajectory {
         }
         return instance;
     }
-
+/*
     public SwerveControllerCommand baseSwerveCommand(PathPlannerPath trajectory) {
         // rest odometry to the initial position of the path
 //        Robot.pigeon.resetPigeonPosition( trajectory.getInitialHolonomicPose().getRotation().getDegrees());
@@ -45,5 +45,5 @@ public class RobotTrajectory {
                 //true <-- currently not working
 //                Robot.swerveDrivetrain
         );
-    }
+    }*/
 }

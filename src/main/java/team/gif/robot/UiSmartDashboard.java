@@ -27,7 +27,10 @@ public class UiSmartDashboard {
                 })
                 .withPosition(5, 0);
 
-        autoModeChooser.addOption("NONE", autoMode.CIRCLE_PATH);
+        autoModeChooser.addOption("NONE", autoMode.NONE);
+        autoModeChooser.addOption("Circle", autoMode.CIRCLE);
+        autoModeChooser.addOption("Mobility", autoMode.MOBILITY);
+
 
         shuffleboardTab.add("Auto Select", autoModeChooser)
                 .withWidget(BuiltInWidgets.kComboBoxChooser)
