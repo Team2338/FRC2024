@@ -1,5 +1,9 @@
 package team.gif.robot.subsystems;
 
+import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.util.HolonomicPathFollowerConfig;
+import com.pathplanner.lib.util.PIDConstants;
+import com.pathplanner.lib.util.ReplanningConfig;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
@@ -96,6 +100,25 @@ public class SwerveDrivetrain extends SubsystemBase {
         swerveTab.addDouble("FR_Rotation", fR::getDriveOutput);
         swerveTab.addDouble("RL_Rotation", rL::getDriveOutput);
         swerveTab.addDouble("RR_Rotation", rR::getDriveOutput);
+
+
+        //Autos stuff
+        AutoBuilder.configureHolonomic(
+                this::getPose,
+                this::resetOdometry,
+                this::getRobotRelativeSpeed,
+                this::setModuleChassisSpeeds,
+                new HolonomicPathFollowerConfig( // HolonomicPathFollowerConfig, this should likely live in your Constants class
+                        new PIDConstants(5.0, 0.0, 0.0), // Translation PID constants
+                        new PIDConstants(5.0, 0.0, 0.0), // Rotation PID constants
+                        4.5, // Max module speed, in m/s
+                        0.4, // Drive base radius in meters. Distance from robot center to furthest module.
+                        new ReplanningConfig() // Default path replanning config. See the API for the options here
+                ),
+                () -> { return false;},
+                this
+        );
+
     }
 
     public SwerveDrivetrain(TelemetryFileLogger logger) {
@@ -147,6 +170,18 @@ public class SwerveDrivetrain extends SubsystemBase {
         odometry.resetPosition(Robot.pigeon.getRotation2d(), new SwerveModulePosition[]{fL.getPosition(), fR.getPosition(), rL.getPosition(), rR.getPosition()}, pose);
     }
 
+    public ChassisSpeeds getRobotRelativeSpeed() {
+        // Example module states
+        var frontLeftState = new SwerveModuleState(fL.getDriveVelocity(), Rotation2d.fromDegrees(fL.encoderDegrees()));
+        var frontRightState = new SwerveModuleState(fR.getDriveVelocity(), Rotation2d.fromDegrees(fR.encoderDegrees()));
+        var rearLeft = new SwerveModuleState(rL.getDriveVelocity(), Rotation2d.fromDegrees(rL.encoderDegrees()));
+        var rearRight = new SwerveModuleState(rR.getDriveVelocity(), Rotation2d.fromDegrees(rR.encoderDegrees()));
+
+// Convert to chassis speeds
+        return Constants.Drivetrain.DRIVE_KINEMATICS.toChassisSpeeds(
+                frontLeftState, frontRightState, rearLeft, rearRight);
+    }
+
     /**
      * Drive the bot with given params - always field relative
      * @param x dForward
@@ -183,17 +218,17 @@ public class SwerveDrivetrain extends SubsystemBase {
      * @param chassisSpeeds Field Relative ChassisSpeeds to apply to wheel speeds
      * @implNote Use only in {@link SwerveDrivetrain} or {@link team.gif.lib.RobotTrajectory}
      */
-//    public void setModuleStates(ChassisSpeeds chassisSpeeds) {
-//        SwerveModuleState[] swerveModuleStates = Constants.Drivetrain.DRIVE_KINEMATICS.toSwerveModuleStates(chassisSpeeds);
-//        SwerveDriveKinematics.desaturateWheelSpeeds(
-//                swerveModuleStates, drivePace.getValue()
-//        );
-//
-//        fL.setDesiredState(swerveModuleStates[0]);
-//        fR.setDesiredState(swerveModuleStates[1]);
-//        rL.setDesiredState(swerveModuleStates[2]);
-//        rR.setDesiredState(swerveModuleStates[3]);
-//    }
+    public void setModuleChassisSpeeds(ChassisSpeeds chassisSpeeds) {
+        SwerveModuleState[] swerveModuleStates = Constants.Drivetrain.DRIVE_KINEMATICS.toSwerveModuleStates(chassisSpeeds);
+        SwerveDriveKinematics.desaturateWheelSpeeds(
+                swerveModuleStates, drivePace.getValue()
+        );
+
+        fL.setDesiredState(swerveModuleStates[0]);
+        fR.setDesiredState(swerveModuleStates[1]);
+        rL.setDesiredState(swerveModuleStates[2]);
+        rR.setDesiredState(swerveModuleStates[3]);
+    }
 
     /**
      * Reset the position of each of the wheels so that they all are pointing straight forward
