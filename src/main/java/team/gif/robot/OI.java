@@ -9,6 +9,10 @@ import team.gif.robot.commands.drivetrain.MoveCloserSlow;
 import team.gif.robot.commands.drivetrain.MoveLeftSlow;
 import team.gif.robot.commands.drivetrain.MoveRightSlow;
 import team.gif.robot.commands.drivetrain.Reset0;
+import team.gif.robot.commands.indexer.runIndexer;
+import team.gif.robot.commands.indexer.runIndexerBack;
+import team.gif.robot.commands.shooter.runShooter;
+import team.gif.robot.subsystems.Indexer;
 
 public class OI {
     /*
@@ -76,6 +80,9 @@ public class OI {
 //    public final Trigger tDPadLeft = test.povLeft();
 
     public OI() {
+        dA.whileTrue(new runIndexer());
+        dB.whileTrue(new runIndexerBack());
+        dX.whileTrue(new runShooter());
         /*
         *
         * Create controller actions here

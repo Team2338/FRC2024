@@ -5,7 +5,9 @@ public abstract class RobotMap {
     public static final int DRIVER_CONTROLLER_ID = 0;
     public static final int AUX_CONTROLLER_ID = 1;
     public static final int TEST_CONTROLLER_ID = 2;
-
+    public static final int STAGE_1 = 0;
+    public static final int STAGE_2 = 0;
+    public static final int SPARK_ID = 0;
     public static final int PIGEON = 0;
 
     //SwerveDrivetrain

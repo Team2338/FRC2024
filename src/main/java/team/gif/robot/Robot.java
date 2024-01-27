@@ -14,6 +14,8 @@ import team.gif.lib.delay;
 import team.gif.lib.logging.EventFileLogger;
 import team.gif.lib.logging.TelemetryFileLogger;
 import team.gif.robot.commands.drivetrain.DriveSwerve;
+import team.gif.robot.subsystems.Indexer;
+import team.gif.robot.subsystems.Shooter;
 import team.gif.robot.subsystems.SwerveDrivetrain;
 import team.gif.robot.subsystems.drivers.Limelight;
 import team.gif.robot.subsystems.drivers.Pigeon;
@@ -37,6 +39,8 @@ public class Robot extends TimedRobot {
     public static Pigeon pigeon;
     public static Limelight limelight;
     public static OI oi;
+    public static Indexer indexer;
+    public static Shooter shooter;
     public static UI ui;
     public static SwerveDrivetrain swerveDrivetrain = null;
     public static DriveSwerve driveSwerve;
@@ -50,6 +54,8 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void robotInit() {
+        indexer = new Indexer();
+        shooter = new Shooter();
         eventLogger = new EventFileLogger();
         eventLogger.init();
 
