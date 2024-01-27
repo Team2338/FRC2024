@@ -9,6 +9,8 @@ import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.math.util.Units;
 
+import java.security.PublicKey;
+
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
  * constants. This class should not be used for any other purpose. All constants should be declared
@@ -129,6 +131,12 @@ public final class Constants {
             public static final double rearRightP = -0.35; // 0.6
             public static final double rearRightFF = 0.01;
         }
+    }
+
+    public static final class Shooter {
+        public static final double ff_gain = 0.0003;
+        public static final double p_gain = 0.0003;
+        public static final double d_gain = 0.0003;
     }
 
     public static final class DriveConstants {

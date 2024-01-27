@@ -18,4 +18,14 @@ public abstract class RobotMap {
     public static final int PRACTICE_FRONT_RIGHT_DRIVE_ID = 14;
     public static final int PRACTICE_FRONT_RIGHT_TURN_ID = 8;
 
+    //shooter
+    public static final int SHOOTER = 0;
+
+    //indexer
+    public static final int STAGE_ONE = 0;
+    public static final int STAGE_TWO = 0;
+
+    //collector
+    public static final int COLLECTOR_ID = 0;
+
 }

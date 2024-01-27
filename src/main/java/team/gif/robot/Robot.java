@@ -10,6 +10,9 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import team.gif.lib.delay;
+import team.gif.robot.subsystems.Collector;
+import team.gif.robot.subsystems.Indexer;
+import team.gif.robot.subsystems.Shooter;
 import team.gif.robot.subsystems.SwerveDrivetrainMK3;
 import team.gif.robot.subsystems.drivers.Limelight;
 import team.gif.robot.subsystems.drivers.Pigeon;
@@ -37,7 +40,9 @@ public class Robot extends TimedRobot {
     public static OI oi;
     public static UI ui;
     public static boolean isCompBot = true;
-
+    public static Shooter shooter;
+    public static Indexer indexer;
+    public static Collector collector;
 
     /**
      * This function is run when the robot is first started up and should be used for any
@@ -57,6 +62,10 @@ public class Robot extends TimedRobot {
             practiceDrivetrain = new SwerveDrivetrainMK3();
             practiceDrivetrain.setDefaultCommand(new DrivePracticeSwerve());
         }
+
+        shooter = new Shooter();
+        indexer = new Indexer();
+        collector = new Collector();
 
         ui = new UI();
         uiSmartDashboard = new UiSmartDashboard();
