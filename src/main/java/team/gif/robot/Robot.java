@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import team.gif.lib.delay;
+import team.gif.robot.subsystems.SwerveDrivetrainMK3;
 import team.gif.lib.logging.EventFileLogger;
 import team.gif.lib.logging.TelemetryFileLogger;
 import team.gif.robot.commands.drivetrain.DriveSwerve;
@@ -19,6 +20,7 @@ import team.gif.robot.subsystems.Shooter;
 import team.gif.robot.subsystems.SwerveDrivetrain;
 import team.gif.robot.subsystems.drivers.Limelight;
 import team.gif.robot.subsystems.drivers.Pigeon;
+import team.gif.robot.commands.drivetrain.DrivePracticeSwerve;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -36,17 +38,13 @@ public class Robot extends TimedRobot {
     private Timer elapsedTime;
     private boolean runAutoScheduler;
     public static boolean runningAutonomousMode;
+    public static SwerveDrivetrainMK3 practiceDrivetrain;
     public static Pigeon pigeon;
     public static Limelight limelight;
     public static OI oi;
     public static Indexer indexer;
     public static Shooter shooter;
     public static UI ui;
-    public static SwerveDrivetrain swerveDrivetrain = null;
-    public static DriveSwerve driveSwerve;
-    private static TelemetryFileLogger telemetryLogger;
-    public static EventFileLogger eventLogger;
-    public static boolean isCompBot = true;
 
     /**
      * This function is run when the robot is first started up and should be used for any
@@ -75,6 +73,11 @@ public class Robot extends TimedRobot {
         swerveDrivetrain.resetHeading();
 
         limelight = new Limelight();
+
+        if (!isCompBot) {
+            practiceDrivetrain = new SwerveDrivetrainMK3();
+            practiceDrivetrain.setDefaultCommand(new DrivePracticeSwerve());
+        }
 
         ui = new UI();
         uiSmartDashboard = new UiSmartDashboard();
@@ -144,11 +147,8 @@ public class Robot extends TimedRobot {
 
     /** This function is called periodically during operator control. */
     @Override
-    public void teleopPeriodic() {
-        double timeLeft = DriverStation.getMatchTime();
-        oi.setRumble((timeLeft <= 40.0 && timeLeft >= 36.0) ||
-                (timeLeft <= 25.0 && timeLeft >= 21.0) ||
-                (timeLeft <= 5.0 && timeLeft >= 3.0));
+    public void teleopPeriodic() {}
+
     }
 
     @Override

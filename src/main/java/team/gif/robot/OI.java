@@ -13,6 +13,7 @@ import team.gif.robot.commands.indexer.runIndexer;
 import team.gif.robot.commands.indexer.runIndexerBack;
 import team.gif.robot.commands.shooter.runShooter;
 import team.gif.robot.subsystems.Indexer;
+import team.gif.robot.commands.drivetrain.ResetWheelsPbot;
 
 public class OI {
     /*
@@ -101,13 +102,6 @@ public class OI {
         *   aX.onTrue(new PrintCommand("aX"));
         */
 
-        dDPadUp.whileTrue(new MoveAwaySlow());
-        dDPadRight.whileTrue(new MoveRightSlow());
-        dDPadLeft.whileTrue(new MoveLeftSlow());
-        dDPadDown.whileTrue(new MoveCloserSlow());
-        dLStickBtn.whileTrue(new EnableBoost());
-
-        dA.whileTrue(new Reset0());
     }
     public void setRumble(boolean rumble){
         driver.getHID().setRumble(GenericHID.RumbleType.kLeftRumble, rumble ? 1.0 : 0.0);
