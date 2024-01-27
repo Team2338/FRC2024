@@ -258,7 +258,7 @@ public class SwerveModuleMK4 {
      * @return the position of the swerve module
      */
     public SwerveModulePosition getPosition() {
-        return new SwerveModulePosition(driveMotor.getPosition().getValueAsDouble() * Constants.ModuleConstants.DRIVE_ENCODER_ROT_2_METER * 2176.5, new Rotation2d(getTurningHeading()));
+        return new SwerveModulePosition(driveMotor.getPosition().getValueAsDouble() * Constants.ModuleConstants.DRIVE_ENCODER_ROT_2_METER * 2176.5 * 0.92751003463, new Rotation2d(getTurningHeading()));
     }
 
     /**

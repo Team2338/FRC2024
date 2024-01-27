@@ -4,6 +4,9 @@
 
 package team.gif.robot;
 
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Timer;
@@ -79,6 +82,8 @@ public class Robot extends TimedRobot {
 
         oi = new OI();
         runningAutonomousMode = false;
+
+        swerveDrivetrain.resetOdometry(new Pose2d(new Translation2d(2.05, 6.77), pigeon.getRotation2d()));
 
     }
 
