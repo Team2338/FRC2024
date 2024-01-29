@@ -39,7 +39,7 @@ public class Robot extends TimedRobot {
     public static Limelight limelight;
     public static OI oi;
     public static UI ui;
-    public static boolean isCompBot = true;
+    public static boolean isCompBot = false;
     public static Shooter shooter;
     public static Indexer indexer;
     public static Collector collector;

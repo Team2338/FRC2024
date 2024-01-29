@@ -2,7 +2,12 @@ package team.gif.robot;
 
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import team.gif.robot.commands.collector.runCollector;
+import team.gif.robot.commands.collector.runCollectorBack;
 import team.gif.robot.commands.drivetrain.ResetWheelsPbot;
+import team.gif.robot.commands.indexer.runIndexer;
+import team.gif.robot.commands.indexer.runIndexerBack;
+import team.gif.robot.commands.shooter.runShooter;
 
 public class OI {
     /*
@@ -90,5 +95,11 @@ public class OI {
 
         // MK3 Swerve
         dA.whileTrue(new ResetWheelsPbot());
+
+        aA.whileTrue(new runCollector());
+        aB.whileTrue(new runIndexer());
+        aY.whileTrue(new runShooter());
+        aRBump.whileTrue(new runIndexerBack());
+        aLBump.whileTrue(new runCollectorBack());
     }
 }

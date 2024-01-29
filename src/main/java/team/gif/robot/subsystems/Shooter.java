@@ -14,12 +14,17 @@ public class Shooter extends SubsystemBase {
     public Shooter() {
         shooter = new CANSparkMax(RobotMap.SHOOTER, CANSparkLowLevel.MotorType.kBrushless);
 
-        shooter.getPIDController().setFF(Constants.Shooter.ff_gain);
-        shooter.getPIDController().setP(Constants.Shooter.p_gain);
-        shooter.getPIDController().setD(Constants.Shooter.d_gain);
+//        shooter.getPIDController().setFF(Constants.Shooter.ff_gain);
+//        shooter.getPIDController().setP(Constants.Shooter.p_gain);
+//        shooter.getPIDController().setD(Constants.Shooter.d_gain);
     }
 
     public void setShooter(double volt) {
-        shooter.setVoltage(volt);
+//        shooter.setVoltage(volt);
+        shooter.set(volt);
+    }
+
+    public double getVoltage() {
+        return shooter.getBusVoltage();
     }
 }
