@@ -27,10 +27,10 @@ public class DrivePracticeSwerve extends Command {
     @Override
     public void execute() {
         //Get joystick
-        double x = Robot.oi.driver.getLeftX();
+        double x = -Robot.oi.driver.getLeftX();
         //if its not outside of the deadband then its 0
         x = (Math.abs(x) > Constants.DriveConstants.deadband) ? x : 0;
-        double y = Robot.oi.driver.getLeftY();
+        double y = -Robot.oi.driver.getLeftY();
         y = (Math.abs(y) > Constants.DriveConstants.deadband) ? y : 0;
         double rot = Robot.oi.driver.getRightX();
         rot = (Math.abs(rot) > Constants.DriveConstants.deadband) ? rot : 0;
@@ -47,11 +47,13 @@ public class DrivePracticeSwerve extends Command {
         //pass in velocity tells which wheels will should be at what angle and speed
         ChassisSpeeds chassisSpeeds = new ChassisSpeeds(x, y, rot);
 
+        Robot.practiceDrivetrain.drive(x,y,rot);
+
         //converts the chassis speed to a swerve module state
         SwerveModuleState[] moduleStates = Constants.Drivetrain.DRIVE_KINEMATICS.toSwerveModuleStates(chassisSpeeds);
 
         //set the states based on the current input to be on the actual robot
-        Robot.practiceDrivetrain.setModuleStates(moduleStates);
+//        Robot.practiceDrivetrain.setModuleStates(moduleStates);
     }
 
     @Override

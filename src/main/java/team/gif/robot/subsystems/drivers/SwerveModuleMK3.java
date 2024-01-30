@@ -75,7 +75,7 @@ public class SwerveModuleMK3 {
 
         //TODO: is this the right encoder? Other repo shows relative
 //        this.turnMotor.setSensorPhase(true);
-        this.turnMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
+        this.turnMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute);
         this.turnMotor.configSelectedFeedbackCoefficient(1);
 
 
@@ -244,7 +244,6 @@ public class SwerveModuleMK3 {
         SwerveModuleState stateOptimized = optimizeState(state);
         double driveOutput = stateOptimized.speedMetersPerSecond / SwerveDrivetrainMK3.getDrivePace().getValue();
         final double error = getTurningHeading() - stateOptimized.angle.getRadians();
-        System.out.println(error);
         target = stateOptimized.angle.getRadians();
         final double kff = kFF * Math.abs(error) / error;
         //accum += error;

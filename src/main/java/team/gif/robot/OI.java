@@ -97,8 +97,8 @@ public class OI {
         dA.whileTrue(new ResetWheelsPbot());
 
         aA.whileTrue(new runCollector());
-        aB.whileTrue(new runIndexer());
-        aY.whileTrue(new runShooter());
+        aRTrigger.whileTrue(new runIndexer());
+        aLBump.whileTrue(new runShooter());
         aRBump.whileTrue(new runIndexerBack());
         aLBump.whileTrue(new runCollectorBack());
     }

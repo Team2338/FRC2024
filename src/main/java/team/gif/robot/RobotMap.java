@@ -6,7 +6,7 @@ public abstract class RobotMap {
     public static final int AUX_CONTROLLER_ID = 1;
     public static final int TEST_CONTROLLER_ID = 2;
 
-    public static final int PIGEON = 33;
+    public static final int PIGEON = 61;
 
     // MK3 RobotMap
     public static final int PRACTICE_REAR_LEFT_DRIVE_ID = 45;//1;

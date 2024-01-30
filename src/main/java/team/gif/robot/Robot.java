@@ -55,7 +55,7 @@ public class Robot extends TimedRobot {
         elapsedTime = new Timer();
         robotContainer = new RobotContainer();
 
-        pigeon = new Pigeon(new TalonSRX(RobotMap.PIGEON));
+        pigeon = new Pigeon(RobotMap.PIGEON);
         limelight = new Limelight();
 
         if (!isCompBot) {

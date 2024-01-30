@@ -10,6 +10,8 @@ public class UI {
 
 //        shuffleboardTab.addDouble("Shooter Voltage", Robot.shooter::getVoltage);
 
+        shuffleboardTab.addString("Shooter RPM", Robot.shooter::getRPM_Shuffleboard);
+
         // MK3 debugging code
         shuffleboardTab.addDouble("fr raw encoder", Robot.practiceDrivetrain::fREncoder);
         shuffleboardTab.addDouble("fl raw encoder", Robot.practiceDrivetrain::fLEncoder);

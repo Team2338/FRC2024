@@ -153,7 +153,6 @@ public class SwerveDrivetrainMK3 extends SubsystemBase {
      */
     public void drive(double x, double y, double rot) {
 
-
         SwerveModuleState[] swerveModuleStates =
                 Constants.Drivetrain.DRIVE_KINEMATICS.toSwerveModuleStates(
                         drivePace.getIsFieldRelative() ?
@@ -173,8 +172,8 @@ public class SwerveDrivetrainMK3 extends SubsystemBase {
         );
 
         fL.setDesiredState(desiredStates[0]);
-        fR.setDesiredState(desiredStates[1]);
-        rL.setDesiredState(desiredStates[2]);
+        rL.setDesiredState(desiredStates[1]);
+        fR.setDesiredState(desiredStates[2]);
         rR.setDesiredState(desiredStates[3]);
     }
 

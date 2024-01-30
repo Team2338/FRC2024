@@ -34,9 +34,9 @@ public final class Constants {
         public static final boolean kRearRightTurningEncoderReversed = false;
 
         public static final boolean kFrontLeftDriveMotorReversed = false;
-        public static final boolean kRearLeftDriveMotorReversed = true;
+        public static final boolean kRearLeftDriveMotorReversed = false;
         public static final boolean kFrontRightDriveMotorReversed = false;
-        public static final boolean kRearRightDriveMotorReversed = true;
+        public static final boolean kRearRightDriveMotorReversed = false;
 
         public static final boolean kFrontLeftTurningMotorReversed = true;
         public static final boolean kRearLeftTurningMotorReversed = true;
@@ -44,10 +44,10 @@ public final class Constants {
         public static final boolean kRearRightTurningMotorReversed = true;
 
 
-        public static final double FRONT_LEFT_OFFSET = 963;
-        public static final double REAR_LEFT_OFFSET = 950;
-        public static final double FRONT_RIGHT_OFFSET =  1048;
-        public static final double REAR_RIGHT_OFFSET = 1103;
+        public static final double FRONT_LEFT_OFFSET = -552 - 1024;
+        public static final double REAR_LEFT_OFFSET = 80 - 1024;
+        public static final double FRONT_RIGHT_OFFSET =  -821 - 1024;
+        public static final double REAR_RIGHT_OFFSET = -256 - 1024;
 
         // Distance between centers of right and left wheels on robot
         public static final double TRACK_LENGTH = Units.inchesToMeters(25);
@@ -134,9 +134,8 @@ public final class Constants {
     }
 
     public static final class Shooter {
-        public static final double ff_gain = 0.0003;
-        public static final double p_gain = 0.0003;
-        public static final double d_gain = 0.0003;
+        public static final double ff_gain = 0.000175;
+        public static final double p_gain = 0.0007;
     }
 
     public static final class DriveConstants {
