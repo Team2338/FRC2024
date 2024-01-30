@@ -46,7 +46,7 @@ public class RobotContainer {
     }
 
     private void buildAutoCommands(){
-        autoCommands.put(autoMode.NONE, new CircleAuto());
+        autoCommands.put(autoMode.NONE, AutoBuilder.followPath(PathPlannerPath.fromPathFile("Circle Path")));
         autoCommands.put(autoMode.MOBILITY,new Mobility());
     }
 
@@ -62,10 +62,10 @@ public class RobotContainer {
             System.out.println("Autonomous selection is null. Robot will do nothing in auto :(");
         }
 
-//        return autonomousCommand;
-        PathPlannerPath path= PathPlannerPath.fromPathFile("Circle Path");
+        return autonomousCommand;
+//        PathPlannerPath path= PathPlannerPath.fromPathFile("Circle Path");
 
         //return new PathPlannerAuto("Mobility");
-        return AutoBuilder.followPath(path);
+//        return AutoBuilder.followPath(path);
     }
 }
