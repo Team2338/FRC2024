@@ -4,11 +4,17 @@
 
 package team.gif.robot;
 
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import team.gif.lib.delay;
+import team.gif.lib.logging.EventFileLogger;
+import team.gif.lib.logging.TelemetryFileLogger;
+import team.gif.robot.commands.drivetrain.DriveSwerve;
+import team.gif.robot.subsystems.SwerveDrivetrain;
 import team.gif.robot.commands.collector.CollectorDefault;
 import team.gif.robot.commands.indexer.IndexerDefault;
 import team.gif.robot.subsystems.Collector;
@@ -40,6 +46,10 @@ public class Robot extends TimedRobot {
     public static Limelight limelight;
     public static OI oi;
     public static UI ui;
+    public static SwerveDrivetrain swerveDrivetrain = null;
+    public static DriveSwerve driveSwerve;
+    private static TelemetryFileLogger telemetryLogger;
+    public static EventFileLogger eventLogger;
     public static Shooter shooter;
     public static Indexer indexer;
     public static Collector collector;
@@ -52,12 +62,24 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void robotInit() {
+        eventLogger = new EventFileLogger();
+        eventLogger.init();
+
+        telemetryLogger = new TelemetryFileLogger();
+        addMetricsToLogger();
+
         // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
         // autonomous chooser on the dashboard.
         elapsedTime = new Timer();
         robotContainer = new RobotContainer();
 
-        pigeon = new Pigeon(RobotMap.PIGEON);
+        pigeon = new Pigeon(42);
+
+        swerveDrivetrain = new SwerveDrivetrain(telemetryLogger);
+        driveSwerve = new DriveSwerve();
+        swerveDrivetrain.setDefaultCommand(driveSwerve);
+        swerveDrivetrain.resetHeading();
+
         limelight = new Limelight();
 
         if (isCompBot) {
@@ -95,8 +117,7 @@ public class Robot extends TimedRobot {
         // block in order for anything in the Command-based framework to work.
         CommandScheduler.getInstance().run();
         uiSmartDashboard.updateUI();
-
-        chosenDelay = uiSmartDashboard.delayChooser.getSelected(); //TODO: maybe move to autoinit
+        chosenDelay = uiSmartDashboard.delayChooser.getSelected();
     }
 
     /** This function is called once each time the robot enters Disabled mode. */
@@ -144,6 +165,10 @@ public class Robot extends TimedRobot {
     /** This function is called periodically during operator control. */
     @Override
     public void teleopPeriodic() {
+        double timeLeft = DriverStation.getMatchTime();
+        oi.setRumble((timeLeft <= 40.0 && timeLeft >= 36.0) ||
+                (timeLeft <= 25.0 && timeLeft >= 21.0) ||
+                (timeLeft <= 5.0 && timeLeft >= 3.0));
     }
 
     @Override
@@ -163,4 +188,12 @@ public class Robot extends TimedRobot {
     /** This function is called periodically whilst in simulation. */
     @Override
     public void simulationPeriodic() {}
+
+    private void addMetricsToLogger() {
+        telemetryLogger.addMetric("TimeStamp", Timer::getFPGATimestamp);
+        telemetryLogger.addMetric("Driver_Left_Y", () -> -Robot.oi.driver.getLeftY());
+        telemetryLogger.addMetric("Driver_Left_X", () -> Robot.oi.driver.getLeftX());
+        telemetryLogger.addMetric("Driver_Angle", () -> Math.atan(-Robot.oi.driver.getLeftY() / Robot.oi.driver.getLeftX()));
+        telemetryLogger.addMetric("Driver_Right_X", () -> Robot.oi.driver.getRightX());
+    }
 }
