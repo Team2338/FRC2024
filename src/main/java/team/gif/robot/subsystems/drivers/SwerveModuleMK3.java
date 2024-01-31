@@ -18,7 +18,6 @@ import team.gif.robot.subsystems.SwerveDrivetrainMK3;
  */
 public class SwerveModuleMK3 {
     private final CANSparkMax driveMotor;
-//    private final CANCoder canCoder;
     private final WPI_TalonSRX turnMotor;
 
     private final double kFF;
@@ -68,13 +67,7 @@ public class SwerveModuleMK3 {
         this.driveMotor.setInverted(isDriveInverted);
         this.turnMotor.setInverted(isTurningInverted);
         this.isAbsInverted = isAbsInverted;
-//
-//        this.canCoder = new CANCoder(canCoder);
-//        this.canCoder.configFactoryDefault();
-//        this.canCoder.configAbsoluteSensorRange(AbsoluteSensorRange.Signed_PlusMinus180);
 
-        //TODO: is this the right encoder? Other repo shows relative
-//        this.turnMotor.setSensorPhase(true);
         this.turnMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute);
         this.turnMotor.configSelectedFeedbackCoefficient(1);
 
@@ -120,7 +113,6 @@ public class SwerveModuleMK3 {
      * @return Returns the active drive velocity as a double in RPM
      */
     public double getDriveVelocity() {
-        //TODO: check with mr. k
         return driveMotor.getEncoder().getVelocity() * Constants.ModuleConstants.DRIVE_ENCODER_ROT_2_METER;
     }
 
@@ -138,7 +130,6 @@ public class SwerveModuleMK3 {
      * @return Returns the active turn velocity as a double in EncoderTicks per 100ms
      */
     public double getTurnVelocity() {
-        //TODO: does this return the same type of value as the spark equivilant?
         return turnMotor.getSelectedSensorVelocity();
     }
 
@@ -255,7 +246,7 @@ public class SwerveModuleMK3 {
     }
 
     /**
-     * Stop the swerve modules
+     * Stop the swerve module
      */
     public void stop() {
         driveMotor.set(0);
@@ -275,5 +266,12 @@ public class SwerveModuleMK3 {
      */
     public void resetDriveEncoders() {
         driveMotor.getEncoder().setPosition(0.0);
+    }
+
+    /**
+     * @return The target value in radians
+     */
+    public double getTarget() {
+        return target;
     }
 }

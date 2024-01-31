@@ -65,6 +65,7 @@ public class Robot extends TimedRobot {
         } else {
             practiceDrivetrain = new SwerveDrivetrainMK3();
             practiceDrivetrain.setDefaultCommand(new DrivePracticeSwerve());
+            practiceDrivetrain.enableShuffleboardDebug("FRC2024");
         }
 
         shooter = new Shooter();

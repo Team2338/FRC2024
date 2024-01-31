@@ -313,7 +313,6 @@ public class SwerveDrivetrainMK3 extends SubsystemBase {
         return rL.target;
     }
 
-
     public double fRHead() {
         return fR.getTurningHeading();
     }
@@ -335,6 +334,32 @@ public class SwerveDrivetrainMK3 extends SubsystemBase {
         fL.resetWheel();
         rR.resetWheel();
         rL.resetWheel();
+    }
+
+
+    /**
+        * Adds debugging values to the shuffleboard. Raw Heading (Ticks), Turning Heading (Radians), and Target (Radians)
+        * @param shuffleboardTabName the name of the shuffleboard tab to add the debug values to
+     */
+    public void enableShuffleboardDebug(String shuffleboardTabName) {
+        ShuffleboardTab shuffleboardTab = Shuffleboard.getTab(shuffleboardTabName);
+
+        shuffleboardTab.addDouble("FR Raw Encoder", fL::getRawHeading);
+        shuffleboardTab.addDouble("FL Raw Encoder", fR::getRawHeading);
+        shuffleboardTab.addDouble("RR Raw Encoder", rL::getRawHeading);
+        shuffleboardTab.addDouble("RL Raw Encoder", rR::getRawHeading);
+
+        shuffleboardTab.addDouble("FR Head", fR::getTurningHeading);
+        shuffleboardTab.addDouble("FL Head", fL::getTurningHeading);
+        shuffleboardTab.addDouble("RL Head", rL::getTurningHeading);
+        shuffleboardTab.addDouble("RR Head", rR::getTurningHeading);
+
+        shuffleboardTab.addDouble("FR Target", fR::getTarget);
+        shuffleboardTab.addDouble("FL Target", fL::getTarget);
+        shuffleboardTab.addDouble("RL Target", rL::getTarget);
+        shuffleboardTab.addDouble("RR Target", rR::getTarget);
+
+
     }
 
 }
