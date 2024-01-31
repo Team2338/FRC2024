@@ -15,8 +15,7 @@ public class UI {
 
         shuffleboardTab.addString("Shooter RPM", Robot.shooter::getRPM_Shuffleboard);
 
-        SmartDashboard.putData("Reset", new Reset0());
-        SmartDashboard.putData("Reset 180", new Reset180());
-
+        SmartDashboard.putData("Pbot Reset", new Reset0());
+        SmartDashboard.putData("Pbot Reset 180", new Reset180());
     }
 }

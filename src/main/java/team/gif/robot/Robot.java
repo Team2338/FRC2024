@@ -75,15 +75,13 @@ public class Robot extends TimedRobot {
 
         pigeon = new Pigeon(42);
 
-        swerveDrivetrain = new SwerveDrivetrain(telemetryLogger);
-        driveSwerve = new DriveSwerve();
-        swerveDrivetrain.setDefaultCommand(driveSwerve);
-        swerveDrivetrain.resetHeading();
-
         limelight = new Limelight();
 
         if (isCompBot) {
-            
+            swerveDrivetrain = new SwerveDrivetrain(telemetryLogger);
+            driveSwerve = new DriveSwerve();
+            swerveDrivetrain.setDefaultCommand(driveSwerve);
+            swerveDrivetrain.resetHeading();
         } else {
             practiceDrivetrain = new SwerveDrivetrainMK3();
             practiceDrivetrain.setDefaultCommand(new DrivePracticeSwerve());

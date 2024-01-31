@@ -26,8 +26,6 @@ public class UiSmartDashboard {
                 })
                 .withPosition(5, 0);
 
-//        shuffleboardTab.add("Front Left", SwerveDrivetrain.fl.get)
-
         //Auto Delay
         delayChooser.setDefaultOption("0", delay.DELAY_0);
         delayChooser.addOption("1", delay.DELAY_1);
@@ -52,9 +50,6 @@ public class UiSmartDashboard {
         shuffleboardTab.add("Delay", delayChooser)
                 .withPosition(7, 0)
                 .withSize(1, 1);
-
-        SmartDashboard.putData("Reset", new Reset0());
-        SmartDashboard.putData("Reset 180", new Reset180());
     }
 
     public void updateUI() {

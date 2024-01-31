@@ -116,6 +116,7 @@ public class OI {
         aRTrigger.whileTrue(new RevFlyWheels());
         aLBump.whileTrue(new Shoot());
     }
+
     public void setRumble(boolean rumble){
         driver.getHID().setRumble(GenericHID.RumbleType.kLeftRumble, rumble ? 1.0 : 0.0);
         driver.getHID().setRumble(GenericHID.RumbleType.kRightRumble, rumble ? 1.0 : 0.0);
