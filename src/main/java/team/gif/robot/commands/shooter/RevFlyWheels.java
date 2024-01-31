@@ -17,8 +17,8 @@ public class RevFlyWheels extends Command {
     // Called every time the scheduler runs (~20ms) while the command is scheduled
     @Override
     public void execute() {
-        Robot.shooter.setVoltage(Constants.Shooter.REV);
-//        Robot.shooter.setRPM(Constants.Shooter.REV_RPM);
+//        Robot.shooter.setVoltage(Constants.Shooter.REV);
+        Robot.shooter.setRPM(Constants.Shooter.REV_RPM);
     }
 
     // Return true when the command should end, false if it should continue. Runs every ~20ms.
@@ -30,6 +30,7 @@ public class RevFlyWheels extends Command {
     // Called when the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
-        Robot.shooter.setVoltage(0);
+//        Robot.shooter.setVoltage(0);
+        Robot.shooter.setRPM(0);
     }
 }

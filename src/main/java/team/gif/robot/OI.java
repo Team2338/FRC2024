@@ -98,11 +98,13 @@ public class OI {
         *   aX.onTrue(new PrintCommand("aX"));
         */
 
-        dDPadUp.whileTrue(new MoveAwaySlow());
-        dDPadRight.whileTrue(new MoveRightSlow());
-        dDPadLeft.whileTrue(new MoveLeftSlow());
-        dDPadDown.whileTrue(new MoveCloserSlow());
-        dLStickBtn.whileTrue(new EnableBoost());
+        if (Robot.isCompBot) {
+            dDPadUp.whileTrue(new MoveAwaySlow());
+            dDPadRight.whileTrue(new MoveRightSlow());
+            dDPadLeft.whileTrue(new MoveLeftSlow());
+            dDPadDown.whileTrue(new MoveCloserSlow());
+            dLStickBtn.whileTrue(new EnableBoost());
+        }
 
         dA.whileTrue(new Reset0());
         // MK3 Swerve

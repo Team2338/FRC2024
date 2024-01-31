@@ -17,5 +17,8 @@ public class UI {
 
         SmartDashboard.putData("Pbot Reset", new Reset0());
         SmartDashboard.putData("Pbot Reset 180", new Reset180());
+
+        shuffleboardTab.addBoolean("Collector Sensor", Robot.collector::getSensor);
+        shuffleboardTab.addBoolean("Indexer Sensor", Robot.indexer::getSensor);
     }
 }
