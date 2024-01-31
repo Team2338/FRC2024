@@ -20,7 +20,7 @@ public abstract class RobotMap {
     public static final int REAR_LEFT_TURNING_MOTOR_PORT = 13;
     public static final int FRONT_RIGHT_TURNING_MOTOR_PORT = 17;
     public static final int REAR_RIGHT_TURNING_MOTOR_PORT = 10;
-    public static final int PIGEON = 61;
+    public static final int PIGEON_ID = 61;
 
     // MK3 RobotMap
     public static final int PRACTICE_REAR_LEFT_DRIVE_ID = 45;//1;
