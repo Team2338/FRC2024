@@ -6,8 +6,6 @@ public abstract class RobotMap {
     public static final int AUX_CONTROLLER_ID = 1;
     public static final int TEST_CONTROLLER_ID = 2;
 
-    public static final int PIGEON = 0;
-
     //SwerveDrivetrain
     public static final int FRONT_LEFT_DRIVE_MOTOR_PORT = 22;
     public static final int REAR_LEFT_DRIVE_MOTOR_PORT = 21;

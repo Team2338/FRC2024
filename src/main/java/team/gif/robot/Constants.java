@@ -149,10 +149,6 @@ public final class Constants {
         public static final double DRIVE_TIME_DEFAULT = 1.5; // seconds until the bot gets to the charging station
     }
 
-    public static final class Joystick {
-        public static final double DEADBAND = 0.1;
-    }
-
     //I coopied this from 2023
     public static final class DrivetrainMK3 {
         //public static final double DRIVE_WHEEL_RADIUS = 0.05; // meters? Must be unit of velocity
