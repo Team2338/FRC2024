@@ -113,7 +113,7 @@ public class SwerveModuleMK3 {
      * @return Returns the active drive velocity as a double in RPM
      */
     public double getDriveVelocity() {
-        return driveMotor.getEncoder().getVelocity() * Constants.ModuleConstants.DRIVE_ENCODER_ROT_2_METER;
+        return driveMotor.getEncoder().getVelocity() * Constants.ModuleConstantsMK3.DRIVE_ENCODER_ROT_2_METER;
     }
 
     /**
@@ -258,7 +258,7 @@ public class SwerveModuleMK3 {
      * @return the position of the swerve module
      */
     public SwerveModulePosition getPosition() {
-        return new SwerveModulePosition(driveMotor.getEncoder().getPosition() * Constants.ModuleConstants.DRIVE_ENCODER_ROT_2_METER, new Rotation2d(getTurningHeading()));
+        return new SwerveModulePosition(driveMotor.getEncoder().getPosition() * Constants.ModuleConstantsMK3.DRIVE_ENCODER_ROT_2_METER, new Rotation2d(getTurningHeading()));
     }
 
     /**

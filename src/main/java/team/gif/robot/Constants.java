@@ -22,7 +22,7 @@ public final class Constants {
     }
 
     //I coopied this from 2023
-    public static final class Drivetrain {
+    public static final class DrivetrainMK3 {
         //public static final double DRIVE_WHEEL_RADIUS = 0.05; // meters? Must be unit of velocity
 
         public static final boolean kFrontLeftTurningEncoderReversed = false; //false
@@ -71,20 +71,20 @@ public final class Constants {
         public static final double SLOW_DRIVE_RPM = 3500;
 
         public static final double COAST_SPEED_METERS_PER_SECOND = COAST_DRIVE_RPM *
-                (Math.PI * Constants.ModuleConstants.WHEEL_DIAMETER_METERS) /
-                (60.0 * Constants.ModuleConstants.GEAR_RATIO);
+                (Math.PI * ModuleConstantsMK3.WHEEL_DIAMETER_METERS) /
+                (60.0 * ModuleConstantsMK3.GEAR_RATIO);
 
         public static final double BOOST_SPEED_METERS_PER_SECOND = BOOST_DRIVE_RPM *
-                (Math.PI * Constants.ModuleConstants.WHEEL_DIAMETER_METERS) /
-                (60.0 * Constants.ModuleConstants.GEAR_RATIO);
+                (Math.PI * ModuleConstantsMK3.WHEEL_DIAMETER_METERS) /
+                (60.0 * ModuleConstantsMK3.GEAR_RATIO);
 
         public static final double SLOW_SPEED_METERS_PER_SECOND = SLOW_DRIVE_RPM *
-                (Math.PI * Constants.ModuleConstants.WHEEL_DIAMETER_METERS) /
-                (60.0 * Constants.ModuleConstants.GEAR_RATIO);
+                (Math.PI * ModuleConstantsMK3.WHEEL_DIAMETER_METERS) /
+                (60.0 * ModuleConstantsMK3.GEAR_RATIO);
         public static double kMaxAccelerationMetersPerSecondSquared = 2;// TODO
     }
 
-    public static final class ModuleConstants {
+    public static final class ModuleConstantsMK3 {
         public static final double MAX_MODULE_ANGULAR_SPEED_RADIANS_PER_SECOND = 6 * (2 * Math.PI); //6
         public static final double MAX_MODULE_ANGULAR_ACCELERATION_RADIANS_PER_SECOND_SQUARED = 6 * (2 * Math.PI); //7
         public static final double GEAR_RATIO = 8.16; // TODO: need to ask someone

@@ -11,9 +11,9 @@ public class DriveSwervePbot extends Command {
     private final SlewRateLimiter turnLimiter;
 
     public DriveSwervePbot() {
-        this.forwardLimiter = new SlewRateLimiter(Constants.ModuleConstants.TELE_DRIVE_MAX_ACCELERATION_UNITS_PER_SECOND);
-        this.strafeLimiter = new SlewRateLimiter(Constants.ModuleConstants.TELE_DRIVE_MAX_ACCELERATION_UNITS_PER_SECOND);
-        this.turnLimiter = new SlewRateLimiter(Constants.ModuleConstants.TELE_DRIVE_MAX_ANGULAR_ACCELERATION_UNITS_PER_SECOND);
+        this.forwardLimiter = new SlewRateLimiter(Constants.ModuleConstantsMK3.TELE_DRIVE_MAX_ACCELERATION_UNITS_PER_SECOND);
+        this.strafeLimiter = new SlewRateLimiter(Constants.ModuleConstantsMK3.TELE_DRIVE_MAX_ACCELERATION_UNITS_PER_SECOND);
+        this.turnLimiter = new SlewRateLimiter(Constants.ModuleConstantsMK3.TELE_DRIVE_MAX_ANGULAR_ACCELERATION_UNITS_PER_SECOND);
         addRequirements(Robot.practiceDrivetrain);
     }
 
@@ -54,9 +54,9 @@ public class DriveSwervePbot extends Command {
                 strafe = strafeSign;
 
             //Forward speed, Sideways speed, Rotation Speed
-            forward = forwardLimiter.calculate(forward) * Constants.ModuleConstants.TELE_DRIVE_MAX_SPEED_METERS_PER_SECOND;
-            strafe = strafeLimiter.calculate(strafe) * Constants.ModuleConstants.TELE_DRIVE_MAX_SPEED_METERS_PER_SECOND;
-            rot = turnLimiter.calculate(rot) * Constants.ModuleConstants.TELE_DRIVE_MAX_ANGULAR_SPEED_RADIANS_PER_SECOND;
+            forward = forwardLimiter.calculate(forward) * Constants.ModuleConstantsMK3.TELE_DRIVE_MAX_SPEED_METERS_PER_SECOND;
+            strafe = strafeLimiter.calculate(strafe) * Constants.ModuleConstantsMK3.TELE_DRIVE_MAX_SPEED_METERS_PER_SECOND;
+            rot = turnLimiter.calculate(rot) * Constants.ModuleConstantsMK3.TELE_DRIVE_MAX_ANGULAR_SPEED_RADIANS_PER_SECOND;
 
             // the robot starts facing the driver station so for this year negating y and x
             Robot.practiceDrivetrain.drive(forward, strafe, rot);

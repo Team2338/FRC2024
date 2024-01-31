@@ -40,49 +40,49 @@ public class SwerveDrivetrainMK3 extends SubsystemBase {
         fL = new SwerveModuleMK3 (
                 RobotMap.PRACTICE_FRONT_LEFT_DRIVE_ID,
                 RobotMap.PRACTICE_FRONT_LEFT_TURN_ID,
-                Constants.Drivetrain.kFrontLeftTurningMotorReversed,
-                Constants.Drivetrain.kFrontLeftDriveMotorReversed,
+                Constants.DrivetrainMK3.kFrontLeftTurningMotorReversed,
+                Constants.DrivetrainMK3.kFrontLeftDriveMotorReversed,
                 false,
-                Constants.Drivetrain.FRONT_LEFT_OFFSET,
-                Constants.ModuleConstants.DrivetrainPID.frontLeftFF,
-                Constants.ModuleConstants.DrivetrainPID.frontLeftP
+                Constants.DrivetrainMK3.FRONT_LEFT_OFFSET,
+                Constants.ModuleConstantsMK3.DrivetrainPID.frontLeftFF,
+                Constants.ModuleConstantsMK3.DrivetrainPID.frontLeftP
         );
 
         fR = new SwerveModuleMK3 (
                 RobotMap.PRACTICE_FRONT_RIGHT_DRIVE_ID,
                 RobotMap.PRACTICE_FRONT_RIGHT_TURN_ID,
-                Constants.Drivetrain.kFrontRightTurningMotorReversed,
-                Constants.Drivetrain.kFrontRightDriveMotorReversed,
+                Constants.DrivetrainMK3.kFrontRightTurningMotorReversed,
+                Constants.DrivetrainMK3.kFrontRightDriveMotorReversed,
                 false,
-                Constants.Drivetrain.FRONT_RIGHT_OFFSET,
-                Constants.ModuleConstants.DrivetrainPID.frontRightFF,
-                Constants.ModuleConstants.DrivetrainPID.frontRightP
+                Constants.DrivetrainMK3.FRONT_RIGHT_OFFSET,
+                Constants.ModuleConstantsMK3.DrivetrainPID.frontRightFF,
+                Constants.ModuleConstantsMK3.DrivetrainPID.frontRightP
         );
 
         rR = new SwerveModuleMK3 (
                 RobotMap.PRACTICE_REAR_RIGHT_DRIVE_ID,
                 RobotMap.PRACTICE_REAR_RIGHT_TURN_ID,
-                Constants.Drivetrain.kRearRightTurningMotorReversed,
-                Constants.Drivetrain.kRearRightDriveMotorReversed,
+                Constants.DrivetrainMK3.kRearRightTurningMotorReversed,
+                Constants.DrivetrainMK3.kRearRightDriveMotorReversed,
                 false,
-                Constants.Drivetrain.REAR_RIGHT_OFFSET,
-                Constants.ModuleConstants.DrivetrainPID.rearRightFF,
-                Constants.ModuleConstants.DrivetrainPID.rearRightP
+                Constants.DrivetrainMK3.REAR_RIGHT_OFFSET,
+                Constants.ModuleConstantsMK3.DrivetrainPID.rearRightFF,
+                Constants.ModuleConstantsMK3.DrivetrainPID.rearRightP
         );
 
         rL = new SwerveModuleMK3 (
                 RobotMap.PRACTICE_REAR_LEFT_DRIVE_ID,
                 RobotMap.PRACTICE_REAR_LEFT_TURN_ID,
-                Constants.Drivetrain.kRearLeftTurningMotorReversed,
-                Constants.Drivetrain.kRearLeftDriveMotorReversed,
+                Constants.DrivetrainMK3.kRearLeftTurningMotorReversed,
+                Constants.DrivetrainMK3.kRearLeftDriveMotorReversed,
                 false,
-                Constants.Drivetrain.REAR_LEFT_OFFSET,
-                Constants.ModuleConstants.DrivetrainPID.rearLeftFF,
-                Constants.ModuleConstants.DrivetrainPID.rearLeftP
+                Constants.DrivetrainMK3.REAR_LEFT_OFFSET,
+                Constants.ModuleConstantsMK3.DrivetrainPID.rearLeftFF,
+                Constants.ModuleConstantsMK3.DrivetrainPID.rearLeftP
         );
 
         //for field oriented stuff. helps us estimate where the robot is on the field
-        odometry = new SwerveDriveOdometry(Constants.Drivetrain.DRIVE_KINEMATICS, Robot.pigeon.getRotation2d(), getPosition(), new Pose2d(0, 0, new Rotation2d(0)));
+        odometry = new SwerveDriveOdometry(Constants.DrivetrainMK3.DRIVE_KINEMATICS, Robot.pigeon.getRotation2d(), getPosition(), new Pose2d(0, 0, new Rotation2d(0)));
 
 //        resetHeading();
         resetDriveEncoders();
@@ -154,7 +154,7 @@ public class SwerveDrivetrainMK3 extends SubsystemBase {
     public void drive(double x, double y, double rot) {
 
         SwerveModuleState[] swerveModuleStates =
-                Constants.Drivetrain.DRIVE_KINEMATICS.toSwerveModuleStates(
+                Constants.DrivetrainMK3.DRIVE_KINEMATICS.toSwerveModuleStates(
                         drivePace.getIsFieldRelative() ?
                                 ChassisSpeeds.fromFieldRelativeSpeeds(x, y, rot, Robot.pigeon.getRotation2d())
                                 : new ChassisSpeeds(x, y, rot));
@@ -183,7 +183,7 @@ public class SwerveDrivetrainMK3 extends SubsystemBase {
      * @implNote Use only in {@link SwerveDrivetrainMK3} or {@link team.gif.lib.RobotTrajectory}
      */
     public void setModuleStates(ChassisSpeeds chassisSpeeds) {
-        SwerveModuleState[] swerveModuleStates = Constants.Drivetrain.DRIVE_KINEMATICS.toSwerveModuleStates(chassisSpeeds);
+        SwerveModuleState[] swerveModuleStates = Constants.DrivetrainMK3.DRIVE_KINEMATICS.toSwerveModuleStates(chassisSpeeds);
         SwerveDriveKinematics.desaturateWheelSpeeds(
                 swerveModuleStates, drivePace.getValue()
         );
