@@ -4,7 +4,6 @@
 
 package team.gif.robot;
 
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Timer;
@@ -73,19 +72,16 @@ public class Robot extends TimedRobot {
         elapsedTime = new Timer();
         robotContainer = new RobotContainer();
 
-        if (isCompBot) {
-        } else {
-            pigeon = new Pigeon( RobotMap.PIGEON_ID);
-        }
-
         limelight = new Limelight();
 
         if (isCompBot) {
+            pigeon = new Pigeon(RobotMap.PIGEON_ID);
             swerveDrivetrain = new SwerveDrivetrain(telemetryLogger);
             driveSwerve = new DriveSwerve();
             swerveDrivetrain.setDefaultCommand(driveSwerve);
             swerveDrivetrain.resetHeading();
         } else {
+            pigeon = new Pigeon(RobotMap.PIGEON_PBOT_ID);
             practiceDrivetrain = new SwerveDrivetrainMK3();
             practiceDrivetrain.setDefaultCommand(new DrivePracticeSwerve());
             practiceDrivetrain.enableShuffleboardDebug("FRC2024");
