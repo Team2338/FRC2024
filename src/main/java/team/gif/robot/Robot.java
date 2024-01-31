@@ -4,19 +4,20 @@
 
 package team.gif.robot;
 
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import team.gif.lib.delay;
+import team.gif.robot.commands.collector.CollectorDefault;
+import team.gif.robot.commands.indexer.IndexerDefault;
 import team.gif.robot.subsystems.Collector;
 import team.gif.robot.subsystems.Indexer;
 import team.gif.robot.subsystems.Shooter;
 import team.gif.robot.subsystems.SwerveDrivetrainMK3;
 import team.gif.robot.subsystems.drivers.Limelight;
 import team.gif.robot.subsystems.drivers.Pigeon;
-import team.gif.robot.commands.drivetrain.DrivePracticeSwerve;
+import team.gif.robot.commands.drivetrainPbot.DrivePracticeSwerve;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -39,10 +40,11 @@ public class Robot extends TimedRobot {
     public static Limelight limelight;
     public static OI oi;
     public static UI ui;
-    public static boolean isCompBot = false;
     public static Shooter shooter;
     public static Indexer indexer;
     public static Collector collector;
+
+    public static boolean isCompBot = false;
 
     /**
      * This function is run when the robot is first started up and should be used for any
@@ -58,14 +60,18 @@ public class Robot extends TimedRobot {
         pigeon = new Pigeon(RobotMap.PIGEON);
         limelight = new Limelight();
 
-        if (!isCompBot) {
+        if (isCompBot) {
+            
+        } else {
             practiceDrivetrain = new SwerveDrivetrainMK3();
             practiceDrivetrain.setDefaultCommand(new DrivePracticeSwerve());
         }
 
         shooter = new Shooter();
         indexer = new Indexer();
+        indexer.setDefaultCommand(new IndexerDefault());
         collector = new Collector();
+        collector.setDefaultCommand(new CollectorDefault());
 
         ui = new UI();
         uiSmartDashboard = new UiSmartDashboard();
@@ -88,7 +94,8 @@ public class Robot extends TimedRobot {
         // block in order for anything in the Command-based framework to work.
         CommandScheduler.getInstance().run();
         uiSmartDashboard.updateUI();
-        chosenDelay = uiSmartDashboard.delayChooser.getSelected();
+
+        chosenDelay = uiSmartDashboard.delayChooser.getSelected(); //TODO: maybe move to autoinit
     }
 
     /** This function is called once each time the robot enters Disabled mode. */
@@ -136,8 +143,6 @@ public class Robot extends TimedRobot {
     /** This function is called periodically during operator control. */
     @Override
     public void teleopPeriodic() {
-//        practiceDrivetrain.setModuleStates(new ChassisSpeeds(0, 0, .2));
-
     }
 
     @Override

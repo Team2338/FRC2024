@@ -1,4 +1,4 @@
-package team.gif.robot.commands.drivetrain;
+package team.gif.robot.commands.drivetrainPbot;
 
 import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
@@ -29,11 +29,11 @@ public class DrivePracticeSwerve extends Command {
         //Get joystick
         double x = -Robot.oi.driver.getLeftX();
         //if its not outside of the deadband then its 0
-        x = (Math.abs(x) > Constants.DriveConstants.deadband) ? x : 0;
+        x = (Math.abs(x) > Constants.Joystick.DEADBAND) ? x : 0;
         double y = -Robot.oi.driver.getLeftY();
-        y = (Math.abs(y) > Constants.DriveConstants.deadband) ? y : 0;
+        y = (Math.abs(y) > Constants.Joystick.DEADBAND) ? y : 0;
         double rot = Robot.oi.driver.getRightX();
-        rot = (Math.abs(rot) > Constants.DriveConstants.deadband) ? rot : 0;
+        rot = (Math.abs(rot) > Constants.Joystick.DEADBAND) ? rot : 0;
 
 
         //when joystick is as max input (1)

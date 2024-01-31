@@ -1,36 +1,32 @@
-package team.gif.robot.commands.collector;
-
+package team.gif.robot.commands.drivetrainPbot;
 import edu.wpi.first.wpilibj2.command.Command;
 import team.gif.robot.Robot;
 
-import java.awt.*;
-
-public class runCollector extends Command {
-    public runCollector() {
-        super();
-        addRequirements(Robot.collector);
-        //addRequirements(Robot.climber); // uncomment
-    }
+public class Reset0 extends Command {
+    public Reset0() {}
 
     // Called when the command is initially scheduled.
     @Override
-    public void initialize() {}
+    public void initialize() {
+        Robot.pigeon.resetPigeonPosition(0);
+    }
 
     // Called every time the scheduler runs (~20ms) while the command is scheduled
     @Override
-    public void execute() {
-        Robot.collector.setCollect(1.0);
-    }
+    public void execute() {}
 
     // Return true when the command should end, false if it should continue. Runs every ~20ms.
     @Override
     public boolean isFinished() {
-        return false;
+        return true;
     }
 
     // Called when the command ends or is interrupted.
     @Override
-    public void end(boolean interrupted) {
-        Robot.collector.setCollect(0.0);
+    public void end(boolean interrupted) {}
+
+    @Override
+    public boolean runsWhenDisabled() {
+        return true;
     }
 }

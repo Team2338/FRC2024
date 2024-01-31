@@ -15,12 +15,12 @@ public class Shooter extends SubsystemBase {
     public Shooter() {
         shooter = new CANSparkMax(RobotMap.SHOOTER, CANSparkLowLevel.MotorType.kBrushless);
         shooter.restoreFactoryDefaults();
-        shooter.setIdleMode(CANSparkBase.IdleMode.kBrake);
+        shooter.setIdleMode(CANSparkBase.IdleMode.kCoast);
 
         pidController = shooter.getPIDController();
 
-        pidController.setP(Constants.Shooter.p_gain);
-        pidController.setFF(Constants.Shooter.ff_gain);
+        pidController.setP(Constants.Shooter.kP);
+        pidController.setFF(Constants.Shooter.FF);
         pidController.setOutputRange(0,1);
     }
 

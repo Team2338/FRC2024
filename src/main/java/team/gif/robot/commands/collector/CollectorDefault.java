@@ -1,11 +1,12 @@
-package team.gif.robot.commands.indexer;
+package team.gif.robot.commands.collector;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import team.gif.robot.Robot;
 
-public class runIndexerBack extends Command {
-    public runIndexerBack() {
+public class CollectorDefault extends Command {
+    public CollectorDefault() {
         super();
+        addRequirements(Robot.collector);
         //addRequirements(Robot.climber); // uncomment
     }
 
@@ -16,7 +17,11 @@ public class runIndexerBack extends Command {
     // Called every time the scheduler runs (~20ms) while the command is scheduled
     @Override
     public void execute() {
-        Robot.indexer.setIndexer(-.7,-.6);
+        if (Robot.indexer.getSensor()) {
+            Robot.collector.eject();
+        } else {
+            Robot.collector.collect();
+        }
     }
 
     // Return true when the command should end, false if it should continue. Runs every ~20ms.
@@ -28,6 +33,6 @@ public class runIndexerBack extends Command {
     // Called when the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
-        Robot.indexer.setIndexer(0,0);
+        Robot.collector.stop();
     }
 }

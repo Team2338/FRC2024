@@ -6,10 +6,7 @@ package team.gif.robot;
 
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
-import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.math.util.Units;
-
-import java.security.PublicKey;
 
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
@@ -133,12 +130,24 @@ public final class Constants {
         }
     }
 
-    public static final class Shooter {
-        public static final double ff_gain = 0.000175;
-        public static final double p_gain = 0.0007;
+    public static final class Joystick {
+        public static final double DEADBAND = 0.1;
     }
 
-    public static final class DriveConstants {
-        public static final double deadband = 0.05;
+    public static final class Shooter {
+        public static final double REV = .7;
+        public static final int REV_RPM = 4000;
+        public static final double FF = 0.000175;
+        public static final double kP = 0.0007;
+    }
+
+    public static final class Indexer {
+        public static final double STAGE_ONE = 1.0;
+        public static final double STAGE_TWO = 1.0;
+    }
+
+    public static final class Collector {
+        public static final double COLLECT_PERCENT = 1.0;
+        public static final double EJECT_PERCENT = 0.1;
     }
 }

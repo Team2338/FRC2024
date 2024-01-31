@@ -2,12 +2,10 @@ package team.gif.robot;
 
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
-import team.gif.robot.commands.collector.runCollector;
-import team.gif.robot.commands.collector.runCollectorBack;
-import team.gif.robot.commands.drivetrain.ResetWheelsPbot;
-import team.gif.robot.commands.indexer.runIndexer;
-import team.gif.robot.commands.indexer.runIndexerBack;
-import team.gif.robot.commands.shooter.runShooter;
+import team.gif.robot.commands.drivetrainPbot.ResetWheelsPbot;
+import team.gif.robot.commands.indexer.FullIndexerReverse;
+import team.gif.robot.commands.shooter.RevFlyWheels;
+import team.gif.robot.commands.shooter.Shoot;
 
 public class OI {
     /*
@@ -96,10 +94,12 @@ public class OI {
         // MK3 Swerve
         dA.whileTrue(new ResetWheelsPbot());
 
-        aA.whileTrue(new runCollector());
-        aRTrigger.whileTrue(new runIndexer());
-        aLBump.whileTrue(new runShooter());
-        aRBump.whileTrue(new runIndexerBack());
-        aLBump.whileTrue(new runCollectorBack());
+//        aA.whileTrue(new CollectorDefault());
+
+//        aDPadUp.whileTrue(new IndexerDefault());
+        aStart.whileTrue(new FullIndexerReverse());
+
+        aRTrigger.whileTrue(new RevFlyWheels());
+        aLBump.whileTrue(new Shoot());
     }
 }

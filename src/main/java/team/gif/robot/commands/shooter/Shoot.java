@@ -1,13 +1,13 @@
-package team.gif.robot.commands.collector;
+package team.gif.robot.commands.shooter;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import team.gif.robot.Constants;
 import team.gif.robot.Robot;
 
-public class runCollectorBack extends Command {
-    public runCollectorBack() {
+public class Shoot extends Command {
+    public Shoot() {
         super();
-        addRequirements(Robot.collector);
-        //addRequirements(Robot.climber); // uncomment
+        addRequirements(Robot.indexer); // uncomment
     }
 
     // Called when the command is initially scheduled.
@@ -17,7 +17,10 @@ public class runCollectorBack extends Command {
     // Called every time the scheduler runs (~20ms) while the command is scheduled
     @Override
     public void execute() {
-        Robot.collector.setCollect(-.7);
+        if (Robot.shooter.getRPM() >= (Constants.Shooter.REV_RPM - 20.0)) { //allow tolerance
+            Robot.indexer.setIndexer(0, Constants.Indexer.STAGE_TWO);
+        }
+//        Robot.shooter.setRPM(4000);
     }
 
     // Return true when the command should end, false if it should continue. Runs every ~20ms.
@@ -29,6 +32,6 @@ public class runCollectorBack extends Command {
     // Called when the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
-        Robot.collector.setCollect(0.0);
+        Robot.indexer.setIndexer(0,0);
     }
 }
