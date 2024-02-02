@@ -267,6 +267,8 @@ public final class Constants {
         public static final int REV_RPM = 4000; //max testing on pbot neo got to 5800 RPM
         public static final double FF = 0.000175;
         public static final double kP = 0.0003;
+        public static final double ANGLE_kP = 0.0000;
+        public static final double ANGLE_FF = 0.0000;
 //        public static final double kI =
     }
 

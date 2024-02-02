@@ -10,24 +10,29 @@ import team.gif.robot.RobotMap;
 
 public class Shooter extends SubsystemBase {
     public static CANSparkMax shooter;
-    public static SparkPIDController pidController;
+    public static SparkPIDController pidMainShooter;
 
     public static CANSparkMax shooterAngle;
+    public static SparkPIDController pidShooterAngle;
 
     public Shooter() {
         shooter = new CANSparkMax(RobotMap.SHOOTER, CANSparkLowLevel.MotorType.kBrushless);
         shooter.restoreFactoryDefaults();
         shooter.setIdleMode(CANSparkBase.IdleMode.kCoast);
 
-        pidController = shooter.getPIDController();
+        pidMainShooter = shooter.getPIDController();
 
-        pidController.setP(Constants.Shooter.kP);
-        pidController.setFF(Constants.Shooter.FF);
-        pidController.setOutputRange(0,1);
+        pidMainShooter.setP(Constants.Shooter.kP);
+        pidMainShooter.setFF(Constants.Shooter.FF);
+        pidMainShooter.setOutputRange(0,1);
 
         shooterAngle = new CANSparkMax(RobotMap.SHOOTER_ANGLE, CANSparkLowLevel.MotorType.kBrushless);
         shooterAngle.restoreFactoryDefaults();
         shooterAngle.setIdleMode(CANSparkBase.IdleMode.kBrake);
+
+        pidShooterAngle = shooterAngle.getPIDController();
+        pidShooterAngle.setP(Constants.Shooter.ANGLE_kP);
+        pidShooterAngle.setFF(Constants.Shooter.ANGLE_FF);
     }
 
     public void setVoltage(double volt) {
@@ -41,7 +46,7 @@ public class Shooter extends SubsystemBase {
 
     // RPM
     public void setRPM(double rpm) {
-        pidController.setReference(rpm, CANSparkBase.ControlType.kVelocity);
+        pidMainShooter.setReference(rpm, CANSparkBase.ControlType.kVelocity);
     }
 
     public double getRPM() {
@@ -59,5 +64,9 @@ public class Shooter extends SubsystemBase {
 
     public double getAngleEncoder(){
         return shooterAngle.getEncoder().getPosition();
+    }
+
+    public void setAnglePos(double pos) {
+        pidShooterAngle.setReference(pos, CANSparkBase.ControlType.kPosition);
     }
 }
