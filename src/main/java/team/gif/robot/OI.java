@@ -3,6 +3,7 @@ package team.gif.robot;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import team.gif.robot.commands.collector.CollectorManualControl;
 import team.gif.robot.commands.driveModes.EnableBoost;
 import team.gif.robot.commands.drivetrain.MoveAwaySlow;
 import team.gif.robot.commands.drivetrain.MoveCloserSlow;
@@ -11,8 +12,10 @@ import team.gif.robot.commands.drivetrain.MoveRightSlow;
 import team.gif.robot.commands.drivetrain.Reset0;
 import team.gif.robot.commands.drivetrainPbot.ResetWheelsPbot;
 import team.gif.robot.commands.indexer.FullIndexerReverse;
+import team.gif.robot.commands.indexer.IndexerManualControl;
 import team.gif.robot.commands.shooter.RevFlyWheels;
 import team.gif.robot.commands.shooter.Shoot;
+import team.gif.robot.commands.toggleManualControl.ToggleManualControl;
 
 public class OI {
     /*
@@ -106,14 +109,21 @@ public class OI {
             dLStickBtn.whileTrue(new EnableBoost());
         }
 
-        dA.whileTrue(new Reset0());
         // MK3 Swerve
+        dA.whileTrue(new Reset0());
         dA.whileTrue(new ResetWheelsPbot());
 
 //        aA.whileTrue(new CollectorDefault());
 
 //        aDPadUp.whileTrue(new IndexerDefault());
         aStart.whileTrue(new FullIndexerReverse());
+
+        aBack.toggleOnTrue(new ToggleManualControl());
+
+        if (Robot.indexer.indexerManualFlag && Robot.collector.collectorManualControl) {
+            aDPadUp.whileTrue(new IndexerManualControl());
+            aA.whileTrue(new CollectorManualControl());
+        }
 
         aRTrigger.whileTrue(new RevFlyWheels());
         aLBump.whileTrue(new Shoot());

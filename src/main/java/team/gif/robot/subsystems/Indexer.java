@@ -13,6 +13,8 @@ public class Indexer extends SubsystemBase {
 
     public static DigitalInput stageSensor;
 
+    public boolean indexerManualFlag = false;
+
     public Indexer() {
         stageOne = new TalonSRX(RobotMap.STAGE_ONE);
         stageOne.configFactoryDefault();
@@ -32,5 +34,9 @@ public class Indexer extends SubsystemBase {
 
     public boolean getSensor() {
         return stageSensor.get();
+    }
+
+    public boolean getIndexerManualFlag() {
+        return indexerManualFlag;
     }
 }

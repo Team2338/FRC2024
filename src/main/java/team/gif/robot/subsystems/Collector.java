@@ -13,6 +13,8 @@ public class Collector extends SubsystemBase {
     public static TalonSRX collector;
     public static DigitalInput sensor;
 
+    public boolean collectorManualControl = false;
+
     public Collector(){
         collector = new TalonSRX(RobotMap.COLLECTOR_ID);
         collector.configFactoryDefault();
@@ -35,5 +37,9 @@ public class Collector extends SubsystemBase {
 
     public boolean getSensor() {
         return sensor.get();
+    }
+
+    public boolean getCollectorManualControl() {
+        return collectorManualControl;
     }
 }
