@@ -22,5 +22,7 @@ public class UI {
         shuffleboardTab.addBoolean("Indexer Sensor", Robot.indexer::getSensor);
 
         shuffleboardTab.addBoolean("Manual Control", Robot.collector::getCollectorManualControl);
+
+        shuffleboardTab.addDouble("Shooter Angle", Robot.shooter::getAngleEncoder);
     }
 }

@@ -12,6 +12,8 @@ public class Shooter extends SubsystemBase {
     public static CANSparkMax shooter;
     public static SparkPIDController pidController;
 
+    public static CANSparkMax shooterAngle;
+
     public Shooter() {
         shooter = new CANSparkMax(RobotMap.SHOOTER, CANSparkLowLevel.MotorType.kBrushless);
         shooter.restoreFactoryDefaults();
@@ -22,6 +24,10 @@ public class Shooter extends SubsystemBase {
         pidController.setP(Constants.Shooter.kP);
         pidController.setFF(Constants.Shooter.FF);
         pidController.setOutputRange(0,1);
+
+        shooterAngle = new CANSparkMax(RobotMap.SHOOTER_ANGLE, CANSparkLowLevel.MotorType.kBrushless);
+        shooterAngle.restoreFactoryDefaults();
+        shooterAngle.setIdleMode(CANSparkBase.IdleMode.kBrake);
     }
 
     public void setVoltage(double volt) {
@@ -44,5 +50,14 @@ public class Shooter extends SubsystemBase {
 
     public String getRPM_Shuffleboard() {
         return String.format("%12.0f", getRPM());
+    }
+
+    // Angling
+    public void setAnglePercent(double percent) {
+        shooterAngle.set(percent);
+    }
+
+    public double getAngleEncoder(){
+        return shooterAngle.getEncoder().getPosition();
     }
 }

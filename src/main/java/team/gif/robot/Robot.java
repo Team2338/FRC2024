@@ -13,6 +13,7 @@ import team.gif.lib.delay;
 import team.gif.lib.logging.EventFileLogger;
 import team.gif.lib.logging.TelemetryFileLogger;
 import team.gif.robot.commands.drivetrain.DriveSwerve;
+import team.gif.robot.commands.shooter.ShooterAngle;
 import team.gif.robot.subsystems.SwerveDrivetrain;
 import team.gif.robot.commands.collector.CollectorDefault;
 import team.gif.robot.commands.indexer.IndexerDefault;
@@ -88,6 +89,7 @@ public class Robot extends TimedRobot {
         }
 
         shooter = new Shooter();
+        shooter.setDefaultCommand(new ShooterAngle());
         indexer = new Indexer();
         indexer.setDefaultCommand(new IndexerDefault());
         collector = new Collector();

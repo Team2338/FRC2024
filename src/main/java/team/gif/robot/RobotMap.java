@@ -35,11 +35,12 @@ public abstract class RobotMap {
     public static final int PIGEON_PBOT_ID = 61;
 
     //shooter
-    public static final int SHOOTER = 34;
+    public static final int SHOOTER = 10; //pbot 34
+    public static final int SHOOTER_ANGLE = 16;
 
     //indexer
     public static final int STAGE_ONE = 32;
-    public static final int STAGE_TWO = 33;
+    public static final int STAGE_TWO = 23; //pbot 33;
     public static final int SENSOR_INDEXER_ID = 1;
 
     //collector
