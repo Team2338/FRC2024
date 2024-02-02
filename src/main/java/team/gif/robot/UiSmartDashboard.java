@@ -10,6 +10,7 @@ import team.gif.robot.commands.drivetrain.Reset0;
 import team.gif.robot.commands.drivetrain.Reset180;
 import team.gif.robot.subsystems.SwerveDrivetrain;
 
+
 public class UiSmartDashboard {
 
     public SendableChooser<delay> delayChooser = new SendableChooser<>();
@@ -24,8 +25,6 @@ public class UiSmartDashboard {
                     x.addDoubleProperty("Value", () -> Robot.pigeon.getCompassHeading(), null);
                 })
                 .withPosition(5, 0);
-
-//        shuffleboardTab.add("Front Left", SwerveDrivetrain.fl.get)
 
         //Auto Delay
         delayChooser.setDefaultOption("0", delay.DELAY_0);

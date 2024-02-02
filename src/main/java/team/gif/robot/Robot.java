@@ -4,7 +4,6 @@
 
 package team.gif.robot;
 
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Timer;
@@ -15,8 +14,15 @@ import team.gif.lib.logging.EventFileLogger;
 import team.gif.lib.logging.TelemetryFileLogger;
 import team.gif.robot.commands.drivetrain.DriveSwerve;
 import team.gif.robot.subsystems.SwerveDrivetrain;
+import team.gif.robot.commands.collector.CollectorDefault;
+import team.gif.robot.commands.indexer.IndexerDefault;
+import team.gif.robot.subsystems.Collector;
+import team.gif.robot.subsystems.Indexer;
+import team.gif.robot.subsystems.Shooter;
+import team.gif.robot.subsystems.SwerveDrivetrainMK3;
 import team.gif.robot.subsystems.drivers.Limelight;
 import team.gif.robot.subsystems.drivers.Pigeon;
+import team.gif.robot.commands.drivetrainPbot.DrivePracticeSwerve;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -34,6 +40,7 @@ public class Robot extends TimedRobot {
     private Timer elapsedTime;
     private boolean runAutoScheduler;
     public static boolean runningAutonomousMode;
+    public static SwerveDrivetrainMK3 practiceDrivetrain;
     public static Pigeon pigeon;
     public static Limelight limelight;
     public static OI oi;
@@ -42,7 +49,11 @@ public class Robot extends TimedRobot {
     public static DriveSwerve driveSwerve;
     private static TelemetryFileLogger telemetryLogger;
     public static EventFileLogger eventLogger;
-    public static boolean isCompBot = true;
+    public static Shooter shooter;
+    public static Indexer indexer;
+    public static Collector collector;
+
+    public static boolean isCompBot = false;
 
     /**
      * This function is run when the robot is first started up and should be used for any
@@ -61,14 +72,26 @@ public class Robot extends TimedRobot {
         elapsedTime = new Timer();
         robotContainer = new RobotContainer();
 
-        pigeon = new Pigeon(42);
-
-        swerveDrivetrain = new SwerveDrivetrain(telemetryLogger);
-        driveSwerve = new DriveSwerve();
-        swerveDrivetrain.setDefaultCommand(driveSwerve);
-        swerveDrivetrain.resetHeading();
-
         limelight = new Limelight();
+
+        if (isCompBot) {
+            pigeon = new Pigeon(RobotMap.PIGEON_ID);
+            swerveDrivetrain = new SwerveDrivetrain(telemetryLogger);
+            driveSwerve = new DriveSwerve();
+            swerveDrivetrain.setDefaultCommand(driveSwerve);
+            swerveDrivetrain.resetHeading();
+        } else {
+            pigeon = new Pigeon(RobotMap.PIGEON_PBOT_ID);
+            practiceDrivetrain = new SwerveDrivetrainMK3();
+            practiceDrivetrain.setDefaultCommand(new DrivePracticeSwerve());
+            practiceDrivetrain.enableShuffleboardDebug("FRC2024");
+        }
+
+        shooter = new Shooter();
+        indexer = new Indexer();
+        indexer.setDefaultCommand(new IndexerDefault());
+        collector = new Collector();
+        collector.setDefaultCommand(new CollectorDefault());
 
         ui = new UI();
         uiSmartDashboard = new UiSmartDashboard();
