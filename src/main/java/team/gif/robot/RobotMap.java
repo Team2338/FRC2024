@@ -44,6 +44,6 @@ public abstract class RobotMap {
 
     //collector
     public static final int COLLECTOR_ID = 31;
-    public static final int SENSOR_COLLECTOR_ID = 0;
+    public static final int SENSOR_COLLECTOR_ID = 2;
 
 }
