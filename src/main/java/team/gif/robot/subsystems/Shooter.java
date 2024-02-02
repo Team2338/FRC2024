@@ -18,6 +18,7 @@ public class Shooter extends SubsystemBase {
     public Shooter() {
         shooter = new CANSparkMax(RobotMap.SHOOTER, CANSparkLowLevel.MotorType.kBrushless);
         shooter.restoreFactoryDefaults();
+        shooter.setInverted(true);
         shooter.setIdleMode(CANSparkBase.IdleMode.kCoast);
 
         pidMainShooter = shooter.getPIDController();

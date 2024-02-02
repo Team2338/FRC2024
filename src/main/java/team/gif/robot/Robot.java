@@ -54,7 +54,7 @@ public class Robot extends TimedRobot {
     public static Indexer indexer;
     public static Collector collector;
 
-    public static boolean isCompBot = false;
+    public static boolean isCompBot = true;
 
     /**
      * This function is run when the robot is first started up and should be used for any
@@ -89,11 +89,11 @@ public class Robot extends TimedRobot {
         }
 
         shooter = new Shooter();
-        shooter.setDefaultCommand(new ShooterAngle());
+//        shooter.setDefaultCommand(new ShooterAngle());
         indexer = new Indexer();
-        indexer.setDefaultCommand(new IndexerDefault());
+//        indexer.setDefaultCommand(new IndexerDefault());
         collector = new Collector();
-        collector.setDefaultCommand(new CollectorDefault());
+//        collector.setDefaultCommand(new CollectorDefault());
 
         ui = new UI();
         uiSmartDashboard = new UiSmartDashboard();
