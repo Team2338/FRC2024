@@ -3,8 +3,6 @@ package team.gif.robot.commands.shooter;
 import edu.wpi.first.wpilibj2.command.Command;
 import team.gif.robot.Robot;
 
-import java.awt.*;
-
 public class ShooterAngle extends Command {
     public ShooterAngle() {
         super();
@@ -18,7 +16,7 @@ public class ShooterAngle extends Command {
     // Called every time the scheduler runs (~20ms) while the command is scheduled
     @Override
     public void execute() {
-        Robot.shooter.setAnglePercent(Robot.oi.aux.getLeftY());
+        Robot.shooter.setAnglePercent(.3);
     }
 
     // Return true when the command should end, false if it should continue. Runs every ~20ms.

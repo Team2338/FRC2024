@@ -42,7 +42,7 @@ public class Indexer extends SubsystemBase {
         stageTwo.set(stageTwoPercent);
     }
 
-    public boolean getSensor() {
+    public boolean getSensorState() {
         return stageSensor.get();
     }
 

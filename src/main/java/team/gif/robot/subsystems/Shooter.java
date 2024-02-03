@@ -1,5 +1,9 @@
 package team.gif.robot.subsystems;
 
+import com.ctre.phoenix6.configs.CANcoderConfiguration;
+import com.ctre.phoenix6.configs.MagnetSensorConfigs;
+import com.ctre.phoenix6.hardware.CANcoder;
+import com.ctre.phoenix6.signals.AbsoluteSensorRangeValue;
 import com.revrobotics.CANSparkBase;
 import com.revrobotics.CANSparkLowLevel;
 import com.revrobotics.CANSparkMax;
@@ -14,6 +18,7 @@ public class Shooter extends SubsystemBase {
 
     public static CANSparkMax shooterAngle;
     public static SparkPIDController pidShooterAngle;
+    public static CANcoder angleEncoder;
 
     public Shooter() {
         shooter = new CANSparkMax(RobotMap.SHOOTER, CANSparkLowLevel.MotorType.kBrushless);
@@ -25,15 +30,23 @@ public class Shooter extends SubsystemBase {
 
         pidMainShooter.setP(Constants.Shooter.kP);
         pidMainShooter.setFF(Constants.Shooter.FF);
+        pidMainShooter.setI(Constants.Shooter.kI);
         pidMainShooter.setOutputRange(0,1);
 
         shooterAngle = new CANSparkMax(RobotMap.SHOOTER_ANGLE, CANSparkLowLevel.MotorType.kBrushless);
         shooterAngle.restoreFactoryDefaults();
         shooterAngle.setIdleMode(CANSparkBase.IdleMode.kBrake);
 
+
+        shooterAngle.enableSoftLimit(CANSparkBase.SoftLimitDirection.kForward, true);
+
         pidShooterAngle = shooterAngle.getPIDController();
         pidShooterAngle.setP(Constants.Shooter.ANGLE_kP);
         pidShooterAngle.setFF(Constants.Shooter.ANGLE_FF);
+
+        angleEncoder = new CANcoder(RobotMap.SHOOTER_ANGLE_ENCODER);
+        MagnetSensorConfigs magSensorConfig = new MagnetSensorConfigs().withAbsoluteSensorRange(AbsoluteSensorRangeValue.Signed_PlusMinusHalf);
+        angleEncoder.getConfigurator().apply(new CANcoderConfiguration().withMagnetSensor(magSensorConfig));
     }
 
     public void setVoltage(double volt) {
@@ -68,6 +81,6 @@ public class Shooter extends SubsystemBase {
     }
 
     public double getPosition(){
-        return shooterAngle.getEncoder().getPosition();
+        return angleEncoder.getAbsolutePosition().getValueAsDouble();
     }
 }

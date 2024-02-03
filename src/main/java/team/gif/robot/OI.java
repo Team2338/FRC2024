@@ -15,6 +15,8 @@ import team.gif.robot.commands.indexer.FullIndexerReverse;
 import team.gif.robot.commands.indexer.IndexerManualControl;
 import team.gif.robot.commands.shooter.RevFlyWheels;
 import team.gif.robot.commands.shooter.Shoot;
+import team.gif.robot.commands.shooter.ShooterAngle;
+import team.gif.robot.commands.shooter.ShooterAngleBack;
 import team.gif.robot.commands.toggleManualControl.ToggleManualControl;
 
 public class OI {
@@ -127,6 +129,8 @@ public class OI {
 
         aRTrigger.whileTrue(new RevFlyWheels());
         aLBump.whileTrue(new Shoot());
+        aX.whileTrue(new ShooterAngle());
+        aB.whileTrue(new ShooterAngleBack());
     }
 
     public void setRumble(boolean rumble){

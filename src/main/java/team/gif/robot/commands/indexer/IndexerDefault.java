@@ -30,7 +30,7 @@ public class IndexerDefault extends Command {
             Robot.indexer.setIndexer(Constants.Indexer.STAGE_ONE, Constants.Indexer.STAGE_TWO);
         }
 
-        if (Robot.indexer.getSensor()) {
+        if (Robot.indexer.getSensorState()) {
             Robot.indexer.setIndexer(0, 0);
             noteDetected = false;
         }

@@ -264,9 +264,10 @@ public final class Constants {
 
     public static final class Shooter {
         public static final double REV = 1.0;
-        public static final int REV_RPM = 4000; //max testing on pbot neo got to 5800 RPM
-        public static final double FF = 0.000175;
-        public static final double kP = 0.0003;
+        public static final int REV_RPM = 5800; //max testing on pbot neo got to 5800 RPM
+        public static final double FF = 0.000170;
+        public static final double kP = 0.000032;
+        public static final double kI = 0.00000008;
         public static final double ANGLE_kP = 0.0000;
         public static final double ANGLE_FF = 0.0000;
 //        public static final double kI =
@@ -274,7 +275,7 @@ public final class Constants {
 
     public static final class Indexer {
         public static final double STAGE_ONE = .6;//1.0;
-        public static final double STAGE_TWO = .6;//1.0;
+        public static final double STAGE_TWO = 1;//1.0;
         public static final double S2_FF = 0.0000;
         public static final double S2_kP = 0.0000;
     }
