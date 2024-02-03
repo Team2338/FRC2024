@@ -45,17 +45,17 @@ public class Shooter extends SubsystemBase {
         return shooter.getBusVoltage();
     }
 
-    // RPM
-    public void setRPM(double rpm) {
+    // Shooter RPM
+    public void setShooterRPM(double rpm) {
         pidMainShooter.setReference(rpm, CANSparkBase.ControlType.kVelocity);
     }
 
-    public double getRPM() {
+    public double getShooterRPM() {
         return shooter.getEncoder().getVelocity();
     }
 
-    public String getRPM_Shuffleboard() {
-        return String.format("%12.0f", getRPM());
+    public String getShooterRPM_Shuffleboard() {
+        return String.format("%12.0f", getShooterRPM());
     }
 
     // Angling
@@ -63,11 +63,11 @@ public class Shooter extends SubsystemBase {
         shooterAngle.set(percent);
     }
 
-    public double getAngleEncoder(){
-        return shooterAngle.getEncoder().getPosition();
-    }
-
     public void setAnglePos(double pos) {
         pidShooterAngle.setReference(pos, CANSparkBase.ControlType.kPosition);
+    }
+
+    public double getPosition(){
+        return shooterAngle.getEncoder().getPosition();
     }
 }

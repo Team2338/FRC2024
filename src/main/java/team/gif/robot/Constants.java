@@ -275,6 +275,8 @@ public final class Constants {
     public static final class Indexer {
         public static final double STAGE_ONE = .6;//1.0;
         public static final double STAGE_TWO = .6;//1.0;
+        public static final double S2_FF = 0.0000;
+        public static final double S2_kP = 0.0000;
     }
 
     public static final class Collector {

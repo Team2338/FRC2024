@@ -13,7 +13,7 @@ public class UI {
 
 //        shuffleboardTab.addDouble("Shooter Voltage", Robot.shooter::getVoltage);
 
-        shuffleboardTab.addString("Shooter RPM", Robot.shooter::getRPM_Shuffleboard);
+        shuffleboardTab.addString("Shooter RPM", Robot.shooter::getShooterRPM_Shuffleboard);
 
         SmartDashboard.putData("Reset", new Reset0());
         SmartDashboard.putData("Reset 180", new Reset180());

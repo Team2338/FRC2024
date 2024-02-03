@@ -20,7 +20,7 @@ public class Collector extends SubsystemBase {
         collector.configFactoryDefault();
         collector.setNeutralMode(NeutralMode.Brake);
 
-        sensor = new DigitalInput(RobotMap.SENSOR_COLLECTOR_ID);
+        sensor = new DigitalInput(RobotMap.SENSOR_COLLECTOR_PORT);
     }
 
     public void collect() {

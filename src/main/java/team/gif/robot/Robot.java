@@ -56,7 +56,7 @@ public class Robot extends TimedRobot {
     public static Indexer indexer;
     public static Collector collector;
 
-    public static boolean isCompBot = true;
+    public static boolean isCompBot = true; //includes 2023 bot
 
     /**
      * This function is run when the robot is first started up and should be used for any
