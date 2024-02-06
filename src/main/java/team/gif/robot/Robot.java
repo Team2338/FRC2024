@@ -113,7 +113,7 @@ public class Robot extends TimedRobot {
         oi = new OI();
         runningAutonomousMode = false;
 
-        swerveDrivetrain.resetOdometry(new Pose2d(new Translation2d(2.05, 6.77), pigeon.getRotation2d()));
+//        swerveDrivetrain.resetOdometry(new Pose2d(new Translation2d(2.05, 6.77), pigeon.getRotation2d()));
 
         DriverStation.silenceJoystickConnectionWarning(true);
     }
