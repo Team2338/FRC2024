@@ -9,8 +9,6 @@ import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.math.util.Units;
 
-import javax.swing.plaf.PanelUI;
-
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
  * constants. This class should not be used for any other purpose. All constants should be declared
@@ -284,8 +282,8 @@ public final class Constants {
     public static final class Indexer {
         public static final double STAGE_ONE = .6;//1.0;
         public static final double STAGE_TWO = 1;//1.0;
-        public static final double S2_FF = 0.0000;
-        public static final double S2_kP = 0.0000;
+        public static final double STAGE_TWO_FF = 0.0000;
+        public static final double STAGE_TWO_kP = 0.0000;
     }
 
     public static final class Collector {
