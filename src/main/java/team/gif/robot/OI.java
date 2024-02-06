@@ -15,6 +15,8 @@ import team.gif.robot.commands.indexer.FullIndexerReverse;
 import team.gif.robot.commands.indexer.IndexerManualControl;
 import team.gif.robot.commands.shooter.RevFlyWheels;
 import team.gif.robot.commands.shooter.Shoot;
+import team.gif.robot.commands.shooter.ShooterAngle;
+import team.gif.robot.commands.shooter.ShooterAngleBack;
 import team.gif.robot.commands.toggleManualControl.ToggleManualControl;
 
 public class OI {
@@ -101,6 +103,7 @@ public class OI {
         *   aX.onTrue(new PrintCommand("aX"));
         */
 
+        // MK4 (2023 bot)
         if (Robot.isCompBot) {
             dDPadUp.whileTrue(new MoveAwaySlow());
             dDPadRight.whileTrue(new MoveRightSlow());
@@ -111,22 +114,24 @@ public class OI {
 
         // MK3 Swerve
         dA.whileTrue(new Reset0());
-        dA.whileTrue(new ResetWheelsPbot());
+//        dA.whileTrue(new ResetWheelsPbot());
 
 //        aA.whileTrue(new CollectorDefault());
 
 //        aDPadUp.whileTrue(new IndexerDefault());
+
         aStart.whileTrue(new FullIndexerReverse());
 
+        // manual control
         aBack.toggleOnTrue(new ToggleManualControl());
+        aDPadUp.whileTrue(new IndexerManualControl());
+        aA.whileTrue(new CollectorManualControl());
 
-        if (Robot.indexer.indexerManualFlag && Robot.collector.collectorManualControl) {
-            aDPadUp.whileTrue(new IndexerManualControl());
-            aA.whileTrue(new CollectorManualControl());
-        }
-
+        //shooter
         aRTrigger.whileTrue(new RevFlyWheels());
         aLBump.whileTrue(new Shoot());
+        aX.whileTrue(new ShooterAngle());
+        aB.whileTrue(new ShooterAngleBack());
     }
 
     public void setRumble(boolean rumble){

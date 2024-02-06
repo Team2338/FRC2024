@@ -7,7 +7,7 @@ import team.gif.robot.Robot;
 public class IndexerManualControl extends Command {
     public IndexerManualControl() {
         super();
-        //addRequirements(Robot.climber); // uncomment
+        addRequirements(Robot.indexer); // uncomment
     }
 
     // Called when the command is initially scheduled.

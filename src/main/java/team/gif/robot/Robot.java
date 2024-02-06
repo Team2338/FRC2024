@@ -13,6 +13,7 @@ import team.gif.lib.delay;
 import team.gif.lib.logging.EventFileLogger;
 import team.gif.lib.logging.TelemetryFileLogger;
 import team.gif.robot.commands.drivetrain.DriveSwerve;
+import team.gif.robot.commands.shooter.ShooterAngle;
 import team.gif.robot.subsystems.SwerveDrivetrain;
 import team.gif.robot.commands.collector.CollectorDefault;
 import team.gif.robot.commands.indexer.IndexerDefault;
@@ -23,6 +24,8 @@ import team.gif.robot.subsystems.SwerveDrivetrainMK3;
 import team.gif.robot.subsystems.drivers.Limelight;
 import team.gif.robot.subsystems.drivers.Pigeon;
 import team.gif.robot.commands.drivetrainPbot.DrivePracticeSwerve;
+
+import java.sql.Driver;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -42,7 +45,8 @@ public class Robot extends TimedRobot {
     public static boolean runningAutonomousMode;
     public static SwerveDrivetrainMK3 practiceDrivetrain;
     public static Pigeon pigeon;
-    public static Limelight limelight;
+    public static Limelight limelightShooter;
+    public static Limelight limelightCollector;
     public static OI oi;
     public static UI ui;
     public static SwerveDrivetrain swerveDrivetrain = null;
@@ -53,7 +57,7 @@ public class Robot extends TimedRobot {
     public static Indexer indexer;
     public static Collector collector;
 
-    public static boolean isCompBot = false;
+    public static boolean isCompBot = true; //includes 2023 bot
 
     /**
      * This function is run when the robot is first started up and should be used for any
@@ -72,7 +76,8 @@ public class Robot extends TimedRobot {
         elapsedTime = new Timer();
         robotContainer = new RobotContainer();
 
-        limelight = new Limelight();
+        limelightShooter = new Limelight("limelight-shooter");
+        limelightCollector = new Limelight("limelight-collect");
 
         if (isCompBot) {
             pigeon = new Pigeon(RobotMap.PIGEON_ID);
@@ -88,15 +93,18 @@ public class Robot extends TimedRobot {
         }
 
         shooter = new Shooter();
+//        shooter.setDefaultCommand(new ShooterAngle());
         indexer = new Indexer();
-        indexer.setDefaultCommand(new IndexerDefault());
+//        indexer.setDefaultCommand(new IndexerDefault());
         collector = new Collector();
-        collector.setDefaultCommand(new CollectorDefault());
+//        collector.setDefaultCommand(new CollectorDefault());
 
         ui = new UI();
         uiSmartDashboard = new UiSmartDashboard();
 
         oi = new OI();
+
+        DriverStation.silenceJoystickConnectionWarning(true);
     }
 
     /**
@@ -114,7 +122,6 @@ public class Robot extends TimedRobot {
         // block in order for anything in the Command-based framework to work.
         CommandScheduler.getInstance().run();
         uiSmartDashboard.updateUI();
-        chosenDelay = uiSmartDashboard.delayChooser.getSelected();
     }
 
     /** This function is called once each time the robot enters Disabled mode. */
@@ -127,6 +134,8 @@ public class Robot extends TimedRobot {
     /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */
     @Override
     public void autonomousInit() {
+        chosenDelay = uiSmartDashboard.delayChooser.getSelected();
+
         // schedule the autonomous command (example)
         if (autonomousCommand != null) {
             autonomousCommand.schedule();

@@ -6,7 +6,7 @@ import team.gif.robot.Robot;
 public class CollectorManualControl extends Command {
     public CollectorManualControl() {
         super();
-        //addRequirements(Robot.climber); // uncomment
+        addRequirements(Robot.collector); // uncomment
     }
 
     // Called when the command is initially scheduled.

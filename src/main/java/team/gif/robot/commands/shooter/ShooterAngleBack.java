@@ -1,13 +1,13 @@
-package team.gif.robot.commands.collector;
+package team.gif.robot.commands.shooter;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import team.gif.robot.Constants;
 import team.gif.robot.Robot;
 
-public class CollectorDefault extends Command {
-    public CollectorDefault() {
+public class ShooterAngleBack extends Command {
+    public ShooterAngleBack() {
         super();
-        addRequirements(Robot.collector);
-        //addRequirements(Robot.climber); // uncomment
+        addRequirements(Robot.shooter); // uncomment
     }
 
     // Called when the command is initially scheduled.
@@ -17,10 +17,10 @@ public class CollectorDefault extends Command {
     // Called every time the scheduler runs (~20ms) while the command is scheduled
     @Override
     public void execute() {
-        if (Robot.indexer.getSensorState()) {
-            Robot.collector.eject();
+        if (Robot.shooter.getPosition() > Constants.Shooter.MIN_LIMIT) {
+            Robot.shooter.setAnglePercent(-1);
         } else {
-            Robot.collector.collect();
+            Robot.shooter.setAnglePercent(0);
         }
     }
 
@@ -33,6 +33,6 @@ public class CollectorDefault extends Command {
     // Called when the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
-        Robot.collector.stop();
+        Robot.shooter.setAnglePercent(0);
     }
 }

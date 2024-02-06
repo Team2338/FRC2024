@@ -37,49 +37,49 @@ public class SwerveDrivetrain extends SubsystemBase {
         super();
 
         fL = new SwerveModuleMK4 (
-                RobotMap.FRONT_LEFT_DRIVE_MOTOR_PORT,
+                RobotMap.FRONT_LEFT_DRIVE_MOTOR_ID,
                 RobotMap.FRONT_LEFT_TURNING_MOTOR_PORT,
                 true,
                 true,
                 false,
                 Constants.Drivetrain.FRONT_LEFT_OFFSET,
-                RobotMap.FRONT_LEFT_CANCODER,
+                RobotMap.FRONT_LEFT_CANCODER_ID,
                 Constants.ModuleConstants.DrivetrainPID.frontLeftFF,
                 Constants.ModuleConstants.DrivetrainPID.frontLeftP
         );
 
         fR = new SwerveModuleMK4 (
-                RobotMap.FRONT_RIGHT_DRIVE_MOTOR_PORT,
+                RobotMap.FRONT_RIGHT_DRIVE_MOTOR_ID,
                 RobotMap.FRONT_RIGHT_TURNING_MOTOR_PORT,
                 true,
                 true,
                 false,
                 Constants.Drivetrain.FRONT_RIGHT_OFFSET,
-                RobotMap.FRONT_RIGHT_CANCODER,
+                RobotMap.FRONT_RIGHT_CANCODER_ID,
                 Constants.ModuleConstants.DrivetrainPID.frontRightFF,
                 Constants.ModuleConstants.DrivetrainPID.frontRightP
         );
 
         rR = new SwerveModuleMK4 (
-                RobotMap.REAR_RIGHT_DRIVE_MOTOR_PORT,
+                RobotMap.REAR_RIGHT_DRIVE_MOTOR_ID,
                 RobotMap.REAR_RIGHT_TURNING_MOTOR_PORT,
                 true,
                 true,
                 false,
                 Constants.Drivetrain.REAR_RIGHT_OFFSET,
-                RobotMap.REAR_RIGHT_CANCODER,
+                RobotMap.REAR_RIGHT_CANCODER_ID,
                 Constants.ModuleConstants.DrivetrainPID.rearRightFF,
                 Constants.ModuleConstants.DrivetrainPID.rearRightP
         );
 
         rL = new SwerveModuleMK4 (
-                RobotMap.REAR_LEFT_DRIVE_MOTOR_PORT,
+                RobotMap.REAR_LEFT_DRIVE_MOTOR_ID,
                 RobotMap.REAR_LEFT_TURNING_MOTOR_PORT,
                 true,
                 true,
                 false,
                 Constants.Drivetrain.REAR_LEFT_OFFSET,
-                RobotMap.REAR_LEFT_CANCODER,
+                RobotMap.REAR_LEFT_CANCODER_ID,
                 Constants.ModuleConstants.DrivetrainPID.rearLeftFF,
                 Constants.ModuleConstants.DrivetrainPID.rearLeftP
         );
