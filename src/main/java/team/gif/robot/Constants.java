@@ -9,6 +9,8 @@ import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.math.util.Units;
 
+import javax.swing.plaf.PanelUI;
+
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
  * constants. This class should not be used for any other purpose. All constants should be declared
@@ -264,10 +266,16 @@ public final class Constants {
 
     public static final class Shooter {
         public static final double REV = 1.0;
-        public static final int REV_RPM = 5800; //max testing on pbot neo got to 5800 RPM
-        public static final double FF = 0.000170;
-        public static final double kP = 0.000032;
+        public static final int REV_RPM = 5200; //max testing on pbot neo got to 5800 RPM
+        public static final double FF = 0.000190;
+        public static final double kP = 0.000028;
         public static final double kI = 0.00000008;
+        public static final double MIN_LIMIT = 0.15;//0.010;
+        public static final double MAX_LIMIT = 0.95;//0.95;
+        public static final double TICKS_PER_DEGREE = 0.008333;
+//        public static final double MIN_LIMIT_DEGREES = MID_LIMIT;
+        public static final double STARTING_LINE_POS = 0.215;
+        public static final double STAGE_LINE_POS = 0.284;
         public static final double ANGLE_kP = 0.0000;
         public static final double ANGLE_FF = 0.0000;
 //        public static final double kI =

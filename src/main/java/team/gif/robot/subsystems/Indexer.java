@@ -15,24 +15,24 @@ import team.gif.robot.RobotMap;
 public class Indexer extends SubsystemBase {
     public static TalonSRX stageOne;
     public static CANSparkMax stageTwo;
-    public static SparkPIDController pidControllerStage;
+    public static SparkPIDController pidControllerStage2;
 
     public static DigitalInput stageSensor;
 
     public boolean indexerManualFlag = false;
 
     public Indexer() {
-        stageOne = new TalonSRX(RobotMap.STAGE_ONE);
+        stageOne = new TalonSRX(RobotMap.STAGE_ONE_ID);
         stageOne.configFactoryDefault();
         stageOne.setNeutralMode(NeutralMode.Brake);
 
-        stageTwo = new CANSparkMax(RobotMap.STAGE_TWO, CANSparkLowLevel.MotorType.kBrushless);
+        stageTwo = new CANSparkMax(RobotMap.STAGE_TWO_ID, CANSparkLowLevel.MotorType.kBrushless);
         stageTwo.restoreFactoryDefaults();
         stageTwo.setIdleMode(CANSparkBase.IdleMode.kBrake);
 
-        pidControllerStage = stageTwo.getPIDController();
-        pidControllerStage.setFF(Constants.Indexer.S2_FF);
-        pidControllerStage.setP(Constants.Indexer.S2_kP);
+        pidControllerStage2 = stageTwo.getPIDController();
+        pidControllerStage2.setFF(Constants.Indexer.S2_FF);
+        pidControllerStage2.setP(Constants.Indexer.S2_kP);
 
         stageSensor = new DigitalInput(RobotMap.SENSOR_INDEXER_PORT);
     }

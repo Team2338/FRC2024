@@ -45,7 +45,8 @@ public class Robot extends TimedRobot {
     public static boolean runningAutonomousMode;
     public static SwerveDrivetrainMK3 practiceDrivetrain;
     public static Pigeon pigeon;
-    public static Limelight limelight;
+    public static Limelight limelightShooter;
+    public static Limelight limelightCollector;
     public static OI oi;
     public static UI ui;
     public static SwerveDrivetrain swerveDrivetrain = null;
@@ -75,7 +76,8 @@ public class Robot extends TimedRobot {
         elapsedTime = new Timer();
         robotContainer = new RobotContainer();
 
-        limelight = new Limelight();
+        limelightShooter = new Limelight("limelight-shooter");
+        limelightCollector = new Limelight("limelight-collect");
 
         if (isCompBot) {
             pigeon = new Pigeon(RobotMap.PIGEON_ID);
@@ -120,7 +122,6 @@ public class Robot extends TimedRobot {
         // block in order for anything in the Command-based framework to work.
         CommandScheduler.getInstance().run();
         uiSmartDashboard.updateUI();
-        chosenDelay = uiSmartDashboard.delayChooser.getSelected();
     }
 
     /** This function is called once each time the robot enters Disabled mode. */
@@ -133,6 +134,8 @@ public class Robot extends TimedRobot {
     /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */
     @Override
     public void autonomousInit() {
+        chosenDelay = uiSmartDashboard.delayChooser.getSelected();
+
         // schedule the autonomous command (example)
         if (autonomousCommand != null) {
             autonomousCommand.schedule();

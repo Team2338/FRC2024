@@ -1,6 +1,7 @@
 package team.gif.robot.commands.shooter;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import team.gif.robot.Constants;
 import team.gif.robot.Robot;
 
 public class ShooterAngleBack extends Command {
@@ -16,7 +17,11 @@ public class ShooterAngleBack extends Command {
     // Called every time the scheduler runs (~20ms) while the command is scheduled
     @Override
     public void execute() {
-        Robot.shooter.setAnglePercent(-.3);
+        if (Robot.shooter.getPosition() > Constants.Shooter.MIN_LIMIT) {
+            Robot.shooter.setAnglePercent(-1);
+        } else {
+            Robot.shooter.setAnglePercent(0);
+        }
     }
 
     // Return true when the command should end, false if it should continue. Runs every ~20ms.
