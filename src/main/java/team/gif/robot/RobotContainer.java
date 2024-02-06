@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import team.gif.lib.autoMode;
 import team.gif.robot.commands.autos.CircleAuto;
 import team.gif.robot.commands.autos.Mobility;
+import team.gif.robot.commands.autos.NoAuto;
 
 import java.util.HashMap;
 
@@ -46,8 +47,9 @@ public class RobotContainer {
     }
 
     private void buildAutoCommands(){
-        autoCommands.put(autoMode.NONE, AutoBuilder.followPath(PathPlannerPath.fromPathFile("Circle Path")));
-        autoCommands.put(autoMode.MOBILITY,new Mobility());
+        autoCommands.put(autoMode.NONE, new NoAuto());
+        autoCommands.put(autoMode.CIRCLE, AutoBuilder.followPath(PathPlannerPath.fromPathFile("Circle Path")));
+        autoCommands.put(autoMode.MOBILITY, new Mobility());
     }
 
     /**
@@ -65,7 +67,6 @@ public class RobotContainer {
         return autonomousCommand;
 //        PathPlannerPath path= PathPlannerPath.fromPathFile("Circle Path");
 
-        //return new PathPlannerAuto("Mobility");
-//        return AutoBuilder.followPath(path);
+ //       return AutoBuilder.followPath(path);
     }
 }

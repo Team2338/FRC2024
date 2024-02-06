@@ -114,9 +114,8 @@ public class Robot extends TimedRobot {
         oi = new OI();
         runningAutonomousMode = false;
 
-//        swerveDrivetrain.resetOdometry(new Pose2d(new Translation2d(2.05, 6.77), pigeon.getRotation2d()));
-
-        DriverStation.silenceJoystickConnectionWarning(true);
+        // TODO change - this is to offset the starting position of the auto
+        swerveDrivetrain.resetOdometry(new Pose2d(new Translation2d(2.05, 6.77), pigeon.getRotation2d()));
     }
 
     /**
@@ -134,8 +133,6 @@ public class Robot extends TimedRobot {
         // block in order for anything in the Command-based framework to work.
         CommandScheduler.getInstance().run();
         uiSmartDashboard.updateUI();
-        chosenAuto = uiSmartDashboard.autoModeChooser.getSelected();
-        chosenDelay = uiSmartDashboard.delayChooser.getSelected();
     }
 
     /** This function is called once each time the robot enters Disabled mode. */
@@ -148,12 +145,13 @@ public class Robot extends TimedRobot {
     /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */
     @Override
     public void autonomousInit() {
+        runningAutonomousMode = true;
+
+        chosenAuto = uiSmartDashboard.autoModeChooser.getSelected();
         chosenDelay = uiSmartDashboard.delayChooser.getSelected();
 
-        // schedule the autonomous command (example)
-        if (autonomousCommand != null) {
-            autonomousCommand.schedule();
-        }
+        autonomousCommand = robotContainer.getAutonomousCommand(chosenAuto);
+
         elapsedTime.reset();
         elapsedTime.start();
         runAutoScheduler = true;
@@ -181,7 +179,6 @@ public class Robot extends TimedRobot {
             autonomousCommand.cancel();
         }
         runningAutonomousMode = false;
-
     }
 
     /** This function is called periodically during operator control. */
