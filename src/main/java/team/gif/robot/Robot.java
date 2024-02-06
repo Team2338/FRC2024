@@ -82,7 +82,6 @@ public class Robot extends TimedRobot {
         // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
         // autonomous chooser on the dashboard.
         elapsedTime = new Timer();
-        robotContainer = new RobotContainer();
 
         limelightShooter = new Limelight("limelight-shooter");
         limelightCollector = new Limelight("limelight-collect");
@@ -99,6 +98,8 @@ public class Robot extends TimedRobot {
             practiceDrivetrain.setDefaultCommand(new DrivePracticeSwerve());
             practiceDrivetrain.enableShuffleboardDebug("FRC2024");
         }
+
+        robotContainer = new RobotContainer();
 
         shooter = new Shooter();
 //        shooter.setDefaultCommand(new ShooterAngle());

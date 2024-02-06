@@ -46,7 +46,7 @@ public class RobotContainer {
     }
 
     private void buildAutoCommands(){
-//        autoCommands.put(autoMode.NONE, AutoBuilder.followPath(PathPlannerPath.fromPathFile("Circle Path")));
+        autoCommands.put(autoMode.NONE, AutoBuilder.followPath(PathPlannerPath.fromPathFile("Circle Path")));
         autoCommands.put(autoMode.MOBILITY,new Mobility());
     }
 
