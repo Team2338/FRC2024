@@ -42,6 +42,11 @@ public class Indexer extends SubsystemBase {
         stageTwo.set(stageTwoPercent);
     }
 
+    public void stopIndexer() {
+        stageOne.set(ControlMode.PercentOutput,0);
+        stageTwo.set(0);
+    }
+
     public boolean getSensorState() {
         return stageSensor.get();
     }

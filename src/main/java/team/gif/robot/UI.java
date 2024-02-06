@@ -18,7 +18,7 @@ public class UI {
         SmartDashboard.putData("Reset", new Reset0());
         SmartDashboard.putData("Reset 180", new Reset180());
 
-        shuffleboardTab.addBoolean("Collector Sensor", Robot.collector::getSensor);
+        shuffleboardTab.addBoolean("Collector Sensor", Robot.collector::getSensorState);
         shuffleboardTab.addBoolean("Indexer Sensor", Robot.indexer::getSensorState);
 
         shuffleboardTab.addBoolean("Manual Control", Robot.collector::getCollectorManualControl);

@@ -22,7 +22,7 @@ public class IndexerDefault extends Command {
     // Called every time the scheduler runs (~20ms) while the command is scheduled
     @Override
     public void execute() {
-        if (Robot.collector.getSensor()) {
+        if (Robot.collector.getSensorState()) {
             noteDetected = true;
         }
 

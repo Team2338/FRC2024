@@ -35,7 +35,7 @@ public class Collector extends SubsystemBase {
         collector.set(ControlMode.PercentOutput, 0);
     }
 
-    public boolean getSensor() {
+    public boolean getSensorState() {
         return sensor.get();
     }
 
