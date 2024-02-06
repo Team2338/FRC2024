@@ -18,9 +18,19 @@ import team.gif.lib.logging.EventFileLogger;
 import team.gif.lib.logging.TelemetryFileLogger;
 import team.gif.robot.commands.autos.CircleAuto;
 import team.gif.robot.commands.drivetrain.DriveSwerve;
+import team.gif.robot.commands.shooter.ShooterAngle;
 import team.gif.robot.subsystems.SwerveDrivetrain;
+import team.gif.robot.commands.collector.CollectorDefault;
+import team.gif.robot.commands.indexer.IndexerDefault;
+import team.gif.robot.subsystems.Collector;
+import team.gif.robot.subsystems.Indexer;
+import team.gif.robot.subsystems.Shooter;
+import team.gif.robot.subsystems.SwerveDrivetrainMK3;
 import team.gif.robot.subsystems.drivers.Limelight;
 import team.gif.robot.subsystems.drivers.Pigeon;
+import team.gif.robot.commands.drivetrainPbot.DrivePracticeSwerve;
+
+import java.sql.Driver;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -39,15 +49,21 @@ public class Robot extends TimedRobot {
     private Timer elapsedTime;
     private boolean runAutoScheduler;
     public static boolean runningAutonomousMode; // used for other methods to know if robot is in automode
+    public static SwerveDrivetrainMK3 practiceDrivetrain;
     public static Pigeon pigeon;
-    public static Limelight limelight;
+    public static Limelight limelightShooter;
+    public static Limelight limelightCollector;
     public static OI oi;
     public static UI ui;
     public static SwerveDrivetrain swerveDrivetrain = null;
     public static DriveSwerve driveSwerve;
     private static TelemetryFileLogger telemetryLogger;
     public static EventFileLogger eventLogger;
-    public static boolean isCompBot = true;
+    public static Shooter shooter;
+    public static Indexer indexer;
+    public static Collector collector;
+
+    public static boolean isCompBot = true; //includes 2023 bot
 
     //https://github.com/mjansen4857/pathplanner/tree/main/examples/java/src/main/java/frc/robot
 
@@ -68,14 +84,28 @@ public class Robot extends TimedRobot {
         elapsedTime = new Timer();
         robotContainer = new RobotContainer();
 
-        pigeon = new Pigeon(42);
+        limelightShooter = new Limelight("limelight-shooter");
+        limelightCollector = new Limelight("limelight-collect");
 
-        swerveDrivetrain = new SwerveDrivetrain(telemetryLogger);
-        driveSwerve = new DriveSwerve();
-        swerveDrivetrain.setDefaultCommand(driveSwerve);
-        swerveDrivetrain.resetHeading();
+        if (isCompBot) {
+            pigeon = new Pigeon(RobotMap.PIGEON_ID);
+            swerveDrivetrain = new SwerveDrivetrain(telemetryLogger);
+            driveSwerve = new DriveSwerve();
+            swerveDrivetrain.setDefaultCommand(driveSwerve);
+            swerveDrivetrain.resetHeading();
+        } else {
+            pigeon = new Pigeon(RobotMap.PIGEON_PBOT_ID);
+            practiceDrivetrain = new SwerveDrivetrainMK3();
+            practiceDrivetrain.setDefaultCommand(new DrivePracticeSwerve());
+            practiceDrivetrain.enableShuffleboardDebug("FRC2024");
+        }
 
-        limelight = new Limelight();
+        shooter = new Shooter();
+//        shooter.setDefaultCommand(new ShooterAngle());
+        indexer = new Indexer();
+//        indexer.setDefaultCommand(new IndexerDefault());
+        collector = new Collector();
+//        collector.setDefaultCommand(new CollectorDefault());
 
         ui = new UI();
         uiSmartDashboard = new UiSmartDashboard();
@@ -85,6 +115,7 @@ public class Robot extends TimedRobot {
 
         swerveDrivetrain.resetOdometry(new Pose2d(new Translation2d(2.05, 6.77), pigeon.getRotation2d()));
 
+        DriverStation.silenceJoystickConnectionWarning(true);
     }
 
     /**
@@ -116,11 +147,12 @@ public class Robot extends TimedRobot {
     /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */
     @Override
     public void autonomousInit() {
+        chosenDelay = uiSmartDashboard.delayChooser.getSelected();
 
-        runningAutonomousMode = true;
-
-        autonomousCommand = robotContainer.getAutonomousCommand(chosenAuto);
-
+        // schedule the autonomous command (example)
+        if (autonomousCommand != null) {
+            autonomousCommand.schedule();
+        }
         elapsedTime.reset();
         elapsedTime.start();
         runAutoScheduler = true;

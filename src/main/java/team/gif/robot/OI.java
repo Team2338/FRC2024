@@ -4,12 +4,21 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import team.gif.robot.commands.collector.CollectorManualControl;
 import team.gif.robot.commands.driveModes.EnableBoost;
 import team.gif.robot.commands.drivetrain.MoveAwaySlow;
 import team.gif.robot.commands.drivetrain.MoveCloserSlow;
 import team.gif.robot.commands.drivetrain.MoveLeftSlow;
 import team.gif.robot.commands.drivetrain.MoveRightSlow;
 import team.gif.robot.commands.drivetrain.Reset0;
+import team.gif.robot.commands.drivetrainPbot.ResetWheelsPbot;
+import team.gif.robot.commands.indexer.FullIndexerReverse;
+import team.gif.robot.commands.indexer.IndexerManualControl;
+import team.gif.robot.commands.shooter.RevFlyWheels;
+import team.gif.robot.commands.shooter.Shoot;
+import team.gif.robot.commands.shooter.ShooterAngle;
+import team.gif.robot.commands.shooter.ShooterAngleBack;
+import team.gif.robot.commands.toggleManualControl.ToggleManualControl;
 
 public class OI {
     /*
@@ -96,14 +105,37 @@ public class OI {
         *   aX.onTrue(new PrintCommand("aX"));
         */
 
-        dDPadUp.whileTrue(new MoveAwaySlow());
-        dDPadRight.whileTrue(new MoveRightSlow());
-        dDPadLeft.whileTrue(new MoveLeftSlow());
-        dDPadDown.whileTrue(new MoveCloserSlow());
-        dLStickBtn.whileTrue(new EnableBoost());
+        // MK4 (2023 bot)
+        if (Robot.isCompBot) {
+            dDPadUp.whileTrue(new MoveAwaySlow());
+            dDPadRight.whileTrue(new MoveRightSlow());
+            dDPadLeft.whileTrue(new MoveLeftSlow());
+            dDPadDown.whileTrue(new MoveCloserSlow());
+            dLStickBtn.whileTrue(new EnableBoost());
+        }
 
+        // MK3 Swerve
         dA.whileTrue(new Reset0());
+//        dA.whileTrue(new ResetWheelsPbot());
+
+//        aA.whileTrue(new CollectorDefault());
+
+//        aDPadUp.whileTrue(new IndexerDefault());
+
+        aStart.whileTrue(new FullIndexerReverse());
+
+        // manual control
+        aBack.toggleOnTrue(new ToggleManualControl());
+        aDPadUp.whileTrue(new IndexerManualControl());
+        aA.whileTrue(new CollectorManualControl());
+
+        //shooter
+        aRTrigger.whileTrue(new RevFlyWheels());
+        aLBump.whileTrue(new Shoot());
+        aX.whileTrue(new ShooterAngle());
+        aB.whileTrue(new ShooterAngleBack());
     }
+
     public void setRumble(boolean rumble){
         driver.getHID().setRumble(GenericHID.RumbleType.kLeftRumble, rumble ? 1.0 : 0.0);
         driver.getHID().setRumble(GenericHID.RumbleType.kRightRumble, rumble ? 1.0 : 0.0);
