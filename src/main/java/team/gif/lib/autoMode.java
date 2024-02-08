@@ -3,7 +3,8 @@ package team.gif.lib;
 public enum autoMode {
     NONE(0),
     MOBILITY(0),
-    CIRCLE(0)
+    CIRCLE(0),
+    CTR_C(0)
     ;
 
     private int value;

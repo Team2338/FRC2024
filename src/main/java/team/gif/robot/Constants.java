@@ -280,10 +280,10 @@ public final class Constants {
     }
 
     public static final class Indexer {
-        public static final double STAGE_ONE = .6;//1.0;
-        public static final double STAGE_TWO = 1;//1.0;
-        public static final double STAGE_TWO_FF = 0.0000;
-        public static final double STAGE_TWO_kP = 0.0000;
+        public static final double STAGE_COLLECTOR_PERC = .6;//1.0;
+        public static final double STAGE_SHOOTER_PERC = 1;//1.0;
+        public static final double STAGE_SHOOTER_FF = 0.0000;
+        public static final double STAGE_SHOOTER_kP = 0.0000;
     }
 
     public static final class Collector {

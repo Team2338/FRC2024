@@ -99,7 +99,6 @@ public class Robot extends TimedRobot {
             practiceDrivetrain.enableShuffleboardDebug("FRC2024");
         }
 
-        robotContainer = new RobotContainer();
 
         shooter = new Shooter();
 //        shooter.setDefaultCommand(new ShooterAngle());
@@ -108,14 +107,14 @@ public class Robot extends TimedRobot {
         collector = new Collector();
 //        collector.setDefaultCommand(new CollectorDefault());
 
+        robotContainer = new RobotContainer();
+
         ui = new UI();
         uiSmartDashboard = new UiSmartDashboard();
 
         oi = new OI();
         runningAutonomousMode = false;
 
-        // TODO change - this is to offset the starting position of the auto
-        swerveDrivetrain.resetOdometry(new Pose2d(new Translation2d(2.05, 6.77), pigeon.getRotation2d()));
     }
 
     /**
@@ -155,6 +154,10 @@ public class Robot extends TimedRobot {
         elapsedTime.reset();
         elapsedTime.start();
         runAutoScheduler = true;
+
+
+        // TODO change - this is to offset the starting position of the auto
+        swerveDrivetrain.resetOdometry(new Pose2d(new Translation2d(1.27, 5.54), pigeon.getRotation2d()));
     }
 
     /** This function is called periodically during autonomous. */

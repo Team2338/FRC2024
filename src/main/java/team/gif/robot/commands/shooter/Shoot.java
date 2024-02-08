@@ -18,7 +18,7 @@ public class Shoot extends Command {
     @Override
     public void execute() {
         if (Robot.shooter.getShooterRPM() >= (Constants.Shooter.REV_RPM - 200.0)) { //allow tolerance
-            Robot.indexer.setIndexer(0, Constants.Indexer.STAGE_TWO);
+            Robot.indexer.setIndexer(0, Constants.Indexer.STAGE_SHOOTER_PERC);
         }
     }
 

@@ -5,14 +5,15 @@
 package team.gif.robot;
 
 import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.auto.NamedCommands;
 import com.pathplanner.lib.commands.PathPlannerAuto;
 import com.pathplanner.lib.path.PathPlannerPath;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import team.gif.lib.autoMode;
-import team.gif.robot.commands.autos.CircleAuto;
-import team.gif.robot.commands.autos.Mobility;
+import team.gif.robot.commands.AutonRevFlywheel;
+import team.gif.robot.commands.AutonShoot;
 import team.gif.robot.commands.autos.NoAuto;
 
 import java.util.HashMap;
@@ -29,6 +30,9 @@ public class RobotContainer {
 
     /** The container for the robot. Contains subsystems, OI devices, and commands. */
     public RobotContainer() {
+        NamedCommands.registerCommand("AutonShoot", new AutonShoot());
+        NamedCommands.registerCommand("AutonRevFlywheel", new AutonRevFlywheel());
+
         // Configure the trigger bindings
         configureBindings();
         buildAutoCommands();
@@ -49,7 +53,8 @@ public class RobotContainer {
     private void buildAutoCommands(){
         autoCommands.put(autoMode.NONE, new NoAuto());
         autoCommands.put(autoMode.CIRCLE, AutoBuilder.followPath(PathPlannerPath.fromPathFile("Circle Path")));
-        autoCommands.put(autoMode.MOBILITY, new Mobility());
+        autoCommands.put(autoMode.MOBILITY, AutoBuilder.followPath(PathPlannerPath.fromPathFile("Mobility")));
+        autoCommands.put(autoMode.CTR_C, new PathPlannerAuto("CTR-C"));
     }
 
     /**
