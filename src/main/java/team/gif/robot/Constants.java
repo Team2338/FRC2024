@@ -268,9 +268,12 @@ public final class Constants {
         public static final double FF = 0.000190;
         public static final double kP = 0.000028;
         public static final double kI = 0.00000008;
-        public static final double MIN_LIMIT = 0.15;//0.010;
-        public static final double MAX_LIMIT = 0.95;//0.95;
-        public static final double TICKS_PER_DEGREE = 0.008333;
+        public static final double HARD_STOP_ABSOLUTE = 0.10; // value of encoder at lower limit hard stop;
+        public static final double MIN_LIMIT_ABSOLUTE = 0.15; // lowest value of encoder we want to allow, needs to be > HARD_STOP
+        public static final double MAX_LIMIT_ABSOLUTE = 0.95; // largest value of encoder we want to allow, needs to be < 1.0
+        public static final double ABSOLUTE_PER_DEGREE = 0.008333;
+        public static final double MIN_LIMIT_DEGREES = 42.0; // this is determined during manual calibration, not auto calibration
+        public static final double ENCODER_OFFSET_ABSOLUTE = -0.37; // this is determined either manually or via the auto-calibration
 //        public static final double MIN_LIMIT_DEGREES = MID_LIMIT;
         public static final double STARTING_LINE_POS = 0.215;
         public static final double STAGE_LINE_POS = 0.284;

@@ -17,10 +17,10 @@ public class ShooterAngleBack extends Command {
     // Called every time the scheduler runs (~20ms) while the command is scheduled
     @Override
     public void execute() {
-        if (Robot.shooter.getPosition() > Constants.Shooter.MIN_LIMIT) {
-            Robot.shooter.setAnglePercent(-1);
+        if (Robot.shooter.getPosition() > Constants.Shooter.MIN_LIMIT_ABSOLUTE) {
+            Robot.shooter.moveAnglePercentPower(-1);
         } else {
-            Robot.shooter.setAnglePercent(0);
+            Robot.shooter.moveAnglePercentPower(0);
         }
     }
 
@@ -33,6 +33,6 @@ public class ShooterAngleBack extends Command {
     // Called when the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
-        Robot.shooter.setAnglePercent(0);
+        Robot.shooter.moveAnglePercentPower(0);
     }
 }

@@ -11,6 +11,7 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.SparkPIDController;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import team.gif.robot.Constants;
+import team.gif.robot.Robot;
 import team.gif.robot.RobotMap;
 
 public class Shooter extends SubsystemBase {
@@ -45,10 +46,16 @@ public class Shooter extends SubsystemBase {
         pidShooterAngle.setFF(Constants.Shooter.ANGLE_FF);
 
         angleEncoder = new CANcoder(RobotMap.SHOOTER_ANGLE_ENCODER_ID);
-        MagnetSensorConfigs magSensorConfig = new MagnetSensorConfigs().withAbsoluteSensorRange(AbsoluteSensorRangeValue.Unsigned_0To1);
-        magSensorConfig.withMagnetOffset(-.37);
-        magSensorConfig.withSensorDirection(SensorDirectionValue.Clockwise_Positive);
+        MagnetSensorConfigs magSensorConfig = new MagnetSensorConfigs()
+            .withAbsoluteSensorRange(AbsoluteSensorRangeValue.Unsigned_0To1)
+            .withMagnetOffset(Constants.Shooter.ENCODER_OFFSET_ABSOLUTE)
+            .withSensorDirection(SensorDirectionValue.Clockwise_Positive);
         angleEncoder.getConfigurator().apply(new CANcoderConfiguration().withMagnetSensor(magSensorConfig));
+
+        if( Constants.Shooter.MIN_LIMIT_ABSOLUTE < Constants.Shooter.HARD_STOP_ABSOLUTE){
+            System.out.println(" MIN_LIMIT is < HARD_STOP. Check constants file!");
+            Robot.collector.collect(); // this should throw an exception. see line above :)
+        }
     }
 
     public void setVoltage(double volt) {
@@ -73,8 +80,14 @@ public class Shooter extends SubsystemBase {
         return String.format("%12.0f", getShooterRPM());
     }
 
-    // Angling
-    public void setAnglePercent(double percent) {
+    /**
+     * Rotates shooter <br>
+     * positive (+) value is clockwise (shoots lower)<br>
+     * negative (-) value is counterclockwise (shoots higher)
+     *
+     * @param percent  The percentage of motor power
+     */
+    public void moveAnglePercentPower(double percent) {
         shooterAngle.set(percent);
     }
 
@@ -85,4 +98,22 @@ public class Shooter extends SubsystemBase {
     public double getPosition(){
         return angleEncoder.getAbsolutePosition().getValueAsDouble();
     }
+
+    public void setZeroOffset(double offset) {
+        MagnetSensorConfigs magSensorConfig = new MagnetSensorConfigs()
+            .withMagnetOffset(offset);
+        angleEncoder.getConfigurator().apply(new CANcoderConfiguration().withMagnetSensor(magSensorConfig));
+    }
+
+    public boolean isStalling() {
+        return shooter.getFault(CANSparkBase.FaultID.kStall);
+    }
+
+    public double degreesToAbsolute(double degrees){
+        return (degrees - Constants.Shooter.MIN_LIMIT_DEGREES) * Constants.Shooter.ABSOLUTE_PER_DEGREE + Constants.Shooter.MIN_LIMIT_ABSOLUTE;
+    }
+    public double absoluteToDegrees(double absolute){
+        return ( (absolute - Constants.Shooter.MIN_LIMIT_ABSOLUTE)/ Constants.Shooter.ABSOLUTE_PER_DEGREE +  Constants.Shooter.MIN_LIMIT_DEGREES);
+    }
+
 }
