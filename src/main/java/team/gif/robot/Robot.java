@@ -92,7 +92,11 @@ public class Robot extends TimedRobot {
             practiceDrivetrain.enableShuffleboardDebug("FRC2024");
         }
 
-        shooter = new Shooter();
+        try {
+            shooter = new Shooter();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
 //        shooter.setDefaultCommand(new ShooterAngle());
         indexer = new Indexer();
 //        indexer.setDefaultCommand(new IndexerDefault());

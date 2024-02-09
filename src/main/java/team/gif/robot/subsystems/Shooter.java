@@ -22,7 +22,7 @@ public class Shooter extends SubsystemBase {
     public static SparkPIDController pidShooterAngle;
     public static CANcoder angleEncoder;
 
-    public Shooter() {
+    public Shooter() throws Exception {
         shooter = new CANSparkMax(RobotMap.SHOOTER_ID, CANSparkLowLevel.MotorType.kBrushless);
         shooter.restoreFactoryDefaults();
         shooter.setInverted(true);
@@ -52,10 +52,20 @@ public class Shooter extends SubsystemBase {
             .withSensorDirection(SensorDirectionValue.Clockwise_Positive);
         angleEncoder.getConfigurator().apply(new CANcoderConfiguration().withMagnetSensor(magSensorConfig));
 
-        if( Constants.Shooter.MIN_LIMIT_ABSOLUTE < Constants.Shooter.HARD_STOP_ABSOLUTE){
-            System.out.println(" MIN_LIMIT is < HARD_STOP. Check constants file!");
-            Robot.collector.collect(); // this should throw an exception. see line above :)
+        // try this first
+        if (Constants.Shooter.MIN_LIMIT_ABSOLUTE < Constants.Shooter.HARD_STOP_ABSOLUTE){
+            throw new Exception("Shooter MIN_LIMIT_ABSOLUTE needs to be greater than HARD_STOP_ABSOLUTE");
         }
+
+        // then try this - I don't know if this will stop the program
+//        try {
+//            if (Constants.Shooter.MIN_LIMIT_ABSOLUTE > Constants.Shooter.HARD_STOP_ABSOLUTE){
+//                throw new RuntimeException();
+//            }
+//        }
+//        catch(RuntimeException e) {
+//            System.out.println("Constants.Shooter.MIN_LIMIT_ABSOLUTE > Constants.Shooter.HARD_STOP_ABSOLUTE");
+//        }
     }
 
     public void setVoltage(double volt) {
