@@ -18,7 +18,7 @@ public class ShooterAngleBack extends Command {
     @Override
     public void execute() {
         if (Robot.shooter.getPosition() > Constants.Shooter.MIN_LIMIT) {
-            Robot.shooter.setAnglePercent(-1);
+            Robot.shooter.setAnglePercent(-.1);
         } else {
             Robot.shooter.setAnglePercent(0);
         }

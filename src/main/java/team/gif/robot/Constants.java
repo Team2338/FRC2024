@@ -264,7 +264,7 @@ public final class Constants {
 
     public static final class Shooter {
         public static final double REV = 1.0;
-        public static final int REV_RPM = 5100; // need to tune for comp, max testing on pbot neo got to 5800 RPM, 5120 on 2023
+        public static final int REV_RPM = 1000;//5100; // need to tune for comp, max testing on pbot neo got to 5800 RPM, 5120 on 2023
         public static final double FF = 0.000190;
         public static final double kP = 0.000028;
         public static final double kI = 0.00000008;

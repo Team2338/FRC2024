@@ -17,9 +17,9 @@ public class Shoot extends Command {
     // Called every time the scheduler runs (~20ms) while the command is scheduled
     @Override
     public void execute() {
-        if (Robot.shooter.getShooterRPM() >= (Constants.Shooter.REV_RPM - 200.0)) { //allow tolerance
-            Robot.indexer.setIndexer(0, Constants.Indexer.STAGE_SHOOTER_PERC);
-        }
+//        if (Robot.shooter.getShooterRPM() >= (Constants.Shooter.REV_RPM - 200.0)) { //allow tolerance
+            Robot.indexer.setIndexer(0, .4); //Constants.Indexer.STAGE_SHOOTER_PERC);
+//        }
     }
 
     // Return true when the command should end, false if it should continue. Runs every ~20ms.
