@@ -131,9 +131,9 @@ public class OI {
         //shooter
         aRTrigger.whileTrue(new RevFlyWheels());
         aLBump.whileTrue(new Shoot());
-        aX.whileTrue(new ShooterAngle());
-        aB.whileTrue(new ShooterAngleBack());
-        aY.onTrue(new CalibrateAngle());
+        aY.whileTrue(new ShooterAngle());
+        aX.whileTrue(new ShooterAngleBack());
+        aB.onTrue(new CalibrateAngle());
     }
 
     public void setRumble(boolean rumble){

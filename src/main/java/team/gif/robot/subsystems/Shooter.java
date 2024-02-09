@@ -100,8 +100,12 @@ public class Shooter extends SubsystemBase {
     }
 
     public void setZeroOffset(double offset) {
-        MagnetSensorConfigs magSensorConfig = new MagnetSensorConfigs()
-            .withMagnetOffset(offset);
+        MagnetSensorConfigs magSensorConfig = new MagnetSensorConfigs();
+
+        angleEncoder.getConfigurator().refresh(magSensorConfig);
+
+        magSensorConfig.withMagnetOffset(offset);
+
         angleEncoder.getConfigurator().apply(new CANcoderConfiguration().withMagnetSensor(magSensorConfig));
     }
 

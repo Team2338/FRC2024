@@ -24,25 +24,30 @@ public class ShooterAngleBack extends Command {
     // Called every time the scheduler runs (~20ms) while the command is scheduled
     @Override
     public void execute() {
-        double pos = Robot.shooter.getPosition();
+//        double pos = Robot.shooter.getPosition();
 
-        Robot.shooter.moveAnglePercentPower(-0.05);
+//-        if (Robot.shooter.getPosition() > Constants.Shooter.MIN_LIMIT_ABSOLUTE) {
+            Robot.shooter.moveAnglePercentPower(-0.025);
+//-        } else {
+//-            Robot.shooter.moveAnglePercentPower(0);
+//        }
 
-        System.out.println(Math.abs(prevPos - pos));
-        // if collector hasn't moved, increase stall count eventually indicating we are at hard limit
-        if (Math.abs(prevPos - pos) < (1.0 * 1 / 4096)) { // 3 = min ticks to check, 4096 is number of ticks in 1 rotation
-            stallCount++;
-            System.out.println("stall");
-        } else {
-            stallCount = 0;
-        }
-        if (stallCount == 2) {
-            System.out.println("shooter angle stalling");
-            Robot.shooter.moveAnglePercentPower(0);
-//        if (Robot.shooter.getPosition() > Constants.Shooter.MIN_LIMIT_ABSOLUTE) {
-        } else {
-        }
-        prevPos = pos;
+
+//        System.out.println("Delta: " + Math.abs(prevPos - pos));
+//        // if collector hasn't moved, increase stall count eventually indicating we are at hard limit
+//        if (Math.abs(prevPos - pos) < (1.0 * 1 / 4096)) { // 3 = min ticks to check, 4096 is number of ticks in 1 rotation
+//            stallCount++;
+//            System.out.println("stall");
+//        } else {
+//            stallCount = 0;
+//        }
+//        if (stallCount == 2) {
+//            System.out.println("shooter angle stalling");
+//            Robot.shooter.moveAnglePercentPower(0);
+////        if (Robot.shooter.getPosition() > Constants.Shooter.MIN_LIMIT_ABSOLUTE) {
+//        } else {
+//        }
+//        prevPos = pos;
     }
 
     // Return true when the command should end, false if it should continue. Runs every ~20ms.
