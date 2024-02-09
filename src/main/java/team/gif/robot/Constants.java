@@ -273,7 +273,7 @@ public final class Constants {
         public static final double MAX_LIMIT_ABSOLUTE = 0.95; // largest value of encoder we want to allow, needs to be < 1.0
         public static final double ABSOLUTE_PER_DEGREE = 0.008333;
         public static final double MIN_LIMIT_DEGREES = 42.0; // this is determined during manual calibration, not auto calibration
-        public static final double ENCODER_OFFSET_ABSOLUTE = -0.37; // this is determined either manually or via the auto-calibration
+        public static final double ENCODER_OFFSET_ABSOLUTE = -0.1895; // -0.37; // this is determined either manually or via the auto-calibration
 //        public static final double MIN_LIMIT_DEGREES = MID_LIMIT;
         public static final double STARTING_LINE_POS = 0.215;
         public static final double STAGE_LINE_POS = 0.284;

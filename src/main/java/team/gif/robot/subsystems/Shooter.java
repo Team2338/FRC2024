@@ -105,9 +105,9 @@ public class Shooter extends SubsystemBase {
         angleEncoder.getConfigurator().apply(new CANcoderConfiguration().withMagnetSensor(magSensorConfig));
     }
 
-    public boolean isStalling() {
-        return shooter.getFault(CANSparkBase.FaultID.kStall);
-    }
+//    public boolean isStalling() {
+//        return shooter.getFault(CANSparkBase.FaultID.kStall);
+//    }
 
     public double degreesToAbsolute(double degrees){
         return (degrees - Constants.Shooter.MIN_LIMIT_DEGREES) * Constants.Shooter.ABSOLUTE_PER_DEGREE + Constants.Shooter.MIN_LIMIT_ABSOLUTE;

@@ -20,9 +20,9 @@ public class ShooterAngle extends Command {
         double pos = Robot.shooter.getPosition();
         if (pos < Constants.Shooter.MAX_LIMIT_ABSOLUTE) {
             if (pos > Constants.Shooter.MAX_LIMIT_ABSOLUTE - .1) {
-                Robot.shooter.moveAnglePercentPower(.5);
+                Robot.shooter.moveAnglePercentPower(.1);
             } else {
-                Robot.shooter.moveAnglePercentPower(.4);
+                Robot.shooter.moveAnglePercentPower(.1);
             }
         }
         else {

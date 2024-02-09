@@ -39,6 +39,10 @@ public class CalibrateAngle extends Command {
         moveCount = 0;
         stallCount = 0;
         pauseCounter = 0;
+
+        // reset the zero offset to hard absolute
+        Robot.shooter.setZeroOffset(0);
+
         printStatus("********************************");
         printStatus("Calibration Started");
         printStatus("Moving to lower hard limit ...");
@@ -57,15 +61,14 @@ public class CalibrateAngle extends Command {
         //
         if (testingStage == test.CLOCKWISE_ROTATION) {
             Robot.shooter.moveAnglePercentPower(0.1);
-//            if (Math.abs(prevPos - pos) < (3.0 * 1 / 4096)) { // Allows for range of 3 ticks to check, 4096 is number of ticks in 1 rotation
-//                stallCount++;                     // the 3 may be too small. need to check how much drift and jitter in encoder
-//            } else {
-//                stallCount = 0;
-//                moveCount++;
-//            }
+            if (Math.abs(prevPos - pos) < (1.0 * 1 / 4096)) { // Allows for range of 3 ticks to check, 4096 is number of ticks in 1 rotation
+                stallCount++;
+            } else {
+                stallCount = 0;
+                moveCount++;
+            }
 
-            if (Robot.shooter.isStalling()) {
-//            if (stallCount == 2) {
+            if (stallCount == 4) {
                 // The shooter should be able to move, so we
                 // should never enter this loop. Indicates the
                 // shooter is stuck.
@@ -74,7 +77,7 @@ public class CalibrateAngle extends Command {
                 System.out.println(" **************************************" + nl +
                                    " **   Error: Unable to calibrate!!   **" + nl +
                                    " ** The shooter appears to be stuck  **" + nl +
-                                   " **      during clockwise test       **" + nl +
+                                   " **     during clockwise test        **" + nl +
                                    " **                                  **" + nl +
                                    " **      Calibration aborted         **" + nl +
                                    " **************************************");
@@ -82,12 +85,13 @@ public class CalibrateAngle extends Command {
             } else {
                 moveCount++;
 
-                if (moveCount >= 0.5 * 50) { // rotate for 0.5 seconds
+                if (moveCount >= 3.0 * 50) { // rotate for 0.5 seconds
                     // The shooter has been able to move continuously
                     // Move to next step
                     Robot.shooter.moveAnglePercentPower(0);
                     printStatus("Clockwise Test passed");
                     testingStage = test.SET_ZERO;
+                    stallCount = 0;
                 }
             }
         }
@@ -98,22 +102,22 @@ public class CalibrateAngle extends Command {
         // motor stalls
         //
         if (testingStage == test.LOWER_LIMIT) {
-            Robot.shooter.moveAnglePercentPower(-0.1); // turn counterclockwise very slowly
+            Robot.shooter.moveAnglePercentPower(-0.05); // turn counterclockwise very slowly
 
-//            // if collector hasn't moved, increase stall count eventually indicating we are at hard limit
-//            if (Math.abs(prevPos - pos) < (3.0 * 1 / 4096)) { // 3 = min ticks to check, 4096 is number of ticks in 1 rotation
-//                stallCount++;
-//            } else {
-//                stallCount = 0;
-//            }
-//            if (stallCount == 2) {
-            if (Robot.shooter.isStalling()) {
+            System.out.println(prevPos - pos);
+            // if collector hasn't moved, increase stall count eventually indicating we are at hard limit
+            if (Math.abs(prevPos - pos) < (2.0 * 1 / 4096)) { // 3 = min ticks to check, 4096 is number of ticks in 1 rotation
+                stallCount++;
+            } else {
+                stallCount = 0;
+            }
+            if (stallCount == 2) {
                 Robot.shooter.moveAnglePercentPower(0); // stop the motor
                 zeroOffset = -1 * (pos - 0.1);     // calculate zero offset
-                printStatus("Found lower hard limit");
+                printStatus("Found lower hard limit " + pos + " " + zeroOffset);
                 printStatus("Testing ability to rotate clockwise ...");
                 testingStage = test.CLOCKWISE_ROTATION;
-//                stallCount = 0;
+                stallCount = 0;
             }
         }
 
@@ -123,10 +127,10 @@ public class CalibrateAngle extends Command {
         //
         if (testingStage == test.SET_ZERO) {
             Robot.shooter.setZeroOffset(zeroOffset); // save the zero offset found in LOWER_LIMIT test
-            printStatus("Zero offset set");
+            printStatus("Zero offset set @" + zeroOffset);
             printStatus("Testing new offset (going to soft limit) ...");
             testingStage = test.TEST_MIN;
-//            stallCount = 0;
+            stallCount = 0;
         }
 
         //
@@ -134,7 +138,7 @@ public class CalibrateAngle extends Command {
         // Second test moving to min (not hard min). It should not stall.
         //
         if (testingStage == test.TEST_MIN_FINAL){
-            Robot.shooter.moveAnglePercentPower(-0.1);
+            Robot.shooter.moveAnglePercentPower(-0.05);
 
             if (pos <= Constants.Shooter.MIN_LIMIT_ABSOLUTE){
                 Robot.shooter.moveAnglePercentPower(0);
@@ -162,18 +166,17 @@ public class CalibrateAngle extends Command {
                 testingStage = test.FINISHED;
             }
 
-//            // check for stalling motor
-//            if (Math.abs(pos - prevPos) < (3.0 * 1 / 4096)) { // Allows for range of 3 ticks to check, 4096 is number of ticks in 1 rotation
-//                stallCount++;
-//            } else {
-//                stallCount = 0;
-//            }
+            // check for stalling motor
+            if (Math.abs(pos - prevPos) < (1.0 * 1 / 4096)) { // Allows for range of 3 ticks to check, 4096 is number of ticks in 1 rotation
+                stallCount++;
+            } else {
+                stallCount = 0;
+            }
 
             // The shooter should be able to move to the min position, so we
             // should never enter this loop. Indicates the shooter is stuck
             // or calibration failed.
-//            if (stallCount == 2) {
-            if (Robot.shooter.isStalling()) {
+            if (stallCount == 2) {
                 Robot.shooter.moveAnglePercentPower(0);
                 System.out.println(" ****************************************" + nl +
                                    " **    Error: Unable to calibrate!!    **" + nl +
@@ -217,6 +220,13 @@ public class CalibrateAngle extends Command {
             if (testingStage == test.TEST_90) {
                 Robot.shooter.moveAnglePercentPower(0.2);
 
+                // check for stalling motor
+                if (Math.abs(pos - prevPos) < (1.0 * 1 / 4096)) { // Allows for range of 3 ticks to check, 4096 is number of ticks in 1 rotation
+                    stallCount++;
+                } else {
+                    stallCount = 0;
+                }
+
                 if (pos >= Robot.shooter.degreesToAbsolute(90)) {
                     Robot.shooter.moveAnglePercentPower(0);
                     printStatus("90 degree test complete");
@@ -228,7 +238,7 @@ public class CalibrateAngle extends Command {
                 // The shooter should be able to move to the 90 degree position, so we
                 // should never enter this loop. Indicates the shooter is stuck
                 // or calibration failed.
-                if (Robot.shooter.isStalling()) {
+                if (stallCount == 2) {
                     Robot.shooter.moveAnglePercentPower(0);
                     System.out.println(" ***************************************" + nl +
                                        " **    Error: Unable to calibrate!!   **" + nl +
@@ -247,7 +257,14 @@ public class CalibrateAngle extends Command {
             // Prior to this stage, new zero was set correctly
             //
             if (testingStage == test.TEST_MIN) {
-                Robot.shooter.moveAnglePercentPower(-0.1);
+                Robot.shooter.moveAnglePercentPower(-0.05);
+
+                // check for stalling motor
+                if (Math.abs(pos - prevPos) < (2.0 * 1 / 4096)) { // Allows for range of 3 ticks to check, 4096 is number of ticks in 1 rotation
+                    stallCount++;
+                } else {
+                    stallCount = 0;
+                }
 
                 if (pos <= Constants.Shooter.MIN_LIMIT_ABSOLUTE) {
                     Robot.shooter.moveAnglePercentPower(0);
@@ -259,7 +276,7 @@ public class CalibrateAngle extends Command {
                 // The shooter should be able to move to the min position, so we
                 // should never enter this loop. Indicates the shooter is stuck
                 // or calibration failed.
-                if (Robot.shooter.isStalling()) {
+                if (stallCount == 2) {
                     Robot.shooter.moveAnglePercentPower(0);
                     System.out.println(" ****************************************" + nl +
                                        " **    Error: Unable to calibrate!!    **" + nl +
@@ -273,6 +290,7 @@ public class CalibrateAngle extends Command {
                 }
             }
         }
+        prevPos = pos;
     }
 
     // Return true when the command should end, false if it should continue. Runs every ~20ms.
