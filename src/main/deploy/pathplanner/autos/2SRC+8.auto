@@ -2,8 +2,8 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 0.749954642766429,
-      "y": 4.383177909212962
+      "x": 0.75,
+      "y": 4.12
     },
     "rotation": -60.0
   },
@@ -20,7 +20,19 @@
         {
           "type": "path",
           "data": {
-            "pathName": "SRC-S-Away"
+            "pathName": "2SRC+8-Away"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "2SRC+8-Return"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "AutonShoot"
           }
         }
       ]
