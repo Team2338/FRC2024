@@ -32,6 +32,7 @@ public class CollectorDefault extends Command {
                 counter++;
                 if (counter < (1*50)) {
                     Robot.collector.collect();
+                    Robot.collector.collect();
                 } else {
                     isCollecting = false;
                 }
