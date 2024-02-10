@@ -54,7 +54,8 @@ public class RobotContainer {
         autoCommands.put(autoMode.NONE, new NoAuto());
         autoCommands.put(autoMode.CIRCLE, AutoBuilder.followPath(PathPlannerPath.fromPathFile("Circle Path")));
         autoCommands.put(autoMode.MOBILITY, AutoBuilder.followPath(PathPlannerPath.fromPathFile("Mobility")));
-        autoCommands.put(autoMode.CTR_C, new PathPlannerAuto("CTR-C"));
+        autoCommands.put(autoMode.TWO_CTR_C, new PathPlannerAuto("2CTR-C"));
+        autoCommands.put(autoMode.TWO_SRC_S, new PathPlannerAuto("2SRC-S"));
     }
 
     /**

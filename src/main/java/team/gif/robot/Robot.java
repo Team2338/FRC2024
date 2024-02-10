@@ -156,8 +156,7 @@ public class Robot extends TimedRobot {
         runAutoScheduler = true;
 
 
-        // TODO change - this is to offset the starting position of the auto
-        swerveDrivetrain.resetOdometry(new Pose2d(new Translation2d(1.27, 5.54), pigeon.getRotation2d()));
+
     }
 
     /** This function is called periodically during autonomous. */

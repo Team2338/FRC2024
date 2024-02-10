@@ -2,10 +2,10 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 1.5,
-      "y": 5.54
+      "x": 0.749954642766429,
+      "y": 4.383177909212962
     },
-    "rotation": 0
+    "rotation": -60.0
   },
   "command": {
     "type": "sequential",
@@ -20,13 +20,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "CTR-C"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "AutonShoot"
+            "pathName": "SRC-S-Away"
           }
         }
       ]

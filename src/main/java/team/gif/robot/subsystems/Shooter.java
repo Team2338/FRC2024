@@ -46,7 +46,7 @@ public class Shooter extends SubsystemBase {
 
         angleEncoder = new CANcoder(RobotMap.SHOOTER_ANGLE_ENCODER_ID);
         MagnetSensorConfigs magSensorConfig = new MagnetSensorConfigs().withAbsoluteSensorRange(AbsoluteSensorRangeValue.Unsigned_0To1);
-        magSensorConfig.withMagnetOffset(-.37);
+        magSensorConfig.withMagnetOffset(-.135);
         magSensorConfig.withSensorDirection(SensorDirectionValue.Clockwise_Positive);
         angleEncoder.getConfigurator().apply(new CANcoderConfiguration().withMagnetSensor(magSensorConfig));
     }
