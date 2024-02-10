@@ -128,8 +128,8 @@ public class OI {
         aA.whileTrue(new CollectorManualControl());
 
         //shooter
-        aRTrigger.whileTrue(new RevFlyWheels());
-        aLBump.whileTrue(new Shoot());
+        aLBump.whileTrue(new RevFlyWheels());
+        aRTrigger.whileTrue(new Shoot());
         aX.whileTrue(new ShooterAngle());
         aB.whileTrue(new ShooterAngleBack());
     }

@@ -10,7 +10,7 @@ public class Shoot extends Command {
 
     public Shoot() {
         super();
-        addRequirements(Robot.indexer); // uncomment
+        addRequirements(Robot.indexer,Robot.shooter); // uncomment
     }
 
     // Called when the command is initially scheduled.
@@ -23,10 +23,11 @@ public class Shoot extends Command {
     // Called every time the scheduler runs (~20ms) while the command is scheduled
     @Override
     public void execute() {
-        Robot.shooter.setShooterRPM(Constants.Shooter.REV_RPM);
         if (Robot.shooter.getShooterRPM() >= (Constants.Shooter.REV_RPM * .95)) { //allow tolerance
             Robot.indexer.setIndexer(0, Constants.Indexer.STAGE_TWO);
             isFiring = true;
+        } else {
+            Robot.shooter.setShooterRPM(Constants.Shooter.REV_RPM);
         }
 
         if (isFiring) {
