@@ -18,14 +18,14 @@ public class ShooterAngle extends Command {
     @Override
     public void execute() {
         double pos = Robot.shooter.getPosition();
+
         if (pos < Constants.ShooterRotation.MAX_LIMIT_ABSOLUTE) {
-            if (pos > Constants.ShooterRotation.MAX_LIMIT_ABSOLUTE - Constants.ShooterRotation.HARD_STOP_ABSOLUTE) {
-                Robot.shooter.moveAnglePercentPower(.1);
+            if (pos > Constants.ShooterRotation.MAX_LIMIT_ABSOLUTE_SLOW) {
+                Robot.shooter.moveAnglePercentPower(Constants.ShooterRotation.INCREASE_ANGLE_PWR_PERC_SLOW);
             } else {
-                Robot.shooter.moveAnglePercentPower(.1);
+                Robot.shooter.moveAnglePercentPower(Constants.ShooterRotation.INCREASE_ANGLE_PWR_PERC);
             }
-        }
-        else {
+        } else {
             Robot.shooter.moveAnglePercentPower(0);
         }
     }

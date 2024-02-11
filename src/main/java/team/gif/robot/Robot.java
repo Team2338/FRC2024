@@ -94,9 +94,8 @@ public class Robot extends TimedRobot {
 
         try {
             shooter = new Shooter();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+        } catch (Exception e) { throw new RuntimeException(e); }
+
 //        shooter.setDefaultCommand(new ShooterAngle());
         indexer = new Indexer();
 //        indexer.setDefaultCommand(new IndexerDefault());

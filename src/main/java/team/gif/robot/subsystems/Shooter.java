@@ -109,13 +109,17 @@ public class Shooter extends SubsystemBase {
         return angleEncoder.getAbsolutePosition().getValueAsDouble();
     }
 
+    /**
+     * setZeroOffset <br>
+     * Method first retrieves the current configuration<br>
+     * and then updates the zero offset<br>
+     *
+     * @param offset  The value between -1 and 1 to offset the zero position of the encoder
+     */
     public void setZeroOffset(double offset) {
         MagnetSensorConfigs magSensorConfig = new MagnetSensorConfigs();
-
         angleEncoder.getConfigurator().refresh(magSensorConfig);
-
         magSensorConfig.withMagnetOffset(offset);
-
         angleEncoder.getConfigurator().apply(new CANcoderConfiguration().withMagnetSensor(magSensorConfig));
     }
 

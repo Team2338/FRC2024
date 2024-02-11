@@ -19,8 +19,14 @@ public class ShooterAngleBack extends Command {
     // Called every time the scheduler runs (~20ms) while the command is scheduled
     @Override
     public void execute() {
-        if (Robot.shooter.getPosition() > Constants.ShooterRotation.MIN_LIMIT_ABSOLUTE) {
-            Robot.shooter.moveAnglePercentPower(-0.025);
+        double pos = Robot.shooter.getPosition();
+
+        if (pos > Constants.ShooterRotation.MIN_LIMIT_ABSOLUTE) {
+            if (pos < Constants.ShooterRotation.MIN_LIMIT_ABSOLUTE_SLOW) {
+                Robot.shooter.moveAnglePercentPower(Constants.ShooterRotation.DECREASE_ANGLE_PWR_PERC_SLOW);
+            } else {
+                Robot.shooter.moveAnglePercentPower(Constants.ShooterRotation.DECREASE_ANGLE_PWR_PERC);
+            }
         } else {
             Robot.shooter.moveAnglePercentPower(0);
         }
