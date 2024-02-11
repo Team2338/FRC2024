@@ -42,18 +42,18 @@ public class Shooter extends SubsystemBase {
 //        shooterAngle.enableSoftLimit(CANSparkBase.SoftLimitDirection.kForward, true);
 
         pidShooterAngle = shooterAngle.getPIDController();
-        pidShooterAngle.setP(Constants.Shooter.ANGLE_kP);
-        pidShooterAngle.setFF(Constants.Shooter.ANGLE_FF);
+        pidShooterAngle.setP(Constants.ShooterRotation.kP);
+        pidShooterAngle.setFF(Constants.ShooterRotation.FF);
 
         angleEncoder = new CANcoder(RobotMap.SHOOTER_ANGLE_ENCODER_ID);
         MagnetSensorConfigs magSensorConfig = new MagnetSensorConfigs()
             .withAbsoluteSensorRange(AbsoluteSensorRangeValue.Unsigned_0To1)
-            .withMagnetOffset(Constants.Shooter.ENCODER_OFFSET_ABSOLUTE)
+            .withMagnetOffset(Constants.ShooterRotation.ENCODER_OFFSET_ABSOLUTE)
             .withSensorDirection(SensorDirectionValue.Clockwise_Positive);
         angleEncoder.getConfigurator().apply(new CANcoderConfiguration().withMagnetSensor(magSensorConfig));
 
         // try this first
-        if (Constants.Shooter.MIN_LIMIT_ABSOLUTE < Constants.Shooter.HARD_STOP_ABSOLUTE){
+        if (Constants.ShooterRotation.MIN_LIMIT_ABSOLUTE < Constants.ShooterRotation.HARD_STOP_ABSOLUTE){
             throw new Exception("Shooter MIN_LIMIT_ABSOLUTE needs to be greater than HARD_STOP_ABSOLUTE");
         }
 
@@ -119,15 +119,10 @@ public class Shooter extends SubsystemBase {
         angleEncoder.getConfigurator().apply(new CANcoderConfiguration().withMagnetSensor(magSensorConfig));
     }
 
-//    public boolean isStalling() {
-//        return shooter.getFault(CANSparkBase.FaultID.kStall);
-//    }
-
     public double degreesToAbsolute(double degrees){
-        return (degrees - Constants.Shooter.MIN_LIMIT_DEGREES) * Constants.Shooter.ABSOLUTE_PER_DEGREE + Constants.Shooter.MIN_LIMIT_ABSOLUTE;
+        return (degrees - Constants.ShooterRotation.MIN_LIMIT_DEGREES) * Constants.ShooterRotation.ABSOLUTE_PER_DEGREE + Constants.ShooterRotation.MIN_LIMIT_ABSOLUTE;
     }
     public double absoluteToDegrees(double absolute){
-        return ( (absolute - Constants.Shooter.MIN_LIMIT_ABSOLUTE)/ Constants.Shooter.ABSOLUTE_PER_DEGREE +  Constants.Shooter.MIN_LIMIT_DEGREES);
+        return ( (absolute - Constants.ShooterRotation.MIN_LIMIT_ABSOLUTE)/ Constants.ShooterRotation.ABSOLUTE_PER_DEGREE +  Constants.ShooterRotation.MIN_LIMIT_DEGREES);
     }
-
 }

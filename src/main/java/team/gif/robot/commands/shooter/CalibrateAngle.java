@@ -142,7 +142,7 @@ public class CalibrateAngle extends Command {
         if (testingStage == test.TEST_MIN_FINAL) {
             Robot.shooter.moveAnglePercentPower(-speedDownCounter);
 
-            if (pos <= Constants.Shooter.MIN_LIMIT_ABSOLUTE) {
+            if (pos <= Constants.ShooterRotation.MIN_LIMIT_ABSOLUTE) {
                 Robot.shooter.moveAnglePercentPower(0);
                 System.out.println(" *****************************************************" + nl +
                                    " **   Calibration COMPLETE! "                     + nl +
@@ -250,7 +250,7 @@ public class CalibrateAngle extends Command {
             } else {
                 stallCount = 0;
             }
-            if (pos <= Constants.Shooter.MIN_LIMIT_ABSOLUTE) {
+            if (pos <= Constants.ShooterRotation.MIN_LIMIT_ABSOLUTE) {
                 Robot.shooter.moveAnglePercentPower(0);
                 printStatus("Min limit test complete");
                 printStatus("Moving to 90 degrees ...");
