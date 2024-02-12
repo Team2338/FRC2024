@@ -276,6 +276,8 @@ public final class Constants {
         public static final double STAGE_LINE_POS = 0.284;
         public static final double ANGLE_kP = 0.0000;
         public static final double ANGLE_FF = 0.0000;
+        public static final double ANGLE_kI = 0.0000;
+        public static final double ANGLE_kD = 0.0000;
 //        public static final double kI =
     }
 

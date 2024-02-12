@@ -1,11 +1,11 @@
-package team.gif.robot.commands.shooter;
+package team.gif.robot.commands.shooterAngle;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import team.gif.robot.Constants;
 import team.gif.robot.Robot;
 
-public class ShooterAngle extends Command {
-    public ShooterAngle() {
+public class ShooterAngleUp extends Command {
+    public ShooterAngleUp() {
         super();
         addRequirements(Robot.shooter); // uncomment
     }
@@ -20,13 +20,13 @@ public class ShooterAngle extends Command {
         double pos = Robot.shooter.getPosition();
         if (pos < Constants.Shooter.MAX_LIMIT) {
             if (pos > Constants.Shooter.MAX_LIMIT - .1) {
-                Robot.shooter.setAnglePercent(.1);
+                Robot.shooter.setAnglePercentMove(.1);
             } else {
-                Robot.shooter.setAnglePercent(.2);
+                Robot.shooter.setAnglePercentMove(.2);
             }
         }
         else {
-            Robot.shooter.setAnglePercent(0);
+            Robot.shooter.setAnglePercentMove(0);
         }
     }
 
@@ -39,6 +39,6 @@ public class ShooterAngle extends Command {
     // Called when the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
-        Robot.shooter.setAnglePercent(0);
+        Robot.shooter.setAnglePercentMove(0);
     }
 }
