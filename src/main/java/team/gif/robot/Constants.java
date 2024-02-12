@@ -281,8 +281,10 @@ public final class Constants {
         public static final double ENCODER_OFFSET_ABSOLUTE = -0.135; // -0.37; // this is determined either manually or via the auto-calibration
         public static final double INCREASE_ANGLE_PWR_PERC = 0.1;
         public static final double INCREASE_ANGLE_PWR_PERC_SLOW = 0.05;
-        public static final double DECREASE_ANGLE_PWR_PERC = -0.025;
-        public static final double DECREASE_ANGLE_PWR_PERC_SLOW = -0.010;
+        public static final double INCREASE_ANGLE_PWR_PERC_CALIBRATION = 0.1;
+        public static final double DECREASE_ANGLE_PWR_PERC = 0.025;
+        public static final double DECREASE_ANGLE_PWR_PERC_SLOW = 0.1;
+        public static final double DECREASE_ANGLE_PWR_PERC_CALIBRATION = 0.015;
         public static final double STARTING_LINE_POS = 0.215;
         public static final double STAGE_LINE_POS = 0.284;
         public static final double kP = 0.0000;

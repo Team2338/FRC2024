@@ -23,9 +23,9 @@ public class ShooterAngleBack extends Command {
 
         if (pos > Constants.ShooterRotation.MIN_LIMIT_ABSOLUTE) {
             if (pos < Constants.ShooterRotation.MIN_LIMIT_ABSOLUTE_SLOW) {
-                Robot.shooter.moveAnglePercentPower(Constants.ShooterRotation.DECREASE_ANGLE_PWR_PERC_SLOW);
+                Robot.shooter.moveAnglePercentPower(-Constants.ShooterRotation.DECREASE_ANGLE_PWR_PERC_SLOW);
             } else {
-                Robot.shooter.moveAnglePercentPower(Constants.ShooterRotation.DECREASE_ANGLE_PWR_PERC);
+                Robot.shooter.moveAnglePercentPower(-Constants.ShooterRotation.DECREASE_ANGLE_PWR_PERC);
             }
         } else {
             Robot.shooter.moveAnglePercentPower(0);
