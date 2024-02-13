@@ -5,7 +5,7 @@ import team.gif.robot.Constants;
 import team.gif.robot.Robot;
 
 public class CalibrateAngle extends Command {
-    enum test {
+    enum stage {
         LOWER_LIMIT, // finds the hard limit
         CLOCKWISE_ROTATION,
         SET_ZERO,
@@ -17,13 +17,13 @@ public class CalibrateAngle extends Command {
     }
 
     double  zeroOffset; // this is the value we eventually save to the config
-    test    testingStage;
+    stage   testingStage;
     double  prevPos;
     int     stallCount;
     int     moveCount;
     float   pauseCounter;
 
-    String  nl = System.lineSeparator();
+    private String  nl = System.lineSeparator();
 
     public CalibrateAngle() {
         super();
@@ -33,7 +33,7 @@ public class CalibrateAngle extends Command {
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
-        testingStage = test.LOWER_LIMIT;
+        testingStage = stage.LOWER_LIMIT;
         prevPos = -2;     // start at a number away from 0 ... 1
         zeroOffset = -1;  // start at a number away from 0 ... 1
         moveCount = 0;
@@ -53,8 +53,8 @@ public class CalibrateAngle extends Command {
     public void execute() {
         double pos = Robot.shooter.getPosition();
 
-        double speedUpClock = 0.1;
-        double speedDownCounter = 0.015;
+        double increaseAngleSpeed = Constants.ShooterRotation.INCREASE_ANGLE_PWR_PERC_CALIBRATION;
+        double decreaseAngleSpeed = Constants.ShooterRotation.DECREASE_ANGLE_PWR_PERC_CALIBRATION;
 
         //
         // Stage: CLOCKWISE_ROTATION
@@ -62,8 +62,8 @@ public class CalibrateAngle extends Command {
         // and it is not stuck/stalled. There should be plenty of room
         // for the shooter to move
         //
-        if (testingStage == test.CLOCKWISE_ROTATION) {
-            Robot.shooter.moveAnglePercentPower(speedUpClock);
+        if (testingStage == stage.CLOCKWISE_ROTATION) {
+            Robot.shooter.moveAnglePercentPower(increaseAngleSpeed);
             if (Math.abs(prevPos - pos) < (1.0 * 1 / 4096)) { // Allows for range of 3 ticks to check, 4096 is number of ticks in 1 rotation
                 stallCount++;
             } else {
@@ -84,7 +84,7 @@ public class CalibrateAngle extends Command {
                                    " **                                  **" + nl +
                                    " **      Calibration aborted         **" + nl +
                                    " **************************************");
-                testingStage = test.FINISHED;
+                testingStage = stage.FINISHED;
             } else {
                 moveCount++;
 
@@ -93,7 +93,7 @@ public class CalibrateAngle extends Command {
                     // Move to next step
                     Robot.shooter.moveAnglePercentPower(0);
                     printStatus("Clockwise Test passed");
-                    testingStage = test.SET_ZERO;
+                    testingStage = stage.SET_ZERO;
                     stallCount = 0;
                 }
             }
@@ -104,8 +104,8 @@ public class CalibrateAngle extends Command {
         // Slowly move to the lower hard limit until the
         // motor stalls
         //
-        if (testingStage == test.LOWER_LIMIT) {
-            Robot.shooter.moveAnglePercentPower(-speedDownCounter); // turn counterclockwise very slowly
+        if (testingStage == stage.LOWER_LIMIT) {
+            Robot.shooter.moveAnglePercentPower(-decreaseAngleSpeed); // turn counterclockwise very slowly
 
             // if collector hasn't moved, increase stall count eventually indicating we are at hard limit
             if (Math.abs(prevPos - pos) < (2.0 * 1 / 4096)) { // 3 = min ticks to check, 4096 is number of ticks in 1 rotation
@@ -118,7 +118,7 @@ public class CalibrateAngle extends Command {
                 zeroOffset = -1 * (pos - 0.1);     // calculate zero offset
                 printStatus("Found lower hard limit");
                 printStatus("Testing ability to rotate clockwise ...");
-                testingStage = test.CLOCKWISE_ROTATION;
+                testingStage = stage.CLOCKWISE_ROTATION;
                 stallCount = 0;
             }
         }
@@ -127,11 +127,11 @@ public class CalibrateAngle extends Command {
         // Stage: SET_ZERO
         // Set the zero offset
         //
-        if (testingStage == test.SET_ZERO) {
+        if (testingStage == stage.SET_ZERO) {
             Robot.shooter.setZeroOffset(zeroOffset); // save the zero offset found in LOWER_LIMIT test
             printStatus("Zero offset set at: " + zeroOffset);
             printStatus("Testing new offset (going to soft limit) ...");
-            testingStage = test.TEST_MIN;
+            testingStage = stage.TEST_MIN;
             stallCount = 0;
         }
 
@@ -139,10 +139,10 @@ public class CalibrateAngle extends Command {
         // Stage: TEST_MIN_FINAL
         // Second test moving to min (not hard min). It should not stall.
         //
-        if (testingStage == test.TEST_MIN_FINAL) {
-            Robot.shooter.moveAnglePercentPower(-speedDownCounter);
+        if (testingStage == stage.TEST_MIN_FINAL) {
+            Robot.shooter.moveAnglePercentPower(-decreaseAngleSpeed);
 
-            if (pos <= Constants.Shooter.MIN_LIMIT_ABSOLUTE) {
+            if (pos <= Constants.ShooterRotation.MIN_LIMIT_ABSOLUTE) {
                 Robot.shooter.moveAnglePercentPower(0);
                 System.out.println(" *****************************************************" + nl +
                                    " **   Calibration COMPLETE! "                     + nl +
@@ -153,7 +153,7 @@ public class CalibrateAngle extends Command {
                                    " **      Calibration COMPLETE! "                  + nl +
                                    " ****************************************************");
 
-                testingStage = test.FINISHED;
+                testingStage = stage.FINISHED;
             }
 
             // check for stalling motor
@@ -177,21 +177,21 @@ public class CalibrateAngle extends Command {
                                    " **        Calibration aborted         **" + nl +
                                    " ****************************************");
 
-                testingStage = test.FINISHED;
+                testingStage = stage.FINISHED;
             }
         }
         //
         // Stage: PAUSE
         // Pausing test to allow user to verify shooter is at 90 degrees
         //
-        if (testingStage == test.PAUSE) {
+        if (testingStage == stage.PAUSE) {
             Robot.shooter.moveAnglePercentPower(0.01); // apply small power to overcome gravity
             pauseCounter++;
 
             if (pauseCounter >= 3 * 50){ // 5 seconds x 50 20ms intervals
                 printStatus("Pause complete");
                 printStatus("Testing new offset (going to soft limit) ...");
-                testingStage = test.TEST_MIN_FINAL;
+                testingStage = stage.TEST_MIN_FINAL;
             }
         }
 
@@ -201,8 +201,8 @@ public class CalibrateAngle extends Command {
         // Zero offset has already been calculated and set
         // It should not stall.
         //
-        if (testingStage == test.TEST_90) {
-            Robot.shooter.moveAnglePercentPower(speedUpClock);
+        if (testingStage == stage.TEST_90) {
+            Robot.shooter.moveAnglePercentPower(increaseAngleSpeed);
 
             // check for stalling motor
             if (Math.abs(pos - prevPos) < (1.0 * 1 / 4096)) { // Allows for range of 3 ticks to check, 4096 is number of ticks in 1 rotation
@@ -217,7 +217,7 @@ public class CalibrateAngle extends Command {
                 printStatus("");
                 printStatus("Shooter should be pointing to 90 degrees");
                 printStatus("Waiting 3 seconds to verify visually ... ");
-                testingStage = test.PAUSE;
+                testingStage = stage.PAUSE;
             }
 
             // The shooter should be able to move to the 90 degree position, so we
@@ -232,7 +232,7 @@ public class CalibrateAngle extends Command {
                                    " **                                   **" + nl +
                                    " **        Calibration aborted        **" + nl +
                                    " ***************************************");
-                testingStage = test.FINISHED;
+                testingStage = stage.FINISHED;
             }
         }
 
@@ -241,8 +241,8 @@ public class CalibrateAngle extends Command {
         // Test moving to min (not hard min). It should not stall.
         // Prior to this stage, new zero was set correctly
         //
-        if (testingStage == test.TEST_MIN) {
-            Robot.shooter.moveAnglePercentPower(-speedDownCounter);
+        if (testingStage == stage.TEST_MIN) {
+            Robot.shooter.moveAnglePercentPower(-decreaseAngleSpeed);
 
             // check for stalling motor
             if (Math.abs(pos - prevPos) < (2.0 * 1.0 / 4096)) { // Allows for range of 3 ticks to check, 4096 is number of ticks in 1 rotation
@@ -250,11 +250,11 @@ public class CalibrateAngle extends Command {
             } else {
                 stallCount = 0;
             }
-            if (pos <= Constants.Shooter.MIN_LIMIT_ABSOLUTE) {
+            if (pos <= Constants.ShooterRotation.MIN_LIMIT_ABSOLUTE) {
                 Robot.shooter.moveAnglePercentPower(0);
                 printStatus("Min limit test complete");
                 printStatus("Moving to 90 degrees ...");
-                testingStage = test.TEST_90;
+                testingStage = stage.TEST_90;
             }
 
             // The shooter should be able to move to the min position, so we
@@ -270,7 +270,7 @@ public class CalibrateAngle extends Command {
                                    " **                                    **" + nl +
                                    " **        Calibration aborted         **" + nl +
                                    " ****************************************");
-                testingStage = test.FINISHED;
+                testingStage = stage.FINISHED;
             }
         }
         prevPos = pos;
@@ -279,7 +279,7 @@ public class CalibrateAngle extends Command {
     // Return true when the command should end, false if it should continue. Runs every ~20ms.
     @Override
     public boolean isFinished() {
-        return (testingStage == test.FINISHED);
+        return (testingStage == stage.FINISHED);
     }
 
     // Called when the command ends or is interrupted.
