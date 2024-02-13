@@ -1,13 +1,15 @@
-package team.gif.robot.commands.indexer;
+package team.gif.robot.commands.shooterAngle;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import team.gif.robot.Constants;
 import team.gif.robot.Robot;
 
-public class FullIndexerReverse extends Command {
-    public FullIndexerReverse() {
+public class ShooterAnglePIDControl extends Command {
+
+    private int counter=0;
+
+    public ShooterAnglePIDControl() {
         super();
-        addRequirements(Robot.indexer, Robot.collector); // uncomment
+        addRequirements(Robot.shooter);
     }
 
     // Called when the command is initially scheduled.
@@ -17,8 +19,7 @@ public class FullIndexerReverse extends Command {
     // Called every time the scheduler runs (~20ms) while the command is scheduled
     @Override
     public void execute() {
-        Robot.indexer.setIndexer(-Constants.Indexer.STAGE_COLLECTOR_PERC,-Constants.Indexer.STAGE_SHOOTER_PERC);
-        Robot.collector.eject();
+        Robot.shooter.PIDRotationMove();
     }
 
     // Return true when the command should end, false if it should continue. Runs every ~20ms.
@@ -29,6 +30,5 @@ public class FullIndexerReverse extends Command {
 
     // Called when the command ends or is interrupted.
     @Override
-    public void end(boolean interrupted) {
-    }
+    public void end(boolean interrupted) {}
 }

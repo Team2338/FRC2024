@@ -1,20 +1,18 @@
-package team.gif.robot.commands.shooter;
+package team.gif.robot.commands.shooterAngle;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import team.gif.robot.Constants;
 import team.gif.robot.Robot;
 
-public class ShooterAngleBack extends Command {
-
-    public ShooterAngleBack() {
+public class ShooterAngleDown extends Command {
+    public ShooterAngleDown() {
         super();
         addRequirements(Robot.shooter); // uncomment
     }
 
     // Called when the command is initially scheduled.
     @Override
-    public void initialize() {
-    }
+    public void initialize() {}
 
     // Called every time the scheduler runs (~20ms) while the command is scheduled
     @Override
@@ -22,13 +20,11 @@ public class ShooterAngleBack extends Command {
         double pos = Robot.shooter.getPosition();
 
         if (pos > Constants.ShooterRotation.MIN_LIMIT_ABSOLUTE) {
-            if (pos < Constants.ShooterRotation.MIN_LIMIT_ABSOLUTE_SLOW) {
-                Robot.shooter.moveAnglePercentPower(-Constants.ShooterRotation.DECREASE_ANGLE_PWR_PERC_SLOW);
-            } else {
-                Robot.shooter.moveAnglePercentPower(-Constants.ShooterRotation.DECREASE_ANGLE_PWR_PERC);
-            }
+            Robot.shooter.moveRotationPercentPower(-Constants.ShooterRotation.DECREASE_ANGLE_PWR_PERC);
+            Robot.shooter.setTargetPosition(pos);
         } else {
-            Robot.shooter.moveAnglePercentPower(0);
+            Robot.shooter.holdRotation();
+            Robot.shooter.setTargetPosition(Constants.ShooterRotation.MIN_LIMIT_ABSOLUTE);
         }
     }
 
@@ -41,6 +37,13 @@ public class ShooterAngleBack extends Command {
     // Called when the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
-        Robot.shooter.moveAnglePercentPower(0);
+        double pos = Robot.shooter.getPosition();
+
+        if (pos > Constants.ShooterRotation.MIN_LIMIT_ABSOLUTE) {
+            Robot.shooter.setTargetPosition(pos);
+        } else {
+            Robot.shooter.setTargetPosition(Constants.ShooterRotation.MIN_LIMIT_ABSOLUTE);
+        }
+        Robot.shooter.holdRotation();
     }
 }

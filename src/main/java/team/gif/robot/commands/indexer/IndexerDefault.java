@@ -27,7 +27,7 @@ public class IndexerDefault extends Command {
         }
 
         if (noteDetected) {
-            Robot.indexer.setIndexer(Constants.Indexer.STAGE_ONE, Constants.Indexer.STAGE_TWO);
+            Robot.indexer.setIndexer(Constants.Indexer.STAGE_COLLECTOR_PERC, Constants.Indexer.STAGE_SHOOTER_PERC);
         }
 
         if (Robot.indexer.getSensorState()) {

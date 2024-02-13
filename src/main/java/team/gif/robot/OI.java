@@ -1,23 +1,23 @@
 package team.gif.robot;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
-import team.gif.robot.commands.collector.CollectorManualControl;
 import team.gif.robot.commands.driveModes.EnableBoost;
 import team.gif.robot.commands.drivetrain.MoveAwaySlow;
 import team.gif.robot.commands.drivetrain.MoveCloserSlow;
 import team.gif.robot.commands.drivetrain.MoveLeftSlow;
 import team.gif.robot.commands.drivetrain.MoveRightSlow;
 import team.gif.robot.commands.drivetrain.Reset0;
-import team.gif.robot.commands.drivetrainPbot.ResetWheelsPbot;
 import team.gif.robot.commands.indexer.FullIndexerReverse;
 import team.gif.robot.commands.indexer.IndexerManualControl;
 import team.gif.robot.commands.shooter.CalibrateAngle;
 import team.gif.robot.commands.shooter.RevFlyWheels;
 import team.gif.robot.commands.shooter.Shoot;
-import team.gif.robot.commands.shooter.ShooterAngle;
-import team.gif.robot.commands.shooter.ShooterAngleBack;
+import team.gif.robot.commands.shooterAngle.ShooterAngleUp;
+import team.gif.robot.commands.shooterAngle.ShooterAngleDown;
+import team.gif.robot.commands.shooter.TrapShoot;
 import team.gif.robot.commands.toggleManualControl.ToggleManualControl;
 
 public class OI {
@@ -86,6 +86,7 @@ public class OI {
 //    public final Trigger tDPadLeft = test.povLeft();
 
     public OI() {
+        DriverStation.silenceJoystickConnectionWarning(true);
         /*
         *
         * Create controller actions here
@@ -126,14 +127,15 @@ public class OI {
         // manual control
         aBack.toggleOnTrue(new ToggleManualControl());
         aDPadUp.whileTrue(new IndexerManualControl());
-        aA.whileTrue(new CollectorManualControl());
+//        aA.whileTrue(new CollectorManualControl());
 
         //shooter
         aRTrigger.whileTrue(new RevFlyWheels());
         aLBump.whileTrue(new Shoot());
-        aY.whileTrue(new ShooterAngle());
-        aX.whileTrue(new ShooterAngleBack());
+        aY.whileTrue(new ShooterAngleUp());
+        aX.whileTrue(new ShooterAngleDown());
         aB.onTrue(new CalibrateAngle());
+        aA.onTrue(new TrapShoot().withTimeout(3));
     }
 
     public void setRumble(boolean rumble){

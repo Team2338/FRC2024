@@ -1,19 +1,21 @@
 package team.gif.robot;
 
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import team.gif.lib.autoMode;
 import team.gif.lib.delay;
 import team.gif.robot.commands.drivetrain.Reset0;
 import team.gif.robot.commands.drivetrain.Reset180;
-import team.gif.robot.subsystems.SwerveDrivetrain;
 
 
 public class UiSmartDashboard {
 
     public SendableChooser<delay> delayChooser = new SendableChooser<>();
+    public SendableChooser<autoMode> autoModeChooser = new SendableChooser<>();
 
     public UiSmartDashboard() {
         ShuffleboardTab shuffleboardTab = Shuffleboard.getTab("SmartDashboard");
@@ -25,6 +27,17 @@ public class UiSmartDashboard {
                     x.addDoubleProperty("Value", () -> Robot.pigeon.getCompassHeading(), null);
                 })
                 .withPosition(5, 0);
+
+        autoModeChooser.addOption("NONE", autoMode.NONE);
+        autoModeChooser.addOption("Circle", autoMode.CIRCLE);
+        autoModeChooser.addOption("Mobility", autoMode.MOBILITY);
+        autoModeChooser.addOption("CTR-C", autoMode.CTR_C);
+
+
+        shuffleboardTab.add("Auto Select", autoModeChooser)
+                .withWidget(BuiltInWidgets.kComboBoxChooser)
+                .withPosition(7, 1)
+                .withSize(2, 1);
 
         //Auto Delay
         delayChooser.setDefaultOption("0", delay.DELAY_0);
