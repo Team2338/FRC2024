@@ -19,7 +19,7 @@ public class ShooterAnglePIDControl extends Command {
     // Called every time the scheduler runs (~20ms) while the command is scheduled
     @Override
     public void execute() {
-        Robot.shooter.PIDmove();
+        Robot.shooter.PIDRotationMove();
     }
 
     // Return true when the command should end, false if it should continue. Runs every ~20ms.

@@ -32,9 +32,9 @@ public class TrapShoot extends Command {
         }
         if(!Robot.indexer.getSensorState()) {
             if (counter <= (.5*50)) {
-                Robot.shooter.setAnglePercentMove(.3);
+                Robot.shooter.setRotationPercentMove(.3);
             } else {
-                Robot.shooter.setAnglePercentMove(0);
+                Robot.shooter.setRotationPercentMove(0);
             }
             Robot.indexer.setIndexer(0,0);
             counter++;
@@ -51,7 +51,7 @@ public class TrapShoot extends Command {
     @Override
     public void end(boolean interrupted) {
         Robot.indexer.setIndexer(0,0);
-        Robot.shooter.setAnglePercentMove(0);
+        Robot.shooter.setRotationPercentMove(0);
         Robot.shooter.setVoltage(0);
     }
 }

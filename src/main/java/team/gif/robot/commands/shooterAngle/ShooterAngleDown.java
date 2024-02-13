@@ -17,11 +17,17 @@ public class ShooterAngleDown extends Command {
     // Called every time the scheduler runs (~20ms) while the command is scheduled
     @Override
     public void execute() {
-        if (Robot.shooter.getPosition() > Constants.Shooter.MIN_LIMIT) {
-            Robot.shooter.setAnglePercentMove(-.1);
+        double rotationPosition = Robot.shooter.getPosition();
+        if (rotationPosition > Constants.Shooter.MIN_LIMIT) {
+            Robot.shooter.setRotationPercentMove(-.1);
+            System.out.println("moving down");
+            Robot.shooter.setTargetPosition(rotationPosition);
         } else {
-            Robot.shooter.setAnglePercentMove(0);
+            Robot.shooter.setRotationPercentMove(0);
+            Robot.shooter.setTargetPosition(Constants.Shooter.MIN_LIMIT);
         }
+
+
     }
 
     // Return true when the command should end, false if it should continue. Runs every ~20ms.
@@ -33,6 +39,6 @@ public class ShooterAngleDown extends Command {
     // Called when the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
-        Robot.shooter.setAnglePercentMove(0);
+        Robot.shooter.setRotationPercentMove(0);
     }
 }

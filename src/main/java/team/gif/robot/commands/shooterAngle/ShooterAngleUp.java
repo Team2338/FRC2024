@@ -20,13 +20,15 @@ public class ShooterAngleUp extends Command {
         double pos = Robot.shooter.getPosition();
         if (pos < Constants.Shooter.MAX_LIMIT) {
             if (pos > Constants.Shooter.MAX_LIMIT - .1) {
-                Robot.shooter.setAnglePercentMove(.1);
+                Robot.shooter.setRotationPercentMove(.1);
             } else {
-                Robot.shooter.setAnglePercentMove(.2);
+                Robot.shooter.setRotationPercentMove(.2);
             }
+            Robot.shooter.setTargetPosition(pos);
         }
         else {
-            Robot.shooter.setAnglePercentMove(0);
+            Robot.shooter.setRotationPercentMove(0);
+            Robot.shooter.setTargetPosition(Constants.Shooter.MAX_LIMIT);
         }
     }
 
@@ -39,6 +41,7 @@ public class ShooterAngleUp extends Command {
     // Called when the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
-        Robot.shooter.setAnglePercentMove(0);
+        Robot.shooter.setRotationPercentMove(0);
+//        Robot.shooter.setTargetPosition(Robot.shooter.getPosition());
     }
 }

@@ -274,10 +274,10 @@ public final class Constants {
 //        public static final double MIN_LIMIT_DEGREES = MID_LIMIT;
         public static final double STARTING_LINE_POS = 0.215;
         public static final double STAGE_LINE_POS = 0.284;
-        public static final double ANGLE_kP = 0.0000;
-        public static final double ANGLE_FF = 0.0000;
-        public static final double ANGLE_kI = 0.0000;
-        public static final double ANGLE_kD = 0.0000;
+        public static final double ROTATION_kP = 1;
+        public static final double ROTATION_FF = 0.01;
+        public static final double ROTATION_kI = 0.0000;
+        public static final double ROTATION_kD = 0.0000;
 //        public static final double kI =
     }
 

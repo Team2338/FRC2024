@@ -101,6 +101,8 @@ public class Robot extends TimedRobot {
         collector = new Collector();
 //        collector.setDefaultCommand(new CollectorDefault());
 
+        shooter.setDefaultCommand(new ShooterAnglePIDControl());
+
         robotContainer = new RobotContainer();
 
         ui = new UI();

@@ -9,6 +9,7 @@ import com.revrobotics.CANSparkBase;
 import com.revrobotics.CANSparkLowLevel;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.SparkPIDController;
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import team.gif.robot.Constants;
 import team.gif.robot.RobotMap;
@@ -17,18 +18,24 @@ public class Shooter extends SubsystemBase {
     public static CANSparkMax shooter;
     public static SparkPIDController pidMainShooter;
 
-    public static CANSparkMax shooterAngle;
-    public static SparkPIDController pidShooterAngle;
-    public static CANcoder angleEncoder;
+    public static CANSparkMax shooterRotationController;
+    public static PIDController pidRotation;
+    public static CANcoder rotationEncoder;
 
-    private double tarPos;
+    //Target position is initialized in robotInit
+    private double targetPosition;
 
     public Shooter() {
         shooter = new CANSparkMax(RobotMap.SHOOTER_ID, CANSparkLowLevel.MotorType.kBrushless);
-        configMainShooter();
+        configShooter();
 
-        shooterAngle = new CANSparkMax(RobotMap.SHOOTER_ANGLE_ID, CANSparkLowLevel.MotorType.kBrushless);
-        configShooterAngle();
+        shooterRotationController = new CANSparkMax(RobotMap.SHOOTER_ANGLE_ID, CANSparkLowLevel.MotorType.kBrushless);
+
+        rotationEncoder = new CANcoder(RobotMap.SHOOTER_ANGLE_ENCODER_ID);
+
+        configShooterRotation();
+
+        targetPosition = getPosition();
     }
 
     public void setVoltage(double volt) {
@@ -56,15 +63,16 @@ public class Shooter extends SubsystemBase {
      * move the shooter angle percent
      * @param percent
      */
-    public void setAnglePercentMove(double percent) {
-        shooterAngle.set(percent);
+    public void setRotationPercentMove(double percent) {
+        shooterRotationController.set(percent + Constants.Shooter.ROTATION_FF);
     }
 
     /**
      * Use PID to move the shooter angle to position
      */
-    public void PIDmove() {
-        pidShooterAngle.setReference(tarPos, CANSparkBase.ControlType.kPosition);
+    public void PIDRotationMove() {
+        double pidOutput = pidRotation.calculate(rotationEncoder.getAbsolutePosition().getValueAsDouble(), targetPosition);
+        shooterRotationController.set(pidOutput + Constants.Shooter.ROTATION_FF);
     }
 
     /**
@@ -72,36 +80,36 @@ public class Shooter extends SubsystemBase {
      * @return arm position in ticks
      */
     public double getPosition(){
-        return angleEncoder.getAbsolutePosition().getValueAsDouble();
+        return rotationEncoder.getAbsolutePosition().getValueAsDouble();
     }
 
     /**
      * Set the target position of the arm in ticks
      * @param pos target position in ticks
      */
-    public void setAnglePos(double pos) {
-        tarPos = pos;
+    public void setTargetPosition(double pos) {
+        targetPosition = pos;
     }
 
     /**
      * Get the target position of the arm in ticks
      * @return target position in ticks
      */
-    public double getTargetPos() {return tarPos;}
+    public double getTargetPosition() {return targetPosition;}
 
     /**
      * Get the current error of the arm PID
      * @return the current error of the arm PID
      */
-    public double getPIDError() {
-        return getPosition() - tarPos;
+    public double getPIDRotationError() {
+        return getPosition() - targetPosition;
     }
 
 
     /**
      *  All the config setting for both ShooterAngle and MainShooter
      */
-    public void configMainShooter() {
+    public void configShooter() {
         shooter.restoreFactoryDefaults();
         shooter.setInverted(true);
         shooter.setIdleMode(CANSparkBase.IdleMode.kCoast);
@@ -114,27 +122,16 @@ public class Shooter extends SubsystemBase {
         pidMainShooter.setOutputRange(0,1);
     }
 
-    public void configShooterAngle() {
-        shooterAngle.restoreFactoryDefaults();
-        shooterAngle.setIdleMode(CANSparkBase.IdleMode.kBrake);
-        shooterAngle.setOpenLoopRampRate(.25);
+    public void configShooterRotation() {
+        shooterRotationController.restoreFactoryDefaults();
+        shooterRotationController.setIdleMode(CANSparkBase.IdleMode.kBrake);
+        shooterRotationController.setOpenLoopRampRate(.25);
 
-        shooterAngle.enableSoftLimit(CANSparkBase.SoftLimitDirection.kForward,true);
-        shooterAngle.enableSoftLimit(CANSparkBase.SoftLimitDirection.kReverse, true);
-        shooterAngle.setSoftLimit(CANSparkBase.SoftLimitDirection.kForward, (float) Constants.Shooter.MAX_LIMIT);
-        shooterAngle.setSoftLimit(CANSparkBase.SoftLimitDirection.kReverse, (float) Constants.Shooter.MIN_LIMIT);
-
-        pidShooterAngle = shooterAngle.getPIDController();
-        pidShooterAngle.setP(Constants.Shooter.ANGLE_kP);
-        pidShooterAngle.setFF(Constants.Shooter.ANGLE_FF);
-        pidShooterAngle.setI(Constants.Shooter.ANGLE_kI);
-        pidShooterAngle.setD(Constants.Shooter.ANGLE_kD);
-        pidShooterAngle.setOutputRange(-.2, -.2);
-
-        angleEncoder = new CANcoder(RobotMap.SHOOTER_ANGLE_ENCODER_ID);
         MagnetSensorConfigs magSensorConfig = new MagnetSensorConfigs().withAbsoluteSensorRange(AbsoluteSensorRangeValue.Unsigned_0To1);
         magSensorConfig.withMagnetOffset(-.133);
         magSensorConfig.withSensorDirection(SensorDirectionValue.Clockwise_Positive);
-        angleEncoder.getConfigurator().apply(new CANcoderConfiguration().withMagnetSensor(magSensorConfig));
+        rotationEncoder.getConfigurator().apply(new CANcoderConfiguration().withMagnetSensor(magSensorConfig));
+
+        pidRotation = new PIDController(Constants.Shooter.ROTATION_kP, Constants.Shooter.ROTATION_kI, Constants.Shooter.ROTATION_kD);
     }
 }
