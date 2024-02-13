@@ -13,6 +13,7 @@ import team.gif.robot.commands.drivetrain.Reset0;
 import team.gif.robot.commands.drivetrainPbot.ResetWheelsPbot;
 import team.gif.robot.commands.indexer.FullIndexerReverse;
 import team.gif.robot.commands.indexer.IndexerManualControl;
+import team.gif.robot.commands.shooter.CalibrateAngle;
 import team.gif.robot.commands.shooter.RevFlyWheels;
 import team.gif.robot.commands.shooter.Shoot;
 import team.gif.robot.commands.shooter.ShooterAngle;
@@ -128,10 +129,11 @@ public class OI {
         aA.whileTrue(new CollectorManualControl());
 
         //shooter
-        aLBump.whileTrue(new RevFlyWheels());
-        aRTrigger.whileTrue(new Shoot());
-        aX.whileTrue(new ShooterAngle());
-        aB.whileTrue(new ShooterAngleBack());
+        aRTrigger.whileTrue(new RevFlyWheels());
+        aLBump.whileTrue(new Shoot());
+        aY.whileTrue(new ShooterAngle());
+        aX.whileTrue(new ShooterAngleBack());
+        aB.onTrue(new CalibrateAngle());
     }
 
     public void setRumble(boolean rumble){
