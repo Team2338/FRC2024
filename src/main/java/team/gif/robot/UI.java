@@ -28,6 +28,8 @@ public class UI {
         shuffleboardTab.addBoolean("Collector Manual Control", Robot.collector::getCollectorManualControl);
         shuffleboardTab.addBoolean("Indexer Manual Control", Robot.indexer::getIndexerManualFlag);
 
-        shuffleboardTab.addDouble("Shooter Angle", Robot.shooter::getPosition);
+        shuffleboardTab.addString("Shooter Actual", Robot.shooter::getPosition_Shuffleboard);
+        shuffleboardTab.addDouble("Shooter Target", Robot.shooter::getTargetPosition);
+        shuffleboardTab.addString("Shooter Degrees", Robot.shooter::getRotationDegrees_Shuffleboard);
     }
 }

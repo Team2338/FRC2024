@@ -16,7 +16,7 @@ import team.gif.robot.RobotMap;
 
 public class Shooter extends SubsystemBase {
     public static CANSparkMax shooter;
-    public static SparkPIDController pidMainShooter;
+    public static SparkPIDController pidShooter;
 
     public static CANSparkMax shooterRotationController;
     public static PIDController pidRotation;
@@ -31,27 +31,15 @@ public class Shooter extends SubsystemBase {
         shooterRotationController = new CANSparkMax(RobotMap.SHOOTER_ANGLE_ID, CANSparkLowLevel.MotorType.kBrushless);
 
         rotationEncoder = new CANcoder(RobotMap.SHOOTER_ANGLE_ENCODER_ID);
-
         configShooterRotation();
-
-        targetPosition = getPosition();
-//        shooterAngle.enableSoftLimit(CANSparkBase.SoftLimitDirection.kForward, true);
-
-//        pidRotation = shooterAngle.getPIDController();
-//        pidShooterAngle.setP(Constants.ShooterRotation.kP);
-//        pidShooterAngle.setFF(Constants.ShooterRotation.FF);
-
-        rotationEncoder = new CANcoder(RobotMap.SHOOTER_ANGLE_ENCODER_ID);
-        MagnetSensorConfigs magSensorConfig = new MagnetSensorConfigs()
-            .withAbsoluteSensorRange(AbsoluteSensorRangeValue.Unsigned_0To1)
-            .withMagnetOffset(Constants.ShooterRotation.ENCODER_OFFSET_ABSOLUTE)
-            .withSensorDirection(SensorDirectionValue.Clockwise_Positive);
-        rotationEncoder.getConfigurator().apply(new CANcoderConfiguration().withMagnetSensor(magSensorConfig));
 
         // check constants are valid
         if (Constants.ShooterRotation.MIN_LIMIT_ABSOLUTE < Constants.ShooterRotation.HARD_STOP_ABSOLUTE){
             throw new Exception("Shooter MIN_LIMIT_ABSOLUTE needs to be greater than HARD_STOP_ABSOLUTE");
         }
+
+        // set the initial shooter rotation position so PID can hold the current position when first enabled
+        targetPosition = getPosition();
     }
 
     public void setVoltage(double volt) {
@@ -64,7 +52,7 @@ public class Shooter extends SubsystemBase {
     }
 
     public void setShooterRPM(double rpm) {
-        pidMainShooter.setReference(rpm, CANSparkBase.ControlType.kVelocity);
+        pidShooter.setReference(rpm, CANSparkBase.ControlType.kVelocity);
     }
 
     public double getShooterRPM() {
@@ -75,19 +63,31 @@ public class Shooter extends SubsystemBase {
         return String.format("%12.0f", getShooterRPM());
     }
 
-    /**
-     * Rotates shooter <br
-     * positive (+) value is clockwise (shoots lower)<br>
-     *
-     * negative (-) value is counterclockwise (shoots higher)
-     * @param percent  The percentage of motor power
-     */
-    public void moveRotationPercentPower(double percent) {
-        shooterRotationController.set(percent + Constants.ShooterRotation.FF);
+    public String getRotationDegrees_Shuffleboard() {
+        return String.format("%12.1f", absoluteToDegrees(getPosition()));
     }
 
     /**
-     * Use PID to move the shooter angle to position
+     * Rotates shooter <br>
+     *
+     * positive (+) value is clockwise (shoots lower)<br>
+     * negative (-) value is counterclockwise (shoots higher)
+     *
+     * @param percent  The percentage of motor power
+     */
+    public void moveRotationPercentPower(double percent) {
+        shooterRotationController.set(percent);
+    }
+
+    /**
+     * Holds thr shooter rotation using FF <br
+     */
+    public void holdRotation() {
+        shooterRotationController.set(Constants.ShooterRotation.FF);
+    }
+
+    /**
+     * Use PID to move the shooter angle to absolute position between 0 and 1
      */
     public void PIDRotationMove() {
         double pidOutput = pidRotation.calculate(rotationEncoder.getAbsolutePosition().getValueAsDouble(), targetPosition);
@@ -95,11 +95,15 @@ public class Shooter extends SubsystemBase {
     }
 
     /**
-     * Get the current position of the arm in ticks
+     * Get the current position of the arm in absolute between 0 and 1
      * @return arm position in ticks
      */
     public double getPosition(){
         return rotationEncoder.getAbsolutePosition().getValueAsDouble();
+    }
+
+    public String getPosition_Shuffleboard() {
+        return String.format("%12.3f", getPosition());
     }
 
     /**
@@ -124,7 +128,7 @@ public class Shooter extends SubsystemBase {
     }
 
     /**
-     * Set the target position of the arm in ticks
+     * Set the target position of the arm in absolute from 0 to 1
      * @param pos target position in ticks
      */
     public void setTargetPosition(double pos) {
@@ -132,7 +136,7 @@ public class Shooter extends SubsystemBase {
     }
 
     /**
-     * Get the target position of the arm in ticks
+     * Get the target position of the arm in absolute from 0 to 1
      * @return target position in ticks
      */
     public double getTargetPosition() {return targetPosition;}
@@ -145,31 +149,34 @@ public class Shooter extends SubsystemBase {
         return getPosition() - targetPosition;
     }
 
-
     /**
-     *  All the config setting for both ShooterAngle and MainShooter
+     *  All the config setting for Shooter (controller, pid)
      */
     public void configShooter() {
         shooter.restoreFactoryDefaults();
         shooter.setInverted(true);
         shooter.setIdleMode(CANSparkBase.IdleMode.kCoast);
 
-        pidMainShooter = shooter.getPIDController();
+        pidShooter = shooter.getPIDController();
 
-        pidMainShooter.setP(Constants.Shooter.kP);
-        pidMainShooter.setFF(Constants.Shooter.FF);
-        pidMainShooter.setI(Constants.Shooter.kI);
-        pidMainShooter.setOutputRange(0,1);
+        pidShooter.setP(Constants.Shooter.kP);
+        pidShooter.setFF(Constants.Shooter.FF);
+        pidShooter.setI(Constants.Shooter.kI);
+        pidShooter.setOutputRange(0,1);
     }
 
+    /**
+     *  All the config setting for Rotation (controller, sensor, rotation pid)
+     */
     public void configShooterRotation() {
         shooterRotationController.restoreFactoryDefaults();
         shooterRotationController.setIdleMode(CANSparkBase.IdleMode.kBrake);
         shooterRotationController.setOpenLoopRampRate(.25);
 
-        MagnetSensorConfigs magSensorConfig = new MagnetSensorConfigs().withAbsoluteSensorRange(AbsoluteSensorRangeValue.Unsigned_0To1);
-        magSensorConfig.withMagnetOffset(-.133);
-        magSensorConfig.withSensorDirection(SensorDirectionValue.Clockwise_Positive);
+        MagnetSensorConfigs magSensorConfig = new MagnetSensorConfigs()
+                .withAbsoluteSensorRange(AbsoluteSensorRangeValue.Unsigned_0To1)
+                .withMagnetOffset(Constants.ShooterRotation.ENCODER_OFFSET_ABSOLUTE)
+                .withSensorDirection(SensorDirectionValue.Clockwise_Positive);
         rotationEncoder.getConfigurator().apply(new CANcoderConfiguration().withMagnetSensor(magSensorConfig));
 
         pidRotation = new PIDController(Constants.ShooterRotation.kP, Constants.ShooterRotation.kI, Constants.ShooterRotation.kD);

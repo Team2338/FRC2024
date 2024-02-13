@@ -185,7 +185,7 @@ public class CalibrateAngle extends Command {
         // Pausing test to allow user to verify shooter is at 90 degrees
         //
         if (testingStage == stage.PAUSE) {
-            Robot.shooter.moveRotationPercentPower(0.01); // apply small power to overcome gravity
+            Robot.shooter.holdRotation();
             pauseCounter++;
 
             if (pauseCounter >= 3 * 50){ // 5 seconds x 50 20ms intervals
@@ -286,6 +286,7 @@ public class CalibrateAngle extends Command {
     @Override
     public void end(boolean interrupted) {
         Robot.shooter.moveRotationPercentPower(0);
+        Robot.shooter.setTargetPosition(Robot.shooter.getPosition());
     }
 
     void printStatus(String status) {

@@ -135,7 +135,7 @@ public class OI {
         aY.whileTrue(new ShooterAngleUp());
         aX.whileTrue(new ShooterAngleDown());
         aB.onTrue(new CalibrateAngle());
-        aA.whileTrue(new TrapShoot());
+        aA.onTrue(new TrapShoot().withTimeout(3));
     }
 
     public void setRumble(boolean rumble){
