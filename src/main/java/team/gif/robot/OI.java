@@ -12,6 +12,7 @@ import team.gif.robot.commands.drivetrain.MoveRightSlow;
 import team.gif.robot.commands.drivetrain.Reset0;
 import team.gif.robot.commands.indexer.FullIndexerReverse;
 import team.gif.robot.commands.indexer.IndexerManualControl;
+import team.gif.robot.commands.shooter.CalibrateAngle;
 import team.gif.robot.commands.shooter.RevFlyWheels;
 import team.gif.robot.commands.shooter.Shoot;
 import team.gif.robot.commands.shooterAngle.ShooterAngleUp;
@@ -133,7 +134,7 @@ public class OI {
         aLBump.whileTrue(new Shoot());
         aY.whileTrue(new ShooterAngleUp());
         aX.whileTrue(new ShooterAngleDown());
-
+        aB.onTrue(new CalibrateAngle());
         aA.whileTrue(new TrapShoot());
     }
 
