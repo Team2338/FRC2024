@@ -271,7 +271,7 @@ public final class Constants {
     }
 
     public static final class ShooterRotation {
-        public static final double MAX_LIMIT_ABSOLUTE = 0.95; // largest value of encoder we want to allow, needs to be < 1.0
+        public static final double MAX_LIMIT_ABSOLUTE = 0.85; // largest value of encoder we want to allow, needs to be < 1.0
         public static final double MAX_LIMIT_ABSOLUTE_SLOW = 0.85; // largest value of encoder we want to allow, needs to be < 1.0
         public static final double MIN_LIMIT_ABSOLUTE_SLOW = 0.20; // lowest value of encoder we want to allow, needs to be > HARD_STOP
         public static final double MIN_LIMIT_ABSOLUTE = 0.15; // lowest value of encoder we want to allow, needs to be > HARD_STOP
@@ -287,10 +287,10 @@ public final class Constants {
         public static final double DECREASE_ANGLE_PWR_PERC_CALIBRATION = 0.015;
         public static final double STARTING_LINE_POS = 0.215;
         public static final double STAGE_LINE_POS = 0.284;
-        public static final double ROTATION_kP = 1;
-        public static final double ROTATION_FF = 0.01;
-        public static final double ROTATION_kI = 0.0000;
-        public static final double ROTATION_kD = 0.0000;
+        public static final double kP = 1;
+        public static final double FF = 0.01;
+        public static final double kI = 0.0000;
+        public static final double kD = 0.0000;
 //        public static final double kI =
     }
 
