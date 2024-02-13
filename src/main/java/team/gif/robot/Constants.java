@@ -268,8 +268,8 @@ public final class Constants {
         public static final double FF = 0.000190;
         public static final double kP = 0.000028;
         public static final double kI = 0.00000008;
+        public static final double MAX_LIMIT = 0.80;//0.95;
         public static final double MIN_LIMIT = 0.15;//0.010;
-        public static final double MAX_LIMIT = 0.95;//0.95;
         public static final double TICKS_PER_DEGREE = 0.008333;
 //        public static final double MIN_LIMIT_DEGREES = MID_LIMIT;
         public static final double STARTING_LINE_POS = 0.215;
