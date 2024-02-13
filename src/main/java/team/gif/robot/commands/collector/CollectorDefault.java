@@ -4,6 +4,9 @@ import edu.wpi.first.wpilibj2.command.Command;
 import team.gif.robot.Robot;
 
 public class CollectorDefault extends Command {
+    double counter;
+    boolean isCollecting;
+
     public CollectorDefault() {
         super();
         addRequirements(Robot.collector);
@@ -12,15 +15,29 @@ public class CollectorDefault extends Command {
 
     // Called when the command is initially scheduled.
     @Override
-    public void initialize() {}
+    public void initialize() {
+        counter = 0;
+        isCollecting = false;
+    }
 
     // Called every time the scheduler runs (~20ms) while the command is scheduled
     @Override
     public void execute() {
-        if (Robot.indexer.getSensorState()) {
-            Robot.collector.eject();
-        } else {
+        if (Robot.limelightCollector.hasTarget()) {
             Robot.collector.collect();
+            isCollecting = true;
+            counter = 0;
+        } else {
+            if (isCollecting) {
+                counter++;
+                if (counter < (1*50)) {
+                    Robot.collector.collect();
+                } else {
+                    isCollecting = false;
+                }
+            } else {
+                Robot.collector.eject();
+            }
         }
     }
 
