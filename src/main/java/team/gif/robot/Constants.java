@@ -271,9 +271,7 @@ public final class Constants {
     }
 
     public static final class ShooterRotation {
-        public static final double MAX_LIMIT_ABSOLUTE = 0.85; // largest value of encoder we want to allow, needs to be < 1.0
-        public static final double MAX_LIMIT_ABSOLUTE_SLOW = 0.85; // largest value of encoder we want to allow, needs to be < 1.0
-        public static final double MIN_LIMIT_ABSOLUTE_SLOW = 0.20; // lowest value of encoder we want to allow, needs to be > HARD_STOP
+        public static final double MAX_LIMIT_ABSOLUTE = 0.80; // largest value of encoder we want to allow, needs to be < 1.0
         public static final double MIN_LIMIT_ABSOLUTE = 0.15; // lowest value of encoder we want to allow, needs to be > HARD_STOP
         public static final double HARD_STOP_ABSOLUTE = 0.10; // value of encoder at lower limit hard stop;
         public static final double ABSOLUTE_PER_DEGREE = 0.008333;
