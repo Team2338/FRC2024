@@ -52,20 +52,10 @@ public class Shooter extends SubsystemBase {
             .withSensorDirection(SensorDirectionValue.Clockwise_Positive);
         angleEncoder.getConfigurator().apply(new CANcoderConfiguration().withMagnetSensor(magSensorConfig));
 
-        // try this first
+        // check constants are valid
         if (Constants.Shooter.MIN_LIMIT_ABSOLUTE < Constants.Shooter.HARD_STOP_ABSOLUTE){
             throw new Exception("Shooter MIN_LIMIT_ABSOLUTE needs to be greater than HARD_STOP_ABSOLUTE");
         }
-
-        // then try this - I don't know if this will stop the program
-//        try {
-//            if (Constants.Shooter.MIN_LIMIT_ABSOLUTE > Constants.Shooter.HARD_STOP_ABSOLUTE){
-//                throw new RuntimeException();
-//            }
-//        }
-//        catch(RuntimeException e) {
-//            System.out.println("Constants.Shooter.MIN_LIMIT_ABSOLUTE > Constants.Shooter.HARD_STOP_ABSOLUTE");
-//        }
     }
 
     public void setVoltage(double volt) {
