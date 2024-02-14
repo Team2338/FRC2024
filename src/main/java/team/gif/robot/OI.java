@@ -2,6 +2,7 @@ package team.gif.robot;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.GenericHID;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import team.gif.robot.commands.driveModes.EnableBoost;
@@ -126,8 +127,12 @@ public class OI {
 
         // manual control
         aBack.toggleOnTrue(new ToggleManualControl());
-        aDPadUp.whileTrue(new IndexerManualControl());
+        aDPadRight.whileTrue(new IndexerManualControl());
 //        aA.whileTrue(new CollectorManualControl());
+
+        aDPadDown.onTrue(new InstantCommand(Robot.shooter::setRotationWall));
+        aDPadLeft.onTrue(new InstantCommand(Robot.shooter::setRotationNear));
+        aDPadUp.onTrue(new InstantCommand(Robot.shooter::setRotationMid));
 
         //shooter
         aRTrigger.whileTrue(new RevFlyWheels());
