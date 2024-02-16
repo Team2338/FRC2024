@@ -4,19 +4,22 @@
 
 package team.gif.robot;
 
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import team.gif.lib.autoMode;
 import team.gif.lib.delay;
 import team.gif.lib.logging.EventFileLogger;
 import team.gif.lib.logging.TelemetryFileLogger;
-import team.gif.robot.commands.drivetrain.DriveSwerve;
-import team.gif.robot.commands.shooter.ShooterAngle;
-import team.gif.robot.subsystems.SwerveDrivetrain;
 import team.gif.robot.commands.collector.CollectorDefault;
+import team.gif.robot.commands.drivetrain.DriveSwerve;
 import team.gif.robot.commands.indexer.IndexerDefault;
+import team.gif.robot.commands.shooterAngle.ShooterAnglePIDControl;
+import team.gif.robot.subsystems.SwerveDrivetrain;
 import team.gif.robot.subsystems.Collector;
 import team.gif.robot.subsystems.Indexer;
 import team.gif.robot.subsystems.Shooter;
@@ -25,8 +28,6 @@ import team.gif.robot.subsystems.drivers.Limelight;
 import team.gif.robot.subsystems.drivers.Pigeon;
 import team.gif.robot.commands.drivetrainPbot.DrivePracticeSwerve;
 
-import java.sql.Driver;
-
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
  * each mode, as described in the TimedRobot documentation. If you change the name of this class or
@@ -34,15 +35,16 @@ import java.sql.Driver;
  * project.
  */
 public class Robot extends TimedRobot {
-    private Command autonomousCommand;
+    private static Command autonomousCommand;
 
     private RobotContainer robotContainer;
 
     private static delay chosenDelay;
+    private static autoMode chosenAuto;
     public static UiSmartDashboard uiSmartDashboard;
     private Timer elapsedTime;
     private boolean runAutoScheduler;
-    public static boolean runningAutonomousMode;
+    public static boolean runningAutonomousMode; // used for other methods to know if robot is in automode
     public static SwerveDrivetrainMK3 practiceDrivetrain;
     public static Pigeon pigeon;
     public static Limelight limelightShooter;
@@ -59,6 +61,8 @@ public class Robot extends TimedRobot {
 
     public static boolean isCompBot = true; //includes 2023 bot
 
+    //https://github.com/mjansen4857/pathplanner/tree/main/examples/java/src/main/java/frc/robot
+
     /**
      * This function is run when the robot is first started up and should be used for any
      * initialization code.
@@ -74,7 +78,6 @@ public class Robot extends TimedRobot {
         // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
         // autonomous chooser on the dashboard.
         elapsedTime = new Timer();
-        robotContainer = new RobotContainer();
 
         limelightShooter = new Limelight("limelight-shooter");
         limelightCollector = new Limelight("limelight-collect");
@@ -95,19 +98,22 @@ public class Robot extends TimedRobot {
         try {
             shooter = new Shooter();
         } catch (Exception e) { throw new RuntimeException(e); }
-
 //        shooter.setDefaultCommand(new ShooterAngle());
         indexer = new Indexer();
         indexer.setDefaultCommand(new IndexerDefault());
         collector = new Collector();
         collector.setDefaultCommand(new CollectorDefault());
 
+        shooter.setDefaultCommand(new ShooterAnglePIDControl());
+
+        robotContainer = new RobotContainer();
+
         ui = new UI();
         uiSmartDashboard = new UiSmartDashboard();
 
         oi = new OI();
+        runningAutonomousMode = false;
 
-        DriverStation.silenceJoystickConnectionWarning(true);
     }
 
     /**
@@ -137,15 +143,20 @@ public class Robot extends TimedRobot {
     /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */
     @Override
     public void autonomousInit() {
+        runningAutonomousMode = true;
+
+        chosenAuto = uiSmartDashboard.autoModeChooser.getSelected();
         chosenDelay = uiSmartDashboard.delayChooser.getSelected();
 
-        // schedule the autonomous command (example)
-        if (autonomousCommand != null) {
-            autonomousCommand.schedule();
-        }
+        autonomousCommand = robotContainer.getAutonomousCommand(chosenAuto);
+
         elapsedTime.reset();
         elapsedTime.start();
         runAutoScheduler = true;
+
+
+        // TODO change - this is to offset the starting position of the auto
+        swerveDrivetrain.resetOdometry(new Pose2d(new Translation2d(1.27, 5.54), pigeon.getRotation2d()));
     }
 
     /** This function is called periodically during autonomous. */
@@ -169,6 +180,7 @@ public class Robot extends TimedRobot {
         if (autonomousCommand != null) {
             autonomousCommand.cancel();
         }
+        runningAutonomousMode = false;
     }
 
     /** This function is called periodically during operator control. */
@@ -205,4 +217,9 @@ public class Robot extends TimedRobot {
         telemetryLogger.addMetric("Driver_Angle", () -> Math.atan(-Robot.oi.driver.getLeftY() / Robot.oi.driver.getLeftX()));
         telemetryLogger.addMetric("Driver_Right_X", () -> Robot.oi.driver.getRightX());
     }
+
+    public static void cancelAuto() {
+        autonomousCommand.cancel();
+    }
+
 }

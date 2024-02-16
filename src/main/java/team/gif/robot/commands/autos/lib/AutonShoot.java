@@ -1,50 +1,48 @@
-package team.gif.robot.commands.shooter;
+package team.gif.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import team.gif.robot.Constants;
 import team.gif.robot.Robot;
 
-public class Shoot extends Command {
-    boolean isFiring;
-    double counter;
+public class AutonShoot extends Command {
 
-    public Shoot() {
+    private int counter;
+
+    public AutonShoot() {
         super();
-        addRequirements(Robot.indexer,Robot.shooter); // uncomment
+        addRequirements(Robot.shooter, Robot.indexer);
+        //addRequirements(Robot.climber); // uncomment
     }
 
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
-        isFiring = false;
         counter = 0;
     }
 
     // Called every time the scheduler runs (~20ms) while the command is scheduled
     @Override
     public void execute() {
-        if (Robot.shooter.getShooterRPM() >= (Constants.Shooter.REV_RPM * .95)) { //allow tolerance
-            Robot.indexer.setIndexer(0, Constants.Indexer.STAGE_SHOOTER_PERC);
-            isFiring = true;
-        } else {
-            Robot.shooter.setShooterRPM(Constants.Shooter.REV_RPM);
-        }
-
-        if (isFiring) {
+        Robot.shooter.setShooterRPM(Constants.Shooter.REV_RPM);
+        if(Robot.shooter.getShooterRPM() >= Constants.Shooter.REV_RPM * .9) {
             counter++;
+            Robot.indexer.setIndexer(Constants.Indexer.STAGE_COLLECTOR_PERC, Constants.Indexer.STAGE_SHOOTER_PERC);
         }
     }
 
     // Return true when the command should end, false if it should continue. Runs every ~20ms.
     @Override
     public boolean isFinished() {
-        return counter > (.5*50);
+        if(counter > 50) {
+            return true;
+        }
+        return false;
     }
 
     // Called when the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
-        Robot.indexer.setIndexer(0,0);
         Robot.shooter.setVoltage(0);
+        Robot.indexer.setIndexer(0, 0);
     }
 }

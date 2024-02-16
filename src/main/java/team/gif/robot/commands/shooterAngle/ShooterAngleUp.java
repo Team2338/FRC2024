@@ -1,11 +1,11 @@
-package team.gif.robot.commands.shooter;
+package team.gif.robot.commands.shooterAngle;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import team.gif.robot.Constants;
 import team.gif.robot.Robot;
 
-public class ShooterAngle extends Command {
-    public ShooterAngle() {
+public class ShooterAngleUp extends Command {
+    public ShooterAngleUp() {
         super();
         addRequirements(Robot.shooter); // uncomment
     }
@@ -20,13 +20,11 @@ public class ShooterAngle extends Command {
         double pos = Robot.shooter.getPosition();
 
         if (pos < Constants.ShooterRotation.MAX_LIMIT_ABSOLUTE) {
-            if (pos > Constants.ShooterRotation.MAX_LIMIT_ABSOLUTE_SLOW) {
-                Robot.shooter.moveAnglePercentPower(Constants.ShooterRotation.INCREASE_ANGLE_PWR_PERC_SLOW);
-            } else {
-                Robot.shooter.moveAnglePercentPower(Constants.ShooterRotation.INCREASE_ANGLE_PWR_PERC);
-            }
+            Robot.shooter.moveRotationPercentPower(Constants.ShooterRotation.INCREASE_ANGLE_PWR_PERC);
+            Robot.shooter.setTargetPosition(pos);
         } else {
-            Robot.shooter.moveAnglePercentPower(0);
+            Robot.shooter.holdRotation();
+            Robot.shooter.setTargetPosition(Constants.ShooterRotation.MAX_LIMIT_ABSOLUTE);
         }
     }
 
@@ -39,6 +37,14 @@ public class ShooterAngle extends Command {
     // Called when the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
-        Robot.shooter.moveAnglePercentPower(0);
+        double pos = Robot.shooter.getPosition();
+
+        if (pos < Constants.ShooterRotation.MAX_LIMIT_ABSOLUTE) {
+            Robot.shooter.setTargetPosition(pos);
+        } else {
+            Robot.shooter.setTargetPosition(Constants.ShooterRotation.MAX_LIMIT_ABSOLUTE);
+        }
+
+        Robot.shooter.holdRotation();
     }
 }

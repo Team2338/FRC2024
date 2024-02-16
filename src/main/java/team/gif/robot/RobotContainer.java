@@ -4,8 +4,19 @@
 
 package team.gif.robot;
 
+import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.auto.NamedCommands;
+import com.pathplanner.lib.commands.PathPlannerAuto;
+import com.pathplanner.lib.path.PathPlannerPath;
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import team.gif.lib.autoMode;
+import team.gif.robot.commands.AutonRevFlywheel;
+import team.gif.robot.commands.AutonShoot;
+import team.gif.robot.commands.autos.NoAuto;
+
+import java.util.HashMap;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -15,10 +26,16 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
  */
 public class RobotContainer {
 
+    private final HashMap<autoMode, Command> autoCommands = new HashMap<>();
+
     /** The container for the robot. Contains subsystems, OI devices, and commands. */
     public RobotContainer() {
+        NamedCommands.registerCommand("AutonShoot", new AutonShoot());
+        NamedCommands.registerCommand("AutonRevFlywheel", new AutonRevFlywheel());
+
         // Configure the trigger bindings
         configureBindings();
+        buildAutoCommands();
     }
 
     /**
@@ -31,5 +48,30 @@ public class RobotContainer {
      * joysticks}.
      */
     private void configureBindings() {
+    }
+
+    private void buildAutoCommands(){
+        autoCommands.put(autoMode.NONE, new NoAuto());
+        autoCommands.put(autoMode.CIRCLE, AutoBuilder.followPath(PathPlannerPath.fromPathFile("Circle Path")));
+        autoCommands.put(autoMode.MOBILITY, AutoBuilder.followPath(PathPlannerPath.fromPathFile("Mobility")));
+        autoCommands.put(autoMode.CTR_C, new PathPlannerAuto("CTR-C"));
+    }
+
+    /**
+     * Use this to pass the autonomous command to the main {@link Robot} class.
+     *
+     * @return the command to run in autonomous
+     */
+    public Command getAutonomousCommand(autoMode chosenAuto) {
+        Command autonomousCommand = autoCommands.get(chosenAuto);
+
+        if (chosenAuto == null) {
+            System.out.println("Autonomous selection is null. Robot will do nothing in auto :(");
+        }
+
+        return autonomousCommand;
+//        PathPlannerPath path= PathPlannerPath.fromPathFile("Circle Path");
+
+ //       return AutoBuilder.followPath(path);
     }
 }

@@ -33,11 +33,12 @@ public class Indexer extends SubsystemBase {
         stageTwo.setIdleMode(CANSparkBase.IdleMode.kBrake);
 
         pidControllerStage2 = stageTwo.getPIDController();
-        pidControllerStage2.setFF(Constants.Indexer.STAGE_TWO_FF);
-        pidControllerStage2.setP(Constants.Indexer.STAGE_TWO_kP);
+        pidControllerStage2.setFF(Constants.Indexer.STAGE_SHOOTER_FF);
+        pidControllerStage2.setP(Constants.Indexer.STAGE_SHOOTER_kP);
 
         stageSensor = new DigitalInput(RobotMap.SENSOR_INDEXER_PORT);
         notePassedCollector = true;
+        isIndexing = false;
     }
 
     public void setIndexer(double stageOnePercent, double stageTwoPercent) {
