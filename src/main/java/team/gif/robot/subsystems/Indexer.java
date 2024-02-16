@@ -20,6 +20,8 @@ public class Indexer extends SubsystemBase {
     public static DigitalInput stageSensor;
 
     public boolean indexerManualFlag = false;
+    private boolean isIndexing;
+    private boolean notePassedCollector;
 
     public Indexer() {
         stageOne = new TalonSRX(RobotMap.STAGE_ONE_ID);
@@ -35,6 +37,7 @@ public class Indexer extends SubsystemBase {
         pidControllerStage2.setP(Constants.Indexer.STAGE_TWO_kP);
 
         stageSensor = new DigitalInput(RobotMap.SENSOR_INDEXER_PORT);
+        notePassedCollector = true;
     }
 
     public void setIndexer(double stageOnePercent, double stageTwoPercent) {
@@ -53,5 +56,50 @@ public class Indexer extends SubsystemBase {
 
     public boolean getIndexerManualFlag() {
         return indexerManualFlag;
+    }
+
+    /**
+     * Sets if the bot is currently indexing a note.
+     * There is a gap in the path where the note is not detected by
+     * either the collector sensor or the indexing sensor. This keeps
+     * track of the state
+     *
+     * @param state true if the bot is indexing a note, false if not
+     */
+    public void setIndexing(boolean state) {
+        isIndexing = state;
+    }
+
+    /**
+     * Indicates if the bot is currently indexing a note.
+     * There is a gap in the path where the note is not detected by
+     * either the collector sensor or the indexing sensor.
+     *
+     * @return true if the bot is indexing a note, false if not
+     */
+    public boolean isIndexing() {
+        return isIndexing;
+    }
+
+    /**
+     * Sets if the note has gone passed the
+     * collector sensor after entering the bot.
+     * This is only valid during indexing.
+     *
+     * @param state true if passed, false if not
+     */
+    public void setNotePassedCollector(boolean state) {
+        notePassedCollector = state;
+    }
+
+    /**
+     * Indicates if the note has entered the bot and gone
+     * passed the collector sensor. This is only valid
+     * during indexing.
+     *
+     * @return true if passed, false if not
+     */
+    public boolean getNotePassedCollector() {
+        return notePassedCollector;
     }
 }

@@ -98,9 +98,9 @@ public class Robot extends TimedRobot {
 
 //        shooter.setDefaultCommand(new ShooterAngle());
         indexer = new Indexer();
-//        indexer.setDefaultCommand(new IndexerDefault());
+        indexer.setDefaultCommand(new IndexerDefault());
         collector = new Collector();
-//        collector.setDefaultCommand(new CollectorDefault());
+        collector.setDefaultCommand(new CollectorDefault());
 
         ui = new UI();
         uiSmartDashboard = new UiSmartDashboard();
