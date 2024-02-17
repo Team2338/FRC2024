@@ -23,7 +23,7 @@ public class Shoot extends Command {
     // Called every time the scheduler runs (~20ms) while the command is scheduled
     @Override
     public void execute() {
-        if (Robot.shooter.getShooterRPM() >= (Constants.Shooter.REV_RPM * .95)) { //allow tolerance
+        if (Robot.shooter.getShooterRPM() >= (Constants.Shooter.REV_RPM * .93)) { //allow tolerance
             Robot.indexer.setIndexer(0, Constants.Indexer.STAGE_SHOOTER_PERC);
             isFiring = true;
         } else {
@@ -45,6 +45,6 @@ public class Shoot extends Command {
     @Override
     public void end(boolean interrupted) {
         Robot.indexer.setIndexer(0,0);
-        Robot.shooter.setVoltage(0);
+        Robot.shooter.setVoltagePercent(0);
     }
 }
