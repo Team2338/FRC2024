@@ -42,7 +42,7 @@ public class AutonShoot extends Command {
     // Called when the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
-        Robot.shooter.setVoltage(0);
+        Robot.shooter.setVoltagePercent(0);
         Robot.indexer.setIndexer(0, 0);
     }
 }

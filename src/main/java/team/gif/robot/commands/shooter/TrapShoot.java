@@ -28,7 +28,7 @@ public class TrapShoot extends Command {
         if (counter <= (0.25 * 50)) { // run the flywheel from start to 0.25 seconds after game piece leaves shooter
             Robot.shooter.setShooterRPM(Constants.Shooter.TRAP_RPM);
         } else {
-            Robot.shooter.setVoltage(0);
+            Robot.shooter.setVoltagePercent(0);
         }
 
         // once shooterRPM gets to target, run the indexer
@@ -61,6 +61,6 @@ public class TrapShoot extends Command {
         Robot.indexer.setIndexer(0,0);
         Robot.shooter.moveRotationPercentPower(0);
         Robot.shooter.setTargetPosition(Robot.shooter.getPosition());
-        Robot.shooter.setVoltage(0);
+        Robot.shooter.setVoltagePercent(0);
     }
 }
