@@ -264,7 +264,7 @@ public final class Constants {
 
     public static final class Shooter {
         public static final double REV = 1.0;
-        public static final int REV_RPM = 5000;//5100; // need to tune for comp, max testing on pbot neo got to 5800 RPM, 5120 on 2023
+        public static final int REV_RPM = 5800;//5100; // need to tune for comp, Neo Max at 5000
         public static final int TRAP_RPM = 1000;
         public static final double FF = 0.000190;
         public static final double kP = 0.000028;
@@ -288,7 +288,7 @@ public final class Constants {
         public static final double FF = 0.01;
         public static final double kI = 0.0000;
         public static final double kD = 0.0000;
-        public static final double SETPOINT_FAR = 0.5;
+        public static final double SETPOINT_FAR = 0.35;
         public static final double SETPOINT_MID = 0.27;
         public static final double SETPOINT_NEAR = 0.2;
         public static final double SETPOINT_WALL= 0.12;
@@ -304,6 +304,6 @@ public final class Constants {
 
     public static final class Collector {
         public static final double COLLECT_PERCENT = 1.0;
-        public static final double EJECT_PERCENT = 0.1;
+        public static final double EJECT_PERCENT = 0.2;
     }
 }

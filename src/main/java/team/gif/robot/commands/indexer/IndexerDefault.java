@@ -6,8 +6,6 @@ import team.gif.robot.Robot;
 
 public class IndexerDefault extends Command {
 
-    boolean noteDetected;
-
     public IndexerDefault() {
         super();
         addRequirements(Robot.indexer); // uncomment
@@ -16,23 +14,37 @@ public class IndexerDefault extends Command {
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
-        noteDetected = false;
+        Robot.indexer.setIndexing(false);
     }
 
     // Called every time the scheduler runs (~20ms) while the command is scheduled
     @Override
     public void execute() {
-        if (Robot.collector.getSensorState()) {
-            noteDetected = true;
+        // begin the indexing sequence
+        if (Robot.collector.getSensorState() && !Robot.indexer.isIndexing()) {
+            Robot.indexer.setIndexing(true);
+            Robot.indexer.setNotePassedCollector(false);
         }
 
-        if (noteDetected) {
+        // Bot is indexing. Run the indexers
+        if (Robot.indexer.isIndexing()) {
             Robot.indexer.setIndexer(Constants.Indexer.STAGE_COLLECTOR_PERC, Constants.Indexer.STAGE_SHOOTER_PERC);
+
+            // indicate if the note has passed the collector but the bot is still indexing
+            // this is so the collector can decide of it needs to collect or eject
+            if (!Robot.collector.getSensorState() ) {
+                Robot.indexer.setNotePassedCollector(true);
+            }
         }
 
+        // Note has reached it's destination at the indexer sensor
         if (Robot.indexer.getSensorState()) {
-            Robot.indexer.setIndexer(0, 0);
-            noteDetected = false;
+            if (Robot.collector.getSensorState()) { // this means the robot has collected a second note
+                Robot.indexer.setIndexer(-0.4, 0);
+            } else {
+                Robot.indexer.setIndexer(0, 0);
+            }
+            Robot.indexer.setIndexing(false);
         }
     }
 

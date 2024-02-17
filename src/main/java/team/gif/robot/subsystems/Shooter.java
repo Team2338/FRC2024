@@ -6,6 +6,7 @@ import com.ctre.phoenix6.hardware.CANcoder;
 import com.ctre.phoenix6.signals.AbsoluteSensorRangeValue;
 import com.ctre.phoenix6.signals.SensorDirectionValue;
 import com.revrobotics.CANSparkBase;
+import com.revrobotics.CANSparkFlex;
 import com.revrobotics.CANSparkLowLevel;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.SparkPIDController;
@@ -15,17 +16,21 @@ import team.gif.robot.Constants;
 import team.gif.robot.RobotMap;
 
 public class Shooter extends SubsystemBase {
-    public static CANSparkMax shooter;
+//    public static CANSparkMax shooterNeo; //Leave for shooter Neo
+    public static CANSparkFlex shooter;
     public static SparkPIDController pidShooter;
 
+    //Used for Rotation
     public static CANSparkMax shooterRotationController;
     public static PIDController pidRotation;
     public static CANcoder rotationEncoder;
 
-    private double targetPosition;
+    private double targetPosition; // Rotation
 
     public Shooter() throws Exception {
-        shooter = new CANSparkMax(RobotMap.SHOOTER_ID, CANSparkLowLevel.MotorType.kBrushless);
+//        shooterNeo = new CANSparkMax(RobotMap.SHOOTER_ID, CANSparkLowLevel.MotorType.kBrushless); // Leave for shooter Neo
+        shooter = new CANSparkFlex(RobotMap.SHOOTER_ID, CANSparkLowLevel.MotorType.kBrushless);
+
         configShooter();
 
         shooterRotationController = new CANSparkMax(RobotMap.SHOOTER_ANGLE_ID, CANSparkLowLevel.MotorType.kBrushless);
@@ -42,20 +47,18 @@ public class Shooter extends SubsystemBase {
         targetPosition = getPosition();
     }
 
-    public void setVoltage(double volt) {
-//        shooter.setVoltage(volt);
-        shooter.set(volt);
-    }
-
-    public double getVoltage() {
-        return shooter.getBusVoltage();
+    public void setVoltagePercent(double percent) {
+//        shooterNeo.set(percent); // Leave for shooter Neo
+        shooter.set(percent);
     }
 
     public void setShooterRPM(double rpm) {
-        pidShooter.setReference(rpm, CANSparkBase.ControlType.kVelocity);
+//        pidShooter.setReference(rpm, CANSparkBase.ControlType.kVelocity); // Leave for shooter Neo
+        pidShooter.setReference(rpm, CANSparkFlex.ControlType.kVelocity);
     }
 
     public double getShooterRPM() {
+//        return shooterNeo.getEncoder().getVelocity(); // Leave for shooter Neo
         return shooter.getEncoder().getVelocity();
     }
 
@@ -185,10 +188,15 @@ public class Shooter extends SubsystemBase {
      *  All the config setting for Shooter (controller, pid)
      */
     public void configShooter() {
+//        shooterNeo.restoreFactoryDefaults(); // Leave for shooter Neo
+//        shooterNeo.setInverted(true); // Leave for shooter Neo
+//        shooterNeo.setIdleMode(CANSparkBase.IdleMode.kCoast); // Leave for shooter Neo
+
         shooter.restoreFactoryDefaults();
         shooter.setInverted(true);
         shooter.setIdleMode(CANSparkBase.IdleMode.kCoast);
 
+//        pidShooter = shooterNeo.getPIDController(); // Leave for shooter Neo
         pidShooter = shooter.getPIDController();
 
         pidShooter.setP(Constants.Shooter.kP);

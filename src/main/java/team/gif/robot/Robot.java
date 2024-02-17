@@ -15,7 +15,9 @@ import team.gif.lib.autoMode;
 import team.gif.lib.delay;
 import team.gif.lib.logging.EventFileLogger;
 import team.gif.lib.logging.TelemetryFileLogger;
+import team.gif.robot.commands.collector.CollectorDefault;
 import team.gif.robot.commands.drivetrain.DriveSwerve;
+import team.gif.robot.commands.indexer.IndexerDefault;
 import team.gif.robot.commands.shooterAngle.ShooterAnglePIDControl;
 import team.gif.robot.subsystems.SwerveDrivetrain;
 import team.gif.robot.subsystems.Collector;
@@ -98,9 +100,9 @@ public class Robot extends TimedRobot {
         } catch (Exception e) { throw new RuntimeException(e); }
 //        shooter.setDefaultCommand(new ShooterAngle());
         indexer = new Indexer();
-//        indexer.setDefaultCommand(new IndexerDefault());
+       // indexer.setDefaultCommand(new IndexerDefault());
         collector = new Collector();
-//        collector.setDefaultCommand(new CollectorDefault());
+      //  collector.setDefaultCommand(new CollectorDefault());
 
         shooter.setDefaultCommand(new ShooterAnglePIDControl());
 
