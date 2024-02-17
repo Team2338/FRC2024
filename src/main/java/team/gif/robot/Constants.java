@@ -273,7 +273,7 @@ public final class Constants {
 
     public static final class ShooterRotation {
         public static final double MAX_LIMIT_ABSOLUTE = 0.80; // largest value of encoder we want to allow, needs to be < 1.0
-        public static final double MIN_LIMIT_ABSOLUTE = 0.15; // lowest value of encoder we want to allow, needs to be > HARD_STOP
+        public static final double MIN_LIMIT_ABSOLUTE = 0.12; // lowest value of encoder we want to allow, needs to be > HARD_STOP
         public static final double HARD_STOP_ABSOLUTE = 0.10; // value of encoder at lower limit hard stop;
         public static final double ABSOLUTE_PER_DEGREE = 0.008333;
         public static final double MIN_LIMIT_DEGREES = 48.0; // this is determined during manual calibration, not auto calibration
@@ -288,7 +288,11 @@ public final class Constants {
         public static final double FF = 0.01;
         public static final double kI = 0.0000;
         public static final double kD = 0.0000;
-//        public static final double kI =
+        public static final double SETPOINT_FAR = 0.35;
+        public static final double SETPOINT_MID = 0.27;
+        public static final double SETPOINT_NEAR = 0.2;
+        public static final double SETPOINT_WALL= 0.12;
+
     }
 
     public static final class Indexer {

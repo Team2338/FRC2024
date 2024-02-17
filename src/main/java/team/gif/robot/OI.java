@@ -2,6 +2,7 @@ package team.gif.robot;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.GenericHID;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import team.gif.robot.commands.collector.CollectorManualControl;
@@ -123,13 +124,18 @@ public class OI {
 
 //        aDPadUp.whileTrue(new IndexerDefault());
 
-        aStart.whileTrue(new FullIndexerReverse());
+        dStart.whileTrue(new FullIndexerReverse());
 
         // manual control
-        aBack.toggleOnTrue(new ToggleManualControl());
-        aDPadUp.whileTrue(new IndexerManualControl());
-        aLTrigger.whileTrue(new CollectorManualControl()); // used when limelight fails
-        aDPadLeft.whileTrue(new CollectorManualControl().alongWith(new IndexerManualControl())); // used when sensors fail
+//        aBack.toggleOnTrue(new ToggleManualControl());
+//        aStart.whileTrue(new IndexerManualControl());
+        aBack.whileTrue(new CollectorManualControl()); // used when limelight fails
+        aStart.whileTrue(new CollectorManualControl().alongWith(new IndexerManualControl())); // used when sensors fail
+
+        aDPadUp.onTrue(new InstantCommand(Robot.shooter::setRotationFar));
+        aDPadRight.onTrue(new InstantCommand(Robot.shooter::setRotationMid));
+        aDPadLeft.onTrue(new InstantCommand(Robot.shooter::setRotationNear));
+        aDPadDown.onTrue(new InstantCommand(Robot.shooter::setRotationWall));
 
         //shooter
         aRTrigger.whileTrue(new RevFlyWheels());

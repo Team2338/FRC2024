@@ -138,6 +138,38 @@ public class Shooter extends SubsystemBase {
         targetPosition = pos;
     }
 
+
+    /**
+     * Moves shooter rotation to the Far setpoint defined in constants.java
+     */
+    public void setRotationFar() {
+        targetPosition = Constants.ShooterRotation.SETPOINT_FAR;
+    }
+
+    /**
+     * Moves shooter rotation to the Mid setpoint defined in constants.java
+     */
+    public void setRotationMid() {
+        targetPosition = Constants.ShooterRotation.SETPOINT_MID;
+    }
+
+    /**
+     * Moves shooter rotation to the Near setpoint defined in constants.java
+     */
+    public void setRotationNear() {
+        targetPosition = Constants.ShooterRotation.SETPOINT_NEAR;
+    }
+
+    /**
+     * Moves shooter rotation to the Wall setpoint defined in constants.java
+     */
+    public void setRotationWall() {
+        targetPosition = Constants.ShooterRotation.SETPOINT_WALL;
+    }
+
+
+
+
     /**
      * Get the target position of the arm in absolute from 0 to 1
      * @return target position in ticks
