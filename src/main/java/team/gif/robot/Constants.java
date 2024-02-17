@@ -300,6 +300,6 @@ public final class Constants {
 
     public static final class Collector {
         public static final double COLLECT_PERCENT = 1.0;
-        public static final double EJECT_PERCENT = 0.1;
+        public static final double EJECT_PERCENT = 0.2;
     }
 }
