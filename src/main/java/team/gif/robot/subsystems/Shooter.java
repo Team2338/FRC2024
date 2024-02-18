@@ -126,6 +126,7 @@ public class Shooter extends SubsystemBase {
     public double degreesToAbsolute(double degrees){
         return (degrees - Constants.ShooterRotation.MIN_LIMIT_DEGREES) * Constants.ShooterRotation.ABSOLUTE_PER_DEGREE + Constants.ShooterRotation.MIN_LIMIT_ABSOLUTE;
     }
+    
     public double absoluteToDegrees(double absolute){
         return ( (absolute - Constants.ShooterRotation.MIN_LIMIT_ABSOLUTE)/ Constants.ShooterRotation.ABSOLUTE_PER_DEGREE +  Constants.ShooterRotation.MIN_LIMIT_DEGREES);
     }
@@ -138,43 +139,41 @@ public class Shooter extends SubsystemBase {
         targetPosition = pos;
     }
 
-
     /**
      * Moves shooter rotation to the Far setpoint defined in constants.java
      */
     public void setRotationFar() {
-        targetPosition = Constants.ShooterRotation.SETPOINT_FAR;
+        targetPosition = Constants.ShooterRotation.SETPOINT_FAR_ABSOLUTE;
     }
 
     /**
      * Moves shooter rotation to the Mid setpoint defined in constants.java
      */
     public void setRotationMid() {
-        targetPosition = Constants.ShooterRotation.SETPOINT_MID;
+        targetPosition = Constants.ShooterRotation.SETPOINT_MID_ABSOLUTE;
     }
 
     /**
      * Moves shooter rotation to the Near setpoint defined in constants.java
      */
     public void setRotationNear() {
-        targetPosition = Constants.ShooterRotation.SETPOINT_NEAR;
+        targetPosition = Constants.ShooterRotation.SETPOINT_NEAR_ABSOLUTE;
     }
 
     /**
      * Moves shooter rotation to the Wall setpoint defined in constants.java
      */
     public void setRotationWall() {
-        targetPosition = Constants.ShooterRotation.SETPOINT_WALL;
+        targetPosition = Constants.ShooterRotation.SETPOINT_WALL_ABSOLUTE;
     }
-
-
-
 
     /**
      * Get the target position of the arm in absolute from 0 to 1
      * @return target position in ticks
      */
-    public double getTargetPosition() {return targetPosition;}
+    public double getTargetPosition() {
+        return targetPosition;
+    }
 
     /**
      * Get the current error of the arm PID
