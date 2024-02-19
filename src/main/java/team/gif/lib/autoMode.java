@@ -7,7 +7,8 @@ public enum autoMode {
     TWO_CTR_C(0),
     TWO_SRC_S(0),
     TWO_SRC_8(0),
-    TWO_SRC_7(0)
+    TWO_SRC_7(0),
+    THREE_AMP_A_C_S(0)
     ;
 
     private int value;

@@ -23,8 +23,8 @@ public class AutonShoot extends Command {
     // Called every time the scheduler runs (~20ms) while the command is scheduled
     @Override
     public void execute() {
-        Robot.shooter.setShooterRPM(Constants.Shooter.REV_RPM);
-        if(Robot.shooter.getShooterRPM() >= Constants.Shooter.REV_RPM * .9) {
+        Robot.shooter.setShooterRPM(2000);//Constants.Shooter.REV_RPM);
+        if(Robot.shooter.getShooterRPM() >= 2000 * .9) {
             counter++;
             Robot.indexer.setIndexer(Constants.Indexer.STAGE_COLLECTOR_PERC, Constants.Indexer.STAGE_SHOOTER_PERC);
         }
