@@ -272,12 +272,6 @@ public final class Constants {
     }
 
     public static final class ShooterRotation {
-        public static final double MAX_LIMIT_ABSOLUTE = 0.80; // largest value of encoder we want to allow, needs to be < 1.0
-        public static final double MIN_LIMIT_ABSOLUTE = 0.12; // lowest value of encoder we want to allow, needs to be > HARD_STOP
-        public static final double HARD_STOP_ABSOLUTE = 0.10; // value of encoder at lower limit hard stop;
-        public static final double ABSOLUTE_PER_DEGREE = 0.008333;
-        public static final double MIN_LIMIT_DEGREES = 48.0; // this is determined during manual calibration, not auto calibration
-        public static final double ENCODER_OFFSET_ABSOLUTE = -0.135; // -0.37; // this is determined either manually or via the auto-calibration
         public static final double INCREASE_ANGLE_PWR_PERC = 0.1;
         public static final double INCREASE_ANGLE_PWR_PERC_CALIBRATION = 0.1;
         public static final double DECREASE_ANGLE_PWR_PERC = 0.1;
@@ -288,11 +282,20 @@ public final class Constants {
         public static final double FF = 0.01;
         public static final double kI = 0.0000;
         public static final double kD = 0.0000;
-        public static final double SETPOINT_FAR = 0.35;
-        public static final double SETPOINT_MID = 0.27;
-        public static final double SETPOINT_NEAR = 0.2;
-        public static final double SETPOINT_WALL= 0.12;
 
+        // Encoder setpoints and values
+        // These are the encoder specific values
+        public static final double ENCODER_OFFSET_ABSOLUTE = -0.135; // this is determined either manually or via the auto-calibration
+        public static final double ABSOLUTE_PER_DEGREE = 0.008333;
+        // These are the values we want the bot to utilize
+        public static final double MAX_LIMIT_ABSOLUTE = 0.80; // largest value of encoder we want to allow, needs to be < 1.0
+        public static final double MIN_LIMIT_ABSOLUTE = 0.12; // lowest value of encoder we want to allow, needs to be > HARD_STOP
+        public static final double HARD_STOP_ABSOLUTE = 0.10; // value of encoder at lower limit hard stop
+        public static final double MIN_LIMIT_DEGREES = 48.0; // this is calculated during manual calibration from reading the 90 degree value, provides a relationship between Degrees and Absolute
+        public static final double SETPOINT_FAR_ABSOLUTE  = (72.9 - MIN_LIMIT_DEGREES) * ABSOLUTE_PER_DEGREE + MIN_LIMIT_ABSOLUTE; // number in degrees, value in absolute
+        public static final double SETPOINT_MID_ABSOLUTE  = (66.0 - MIN_LIMIT_DEGREES) * ABSOLUTE_PER_DEGREE + MIN_LIMIT_ABSOLUTE; // number in degrees, value in absolute
+        public static final double SETPOINT_NEAR_ABSOLUTE = (57.6 - MIN_LIMIT_DEGREES) * ABSOLUTE_PER_DEGREE + MIN_LIMIT_ABSOLUTE; // number in degrees, value in absolute
+        public static final double SETPOINT_WALL_ABSOLUTE = (48.0 - MIN_LIMIT_DEGREES) * ABSOLUTE_PER_DEGREE + MIN_LIMIT_ABSOLUTE; // number in degrees, value in absolute
     }
 
     public static final class Indexer {
