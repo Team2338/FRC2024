@@ -5,7 +5,9 @@ public enum autoMode {
     MOBILITY(0),
     CIRCLE(0),
     TWO_CTR_C(0),
-    TWO_SRC_S(0)
+    TWO_SRC_S(0),
+    TWO_SRC_8(0),
+    TWO_SRC_7(0)
     ;
 
     private int value;

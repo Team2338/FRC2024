@@ -33,6 +33,8 @@ public class UiSmartDashboard {
         autoModeChooser.addOption("Mobility", autoMode.MOBILITY);
         autoModeChooser.addOption("2CTR+C", autoMode.TWO_CTR_C);
         autoModeChooser.addOption("2SRC+S", autoMode.TWO_SRC_S);
+        autoModeChooser.addOption("2SRC+8", autoMode.TWO_SRC_8);
+        autoModeChooser.addOption("2SRC+7", autoMode.TWO_SRC_7);
 
 
         shuffleboardTab.add("Auto Select", autoModeChooser)
