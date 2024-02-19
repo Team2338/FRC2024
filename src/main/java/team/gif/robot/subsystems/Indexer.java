@@ -6,7 +6,6 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.revrobotics.CANSparkBase;
 import com.revrobotics.CANSparkLowLevel;
 import com.revrobotics.CANSparkMax;
-import com.revrobotics.CANSparkMaxLowLevel;
 import com.revrobotics.SparkPIDController;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -26,10 +25,12 @@ public class Indexer extends SubsystemBase {
     private boolean notePassedCollector;
 
     public Indexer() {
+        // 2023 bot
 //        stageOne = new TalonSRX(RobotMap.STAGE_ONE_ID);
 //        stageOne.configFactoryDefault();
 //        stageOne.setNeutralMode(NeutralMode.Brake);
 
+        // 2024 bot
         stageOne = new CANSparkMax(RobotMap.STAGE_ONE_ID, CANSparkLowLevel.MotorType.kBrushless);
         stageOne.restoreFactoryDefaults();
         stageOne.setIdleMode(CANSparkBase.IdleMode.kBrake);
@@ -48,12 +49,14 @@ public class Indexer extends SubsystemBase {
     }
 
     public void setIndexer(double stageOnePercent, double stageTwoPercent) {
-        stageOne.set(stageOnePercent);
+//        stageOne.set(ControlMode.PercentOutput, stageOnePercent); // 2023 bot
+        stageOne.set(stageOnePercent); // 2024 bot
         stageTwo.set(stageTwoPercent);
     }
 
     public void stopIndexer() {
-        stageOne.set(0);
+//        stageOne.set(ControlMode.PercentOutput, 0); // 2023 bot
+        stageOne.set(0); // 2024 bot
         stageTwo.set(0);
     }
 
