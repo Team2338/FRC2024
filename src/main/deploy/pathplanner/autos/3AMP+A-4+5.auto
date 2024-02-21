@@ -2,10 +2,10 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 0.79,
-      "y": 6.74
+      "x": 0.7859976973515199,
+      "y": 6.735832958845405
     },
-    "rotation": 59.660835405278306
+    "rotation": 58.23963181824495
   },
   "command": {
     "type": "sequential",
@@ -20,7 +20,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "4AMP+A+C+S-Away"
+            "pathName": "3AMP+A-Away"
           }
         },
         {
@@ -32,7 +32,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "4AMP+A+C+S-3"
+            "pathName": "3AMP-4-Away"
           }
         },
         {
@@ -44,13 +44,25 @@
         {
           "type": "path",
           "data": {
-            "pathName": "4AMP+A+C+S-4"
+            "pathName": "3AMP-4-Return"
           }
         },
         {
           "type": "named",
           "data": {
             "name": "AutonShoot"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "3AMP+5-Away"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "3AMP+5-Return"
           }
         }
       ]

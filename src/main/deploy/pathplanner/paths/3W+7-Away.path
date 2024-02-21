@@ -20,8 +20,8 @@
         "y": 2.3271367340455487
       },
       "prevControl": {
-        "x": 5.277719063414381,
-        "y": 1.8448355248368342
+        "x": 6.089074937683774,
+        "y": 1.709099191503468
       },
       "nextControl": null,
       "isLocked": false,
@@ -49,7 +49,7 @@
     "rotateFast": false
   },
   "reversed": false,
-  "folder": null,
+  "folder": "3W+8+7",
   "previewStartingState": null,
   "useDefaultConstraints": false
 }
