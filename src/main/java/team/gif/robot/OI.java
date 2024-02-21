@@ -12,6 +12,7 @@ import team.gif.robot.commands.drivetrain.MoveCloserSlow;
 import team.gif.robot.commands.drivetrain.MoveLeftSlow;
 import team.gif.robot.commands.drivetrain.MoveRightSlow;
 import team.gif.robot.commands.drivetrain.Reset0;
+import team.gif.robot.commands.elevator.MoveElevetorPerc;
 import team.gif.robot.commands.indexer.FullIndexerReverse;
 import team.gif.robot.commands.indexer.IndexerManualControl;
 import team.gif.robot.commands.shooter.CalibrateAngle;
@@ -144,6 +145,8 @@ public class OI {
         aX.whileTrue(new ShooterAngleDown());
         aB.onTrue(new CalibrateAngle());
         aA.onTrue(new TrapShoot().withTimeout(3));
+
+        dA.whileTrue(new MoveElevetorPerc());
     }
 
     public void setRumble(boolean rumble){

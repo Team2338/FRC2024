@@ -48,4 +48,10 @@ public abstract class RobotMap {
     public static final int COLLECTOR_ID = 31;
     public static final int SENSOR_COLLECTOR_PORT  = 0;
 
+    //elevator
+    public static final int ELEVATOR_ID = 51;
+
+    //climber
+    public static final int CLIMBER_ID = 52;
+
 }

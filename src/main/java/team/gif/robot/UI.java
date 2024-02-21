@@ -31,5 +31,7 @@ public class UI {
         shuffleboardTab.addString("Shooter Actual", Robot.shooter::getPosition_Shuffleboard);
         shuffleboardTab.addDouble("Shooter Target", Robot.shooter::getTargetPosition);
         shuffleboardTab.addString("Shooter Degrees", Robot.shooter::getRotationDegrees_Shuffleboard);
+
+        shuffleboardTab.addString("Elevator Postion", Robot.elevator::getPosition_Shuffleboard);
     }
 }
