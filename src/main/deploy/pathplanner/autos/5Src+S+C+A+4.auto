@@ -64,12 +64,6 @@
           "data": {
             "pathName": "5SRC+A+4-Return"
           }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "AutonShoot"
-          }
         }
       ]
     }
