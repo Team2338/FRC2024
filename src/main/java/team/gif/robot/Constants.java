@@ -9,6 +9,10 @@ import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.math.util.Units;
 
+import javax.swing.plaf.PanelUI;
+import java.security.PublicKey;
+import java.security.spec.DSAPublicKeySpec;
+
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
  * constants. This class should not be used for any other purpose. All constants should be declared
@@ -308,5 +312,10 @@ public final class Constants {
     public static final class Collector {
         public static final double COLLECT_PERCENT = 1.0;
         public static final double EJECT_PERCENT = 0.2;
+    }
+
+    public static final class Climber {
+        public static final double MAX_LIMIT = 400;
+        public static final double MIN_LIMIT = 50;
     }
 }

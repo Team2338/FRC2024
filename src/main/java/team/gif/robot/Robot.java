@@ -19,6 +19,7 @@ import team.gif.robot.commands.collector.CollectorDefault;
 import team.gif.robot.commands.drivetrain.DriveSwerve;
 import team.gif.robot.commands.indexer.IndexerDefault;
 import team.gif.robot.commands.shooterAngle.ShooterAnglePIDControl;
+import team.gif.robot.subsystems.Climber;
 import team.gif.robot.subsystems.SwerveDrivetrain;
 import team.gif.robot.subsystems.Collector;
 import team.gif.robot.subsystems.Indexer;
@@ -58,6 +59,7 @@ public class Robot extends TimedRobot {
     public static Shooter shooter;
     public static Indexer indexer;
     public static Collector collector;
+    public static Climber climber;
 
     public static boolean isCompBot = true; //includes 2023 bot
 
@@ -105,6 +107,8 @@ public class Robot extends TimedRobot {
       //  collector.setDefaultCommand(new CollectorDefault());
 
         shooter.setDefaultCommand(new ShooterAnglePIDControl());
+
+        climber = new Climber();
 
         robotContainer = new RobotContainer();
 
