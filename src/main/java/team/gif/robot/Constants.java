@@ -299,14 +299,14 @@ public final class Constants {
     }
 
     public static final class Indexer {
-        public static final double STAGE_COLLECTOR_PERC = .6;//1.0;
-        public static final double STAGE_SHOOTER_PERC = 1;//1.0;
+        public static final double STAGE_COLLECTOR_PERC = 0.8;//1.0;
+        public static final double STAGE_TWO_SHOOTER_PERC = 0.2;//1.0;
         public static final double STAGE_SHOOTER_FF = 0.0000;
         public static final double STAGE_SHOOTER_kP = 0.0000;
     }
 
     public static final class Collector {
-        public static final double COLLECT_PERCENT = 1.0;
+        public static final double COLLECT_PERCENT = 0.4;
         public static final double EJECT_PERCENT = 0.2;
     }
 }

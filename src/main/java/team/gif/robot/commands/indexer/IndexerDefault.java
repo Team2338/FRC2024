@@ -28,7 +28,7 @@ public class IndexerDefault extends Command {
 
         // Bot is indexing. Run the indexers
         if (Robot.indexer.isIndexing()) {
-            Robot.indexer.setIndexer(Constants.Indexer.STAGE_COLLECTOR_PERC, Constants.Indexer.STAGE_SHOOTER_PERC);
+            Robot.indexer.setIndexer(Constants.Indexer.STAGE_COLLECTOR_PERC, Constants.Indexer.STAGE_TWO_SHOOTER_PERC);
 
             // indicate if the note has passed the collector but the bot is still indexing
             // this is so the collector can decide of it needs to collect or eject

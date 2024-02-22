@@ -17,6 +17,7 @@ import team.gif.robot.commands.indexer.IndexerManualControl;
 import team.gif.robot.commands.shooter.CalibrateAngle;
 import team.gif.robot.commands.shooter.RevFlyWheels;
 import team.gif.robot.commands.shooter.Shoot;
+import team.gif.robot.commands.shooter.ShootManu;
 import team.gif.robot.commands.shooterAngle.ShooterAngleUp;
 import team.gif.robot.commands.shooterAngle.ShooterAngleDown;
 import team.gif.robot.commands.shooter.TrapShoot;
@@ -140,6 +141,7 @@ public class OI {
         //shooter
         aRTrigger.whileTrue(new RevFlyWheels());
         aLBump.whileTrue(new Shoot());
+        dA.whileTrue(new ShootManu());
         aY.whileTrue(new ShooterAngleUp());
         aX.whileTrue(new ShooterAngleDown());
         aB.onTrue(new CalibrateAngle());

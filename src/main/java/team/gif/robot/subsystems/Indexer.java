@@ -39,6 +39,7 @@ public class Indexer extends SubsystemBase {
         stageTwo = new CANSparkMax(RobotMap.STAGE_TWO_ID, CANSparkLowLevel.MotorType.kBrushless);
         stageTwo.restoreFactoryDefaults();
         stageTwo.setIdleMode(CANSparkBase.IdleMode.kBrake);
+        stageTwo.setInverted(true);
 
         pidControllerStage2 = stageTwo.getPIDController();
         pidControllerStage2.setFF(Constants.Indexer.STAGE_SHOOTER_FF);
