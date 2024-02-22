@@ -42,10 +42,10 @@ public final class Constants {
         public static final double REAR_RIGHT_OFFSET = 157.85156;// + 25.4;
 
         // Distance between centers of right and left wheels on robot
-        public static final double TRACK_LENGTH = Units.inchesToMeters(25);
+        public static final double TRACK_LENGTH = Units.inchesToMeters(23.5);
 
         // Distance between front and back wheels on robot
-        public static final double TRACK_WIDTH = Units.inchesToMeters(21.4375);
+        public static final double TRACK_WIDTH = Units.inchesToMeters(22.5);
 
         // location of wheels from center of robot using following axis
         //        +x
@@ -82,7 +82,7 @@ public final class Constants {
     public static final class ModuleConstants {
         public static final double MAX_MODULE_ANGULAR_SPEED_RADIANS_PER_SECOND = 6 * (2 * Math.PI); //6
         public static final double MAX_MODULE_ANGULAR_ACCELERATION_RADIANS_PER_SECOND_SQUARED = 6 * (2 * Math.PI); //7
-        public static final double GEAR_RATIO = 27.0 / 4.0; // need to ask aaron
+        public static final double GEAR_RATIO = 153.0 / 25.0; //27.0 / 4.0; on 2023 bot. // need to ask luke
         public static final double ENCODER_CPR = 2048.0;
         public static final double WHEEL_DIAMETER_METERS = Units.inchesToMeters(3.78);
         public static final double DRIVE_ENCODER_ROT_2_METER = Math.PI * WHEEL_DIAMETER_METERS / (GEAR_RATIO * ENCODER_CPR);
@@ -285,7 +285,7 @@ public final class Constants {
 
         // Encoder setpoints and values
         // These are the encoder specific values
-        public static final double ENCODER_OFFSET_ABSOLUTE = -0.135; // this is determined either manually or via the auto-calibration
+        public static final double ENCODER_OFFSET_ABSOLUTE = -0.736; // this is determined either manually or via the auto-calibration
         public static final double ABSOLUTE_PER_DEGREE = 0.008333;
         // These are the values we want the bot to utilize
         public static final double MAX_LIMIT_ABSOLUTE = 0.80; // largest value of encoder we want to allow, needs to be < 1.0

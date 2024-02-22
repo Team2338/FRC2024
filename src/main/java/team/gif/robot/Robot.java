@@ -100,11 +100,11 @@ public class Robot extends TimedRobot {
         } catch (Exception e) { throw new RuntimeException(e); }
 //        shooter.setDefaultCommand(new ShooterAngle());
         indexer = new Indexer();
-       // indexer.setDefaultCommand(new IndexerDefault());
+        indexer.setDefaultCommand(new IndexerDefault());
         collector = new Collector();
-      //  collector.setDefaultCommand(new CollectorDefault());
+        collector.setDefaultCommand(new CollectorDefault());
 
-        shooter.setDefaultCommand(new ShooterAnglePIDControl());
+//        shooter.setDefaultCommand(new ShooterAnglePIDControl());
 
         robotContainer = new RobotContainer();
 

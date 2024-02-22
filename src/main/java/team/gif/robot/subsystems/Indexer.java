@@ -17,7 +17,8 @@ public class Indexer extends SubsystemBase {
     public static CANSparkMax stageTwo;
     public static SparkPIDController pidControllerStage2;
 
-    public static DigitalInput stageSensor;
+    public static DigitalInput midSensor;
+    public static DigitalInput shooterSensor;
 
     public boolean indexerManualFlag = false;
     private boolean isIndexing;
@@ -36,7 +37,8 @@ public class Indexer extends SubsystemBase {
         pidControllerStage2.setFF(Constants.Indexer.STAGE_SHOOTER_FF);
         pidControllerStage2.setP(Constants.Indexer.STAGE_SHOOTER_kP);
 
-        stageSensor = new DigitalInput(RobotMap.SENSOR_INDEXER_PORT);
+        midSensor = new DigitalInput(RobotMap.MIDDLE_SENSOR_PORT);
+        shooterSensor = new DigitalInput(RobotMap.SHOOTER_SENSOR_PORT);
         notePassedCollector = true;
         isIndexing = false;
     }
@@ -52,7 +54,11 @@ public class Indexer extends SubsystemBase {
     }
 
     public boolean getSensorState() {
-        return stageSensor.get();
+        return shooterSensor.get();
+    }
+
+    public boolean getStageOneSensorState() {
+        return midSensor.get();
     }
 
     public boolean getIndexerManualFlag() {
