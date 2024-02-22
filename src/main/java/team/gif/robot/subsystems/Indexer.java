@@ -13,7 +13,8 @@ import team.gif.robot.Constants;
 import team.gif.robot.RobotMap;
 
 public class Indexer extends SubsystemBase {
-    public static TalonSRX stageOne;
+//    public static TalonSRX stageOne;
+    public static CANSparkMax stageOne;
     public static CANSparkMax stageTwo;
     public static SparkPIDController pidControllerStage2;
 
@@ -25,9 +26,15 @@ public class Indexer extends SubsystemBase {
     private boolean notePassedCollector;
 
     public Indexer() {
-        stageOne = new TalonSRX(RobotMap.STAGE_ONE_ID);
-        stageOne.configFactoryDefault();
-        stageOne.setNeutralMode(NeutralMode.Brake);
+        // 2023 bot
+//        stageOne = new TalonSRX(RobotMap.STAGE_ONE_ID);
+//        stageOne.configFactoryDefault();
+//        stageOne.setNeutralMode(NeutralMode.Brake);
+
+        // 2024 bot
+        stageOne = new CANSparkMax(RobotMap.STAGE_ONE_ID, CANSparkLowLevel.MotorType.kBrushless);
+        stageOne.restoreFactoryDefaults();
+        stageOne.setIdleMode(CANSparkBase.IdleMode.kBrake);
 
         stageTwo = new CANSparkMax(RobotMap.STAGE_TWO_ID, CANSparkLowLevel.MotorType.kBrushless);
         stageTwo.restoreFactoryDefaults();
@@ -44,12 +51,14 @@ public class Indexer extends SubsystemBase {
     }
 
     public void setIndexer(double stageOnePercent, double stageTwoPercent) {
-        stageOne.set(ControlMode.PercentOutput, stageOnePercent);
+//        stageOne.set(ControlMode.PercentOutput, stageOnePercent); // 2023 bot
+        stageOne.set(stageOnePercent); // 2024 bot
         stageTwo.set(stageTwoPercent);
     }
 
     public void stopIndexer() {
-        stageOne.set(ControlMode.PercentOutput,0);
+//        stageOne.set(ControlMode.PercentOutput, 0); // 2023 bot
+        stageOne.set(0); // 2024 bot
         stageTwo.set(0);
     }
 
