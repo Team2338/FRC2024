@@ -17,7 +17,7 @@ public class FullIndexerReverse extends Command {
     // Called every time the scheduler runs (~20ms) while the command is scheduled
     @Override
     public void execute() {
-        Robot.indexer.setIndexer(-Constants.Indexer.INDEXER_ONE_PERC,-Constants.Indexer.INDEXER_TWO_PERC);
+        Robot.indexer.setIndexer(-Constants.Indexer.INDEXER_TWO_EJECT_PERC,-Constants.Indexer.INDEXER_TWO_EJECT_PERC);
         Robot.collector.eject();
     }
 

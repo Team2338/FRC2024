@@ -55,9 +55,7 @@ public class Indexer extends SubsystemBase {
     }
 
     public void stopIndexer() {
-//        stageOne.set(ControlMode.PercentOutput, 0); // 2023 bot
-        stageOne.set(0); // 2024 bot
-        stageTwo.set(0);
+        setIndexer(0,0);
     }
 
     public boolean getSensorState() {

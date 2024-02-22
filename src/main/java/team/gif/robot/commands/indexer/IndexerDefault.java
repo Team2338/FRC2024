@@ -28,7 +28,7 @@ public class IndexerDefault extends Command {
 
         // Bot is indexing. Run the indexers
         if (Robot.indexer.isIndexing()) {
-            Robot.indexer.setIndexer(Constants.Indexer.INDEXER_ONE_PERC, Constants.Indexer.INDEXER_TWO_PERC);
+            Robot.indexer.setIndexer(Constants.Indexer.INDEXER_ONE_COLLECT_PERC, Constants.Indexer.INDEXER_TWO_COLLECT_PERC);
 
             // indicate if the note has passed the collector but the bot is still indexing
             // this is so the collector can decide of it needs to collect or eject
@@ -37,12 +37,12 @@ public class IndexerDefault extends Command {
             }
         }
 
-        // Note has reached it's destination at the indexer sensor
+        // Note has reached its destination at the indexer sensor
         if (Robot.indexer.getSensorState()) {
             if (Robot.collector.getSensorState()) { // this means the robot has collected a second note
-                Robot.indexer.setIndexer(-0.4, 0);
+                Robot.indexer.setIndexer(-Constants.Indexer.INDEXER_ONE_EJECT_PERC, 0);
             } else {
-                Robot.indexer.setIndexer(0, 0);
+                Robot.indexer.stopIndexer();
             }
             Robot.indexer.setIndexing(false);
         }
@@ -57,6 +57,6 @@ public class IndexerDefault extends Command {
     // Called when the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
-        Robot.indexer.setIndexer(0,0);
+        Robot.indexer.stopIndexer();
     }
 }

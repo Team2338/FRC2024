@@ -18,7 +18,7 @@ import edu.wpi.first.math.util.Units;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
-    public static final class Drivetrain {
+    public static final class Drivetrain { // ToDo tune - remove when done
         //public static final double DRIVE_WHEEL_RADIUS = 0.05; // meters? Must be unit of velocity
 
         public static final boolean kFrontLeftTurningEncoderReversed = false; //false
@@ -36,7 +36,7 @@ public final class Constants {
         public static final boolean kFrontRightTurningMotorReversed = false;
         public static final boolean kRearRightTurningMotorReversed = false;
 
-        public static final double FRONT_LEFT_OFFSET = 82.089;
+        public static final double FRONT_LEFT_OFFSET = 82.089; // ToDo needs calibrating
         public static final double REAR_LEFT_OFFSET = -138.25195;
         public static final double FRONT_RIGHT_OFFSET = -20.3906;// + 25.31;
         public static final double REAR_RIGHT_OFFSET = 157.85156;// + 25.4;
@@ -76,10 +76,10 @@ public final class Constants {
         public static final double SLOW_SPEED_METERS_PER_SECOND = SLOW_DRIVE_RPM *
                 (Math.PI * Constants.ModuleConstants.WHEEL_DIAMETER_METERS) /
                 (60.0 * Constants.ModuleConstants.GEAR_RATIO);
-        public static double kMaxAccelerationMetersPerSecondSquared = 2;// TODO
+        public static double kMaxAccelerationMetersPerSecondSquared = 2;
     }
 
-    public static final class ModuleConstants {
+    public static final class ModuleConstants { // ToDo tune - remove when done
         public static final double MAX_MODULE_ANGULAR_SPEED_RADIANS_PER_SECOND = 6 * (2 * Math.PI); //6
         public static final double MAX_MODULE_ANGULAR_ACCELERATION_RADIANS_PER_SECOND_SQUARED = 6 * (2 * Math.PI); //7
         public static final double GEAR_RATIO = 153.0 / 25.0; //27.0 / 4.0; on 2023 bot. // need to ask luke
@@ -262,7 +262,7 @@ public final class Constants {
         public static final double DEADBAND = 0.1;
     }
 
-    public static final class Shooter {
+    public static final class Shooter { // ToDo tune - remove when done
         public static final double REV = 1.0;
         public static final int REV_RPM = 5800;//5100; // need to tune for comp, Neo Max at 5000
         public static final int TRAP_RPM = 1000;
@@ -271,7 +271,7 @@ public final class Constants {
         public static final double kI = 0.00000008;
     }
 
-    public static final class ShooterRotation {
+    public static final class ShooterRotation { // ToDo tune - remove when done
         public static final double INCREASE_ANGLE_PWR_PERC = 0.1;
         public static final double INCREASE_ANGLE_PWR_PERC_CALIBRATION = 0.1;
         public static final double DECREASE_ANGLE_PWR_PERC = 0.1;
@@ -298,14 +298,21 @@ public final class Constants {
         public static final double SETPOINT_WALL_ABSOLUTE = (48.0 - MIN_LIMIT_DEGREES) * ABSOLUTE_PER_DEGREE + MIN_LIMIT_ABSOLUTE; // number in degrees, value in absolute
     }
 
-    public static final class Indexer {
-        public static final double INDEXER_ONE_PERC = 0.8;//1.0;
-        public static final double INDEXER_TWO_PERC = 0.2;//1.0;
+    public static final class Indexer { // ToDo tune - remove when done
+        public static final double INDEXER_ONE_COLLECT_PERC = 0.8;
+        public static final double INDEXER_TWO_COLLECT_PERC = 0.2;
+
+        public static final double INDEXER_TWO_SHOOT_PERC = 0.2;
+        public static final double INDEXER_TWO_TRAP_PERC = 0.6;
+
+        public static final double INDEXER_ONE_EJECT_PERC = 0.8;
+        public static final double INDEXER_TWO_EJECT_PERC = 0.2;
+
         public static final double INDEXER_TWO_FF = 0.0000;
         public static final double INDEXER_TWO_kP = 0.0000;
     }
 
-    public static final class Collector {
+    public static final class Collector { // ToDo tune - remove when done
         public static final double COLLECT_PERCENT = 0.4;
         public static final double EJECT_PERCENT = 0.2;
     }

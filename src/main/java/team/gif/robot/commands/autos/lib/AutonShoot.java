@@ -26,7 +26,7 @@ public class AutonShoot extends Command {
         Robot.shooter.setShooterRPM(Constants.Shooter.REV_RPM);
         if(Robot.shooter.getShooterRPM() >= Constants.Shooter.REV_RPM * .9) {
             counter++;
-            Robot.indexer.setIndexer(Constants.Indexer.INDEXER_ONE_PERC, Constants.Indexer.INDEXER_TWO_PERC);
+            Robot.indexer.setIndexer(0, Constants.Indexer.INDEXER_TWO_SHOOT_PERC);
         }
     }
 
@@ -43,6 +43,6 @@ public class AutonShoot extends Command {
     @Override
     public void end(boolean interrupted) {
         Robot.shooter.setVoltagePercent(0);
-        Robot.indexer.setIndexer(0, 0);
+        Robot.indexer.stopIndexer();
     }
 }
