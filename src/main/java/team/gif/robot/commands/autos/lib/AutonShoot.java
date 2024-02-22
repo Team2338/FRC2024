@@ -26,7 +26,7 @@ public class AutonShoot extends Command {
         Robot.shooter.setShooterRPM(Constants.Shooter.REV_RPM);
         if(Robot.shooter.getShooterRPM() >= Constants.Shooter.REV_RPM * .9) {
             counter++;
-            Robot.indexer.setIndexer(Constants.Indexer.STAGE_COLLECTOR_PERC, Constants.Indexer.STAGE_TWO_SHOOTER_PERC);
+            Robot.indexer.setIndexer(Constants.Indexer.INDEXER_ONE_PERC, Constants.Indexer.INDEXER_TWO_PERC);
         }
     }
 

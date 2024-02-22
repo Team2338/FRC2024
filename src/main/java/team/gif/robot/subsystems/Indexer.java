@@ -1,8 +1,5 @@
 package team.gif.robot.subsystems;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.NeutralMode;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.revrobotics.CANSparkBase;
 import com.revrobotics.CANSparkLowLevel;
 import com.revrobotics.CANSparkMax;
@@ -42,8 +39,8 @@ public class Indexer extends SubsystemBase {
         stageTwo.setInverted(true);
 
         pidControllerStage2 = stageTwo.getPIDController();
-        pidControllerStage2.setFF(Constants.Indexer.STAGE_SHOOTER_FF);
-        pidControllerStage2.setP(Constants.Indexer.STAGE_SHOOTER_kP);
+        pidControllerStage2.setFF(Constants.Indexer.INDEXER_TWO_FF);
+        pidControllerStage2.setP(Constants.Indexer.INDEXER_TWO_kP);
 
         midSensor = new DigitalInput(RobotMap.MIDDLE_SENSOR_PORT);
         shooterSensor = new DigitalInput(RobotMap.SHOOTER_SENSOR_PORT);
