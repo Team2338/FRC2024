@@ -94,6 +94,7 @@ public class Robot extends TimedRobot {
             driveSwerve = new DriveSwerve();
             swerveDrivetrain.setDefaultCommand(driveSwerve);
             swerveDrivetrain.resetHeading();
+
         } else {
             pigeon = new Pigeon(RobotMap.PIGEON_PBOT_ID);
             practiceDrivetrain = new SwerveDrivetrainMK3();
@@ -106,9 +107,9 @@ public class Robot extends TimedRobot {
         } catch (Exception e) { throw new RuntimeException(e); }
 //        shooter.setDefaultCommand(new ShooterAngle());
         indexer = new Indexer();
-       // indexer.setDefaultCommand(new IndexerDefault());
+        indexer.setDefaultCommand(new IndexerDefault());
         collector = new Collector();
-      //  collector.setDefaultCommand(new CollectorDefault());
+        collector.setDefaultCommand(new CollectorDefault());
         elevator = new Elevator();
         climber = new Climber();
         stage = new Stage();

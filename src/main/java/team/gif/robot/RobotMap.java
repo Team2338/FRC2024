@@ -42,7 +42,8 @@ public abstract class RobotMap {
     //indexer
     public static final int STAGE_ONE_ID = 32;
     public static final int STAGE_TWO_ID = 33;
-    public static final int SENSOR_INDEXER_PORT = 1;
+    public static final int SHOOTER_SENSOR_PORT = 2;
+    public static final int MIDDLE_SENSOR_PORT = 1;
 
     //collector
     public static final int COLLECTOR_ID = 31;
