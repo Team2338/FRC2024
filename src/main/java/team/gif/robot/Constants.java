@@ -336,4 +336,10 @@ public final class Constants {
         public static final double kI = 0.0000;
         public static final double kD = 0.0000;
     }
+
+    public static final class MotorTemps {
+        public static final double SHOOTER_MOTOR_TEMP = 80;
+        public static final double INDEXER_MOTOR_TEMP = 80;
+        public static final double DRIVETRAIN_MOTOR_TEMP = 80;
+    }
 }

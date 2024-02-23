@@ -1,6 +1,7 @@
 package team.gif.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import team.gif.robot.Constants;
 import team.gif.robot.Robot;
 
 public class Diagnostics extends SubsystemBase {
@@ -12,14 +13,13 @@ public class Diagnostics extends SubsystemBase {
      * @return isTooHot is a boolean
      */
     public boolean getDriveMotorTempCheck() {
-        boolean isTooHot = false;
-        if (Robot.swerveDrivetrain.fL.getDriveTemp() >= 80 ||
-                Robot.swerveDrivetrain.fR.getDriveTemp() >= 80 ||
-                Robot.swerveDrivetrain.rL.getDriveTemp() >= 80 ||
-                Robot.swerveDrivetrain.rR.getDriveTemp() >= 80) {
-            isTooHot = true;
+        if (Robot.swerveDrivetrain.fL.getDriveTemp() >= Constants.MotorTemps.DRIVETRAIN_MOTOR_TEMP ||
+                Robot.swerveDrivetrain.fR.getDriveTemp() >= Constants.MotorTemps.DRIVETRAIN_MOTOR_TEMP ||
+                Robot.swerveDrivetrain.rL.getDriveTemp() >= Constants.MotorTemps.DRIVETRAIN_MOTOR_TEMP ||
+                Robot.swerveDrivetrain.rR.getDriveTemp() >= Constants.MotorTemps.DRIVETRAIN_MOTOR_TEMP) {
+            return false;
         }
-        return isTooHot;
+        return true;
     }
 
     /**
@@ -27,12 +27,11 @@ public class Diagnostics extends SubsystemBase {
      * @return Returns true or false
      */
     public boolean getIndexerMotorTempCheck() {
-        boolean isTooHot = false;
-        if (Robot.indexer.getIndexerOneMotorTemp() >= 80 ||
-            Robot.indexer.getIndexerTwoMotorTemp() >= 80) {
-            isTooHot = true;
+        if (Robot.indexer.getIndexerOneMotorTemp() >= Constants.MotorTemps.INDEXER_MOTOR_TEMP ||
+            Robot.indexer.getIndexerTwoMotorTemp() >= Constants.MotorTemps.INDEXER_MOTOR_TEMP) {
+            return false;
         }
-        return isTooHot;
+        return true;
     }
 
     /**
@@ -40,14 +39,17 @@ public class Diagnostics extends SubsystemBase {
      * @return returns true of false
      */
     public boolean getShooterMotorTempCheck() {
-        boolean isTooHot = false;
-        if (Robot.shooter.getShooterMotorTemp() >= 80) {
-            isTooHot = true;
+        if (Robot.shooter.getShooterMotorTemp() >= Constants.MotorTemps.SHOOTER_MOTOR_TEMP) {
+            return false;
         }
-        return isTooHot;
+        return true;
     }
 
-    public boolean getSafe() {
+    public boolean isAMotorHot() {
+        return getShooterMotorTempCheck() || getIndexerMotorTempCheck() || getDriveMotorTempCheck();
+    }
+
+    public boolean getSafeToDriveUnderStage() {
         return Robot.shooter.getPosition() <= Robot.shooter.degreesToAbsolute(50);//(Robot.climber.getPosition() < 100 && Robot.elevator.getPosition() < 100 && Robot.shooter.getPosition() < 100);
     }
 }

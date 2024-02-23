@@ -24,6 +24,7 @@ public class UI {
 
 //        shuffleboardTab.addDouble("Shooter Angle", Robot.shooter::get)
 
+
         shuffleboardTab.addBoolean("Collector Manual Control", Robot.collector::getCollectorManualControl);
         shuffleboardTab.addBoolean("Indexer Manual Control", Robot.indexer::getIndexerManualFlag);
 
@@ -31,6 +32,13 @@ public class UI {
         shuffleboardTab.addDouble("Shooter Target", Robot.shooter::getTargetPosition);
         shuffleboardTab.addString("Shooter Degrees", Robot.shooter::getRotationDegrees_Shuffleboard);
 
-        shuffleboardTab.addBoolean("Stage Safe", Robot.diagnostics::getSafe);
+        shuffleboardTab.addBoolean("Stage Safe", Robot.diagnostics::getSafeToDriveUnderStage);
+
+        ShuffleboardTab diagnosticsTab = Shuffleboard.getTab("Diagnostics");
+
+        // showing the boolean returned from the getDriveMotorTempCheck
+        diagnosticsTab.addBoolean("Swerve Module Temp", Robot.diagnostics::getDriveMotorTempCheck);
+        diagnosticsTab.addBoolean("Indexer Temp", Robot.diagnostics::getIndexerMotorTempCheck);
+        diagnosticsTab.addBoolean("Shooter Temp", Robot.diagnostics::getShooterMotorTempCheck);
     }
 }

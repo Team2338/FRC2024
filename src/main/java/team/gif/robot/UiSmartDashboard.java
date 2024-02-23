@@ -64,10 +64,10 @@ public class UiSmartDashboard {
                 .withPosition(7, 0)
                 .withSize(1, 1);
 
-        // showing the boolean returned from the getDriveMotorTempCheck
-        shuffleboardTab.addBoolean("Swerve Module Temp", Robot.diagnostics::getDriveMotorTempCheck);
-        shuffleboardTab.addBoolean("Indexer Temp", Robot.diagnostics::getIndexerMotorTempCheck);
-        shuffleboardTab.addBoolean("Shooter Temp", Robot.diagnostics::getShooterMotorTempCheck);
+
+        shuffleboardTab.addBoolean("Motor Temp", Robot.diagnostics::isAMotorHot);
+
+        shuffleboardTab.addBoolean("Stage Safe", Robot.diagnostics::getSafeToDriveUnderStage);
     }
 
     public void updateUI() {
