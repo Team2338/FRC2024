@@ -17,7 +17,7 @@ public class IndexerManualControl extends Command {
     // Called every time the scheduler runs (~20ms) while the command is scheduled
     @Override
     public void execute() {
-        Robot.indexer.setIndexer(Constants.Indexer.STAGE_COLLECTOR_PERC, Constants.Indexer.STAGE_SHOOTER_PERC);
+        Robot.indexer.setIndexer(Constants.Indexer.INDEXER_ONE_COLLECT_PERC, Constants.Indexer.INDEXER_TWO_COLLECT_PERC);
     }
 
     // Return true when the command should end, false if it should continue. Runs every ~20ms.
@@ -29,6 +29,6 @@ public class IndexerManualControl extends Command {
     // Called when the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
-        Robot.indexer.setIndexer(0,0);
+        Robot.indexer.stopIndexer();
     }
 }

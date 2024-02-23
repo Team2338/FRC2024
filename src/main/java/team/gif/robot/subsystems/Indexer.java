@@ -1,8 +1,5 @@
 package team.gif.robot.subsystems;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.NeutralMode;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.revrobotics.CANSparkBase;
 import com.revrobotics.CANSparkLowLevel;
 import com.revrobotics.CANSparkMax;
@@ -13,46 +10,60 @@ import team.gif.robot.Constants;
 import team.gif.robot.RobotMap;
 
 public class Indexer extends SubsystemBase {
-    public static TalonSRX stageOne;
+//    public static TalonSRX stageOne;
+    public static CANSparkMax stageOne;
     public static CANSparkMax stageTwo;
     public static SparkPIDController pidControllerStage2;
 
-    public static DigitalInput stageSensor;
+    public static DigitalInput midSensor;
+    public static DigitalInput shooterSensor;
 
     public boolean indexerManualFlag = false;
     private boolean isIndexing;
     private boolean notePassedCollector;
 
     public Indexer() {
-        stageOne = new TalonSRX(RobotMap.STAGE_ONE_ID);
-        stageOne.configFactoryDefault();
-        stageOne.setNeutralMode(NeutralMode.Brake);
+        // 2023 bot
+//        stageOne = new TalonSRX(RobotMap.STAGE_ONE_ID);
+//        stageOne.configFactoryDefault();
+//        stageOne.setNeutralMode(NeutralMode.Brake);
+
+        // 2024 bot
+        stageOne = new CANSparkMax(RobotMap.STAGE_ONE_ID, CANSparkLowLevel.MotorType.kBrushless);
+        stageOne.restoreFactoryDefaults();
+        stageOne.setIdleMode(CANSparkBase.IdleMode.kBrake);
 
         stageTwo = new CANSparkMax(RobotMap.STAGE_TWO_ID, CANSparkLowLevel.MotorType.kBrushless);
         stageTwo.restoreFactoryDefaults();
         stageTwo.setIdleMode(CANSparkBase.IdleMode.kBrake);
+        stageTwo.setInverted(true);
 
         pidControllerStage2 = stageTwo.getPIDController();
-        pidControllerStage2.setFF(Constants.Indexer.STAGE_SHOOTER_FF);
-        pidControllerStage2.setP(Constants.Indexer.STAGE_SHOOTER_kP);
+        pidControllerStage2.setFF(Constants.Indexer.INDEXER_TWO_FF);
+        pidControllerStage2.setP(Constants.Indexer.INDEXER_TWO_kP);
 
-        stageSensor = new DigitalInput(RobotMap.SENSOR_INDEXER_PORT);
+        midSensor = new DigitalInput(RobotMap.MIDDLE_SENSOR_PORT);
+        shooterSensor = new DigitalInput(RobotMap.SHOOTER_SENSOR_PORT);
         notePassedCollector = true;
         isIndexing = false;
     }
 
     public void setIndexer(double stageOnePercent, double stageTwoPercent) {
-        stageOne.set(ControlMode.PercentOutput, stageOnePercent);
+//        stageOne.set(ControlMode.PercentOutput, stageOnePercent); // 2023 bot
+        stageOne.set(stageOnePercent); // 2024 bot
         stageTwo.set(stageTwoPercent);
     }
 
     public void stopIndexer() {
-        stageOne.set(ControlMode.PercentOutput,0);
-        stageTwo.set(0);
+        setIndexer(0,0);
     }
 
     public boolean getSensorState() {
-        return stageSensor.get();
+        return shooterSensor.get();
+    }
+
+    public boolean getStageOneSensorState() {
+        return midSensor.get();
     }
 
     public boolean getIndexerManualFlag() {
