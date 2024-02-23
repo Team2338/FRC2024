@@ -63,6 +63,9 @@ public class UiSmartDashboard {
         shuffleboardTab.add("Delay", delayChooser)
                 .withPosition(7, 0)
                 .withSize(1, 1);
+
+        // showing the boolean returned from the getDriveMotorTempCheck
+        shuffleboardTab.addBoolean("Swerve Module Temp", Robot.diagnostics::getDriveMotorTempCheck);
     }
 
     public void updateUI() {

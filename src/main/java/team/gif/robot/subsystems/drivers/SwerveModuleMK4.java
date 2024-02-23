@@ -93,6 +93,14 @@ public class SwerveModuleMK4 {
     }
 
     /**
+     * Get the temp from the drive motor
+     * @return the temperature of the drive motor
+     */
+    public double getDriveTemp() {
+        return this.driveMotor.getDeviceTemp().getValueAsDouble();
+    }
+
+    /**
      * Get the SparkMax turning the wheel
      * @return Returns the SparkMax turning the wheel
      */

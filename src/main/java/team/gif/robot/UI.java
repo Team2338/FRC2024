@@ -1,15 +1,10 @@
 package team.gif.robot;
 
-import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import team.gif.lib.autoMode;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import team.gif.robot.commands.drivetrainPbot.Reset0;
 import team.gif.robot.commands.drivetrainPbot.Reset180;
-
-import static team.gif.robot.Robot.stage;
 
 public class UI {
     public UI() {
@@ -36,6 +31,6 @@ public class UI {
         shuffleboardTab.addDouble("Shooter Target", Robot.shooter::getTargetPosition);
         shuffleboardTab.addString("Shooter Degrees", Robot.shooter::getRotationDegrees_Shuffleboard);
 
-        shuffleboardTab.addBoolean("Stage Safe", Robot.stage::getSafe);
+        shuffleboardTab.addBoolean("Stage Safe", Robot.diagnostics::getSafe);
     }
 }

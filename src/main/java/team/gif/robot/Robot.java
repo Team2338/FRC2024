@@ -21,7 +21,7 @@ import team.gif.robot.commands.indexer.IndexerDefault;
 import team.gif.robot.commands.shooterAngle.ShooterAnglePIDControl;
 import team.gif.robot.subsystems.Climber;
 import team.gif.robot.subsystems.Elevator;
-import team.gif.robot.subsystems.Stage;
+import team.gif.robot.subsystems.Diagnostics;
 import team.gif.robot.subsystems.SwerveDrivetrain;
 import team.gif.robot.subsystems.Collector;
 import team.gif.robot.subsystems.Indexer;
@@ -63,7 +63,7 @@ public class Robot extends TimedRobot {
     public static Collector collector;
     public static Elevator elevator;
     public static Climber climber;
-    public static Stage stage;
+    public static Diagnostics diagnostics;
 
     public static boolean isCompBot = true; //includes 2023 bot
 
@@ -112,7 +112,7 @@ public class Robot extends TimedRobot {
         collector.setDefaultCommand(new CollectorDefault());
         elevator = new Elevator();
         climber = new Climber();
-        stage = new Stage();
+        diagnostics = new Diagnostics();
 
         shooter.setDefaultCommand(new ShooterAnglePIDControl());
 
@@ -124,6 +124,9 @@ public class Robot extends TimedRobot {
         oi = new OI();
         runningAutonomousMode = false;
 
+        if (diagnostics.getDriveMotorTempCheck()) {
+            swerveDrivetrain.stopModules();
+        }
     }
 
     /**
