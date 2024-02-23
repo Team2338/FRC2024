@@ -23,6 +23,18 @@ public class Climber extends SubsystemBase {
         return climber.getEncoder().getPosition();
     }
 
+    public void up(){
+        setClimberPercent(0.1);
+    }
+
+    public void down(){
+        setClimberPercent(-0.1);
+    }
+
+    public void hold(){
+        setClimberPercent(0);
+    }
+
     public String getClimberPosition_Shuffleboard() {
         return String.format("%12.0f", getClimberPosition());
     }
