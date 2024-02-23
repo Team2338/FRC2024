@@ -20,8 +20,8 @@ public class UI {
 //        shuffleboardTab.addString("Shooter RPM", Robot.shooter::getShooterRPM_Shuffleboard);
         shuffleboardTab.addDouble("Shooter RPM", Robot.shooter::getShooterRPM);
 
-        SmartDashboard.putData("Reset", new Reset0());
-        SmartDashboard.putData("Reset 180", new Reset180());
+//        SmartDashboard.putData("Reset", new Reset0());
+//        SmartDashboard.putData("Reset 180", new Reset180());
 
         shuffleboardTab.addBoolean("Collector Sensor", Robot.collector::getSensorState);
         shuffleboardTab.addBoolean("Shooter Sensor", Robot.indexer::getSensorState);
