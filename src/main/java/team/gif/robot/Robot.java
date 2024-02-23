@@ -88,6 +88,7 @@ public class Robot extends TimedRobot {
             driveSwerve = new DriveSwerve();
             swerveDrivetrain.setDefaultCommand(driveSwerve);
             swerveDrivetrain.resetHeading();
+
         } else {
             pigeon = new Pigeon(RobotMap.PIGEON_PBOT_ID);
             practiceDrivetrain = new SwerveDrivetrainMK3();
@@ -104,7 +105,7 @@ public class Robot extends TimedRobot {
         collector = new Collector();
         collector.setDefaultCommand(new CollectorDefault());
 
-//        shooter.setDefaultCommand(new ShooterAnglePIDControl());
+        shooter.setDefaultCommand(new ShooterAnglePIDControl());
 
         robotContainer = new RobotContainer();
 

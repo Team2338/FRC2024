@@ -96,12 +96,13 @@ public class SwerveDrivetrain extends SubsystemBase {
 
         drivePace = drivePace.COAST_FR;
 
-        ShuffleboardTab swerveTab = Shuffleboard.getTab("Swerve");
-        swerveTab.addDouble("FL_Rotation", fL::getDriveOutput);
-        swerveTab.addDouble("FR_Rotation", fR::getDriveOutput);
-        swerveTab.addDouble("RL_Rotation", rL::getDriveOutput);
-        swerveTab.addDouble("RR_Rotation", rR::getDriveOutput);
+//        ShuffleboardTab swerveTab = Shuffleboard.getTab("Swerve");
+//        swerveTab.addDouble("FL_Rotation", fL::getTurningHeading);
+//        swerveTab.addDouble("FR_Rotation", fR::getTurningHeading);
+//        swerveTab.addDouble("RL_Rotation", rL::getTurningHeading);
+//        swerveTab.addDouble("RR_Rotation", rR::getTurningHeading);
 
+        enableShuffleboardDebug("Swerve");
 
         //Autos stuff
         AutoBuilder.configureHolonomic(
@@ -329,6 +330,29 @@ public class SwerveDrivetrain extends SubsystemBase {
 
     public double getPoseY() {
         return getPose().getY();
+    }
+
+    public void enableShuffleboardDebug(String shuffleboardTabName) {
+        ShuffleboardTab shuffleboardTab = Shuffleboard.getTab(shuffleboardTabName);
+
+        shuffleboardTab.addDouble("FR Raw Encoder", fR::getRawHeading);
+        shuffleboardTab.addDouble("FL Raw Encoder", fL::getRawHeading);
+        shuffleboardTab.addDouble("RR Raw Encoder", rR::getRawHeading);
+        shuffleboardTab.addDouble("RL Raw Encoder", rL::getRawHeading);
+
+        shuffleboardTab.addDouble("FR Degrees", fR::encoderDegrees);
+        shuffleboardTab.addDouble("FL Degrees", fL::encoderDegrees);
+        shuffleboardTab.addDouble("RR Degrees", rR::encoderDegrees);
+        shuffleboardTab.addDouble("RL Degrees", rL::encoderDegrees);
+
+        shuffleboardTab.addDouble("FR Head", fR::getTurningHeading);
+        shuffleboardTab.addDouble("FL Head", fL::getTurningHeading);
+        shuffleboardTab.addDouble("RL Head", rL::getTurningHeading);
+        shuffleboardTab.addDouble("RR Head", rR::getTurningHeading);
+
+        //TODO: Add target to shuffleboard
+
+
     }
 
 }

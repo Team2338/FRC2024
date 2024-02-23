@@ -46,5 +46,6 @@ public class Shoot extends Command {
     public void end(boolean interrupted) {
         Robot.indexer.stopIndexer();
         Robot.shooter.setVoltagePercent(0);
+        Robot.shooter.setRotationCollect();
     }
 }
