@@ -62,6 +62,10 @@ public class Shooter extends SubsystemBase {
         return shooter.getEncoder().getVelocity();
     }
 
+    public void stop() {
+        shooter.set(0);
+    }
+
     public String getShooterRPM_Shuffleboard() {
         return String.format("%12.0f", getShooterRPM());
     }
@@ -197,6 +201,10 @@ public class Shooter extends SubsystemBase {
      */
     public double getPIDRotationError() {
         return getPosition() - targetPosition;
+    }
+
+    public double getShooterMotorTemp() {
+        return shooter.getMotorTemperature();
     }
 
     /**

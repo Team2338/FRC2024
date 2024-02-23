@@ -66,6 +66,8 @@ public class UiSmartDashboard {
 
         // showing the boolean returned from the getDriveMotorTempCheck
         shuffleboardTab.addBoolean("Swerve Module Temp", Robot.diagnostics::getDriveMotorTempCheck);
+        shuffleboardTab.addBoolean("Indexer Temp", Robot.diagnostics::getIndexerMotorTempCheck);
+        shuffleboardTab.addBoolean("Shooter Temp", Robot.diagnostics::getShooterMotorTempCheck);
     }
 
     public void updateUI() {

@@ -114,4 +114,12 @@ public class Indexer extends SubsystemBase {
     public boolean getNotePassedCollector() {
         return notePassedCollector;
     }
+
+    public double getIndexerOneMotorTemp() {
+        return stageOne.getMotorTemperature();
+    }
+
+    public double getIndexerTwoMotorTemp() {
+        return stageTwo.getMotorTemperature();
+    }
 }

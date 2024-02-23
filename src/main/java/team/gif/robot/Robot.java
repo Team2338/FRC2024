@@ -123,10 +123,6 @@ public class Robot extends TimedRobot {
 
         oi = new OI();
         runningAutonomousMode = false;
-
-        if (diagnostics.getDriveMotorTempCheck()) {
-            swerveDrivetrain.stopModules();
-        }
     }
 
     /**
@@ -144,6 +140,16 @@ public class Robot extends TimedRobot {
         // block in order for anything in the Command-based framework to work.
         CommandScheduler.getInstance().run();
         uiSmartDashboard.updateUI();
+
+        if (diagnostics.getDriveMotorTempCheck()) {
+            swerveDrivetrain.stopModules();
+        }
+        if (diagnostics.getShooterMotorTempCheck()) {
+            shooter.stop();
+        }
+        if (diagnostics.getIndexerMotorTempCheck()) {
+            indexer.stopIndexer();
+        }
     }
 
     /** This function is called once each time the robot enters Disabled mode. */

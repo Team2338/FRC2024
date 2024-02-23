@@ -22,6 +22,31 @@ public class Diagnostics extends SubsystemBase {
         return isTooHot;
     }
 
+    /**
+     * getting the temp of the indexer motor temp (indexer one and two)
+     * @return Returns true or false
+     */
+    public boolean getIndexerMotorTempCheck() {
+        boolean isTooHot = false;
+        if (Robot.indexer.getIndexerOneMotorTemp() >= 80 ||
+            Robot.indexer.getIndexerTwoMotorTemp() >= 80) {
+            isTooHot = true;
+        }
+        return isTooHot;
+    }
+
+    /**
+     * getting the temp of the shooter motor temp
+     * @return returns true of false
+     */
+    public boolean getShooterMotorTempCheck() {
+        boolean isTooHot = false;
+        if (Robot.shooter.getShooterMotorTemp() >= 80) {
+            isTooHot = true;
+        }
+        return isTooHot;
+    }
+
     public boolean getSafe() {
         return Robot.shooter.getPosition() <= Robot.shooter.degreesToAbsolute(50);//(Robot.climber.getPosition() < 100 && Robot.elevator.getPosition() < 100 && Robot.shooter.getPosition() < 100);
     }
