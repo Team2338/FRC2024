@@ -5,7 +5,6 @@
 package team.gif.robot;
 
 import edu.wpi.first.math.geometry.Pose2d;
-import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -16,12 +15,11 @@ import team.gif.lib.autoMode;
 import team.gif.lib.delay;
 import team.gif.lib.logging.EventFileLogger;
 import team.gif.lib.logging.TelemetryFileLogger;
-import team.gif.robot.commands.autos.CircleAuto;
-import team.gif.robot.commands.drivetrain.DriveSwerve;
-import team.gif.robot.commands.shooter.ShooterAngle;
-import team.gif.robot.subsystems.SwerveDrivetrain;
 import team.gif.robot.commands.collector.CollectorDefault;
+import team.gif.robot.commands.drivetrain.DriveSwerve;
 import team.gif.robot.commands.indexer.IndexerDefault;
+import team.gif.robot.commands.shooterAngle.ShooterAnglePIDControl;
+import team.gif.robot.subsystems.SwerveDrivetrain;
 import team.gif.robot.subsystems.Collector;
 import team.gif.robot.subsystems.Indexer;
 import team.gif.robot.subsystems.Shooter;
@@ -29,8 +27,6 @@ import team.gif.robot.subsystems.SwerveDrivetrainMK3;
 import team.gif.robot.subsystems.drivers.Limelight;
 import team.gif.robot.subsystems.drivers.Pigeon;
 import team.gif.robot.commands.drivetrainPbot.DrivePracticeSwerve;
-
-import java.sql.Driver;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -92,6 +88,7 @@ public class Robot extends TimedRobot {
             driveSwerve = new DriveSwerve();
             swerveDrivetrain.setDefaultCommand(driveSwerve);
             swerveDrivetrain.resetHeading();
+
         } else {
             pigeon = new Pigeon(RobotMap.PIGEON_PBOT_ID);
             practiceDrivetrain = new SwerveDrivetrainMK3();
@@ -99,13 +96,16 @@ public class Robot extends TimedRobot {
             practiceDrivetrain.enableShuffleboardDebug("FRC2024");
         }
 
-
-        shooter = new Shooter();
+        try {
+            shooter = new Shooter();
+        } catch (Exception e) { throw new RuntimeException(e); }
 //        shooter.setDefaultCommand(new ShooterAngle());
         indexer = new Indexer();
-//        indexer.setDefaultCommand(new IndexerDefault());
+        indexer.setDefaultCommand(new IndexerDefault());
         collector = new Collector();
-//        collector.setDefaultCommand(new CollectorDefault());
+        collector.setDefaultCommand(new CollectorDefault());
+
+        shooter.setDefaultCommand(new ShooterAnglePIDControl());
 
         robotContainer = new RobotContainer();
 

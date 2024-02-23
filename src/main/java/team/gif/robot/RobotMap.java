@@ -7,7 +7,7 @@ public abstract class RobotMap {
     public static final int TEST_CONTROLLER_ID = 2;
 
     //SwerveDrivetrain
-    public static final int FRONT_LEFT_DRIVE_MOTOR_ID = 11;
+    public static final int FRONT_LEFT_DRIVE_MOTOR_ID = 11; // Falcon 500 and Talon Fx
     public static final int REAR_LEFT_DRIVE_MOTOR_ID = 12;
     public static final int FRONT_RIGHT_DRIVE_MOTOR_ID = 21;
     public static final int REAR_RIGHT_DRIVE_MOTOR_ID = 22;
@@ -16,7 +16,7 @@ public abstract class RobotMap {
     public static final int REAR_LEFT_CANCODER_ID = 16;
     public static final int REAR_RIGHT_CANCODER_ID = 26;
 
-    public static final int FRONT_LEFT_TURNING_MOTOR_PORT = 13;
+    public static final int FRONT_LEFT_TURNING_MOTOR_PORT = 13; //Neo and Spark
     public static final int REAR_LEFT_TURNING_MOTOR_PORT = 14;
     public static final int FRONT_RIGHT_TURNING_MOTOR_PORT = 23;
     public static final int REAR_RIGHT_TURNING_MOTOR_PORT = 24;
@@ -42,7 +42,8 @@ public abstract class RobotMap {
     //indexer
     public static final int STAGE_ONE_ID = 32;
     public static final int STAGE_TWO_ID = 33;
-    public static final int SENSOR_INDEXER_PORT = 1;
+    public static final int SHOOTER_SENSOR_PORT = 2;
+    public static final int MIDDLE_SENSOR_PORT = 1;
 
     //collector
     public static final int COLLECTOR_ID = 31;

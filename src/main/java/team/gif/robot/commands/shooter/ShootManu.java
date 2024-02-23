@@ -4,11 +4,11 @@ import edu.wpi.first.wpilibj2.command.Command;
 import team.gif.robot.Constants;
 import team.gif.robot.Robot;
 
-public class Shoot extends Command {
+public class ShootManu extends Command {
     boolean isFiring;
     double counter;
 
-    public Shoot() {
+    public ShootManu() {
         super();
         addRequirements(Robot.indexer,Robot.shooter); // uncomment
     }
@@ -23,22 +23,22 @@ public class Shoot extends Command {
     // Called every time the scheduler runs (~20ms) while the command is scheduled
     @Override
     public void execute() {
-        if (Robot.shooter.getShooterRPM() >= (Constants.Shooter.REV_RPM * .93)) { //allow tolerance
+//        if (Robot.shooter.getShooterRPM() >= (Constants.Shooter.REV_RPM * .93)) { //allow tolerance
             Robot.indexer.setIndexer(0, Constants.Indexer.INDEXER_TWO_SHOOT_PERC);
-            isFiring = true;
-        } else {
-            Robot.shooter.setShooterRPM(Constants.Shooter.REV_RPM);
-        }
+//            isFiring = true;
+//        } else {
+//            Robot.shooter.setShooterRPM(Constants.Shooter.REV_RPM);
+//        }
 
-        if (isFiring) {
-            counter++;
-        }
+//        if (isFiring) {
+//            counter++;
+//        }
     }
 
     // Return true when the command should end, false if it should continue. Runs every ~20ms.
     @Override
     public boolean isFinished() {
-        return counter > (.5*50);
+        return false;//counter > (.5*50);
     }
 
     // Called when the command ends or is interrupted.
@@ -46,6 +46,5 @@ public class Shoot extends Command {
     public void end(boolean interrupted) {
         Robot.indexer.stopIndexer();
         Robot.shooter.setVoltagePercent(0);
-        Robot.shooter.setRotationCollect();
     }
 }

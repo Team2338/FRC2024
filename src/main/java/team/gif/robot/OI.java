@@ -2,6 +2,7 @@ package team.gif.robot;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.GenericHID;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import team.gif.robot.commands.collector.CollectorManualControl;
@@ -11,13 +12,15 @@ import team.gif.robot.commands.drivetrain.MoveCloserSlow;
 import team.gif.robot.commands.drivetrain.MoveLeftSlow;
 import team.gif.robot.commands.drivetrain.MoveRightSlow;
 import team.gif.robot.commands.drivetrain.Reset0;
-import team.gif.robot.commands.drivetrainPbot.ResetWheelsPbot;
 import team.gif.robot.commands.indexer.FullIndexerReverse;
 import team.gif.robot.commands.indexer.IndexerManualControl;
+import team.gif.robot.commands.shooter.CalibrateAngle;
 import team.gif.robot.commands.shooter.RevFlyWheels;
 import team.gif.robot.commands.shooter.Shoot;
-import team.gif.robot.commands.shooter.ShooterAngle;
-import team.gif.robot.commands.shooter.ShooterAngleBack;
+import team.gif.robot.commands.shooter.ShootManu;
+import team.gif.robot.commands.shooterAngle.ShooterAngleUp;
+import team.gif.robot.commands.shooterAngle.ShooterAngleDown;
+import team.gif.robot.commands.shooter.TrapShoot;
 import team.gif.robot.commands.toggleManualControl.ToggleManualControl;
 
 public class OI {
@@ -85,6 +88,8 @@ public class OI {
 //    public final Trigger tDPadDown = test.povDown();
 //    public final Trigger tDPadLeft = test.povLeft();
 
+    public final Trigger gamePieceSensor = new Trigger(Robot.collector.sensor::get);
+
     public OI() {
         DriverStation.silenceJoystickConnectionWarning(true);
         /*
@@ -122,18 +127,33 @@ public class OI {
 
 //        aDPadUp.whileTrue(new IndexerDefault());
 
-        aStart.whileTrue(new FullIndexerReverse());
+        dStart.whileTrue(new FullIndexerReverse());
 
         // manual control
-        aBack.toggleOnTrue(new ToggleManualControl());
-        aDPadUp.whileTrue(new IndexerManualControl());
-        aA.whileTrue(new CollectorManualControl());
+//        aBack.toggleOnTrue(new ToggleManualControl());
+//        aStart.whileTrue(new IndexerManualControl());
+        aBack.whileTrue(new CollectorManualControl()); // used when limelight fails
+        aStart.whileTrue(new CollectorManualControl().alongWith(new IndexerManualControl())); // used when sensors fail
+
+        aDPadUp.onTrue(new InstantCommand(Robot.shooter::setRotationFar));
+        aDPadRight.onTrue(new InstantCommand(Robot.shooter::setRotationMid));
+        aDPadLeft.onTrue(new InstantCommand(Robot.shooter::setRotationNear));
+        aDPadDown.onTrue(new InstantCommand(Robot.shooter::setRotationWall));
 
         //shooter
         aRTrigger.whileTrue(new RevFlyWheels());
         aLBump.whileTrue(new Shoot());
-        aX.whileTrue(new ShooterAngle());
-        aB.whileTrue(new ShooterAngleBack());
+        dA.whileTrue(new ShootManu());
+        aY.whileTrue(new ShooterAngleUp());
+        aX.whileTrue(new ShooterAngleDown());
+        aB.onTrue(new CalibrateAngle());
+        aA.onTrue(new TrapShoot().withTimeout(3));
+
+        // auto sensor actions
+        gamePieceSensor.onTrue(
+//                new InstantCommand(Robot.ledSubsystem::setLEDGamePieceColor)
+                new InstantCommand(Robot.shooter::setRotationCollect)
+        );
     }
 
     public void setRumble(boolean rumble){

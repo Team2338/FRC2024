@@ -26,7 +26,7 @@ public class AutonShoot extends Command {
         Robot.shooter.setShooterRPM(2000);//Constants.Shooter.REV_RPM);
         if(Robot.shooter.getShooterRPM() >= 2000 * .9) {
             counter++;
-            Robot.indexer.setIndexer(Constants.Indexer.STAGE_COLLECTOR_PERC, Constants.Indexer.STAGE_SHOOTER_PERC);
+            Robot.indexer.setIndexer(0, Constants.Indexer.INDEXER_TWO_SHOOT_PERC);
         }
     }
 
@@ -42,7 +42,7 @@ public class AutonShoot extends Command {
     // Called when the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
-        Robot.shooter.setVoltage(0);
-        Robot.indexer.setIndexer(0, 0);
+        Robot.shooter.setVoltagePercent(0);
+        Robot.indexer.stopIndexer();
     }
 }
