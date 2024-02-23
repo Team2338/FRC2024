@@ -321,4 +321,18 @@ public final class Constants {
         public static final double COLLECT_PERCENT = 0.5; // done
         public static final double EJECT_PERCENT = 0.2;
     }
+
+    public static final class Elevator {
+        public static final double kP = 1;
+        public static final double FF = 0.01;
+        public static final double kI = 0.0000;
+        public static final double kD = 0.0000;
+    }
+
+    public static final class Climber {
+        public static final double kP = 1;
+        public static final double FF = 0.01;
+        public static final double kI = 0.0000;
+        public static final double kD = 0.0000;
+    }
 }
