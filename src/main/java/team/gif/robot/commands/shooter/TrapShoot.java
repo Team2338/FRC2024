@@ -33,7 +33,7 @@ public class TrapShoot extends Command {
 
         // once shooterRPM gets to target, run the indexer
         if (Robot.shooter.getShooterRPM() >= (Constants.Shooter.TRAP_RPM * 0.9)) { // 0.9 provides tolerance
-            Robot.indexer.setIndexer(0,0.6);
+            Robot.indexer.setIndexer(0,Constants.Indexer.INDEXER_TWO_TRAP_PERC);
         }
 
         // once we no longer have the game piece, rotate the shooter mechanism
@@ -44,7 +44,7 @@ public class TrapShoot extends Command {
                 Robot.shooter.moveRotationPercentPower(0);
                 finished = true;
             }
-            Robot.indexer.setIndexer(0,0);
+            Robot.indexer.stopIndexer();
             counter++;
         }
     }
@@ -58,7 +58,7 @@ public class TrapShoot extends Command {
     // Called when the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
-        Robot.indexer.setIndexer(0,0);
+        Robot.indexer.stopIndexer();
         Robot.shooter.moveRotationPercentPower(0);
         Robot.shooter.setTargetPosition(Robot.shooter.getPosition());
         Robot.shooter.setVoltagePercent(0);

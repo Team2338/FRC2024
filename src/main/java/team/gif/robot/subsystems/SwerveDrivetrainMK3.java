@@ -344,10 +344,10 @@ public class SwerveDrivetrainMK3 extends SubsystemBase {
     public void enableShuffleboardDebug(String shuffleboardTabName) {
         ShuffleboardTab shuffleboardTab = Shuffleboard.getTab(shuffleboardTabName);
 
-        shuffleboardTab.addDouble("FR Raw Encoder", fL::getRawHeading);
-        shuffleboardTab.addDouble("FL Raw Encoder", fR::getRawHeading);
-        shuffleboardTab.addDouble("RR Raw Encoder", rL::getRawHeading);
-        shuffleboardTab.addDouble("RL Raw Encoder", rR::getRawHeading);
+        shuffleboardTab.addDouble("FR Raw Encoder", fR::getRawHeading);
+        shuffleboardTab.addDouble("FL Raw Encoder", fL::getRawHeading);
+        shuffleboardTab.addDouble("RR Raw Encoder", rR::getRawHeading);
+        shuffleboardTab.addDouble("RL Raw Encoder", rL::getRawHeading);
 
         shuffleboardTab.addDouble("FR Head", fR::getTurningHeading);
         shuffleboardTab.addDouble("FL Head", fL::getTurningHeading);
