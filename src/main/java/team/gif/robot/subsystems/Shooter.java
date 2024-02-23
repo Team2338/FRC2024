@@ -89,6 +89,18 @@ public class Shooter extends SubsystemBase {
         shooterRotationController.set(Constants.ShooterRotation.FF);
     }
 
+    public void PIDKill() {
+        pidShooter.setFF(0.0);
+        pidShooter.setP(0.0);
+        pidShooter.setI(0.0);
+        pidShooter.setD(0.0);
+    }
+
+    public void resetKI() {
+        pidShooter.setIAccum(0.0);
+        pidShooter.setIZone(1000);
+    }
+
     /**
      * Use PID to move the shooter angle to absolute position between 0 and 1
      */
@@ -165,6 +177,10 @@ public class Shooter extends SubsystemBase {
      */
     public void setRotationWall() {
         targetPosition = Constants.ShooterRotation.SETPOINT_WALL_ABSOLUTE;
+    }
+
+    public void setRotationCollect() {
+        targetPosition = Constants.ShooterRotation.SETPOINT_COLLECT_ABSOLUTE;
     }
 
     /**
