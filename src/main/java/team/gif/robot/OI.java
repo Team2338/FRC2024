@@ -144,8 +144,8 @@ public class OI {
         aRTrigger.whileTrue(new RevFlyWheels());
         aLBump.whileTrue(new Shoot());
         dA.whileTrue(new ShootManu());
-        aY.whileTrue(new ShooterAngleUp());
-        aX.whileTrue(new ShooterAngleDown());
+//        aY.whileTrue(new ShooterAngleUp());
+//        aX.whileTrue(new ShooterAngleDown());
         aY.whileTrue(new InstantCommand(Robot.climber::up));
         aX.whileTrue(new InstantCommand(Robot.climber::down));
         aB.onTrue(new CalibrateAngle());
