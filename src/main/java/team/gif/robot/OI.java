@@ -5,6 +5,8 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import team.gif.robot.commands.climber.LowerClimber;
+import team.gif.robot.commands.climber.RaiseClimber;
 import team.gif.robot.commands.collector.CollectorManualControl;
 import team.gif.robot.commands.driveModes.EnableBoost;
 import team.gif.robot.commands.drivetrain.MoveAwaySlow;
@@ -146,8 +148,8 @@ public class OI {
         dA.whileTrue(new ShootManu());
 //        aY.whileTrue(new ShooterAngleUp());
 //        aX.whileTrue(new ShooterAngleDown());
-        aY.whileTrue(new InstantCommand(Robot.climber::up));
-        aX.whileTrue(new InstantCommand(Robot.climber::down));
+        aY.whileTrue(new RaiseClimber());
+        aX.whileTrue(new LowerClimber());
         aB.onTrue(new CalibrateAngle());
         aA.onTrue(new TrapShoot().withTimeout(3));
 

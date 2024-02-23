@@ -24,15 +24,15 @@ public class Climber extends SubsystemBase {
     }
 
     public void up(){
-        setClimberPercent(0.1);
+        setClimberPercent(0.25); // +3.0 for climber, +0.25 for elevator
     }
 
     public void down(){
-        setClimberPercent(-0.1);
+        setClimberPercent(0.05); // -.30 for climber, +0.05 for elevator
     }
 
     public void hold(){
-        setClimberPercent(0);
+        setClimberPercent(0.15); // 0 for climber, +0.15 for elevator
     }
 
     public String getClimberPosition_Shuffleboard() {
