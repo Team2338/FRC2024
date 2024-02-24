@@ -163,6 +163,15 @@ public class SwerveModuleMK4 {
     }
 
     /**
+     * Get the heading of the swerve module
+     * @return Returns the heading of the module in degrees as a double
+     */
+    public double getTurningHeadingDegrees() {
+        double heading = (encoderDegrees() - turningOffset) * (isAbsInverted ? -1.0: 1.0);
+        return heading;
+    }
+
+    /**
      * Reset the wheels to their 0 positions
      */
     public void resetWheel() {

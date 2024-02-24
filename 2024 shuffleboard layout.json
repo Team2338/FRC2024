@@ -32,9 +32,9 @@
               "imageHeight": -1
             }
           },
-          "3,3": {
+          "1,3": {
             "size": [
-              3,
+              2,
               1
             ],
             "content": {
@@ -45,7 +45,7 @@
               "_showGlyph": false
             }
           },
-          "2,3": {
+          "0,3": {
             "size": [
               1,
               1
@@ -101,7 +101,7 @@
               ]
             }
           },
-          "6,3": {
+          "3,3": {
             "size": [
               1,
               1
@@ -130,7 +130,7 @@
               ]
             }
           },
-          "7,3": {
+          "4,3": {
             "size": [
               1,
               1
@@ -143,19 +143,6 @@
               "_showGlyph": false,
               "Colors/Color when true": "#7CFC00FF",
               "Colors/Color when false": "#8B0000FF"
-            }
-          },
-          "10,3": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///Shuffleboard/FRC2023/Arm Degrees",
-              "_title": "Arm Degrees",
-              "_glyph": 148,
-              "_showGlyph": false
             }
           },
           "10,2": {
@@ -187,19 +174,6 @@
               ]
             }
           },
-          "1,3": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Auto Time",
-              "_title": "Auto Time",
-              "_glyph": 148,
-              "_showGlyph": false
-            }
-          },
           "4,0": {
             "size": [
               4,
@@ -219,32 +193,6 @@
               "fps": -1,
               "imageWidth": -1,
               "imageHeight": -1
-            }
-          },
-          "8,3": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///Shuffleboard/FRC2023/Gyro Pitch",
-              "_title": "Gyro Pitch",
-              "_glyph": 148,
-              "_showGlyph": false
-            }
-          },
-          "9,3": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///Shuffleboard/FRC2023/Tele Pos",
-              "_title": "Tele Pos",
-              "_glyph": 148,
-              "_showGlyph": false
             }
           },
           "8,0": {
@@ -285,6 +233,66 @@
                   "_showGlyph": false
                 }
               ]
+            }
+          },
+          "6,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Boolean Box",
+              "_source0": "network_table:///Shuffleboard/FRC2024/Collector Sensor",
+              "_title": "Collector",
+              "_glyph": 148,
+              "_showGlyph": false,
+              "Colors/Color when true": "#7CFC00FF",
+              "Colors/Color when false": "#8B0000FF"
+            }
+          },
+          "7,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Boolean Box",
+              "_source0": "network_table:///Shuffleboard/FRC2024/Mid Sensor",
+              "_title": "Mid",
+              "_glyph": 148,
+              "_showGlyph": false,
+              "Colors/Color when true": "#7CFC00FF",
+              "Colors/Color when false": "#8B0000FF"
+            }
+          },
+          "8,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Boolean Box",
+              "_source0": "network_table:///Shuffleboard/FRC2024/Shooter Sensor",
+              "_title": "Shooter",
+              "_glyph": 148,
+              "_showGlyph": false,
+              "Colors/Color when true": "#7CFC00FF",
+              "Colors/Color when false": "#8B0000FF"
+            }
+          },
+          "9,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Boolean Box",
+              "_source0": "network_table:///Shuffleboard/FRC2024/Stage Safe",
+              "_title": "Stage Safe",
+              "_glyph": 148,
+              "_showGlyph": false,
+              "Colors/Color when true": "#7CFC00FF",
+              "Colors/Color when false": "#8B0000FF"
             }
           }
         }

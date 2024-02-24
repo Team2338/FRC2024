@@ -9,6 +9,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import team.gif.robot.commands.drivetrainPbot.Reset0;
 import team.gif.robot.commands.drivetrainPbot.Reset180;
 
+import static team.gif.robot.Robot.stage;
+
 public class UI {
     public UI() {
         ShuffleboardTab shuffleboardTab = Shuffleboard.getTab("FRC2024");
@@ -18,8 +20,8 @@ public class UI {
 //        shuffleboardTab.addString("Shooter RPM", Robot.shooter::getShooterRPM_Shuffleboard);
         shuffleboardTab.addDouble("Shooter RPM", Robot.shooter::getShooterRPM);
 
-        SmartDashboard.putData("Reset", new Reset0());
-        SmartDashboard.putData("Reset 180", new Reset180());
+//        SmartDashboard.putData("Reset", new Reset0());
+//        SmartDashboard.putData("Reset 180", new Reset180());
 
         shuffleboardTab.addBoolean("Collector Sensor", Robot.collector::getSensorState);
         shuffleboardTab.addBoolean("Shooter Sensor", Robot.indexer::getSensorState);
@@ -33,5 +35,7 @@ public class UI {
         shuffleboardTab.addString("Shooter Actual", Robot.shooter::getPosition_Shuffleboard);
         shuffleboardTab.addDouble("Shooter Target", Robot.shooter::getTargetPosition);
         shuffleboardTab.addString("Shooter Degrees", Robot.shooter::getRotationDegrees_Shuffleboard);
+
+        shuffleboardTab.addBoolean("Stage Safe", Robot.stage::getSafe);
     }
 }
