@@ -148,7 +148,7 @@ public class OI {
         aY.whileTrue(new ShooterAngleUp());
         aX.whileTrue(new ShooterAngleDown());
         aB.onTrue(new CalibrateAngle());
-        aA.onTrue(new TrapShoot().withTimeout(3));
+//        aA.onTrue(new TrapShoot().withTimeout(3));
 
         dStart.toggleOnTrue(new ToggleCollectorDefault());
 
