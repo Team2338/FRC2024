@@ -207,6 +207,24 @@ public class Shooter extends SubsystemBase {
         return shooter.getMotorTemperature();
     }
 
+    public double getShooterRotationMotorTemp() {
+        return shooterRotationController.getMotorTemperature();
+    }
+
+    public boolean isShooterCool() {
+        if (getShooterMotorTemp() >= Constants.MotorTemps.SHOOTER_MOTOR_TEMP) {
+            return false;
+        }
+        return true;
+    }
+
+    public boolean isShooterRotationCool() {
+        if (getShooterRotationMotorTemp() >= Constants.MotorTemps.SHOOTER_MOTOR_TEMP) {
+            return false;
+        }
+        return true;
+    }
+
     /**
      *  All the config setting for Shooter (controller, pid)
      */

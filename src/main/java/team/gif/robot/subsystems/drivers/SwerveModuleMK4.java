@@ -7,7 +7,6 @@ import com.ctre.phoenix6.hardware.CANcoder;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.AbsoluteSensorRangeValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
-import com.ctre.phoenix6.signals.MagnetHealthValue;
 import com.revrobotics.CANSparkLowLevel;
 import com.revrobotics.CANSparkMax;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -284,5 +283,12 @@ public class SwerveModuleMK4 {
     public void resetDriveEncoders() {
         driveMotor.setPosition(0.0);
 //        driveMotor.setSelectedSensorPosition(0.0); //old code
+    }
+
+    public boolean isDriveMotorCool() {
+        if (getDriveTemp() >= Constants.MotorTemps.DRIVETRAIN_MOTOR_TEMP) {
+            return false;
+        }
+        return true;
     }
 }

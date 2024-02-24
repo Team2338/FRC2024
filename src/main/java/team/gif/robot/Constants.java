@@ -338,8 +338,10 @@ public final class Constants {
     }
 
     public static final class MotorTemps {
-        public static final double SHOOTER_MOTOR_TEMP = 80;
-        public static final double INDEXER_MOTOR_TEMP = 80;
-        public static final double DRIVETRAIN_MOTOR_TEMP = 80;
+        public static final double SHOOTER_MOTOR_TEMP = 70;
+        public static final double SHOOTER_ROTATION_MOTOR_TEMP = 70;
+        public static final double INDEXER_MOTOR_TEMP = 70;
+        public static final double DRIVETRAIN_MOTOR_TEMP = 70;
+        public static final double COLLECTOR_MOTOR_TEMP = 70;
     }
 }

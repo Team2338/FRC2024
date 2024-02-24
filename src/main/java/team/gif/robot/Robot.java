@@ -141,13 +141,13 @@ public class Robot extends TimedRobot {
         CommandScheduler.getInstance().run();
         uiSmartDashboard.updateUI();
 
-        if (diagnostics.getDriveMotorTempCheck()) {
+        if (diagnostics.getDriveMotorTempHot()) {
             swerveDrivetrain.stopModules();
         }
-        if (diagnostics.getShooterMotorTempCheck()) {
+        if (diagnostics.getShooterMotorTempHot()) {
             shooter.stop();
         }
-        if (diagnostics.getIndexerMotorTempCheck()) {
+        if (diagnostics.getIndexerMotorTempHot()) {
             indexer.stopIndexer();
         }
     }

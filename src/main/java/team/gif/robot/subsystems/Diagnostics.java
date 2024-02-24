@@ -12,41 +12,32 @@ public class Diagnostics extends SubsystemBase {
      * getting the temp for the swerve module and checking to see if its too hot
      * @return isTooHot is a boolean
      */
-    public boolean getDriveMotorTempCheck() {
-        if (Robot.swerveDrivetrain.fL.getDriveTemp() >= Constants.MotorTemps.DRIVETRAIN_MOTOR_TEMP ||
+    public boolean getDriveMotorTempHot() {
+        return(Robot.swerveDrivetrain.fL.getDriveTemp() >= Constants.MotorTemps.DRIVETRAIN_MOTOR_TEMP ||
                 Robot.swerveDrivetrain.fR.getDriveTemp() >= Constants.MotorTemps.DRIVETRAIN_MOTOR_TEMP ||
                 Robot.swerveDrivetrain.rL.getDriveTemp() >= Constants.MotorTemps.DRIVETRAIN_MOTOR_TEMP ||
-                Robot.swerveDrivetrain.rR.getDriveTemp() >= Constants.MotorTemps.DRIVETRAIN_MOTOR_TEMP) {
-            return false;
-        }
-        return true;
+                Robot.swerveDrivetrain.rR.getDriveTemp() >= Constants.MotorTemps.DRIVETRAIN_MOTOR_TEMP);
     }
 
     /**
      * getting the temp of the indexer motor temp (indexer one and two)
      * @return Returns true or false
      */
-    public boolean getIndexerMotorTempCheck() {
-        if (Robot.indexer.getIndexerOneMotorTemp() >= Constants.MotorTemps.INDEXER_MOTOR_TEMP ||
-            Robot.indexer.getIndexerTwoMotorTemp() >= Constants.MotorTemps.INDEXER_MOTOR_TEMP) {
-            return false;
-        }
-        return true;
+    public boolean getIndexerMotorTempHot() {
+        return(Robot.indexer.getIndexerOneMotorTemp() >= Constants.MotorTemps.INDEXER_MOTOR_TEMP ||
+            Robot.indexer.getIndexerTwoMotorTemp() >= Constants.MotorTemps.INDEXER_MOTOR_TEMP);
     }
 
     /**
      * getting the temp of the shooter motor temp
      * @return returns true of false
      */
-    public boolean getShooterMotorTempCheck() {
-        if (Robot.shooter.getShooterMotorTemp() >= Constants.MotorTemps.SHOOTER_MOTOR_TEMP) {
-            return false;
-        }
-        return true;
+    public boolean getShooterMotorTempHot() {
+        return (Robot.shooter.getShooterMotorTemp() >= Constants.MotorTemps.SHOOTER_MOTOR_TEMP);
     }
 
-    public boolean isAMotorHot() {
-        return getShooterMotorTempCheck() || getIndexerMotorTempCheck() || getDriveMotorTempCheck();
+    public boolean getAllMotorTempCool() {
+        return !getShooterMotorTempHot() && !getIndexerMotorTempHot() && !getDriveMotorTempHot();
     }
 
     public boolean getSafeToDriveUnderStage() {

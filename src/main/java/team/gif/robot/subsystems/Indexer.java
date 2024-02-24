@@ -122,4 +122,18 @@ public class Indexer extends SubsystemBase {
     public double getIndexerTwoMotorTemp() {
         return stageTwo.getMotorTemperature();
     }
+
+    public boolean isIndexerOneCool() {
+        if (getIndexerOneMotorTemp() > Constants.MotorTemps.INDEXER_MOTOR_TEMP) {
+            return false;
+        }
+        return true;
+    }
+
+    public boolean isIndexerTwoCool() {
+        if (getIndexerTwoMotorTemp() > Constants.MotorTemps.INDEXER_MOTOR_TEMP) {
+            return false;
+        }
+        return true;
+    }
 }
