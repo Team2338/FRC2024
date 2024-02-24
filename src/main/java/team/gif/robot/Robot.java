@@ -114,6 +114,7 @@ public class Robot extends TimedRobot {
         climber = new Climber();
         diagnostics = new Diagnostics();
 
+
         shooter.setDefaultCommand(new ShooterAnglePIDControl());
 
         robotContainer = new RobotContainer();

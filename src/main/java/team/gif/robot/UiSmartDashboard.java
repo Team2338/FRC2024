@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import team.gif.lib.autoMode;
 import team.gif.lib.delay;
+import team.gif.robot.commands.collector.ToggleCollectorDefault;
 import team.gif.robot.commands.drivetrain.Reset0;
 import team.gif.robot.commands.drivetrain.Reset180;
 
@@ -38,6 +39,9 @@ public class UiSmartDashboard {
                 .withWidget(BuiltInWidgets.kComboBoxChooser)
                 .withPosition(7, 1)
                 .withSize(2, 1);
+
+        SmartDashboard.putData("Toggle Collector Default", new ToggleCollectorDefault());
+
 
         //Auto Delay
         delayChooser.setDefaultOption("0", delay.DELAY_0);

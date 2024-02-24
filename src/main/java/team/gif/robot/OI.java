@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import team.gif.robot.commands.collector.ToggleCollectorDefault;
 import team.gif.robot.commands.collector.CollectorManualControl;
 import team.gif.robot.commands.driveModes.EnableBoost;
 import team.gif.robot.commands.drivetrain.MoveAwaySlow;
@@ -148,6 +149,8 @@ public class OI {
         aX.whileTrue(new ShooterAngleDown());
         aB.onTrue(new CalibrateAngle());
         aA.onTrue(new TrapShoot().withTimeout(3));
+
+        dStart.toggleOnTrue(new ToggleCollectorDefault());
 
         // auto sensor actions
         gamePieceSensor.onTrue(
