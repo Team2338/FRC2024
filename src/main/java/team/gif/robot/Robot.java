@@ -15,6 +15,7 @@ import team.gif.lib.autoMode;
 import team.gif.lib.delay;
 import team.gif.lib.logging.EventFileLogger;
 import team.gif.lib.logging.TelemetryFileLogger;
+import team.gif.robot.commands.climber.ClimberHold;
 import team.gif.robot.commands.collector.CollectorDefault;
 import team.gif.robot.commands.drivetrain.DriveSwerve;
 import team.gif.robot.commands.indexer.IndexerDefault;
@@ -116,6 +117,10 @@ public class Robot extends TimedRobot {
 
 
         shooter.setDefaultCommand(new ShooterAnglePIDControl());
+
+        climber = new Climber();
+
+        climber.setDefaultCommand(new ClimberHold());
 
         robotContainer = new RobotContainer();
 

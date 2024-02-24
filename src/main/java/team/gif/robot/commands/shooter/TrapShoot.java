@@ -11,7 +11,7 @@ public class TrapShoot extends Command {
 
     public TrapShoot() {
         super();
-        addRequirements(Robot.shooter,Robot.indexer); // uncomment
+        addRequirements(Robot.shooter,Robot.indexer);
     }
 
     // Called when the command is initially scheduled.
@@ -39,7 +39,7 @@ public class TrapShoot extends Command {
         // once we no longer have the game piece, rotate the shooter mechanism
         if(!Robot.indexer.getSensorState()) {
             if (counter <= (.5*50)) { // rotate the shooter for 0.5 seconds // todo consider changing to using PID
-                Robot.shooter.moveRotationPercentPower(0.3);
+                Robot.shooter.moveRotationPercentPower(.1);//0.3);
             } else {
                 Robot.shooter.moveRotationPercentPower(0);
                 finished = true;

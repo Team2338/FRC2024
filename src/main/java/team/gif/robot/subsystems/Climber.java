@@ -11,34 +11,35 @@ import team.gif.robot.RobotMap;
 
 public class Climber extends SubsystemBase {
     public static CANSparkMax climber;
-    public static SparkPIDController pidClimber;
 
-    public Climber(){
+    public Climber() {
         climber = new CANSparkMax(RobotMap.CLIMBER_ID, CANSparkLowLevel.MotorType.kBrushless);
-    }
-
-    public double getPosition(){
-        return climber.getAbsoluteEncoder(SparkAbsoluteEncoder.Type.kDutyCycle).getPosition();
-    }
-
-    /**
-     *  All the config setting for Shooter (controller, pid)
-     */
-    public void configElevator() {
-//        shooterNeo.restoreFactoryDefaults(); // Leave for shooter Neo
-//        shooterNeo.setInverted(true); // Leave for shooter Neo
-//        shooterNeo.setIdleMode(CANSparkBase.IdleMode.kCoast); // Leave for shooter Neo
-
         climber.restoreFactoryDefaults();
-        climber.setInverted(true);
         climber.setIdleMode(CANSparkBase.IdleMode.kBrake);
+    }
 
-//        pidShooter = shooterNeo.getPIDController(); // Leave for shooter Neo
-        pidClimber = climber.getPIDController();
+    public void setClimberPercent(double percent) {
+        climber.set(percent);
+    }
 
-        pidClimber.setP(Constants.Climber.kP);
-        pidClimber.setFF(Constants.Climber.FF);
-        pidClimber.setI(Constants.Climber.kI);
-        pidClimber.setOutputRange(0,1);
+    public double getClimberPosition() {
+        return climber.getEncoder().getPosition();
+    }
+
+    public void up(){
+        setClimberPercent(0.3); // +0.3 for climber, +0.25 for elevator
+    }
+
+    public void down(){
+        setClimberPercent(-0.3); // -.30 for climber, +0.05 for elevator
+    }
+
+    public void hold(){
+        setClimberPercent(0); // 0 for climber, +0.15 for elevator
+    }
+
+    public String getClimberPosition_Shuffleboard() {
+        return String.format("%12.0f", getClimberPosition());
     }
 }
+
