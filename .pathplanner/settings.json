@@ -9,9 +9,10 @@
     "2SRC+S",
     "3AMP+A-4+5",
     "3W+8+7",
+    "4AMP+A+4+5",
     "4AMP+A+C+S",
     "5Src+S+C+A+4",
-    "4AMP+A+4+5"
+    "2Wall-8-7+6"
   ],
   "autoFolders": [],
   "defaultMaxVel": 1.0,
