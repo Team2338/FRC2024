@@ -37,7 +37,7 @@ public abstract class RobotMap {
     //shooter
     public static final int SHOOTER_ID = 29; //pbot 34
     public static final int SHOOTER_ANGLE_ID = 50;
-    public static final int SHOOTER_ANGLE_ENCODER_ID = 51;
+    public static final int SHOOTER_ANGLE_ENCODER_ID = 53;
 
     //indexer
     public static final int STAGE_ONE_ID = 32;

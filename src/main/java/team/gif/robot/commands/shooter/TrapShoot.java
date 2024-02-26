@@ -38,8 +38,8 @@ public class TrapShoot extends Command {
 
         // once we no longer have the game piece, rotate the shooter mechanism
         if(!Robot.indexer.getSensorState()) {
-            if (counter <= (.5*50)) { // rotate the shooter for 0.5 seconds // todo consider changing to using PID
-                Robot.shooter.moveRotationPercentPower(.1);//0.3);
+            if (counter <= (.3333*50)) { // rotate the shooter for 0.5 seconds // todo consider changing to using PID
+                Robot.shooter.moveRotationPercentPower(.3);//0.3);
             } else {
                 Robot.shooter.moveRotationPercentPower(0);
                 finished = true;

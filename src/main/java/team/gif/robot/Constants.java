@@ -64,8 +64,8 @@ public final class Constants {
         public static final boolean kGyroReversed = false;
 
         // TODO: get feedback from driver
-        public static final double COAST_DRIVE_RPM = 3000;//2500; // 2750; //4800 demo speed //2750
-        public static final double BOOST_DRIVE_RPM = 1675; // 1675 is max speed; was 1750;
+        public static final double COAST_DRIVE_RPM = 2200; //3000;//2500; // 2750; //4800 demo speed //2750
+        public static final double BOOST_DRIVE_RPM = 1100; // 1675 is max speed; was 1750;
         public static final double SLOW_DRIVE_RPM = 3500;
 
         public static final double COAST_SPEED_METERS_PER_SECOND = COAST_DRIVE_RPM *
@@ -343,7 +343,7 @@ public final class Constants {
         public static final double SHOOTER_MOTOR_TEMP = 70;
         public static final double SHOOTER_ROTATION_MOTOR_TEMP = 70;
         public static final double INDEXER_MOTOR_TEMP = 70;
-        public static final double DRIVETRAIN_MOTOR_TEMP = 70;
+        public static final double DRIVETRAIN_MOTOR_TEMP = 85;
         public static final double COLLECTOR_MOTOR_TEMP = 70;
     }
 }

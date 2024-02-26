@@ -111,14 +111,11 @@ public class Robot extends TimedRobot {
         indexer.setDefaultCommand(new IndexerDefault());
         collector = new Collector();
         collector.setDefaultCommand(new CollectorDefault());
-        elevator = new Elevator();
+//        elevator = new Elevator();
         climber = new Climber();
         diagnostics = new Diagnostics();
 
-
         shooter.setDefaultCommand(new ShooterAnglePIDControl());
-
-        climber = new Climber();
 
         climber.setDefaultCommand(new ClimberHold());
 

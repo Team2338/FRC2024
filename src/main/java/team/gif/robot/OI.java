@@ -119,7 +119,7 @@ public class OI {
             dDPadRight.whileTrue(new MoveRightSlow());
             dDPadLeft.whileTrue(new MoveLeftSlow());
             dDPadDown.whileTrue(new MoveCloserSlow());
-            dLStickBtn.whileTrue(new EnableBoost());
+            dLBump.whileTrue(new EnableBoost());
         }
 
         // MK3 Swerve
