@@ -146,6 +146,9 @@ public class Robot extends TimedRobot {
 
         if (diagnostics.getDriveMotorTempHot()) {
             swerveDrivetrain.stopModules();
+            swerveDrivetrain.removeDefaultCommand();
+        } else {
+            swerveDrivetrain.setDefaultCommand(new DriveSwerve());
         }
         if (diagnostics.getShooterMotorTempHot()) {
             shooter.stop();
