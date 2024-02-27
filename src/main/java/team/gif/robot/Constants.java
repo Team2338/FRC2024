@@ -319,7 +319,7 @@ public final class Constants {
     }
 
     public static final class Collector { // ToDo tune - remove when done
-        public static final double COLLECT_PERCENT = 0.5; // done
+        public static final double COLLECT_PERCENT = 0.85; // done
         public static final double EJECT_PERCENT = 0.2;
     }
 

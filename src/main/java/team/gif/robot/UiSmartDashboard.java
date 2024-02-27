@@ -69,7 +69,7 @@ public class UiSmartDashboard {
                 .withSize(1, 1);
 
 
-        shuffleboardTab.addBoolean("Motor Temp", Robot.diagnostics::getAllMotorTempCool);
+        shuffleboardTab.addBoolean("Motor Temp", Robot.diagnostics::getAnyMotorTempHot);
 
         shuffleboardTab.addBoolean("Stage Safe", Robot.diagnostics::getSafeToDriveUnderStage);
     }

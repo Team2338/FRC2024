@@ -218,8 +218,8 @@
               "_title": "Motor Temp",
               "_glyph": 148,
               "_showGlyph": false,
-              "Colors/Color when true": "#7CFC00FF",
-              "Colors/Color when false": "#FF0000FF"
+              "Colors/Color when true": "#FF0000FF",
+              "Colors/Color when false": "#00FF00FF"
             }
           },
           "0,0": {
