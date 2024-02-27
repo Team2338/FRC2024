@@ -42,4 +42,15 @@ public class Collector extends SubsystemBase {
     public boolean getCollectorManualControl() {
         return collectorManualControl;
     }
+
+    public double getMotorTemp() {
+        return collector.getTemperature();
+    }
+
+    public boolean isStageOneMotorCool() {
+        if (getMotorTemp() >= Constants.MotorTemps.COLLECTOR_MOTOR_TEMP) {
+            return false;
+        }
+        return true;
+    }
 }

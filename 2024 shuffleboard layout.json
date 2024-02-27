@@ -11,30 +11,9 @@
         "vgap": 8.0,
         "titleType": 1,
         "tiles": {
-          "0,0": {
+          "1,3": {
             "size": [
-              4,
-              3
-            ],
-            "content": {
-              "_type": "Camera Stream",
-              "_source0": "camera_server://limelight",
-              "_title": "limelight",
-              "_glyph": 148,
-              "_showGlyph": false,
-              "Crosshair/Show crosshair": true,
-              "Crosshair/Crosshair color": "#FFFFFFFF",
-              "Controls/Show controls": true,
-              "Controls/Rotation": "NONE",
-              "compression": -1.0,
-              "fps": -1,
-              "imageWidth": -1,
-              "imageHeight": -1
-            }
-          },
-          "3,3": {
-            "size": [
-              3,
+              2,
               1
             ],
             "content": {
@@ -45,7 +24,7 @@
               "_showGlyph": false
             }
           },
-          "2,3": {
+          "0,3": {
             "size": [
               1,
               1
@@ -58,50 +37,7 @@
               "_showGlyph": false
             }
           },
-          "10,0": {
-            "size": [
-              1,
-              2
-            ],
-            "content": {
-              "_type": "List Layout",
-              "_title": "Motor Temps",
-              "_glyph": 149,
-              "_showGlyph": false,
-              "Layout/Label position": "BOTTOM",
-              "_children": [
-                {
-                  "_type": "Text View",
-                  "_source0": "network_table:///SmartDashboard/Temp Left1",
-                  "_title": "Left 1",
-                  "_glyph": 148,
-                  "_showGlyph": false
-                },
-                {
-                  "_type": "Text View",
-                  "_source0": "network_table:///SmartDashboard/Temp Left2",
-                  "_title": "Left 2",
-                  "_glyph": 148,
-                  "_showGlyph": false
-                },
-                {
-                  "_type": "Text View",
-                  "_source0": "network_table:///SmartDashboard/Temp Right1",
-                  "_title": "Right 1",
-                  "_glyph": 148,
-                  "_showGlyph": false
-                },
-                {
-                  "_type": "Text View",
-                  "_source0": "network_table:///SmartDashboard/Temp Right2",
-                  "_title": "Right 2",
-                  "_glyph": 148,
-                  "_showGlyph": false
-                }
-              ]
-            }
-          },
-          "6,3": {
+          "3,3": {
             "size": [
               1,
               1
@@ -130,7 +66,7 @@
               ]
             }
           },
-          "7,3": {
+          "4,3": {
             "size": [
               1,
               1
@@ -145,20 +81,7 @@
               "Colors/Color when false": "#8B0000FF"
             }
           },
-          "10,3": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///Shuffleboard/FRC2023/Arm Degrees",
-              "_title": "Arm Degrees",
-              "_glyph": 148,
-              "_showGlyph": false
-            }
-          },
-          "10,2": {
+          "5,3": {
             "size": [
               1,
               1
@@ -185,66 +108,6 @@
                   "_showGlyph": false
                 }
               ]
-            }
-          },
-          "1,3": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Auto Time",
-              "_title": "Auto Time",
-              "_glyph": 148,
-              "_showGlyph": false
-            }
-          },
-          "4,0": {
-            "size": [
-              4,
-              3
-            ],
-            "content": {
-              "_type": "Camera Stream",
-              "_source0": "camera_server://limelight-low",
-              "_title": "limelight-low",
-              "_glyph": 148,
-              "_showGlyph": false,
-              "Crosshair/Show crosshair": true,
-              "Crosshair/Crosshair color": "#FFFFFFFF",
-              "Controls/Show controls": true,
-              "Controls/Rotation": "NONE",
-              "compression": -1.0,
-              "fps": -1,
-              "imageWidth": -1,
-              "imageHeight": -1
-            }
-          },
-          "8,3": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///Shuffleboard/FRC2023/Gyro Pitch",
-              "_title": "Gyro Pitch",
-              "_glyph": 148,
-              "_showGlyph": false
-            }
-          },
-          "9,3": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///Shuffleboard/FRC2023/Tele Pos",
-              "_title": "Tele Pos",
-              "_glyph": 148,
-              "_showGlyph": false
             }
           },
           "8,0": {
@@ -285,6 +148,120 @@
                   "_showGlyph": false
                 }
               ]
+            }
+          },
+          "9,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Boolean Box",
+              "_source0": "network_table:///Shuffleboard/FRC2024/Stage Safe",
+              "_title": "Stage Safe",
+              "_glyph": 148,
+              "_showGlyph": false,
+              "Colors/Color when true": "#7CFC00FF",
+              "Colors/Color when false": "#FF0000FF"
+            }
+          },
+          "10,2": {
+            "size": [
+              1,
+              2
+            ],
+            "content": {
+              "_type": "List Layout",
+              "_title": "Sensors",
+              "_glyph": 149,
+              "_showGlyph": false,
+              "Layout/Label position": "BOTTOM",
+              "_children": [
+                {
+                  "_type": "Boolean Box",
+                  "_source0": "network_table:///Shuffleboard/FRC2024/Shooter Sensor",
+                  "_title": "Shooter",
+                  "_glyph": 148,
+                  "_showGlyph": false,
+                  "Colors/Color when true": "#7CFC00FF",
+                  "Colors/Color when false": "#4D4D4DFF"
+                },
+                {
+                  "_type": "Boolean Box",
+                  "_source0": "network_table:///Shuffleboard/FRC2024/Mid Sensor",
+                  "_title": "Mid",
+                  "_glyph": 148,
+                  "_showGlyph": false,
+                  "Colors/Color when true": "#7CFC00FF",
+                  "Colors/Color when false": "#4D4D4DFF"
+                },
+                {
+                  "_type": "Boolean Box",
+                  "_source0": "network_table:///Shuffleboard/FRC2024/Collector Sensor",
+                  "_title": "Collector",
+                  "_glyph": 148,
+                  "_showGlyph": false,
+                  "Colors/Color when true": "#7CFC00FF",
+                  "Colors/Color when false": "#4D4D4DFF"
+                }
+              ]
+            }
+          },
+          "10,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Boolean Box",
+              "_source0": "network_table:///Shuffleboard/SmartDashboard/Motor Temp",
+              "_title": "Motor Temp",
+              "_glyph": 148,
+              "_showGlyph": false,
+              "Colors/Color when true": "#FF0000FF",
+              "Colors/Color when false": "#00FF00FF"
+            }
+          },
+          "0,0": {
+            "size": [
+              4,
+              3
+            ],
+            "content": {
+              "_type": "Camera Stream",
+              "_source0": "camera_server://limelight-collect",
+              "_title": "limelight-collect",
+              "_glyph": 148,
+              "_showGlyph": false,
+              "Crosshair/Show crosshair": true,
+              "Crosshair/Crosshair color": "#FFFFFFFF",
+              "Controls/Show controls": true,
+              "Controls/Rotation": "NONE",
+              "compression": -1.0,
+              "fps": -1,
+              "imageWidth": -1,
+              "imageHeight": -1
+            }
+          },
+          "4,0": {
+            "size": [
+              4,
+              3
+            ],
+            "content": {
+              "_type": "Camera Stream",
+              "_source0": "camera_server://limelight-shooter",
+              "_title": "limelight-shooter",
+              "_glyph": 148,
+              "_showGlyph": false,
+              "Crosshair/Show crosshair": true,
+              "Crosshair/Crosshair color": "#FFFFFFFF",
+              "Controls/Show controls": true,
+              "Controls/Rotation": "NONE",
+              "compression": -1.0,
+              "fps": -1,
+              "imageWidth": 0,
+              "imageHeight": 0
             }
           }
         }

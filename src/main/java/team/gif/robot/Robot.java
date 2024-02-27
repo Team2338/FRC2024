@@ -15,10 +15,14 @@ import team.gif.lib.autoMode;
 import team.gif.lib.delay;
 import team.gif.lib.logging.EventFileLogger;
 import team.gif.lib.logging.TelemetryFileLogger;
+import team.gif.robot.commands.climber.ClimberHold;
 import team.gif.robot.commands.collector.CollectorDefault;
 import team.gif.robot.commands.drivetrain.DriveSwerve;
 import team.gif.robot.commands.indexer.IndexerDefault;
 import team.gif.robot.commands.shooterAngle.ShooterAnglePIDControl;
+import team.gif.robot.subsystems.Climber;
+import team.gif.robot.subsystems.Elevator;
+import team.gif.robot.subsystems.Diagnostics;
 import team.gif.robot.subsystems.SwerveDrivetrain;
 import team.gif.robot.subsystems.Collector;
 import team.gif.robot.subsystems.Indexer;
@@ -58,6 +62,9 @@ public class Robot extends TimedRobot {
     public static Shooter shooter;
     public static Indexer indexer;
     public static Collector collector;
+    public static Elevator elevator;
+    public static Climber climber;
+    public static Diagnostics diagnostics;
 
     public static boolean isCompBot = true; //includes 2023 bot
 
@@ -104,8 +111,13 @@ public class Robot extends TimedRobot {
         indexer.setDefaultCommand(new IndexerDefault());
         collector = new Collector();
         collector.setDefaultCommand(new CollectorDefault());
+//        elevator = new Elevator();
+        climber = new Climber();
+        diagnostics = new Diagnostics();
 
         shooter.setDefaultCommand(new ShooterAnglePIDControl());
+
+        climber.setDefaultCommand(new ClimberHold());
 
         robotContainer = new RobotContainer();
 
@@ -114,7 +126,6 @@ public class Robot extends TimedRobot {
 
         oi = new OI();
         runningAutonomousMode = false;
-
     }
 
     /**
@@ -132,6 +143,17 @@ public class Robot extends TimedRobot {
         // block in order for anything in the Command-based framework to work.
         CommandScheduler.getInstance().run();
         uiSmartDashboard.updateUI();
+
+        if (diagnostics.getDriveMotorTempHot()) {
+            swerveDrivetrain.stopModules();
+            CommandScheduler.getInstance().disable();
+        }
+        if (diagnostics.getShooterMotorTempHot()) {
+            shooter.stop();
+        }
+        if (diagnostics.getIndexerMotorTempHot()) {
+            indexer.stopIndexer();
+        }
     }
 
     /** This function is called once each time the robot enters Disabled mode. */

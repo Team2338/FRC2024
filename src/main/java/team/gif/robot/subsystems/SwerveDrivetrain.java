@@ -12,6 +12,7 @@ import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -95,12 +96,6 @@ public class SwerveDrivetrain extends SubsystemBase {
         resetDriveEncoders();
 
         drivePace = drivePace.COAST_FR;
-
-//        ShuffleboardTab swerveTab = Shuffleboard.getTab("Swerve");
-//        swerveTab.addDouble("FL_Rotation", fL::getTurningHeading);
-//        swerveTab.addDouble("FR_Rotation", fR::getTurningHeading);
-//        swerveTab.addDouble("RL_Rotation", rL::getTurningHeading);
-//        swerveTab.addDouble("RR_Rotation", rR::getTurningHeading);
 
         enableShuffleboardDebug("Swerve");
 
@@ -335,24 +330,27 @@ public class SwerveDrivetrain extends SubsystemBase {
     public void enableShuffleboardDebug(String shuffleboardTabName) {
         ShuffleboardTab shuffleboardTab = Shuffleboard.getTab(shuffleboardTabName);
 
-        shuffleboardTab.addDouble("FR Raw Encoder", fR::getRawHeading);
-        shuffleboardTab.addDouble("FL Raw Encoder", fL::getRawHeading);
-        shuffleboardTab.addDouble("RR Raw Encoder", rR::getRawHeading);
-        shuffleboardTab.addDouble("RL Raw Encoder", rL::getRawHeading);
+        shuffleboardTab.addDouble("FR Heading", fR::getTurningHeadingDegrees).withPosition(2,0).withWidget(BuiltInWidgets.kGyro);
+        shuffleboardTab.addDouble("FL Heading", fL::getTurningHeadingDegrees).withPosition(0,0).withWidget(BuiltInWidgets.kGyro);
+        shuffleboardTab.addDouble("RR Heading", rR::getTurningHeadingDegrees).withPosition(2,2).withWidget(BuiltInWidgets.kGyro);
+        shuffleboardTab.addDouble("RL Heading", rL::getTurningHeadingDegrees).withPosition(0,2).withWidget(BuiltInWidgets.kGyro);
 
-        shuffleboardTab.addDouble("FR Degrees", fR::encoderDegrees);
-        shuffleboardTab.addDouble("FL Degrees", fL::encoderDegrees);
-        shuffleboardTab.addDouble("RR Degrees", rR::encoderDegrees);
-        shuffleboardTab.addDouble("RL Degrees", rL::encoderDegrees);
+        shuffleboardTab.addDouble("FR Raw Degrees", fR::encoderDegrees).withPosition(5,0);
+        shuffleboardTab.addDouble("FL Raw Degrees", fL::encoderDegrees).withPosition(4,0);
+        shuffleboardTab.addDouble("RR Raw Degrees", rR::encoderDegrees).withPosition(5,1);
+        shuffleboardTab.addDouble("RL Raw Degrees", rL::encoderDegrees).withPosition(4,1);
 
-        shuffleboardTab.addDouble("FR Head", fR::getTurningHeading);
-        shuffleboardTab.addDouble("FL Head", fL::getTurningHeading);
-        shuffleboardTab.addDouble("RL Head", rL::getTurningHeading);
-        shuffleboardTab.addDouble("RR Head", rR::getTurningHeading);
+        shuffleboardTab.addDouble("FR Raw Encoder", fR::getRawHeading).withPosition(9,0);
+        shuffleboardTab.addDouble("FL Raw Encoder", fL::getRawHeading).withPosition(8,0);
+        shuffleboardTab.addDouble("RR Raw Encoder", rR::getRawHeading).withPosition(9,1);
+        shuffleboardTab.addDouble("RL Raw Encoder", rL::getRawHeading).withPosition(8,1);
+
+
+        shuffleboardTab.addDouble("FR Raw Radians", fR::getTurningHeading).withPosition(7,0);
+        shuffleboardTab.addDouble("FL Raw Radians", fL::getTurningHeading).withPosition(6,0);
+        shuffleboardTab.addDouble("RR Raw Radians", rR::getTurningHeading).withPosition(7,1);
+        shuffleboardTab.addDouble("RL Raw Radians", rL::getTurningHeading).withPosition(6,1);
 
         //TODO: Add target to shuffleboard
-
-
     }
-
 }
