@@ -9,14 +9,12 @@ public class ToggleCollectorDefault extends Command {
     public ToggleCollectorDefault() {
         super();
         addRequirements(Robot.collector);
-        //addRequirements(Robot.climber); // uncomment
     }
 
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
         Robot.collector.removeDefaultCommand();
-
     }
 
     // Called every time the scheduler runs (~20ms) while the command is scheduled
@@ -33,6 +31,5 @@ public class ToggleCollectorDefault extends Command {
     @Override
     public void end(boolean interrupted) {
         Robot.collector.setDefaultCommand(new CollectorDefault());
-
     }
 }

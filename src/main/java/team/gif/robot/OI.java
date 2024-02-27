@@ -144,7 +144,7 @@ public class OI {
 
         //shooter
         aRTrigger.whileTrue(new RevFlyWheels());
-        aLBump.whileTrue(new Shoot().andThen(new InstantCommand(Robot.wrist::setWristCollect)));
+        aLBump.onTrue(new Shoot().andThen(new InstantCommand(Robot.wrist::setWristCollect)));
         dA.whileTrue(new ShootManu());
         aY.whileTrue(new WristAngleUp());
         aX.whileTrue(new WristAngleDown());
