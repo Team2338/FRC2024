@@ -18,9 +18,22 @@
           }
         },
         {
-          "type": "path",
+          "type": "parallel",
           "data": {
-            "pathName": "CTR-C-Away"
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "CTR-C-Away"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "AutoCollect"
+                }
+              }
+            ]
           }
         },
         {

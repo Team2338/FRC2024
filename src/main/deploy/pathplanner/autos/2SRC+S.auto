@@ -18,9 +18,22 @@
           }
         },
         {
-          "type": "path",
+          "type": "parallel",
           "data": {
-            "pathName": "SRC-S-Away"
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "AutoCollect"
+                }
+              },
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "SRC-S-Away"
+                }
+              }
+            ]
           }
         },
         {

@@ -18,9 +18,28 @@
           }
         },
         {
-          "type": "path",
+          "type": "parallel",
           "data": {
-            "pathName": "2SRC+8-Away"
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "2SRC+8-Away"
+                }
+              },
+              {
+                "type": "wait",
+                "data": {
+                  "waitTime": 2.0
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "AutoCollect"
+                }
+              }
+            ]
           }
         },
         {
