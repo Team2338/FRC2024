@@ -1,4 +1,4 @@
-package team.gif.robot.commands.shooter;
+package team.gif.robot.commands.wrist;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import team.gif.robot.Constants;
@@ -27,7 +27,7 @@ public class CalibrateAngle extends Command {
 
     public CalibrateAngle() {
         super();
-        addRequirements(Robot.shooter);
+        addRequirements(Robot.wrist);
     }
 
     // Called when the command is initially scheduled.
@@ -41,7 +41,7 @@ public class CalibrateAngle extends Command {
         pauseCounter = 0;
 
         // reset the zero offset to hard absolute
-        Robot.shooter.setZeroOffset(0);
+        Robot.wrist.setZeroOffset(0);
 
         printStatus("********************************");
         printStatus("Calibration Started");
@@ -51,19 +51,19 @@ public class CalibrateAngle extends Command {
     // Called every time the scheduler runs (~20ms) while the command is scheduled
     @Override
     public void execute() {
-        double pos = Robot.shooter.getPosition();
+        double pos = Robot.wrist.getPosition();
 
-        double increaseAngleSpeed = Constants.ShooterRotation.INCREASE_ANGLE_PWR_PERC_CALIBRATION;
-        double decreaseAngleSpeed = Constants.ShooterRotation.DECREASE_ANGLE_PWR_PERC_CALIBRATION;
+        double increaseAngleSpeed = Constants.Wrist.INCREASE_ANGLE_PWR_PERC_CALIBRATION;
+        double decreaseAngleSpeed = Constants.Wrist.DECREASE_ANGLE_PWR_PERC_CALIBRATION;
 
         //
         // Stage: CLOCKWISE_ROTATION
-        // Test to make sure the motor can turn the shooter clockwise
+        // Test to make sure the motor can turn the wrist clockwise
         // and it is not stuck/stalled. There should be plenty of room
-        // for the shooter to move
+        // for the wrist to move
         //
         if (testingStage == stage.CLOCKWISE_ROTATION) {
-            Robot.shooter.moveRotationPercentPower(increaseAngleSpeed);
+            Robot.wrist.moveWristPercentPower(increaseAngleSpeed);
             if (Math.abs(prevPos - pos) < (1.0 * 1 / 4096)) { // Allows for range of 3 ticks to check, 4096 is number of ticks in 1 rotation
                 stallCount++;
             } else {
@@ -72,14 +72,14 @@ public class CalibrateAngle extends Command {
             }
 
             if (stallCount == 4) {
-                // The shooter should be able to move, so we
+                // The wrist should be able to move, so we
                 // should never enter this loop. Indicates the
-                // shooter is stuck.
-                Robot.shooter.moveRotationPercentPower(0);
+                // wrist is stuck.
+                Robot.wrist.moveWristPercentPower(0);
 
                 System.out.println(" **************************************" + nl +
                                    " **   Error: Unable to calibrate!!   **" + nl +
-                                   " ** The shooter appears to be stuck  **" + nl +
+                                   " ** The wrist appears to be stuck  **" + nl +
                                    " **     during clockwise test        **" + nl +
                                    " **                                  **" + nl +
                                    " **      Calibration aborted         **" + nl +
@@ -89,9 +89,9 @@ public class CalibrateAngle extends Command {
                 moveCount++;
 
                 if (moveCount >= 1.0 * 50) { // rotate for XX seconds
-                    // The shooter has been able to move continuously
+                    // The wrist has been able to move continuously
                     // Move to next step
-                    Robot.shooter.moveRotationPercentPower(0);
+                    Robot.wrist.moveWristPercentPower(0);
                     printStatus("Clockwise Test passed");
                     testingStage = stage.SET_ZERO;
                     stallCount = 0;
@@ -105,7 +105,7 @@ public class CalibrateAngle extends Command {
         // motor stalls
         //
         if (testingStage == stage.LOWER_LIMIT) {
-            Robot.shooter.moveRotationPercentPower(-decreaseAngleSpeed); // turn counterclockwise very slowly
+            Robot.wrist.moveWristPercentPower(-decreaseAngleSpeed); // turn counterclockwise very slowly
 
             // if collector hasn't moved, increase stall count eventually indicating we are at hard limit
             if (Math.abs(prevPos - pos) < (2.0 * 1 / 4096)) { // 3 = min ticks to check, 4096 is number of ticks in 1 rotation
@@ -114,7 +114,7 @@ public class CalibrateAngle extends Command {
                 stallCount = 0;
             }
             if (stallCount == 4) {
-                Robot.shooter.moveRotationPercentPower(0); // stop the motor
+                Robot.wrist.moveWristPercentPower(0); // stop the motor
                 zeroOffset = -1 * (pos - 0.1);     // calculate zero offset
                 printStatus("Found lower hard limit");
                 printStatus("Testing ability to rotate clockwise ...");
@@ -128,7 +128,7 @@ public class CalibrateAngle extends Command {
         // Set the zero offset
         //
         if (testingStage == stage.SET_ZERO) {
-            Robot.shooter.setZeroOffset(zeroOffset); // save the zero offset found in LOWER_LIMIT test
+            Robot.wrist.setZeroOffset(zeroOffset); // save the zero offset found in LOWER_LIMIT test
             printStatus("Zero offset set at: " + zeroOffset);
             printStatus("Testing new offset (going to soft limit) ...");
             testingStage = stage.TEST_MIN;
@@ -140,14 +140,14 @@ public class CalibrateAngle extends Command {
         // Second test moving to min (not hard min). It should not stall.
         //
         if (testingStage == stage.TEST_MIN_FINAL) {
-            Robot.shooter.moveRotationPercentPower(-decreaseAngleSpeed);
+            Robot.wrist.moveWristPercentPower(-decreaseAngleSpeed);
 
-            if (pos <= Constants.ShooterRotation.MIN_LIMIT_ABSOLUTE) {
-                Robot.shooter.moveRotationPercentPower(0);
+            if (pos <= Constants.Wrist.MIN_LIMIT_ABSOLUTE) {
+                Robot.wrist.moveWristPercentPower(0);
                 System.out.println(" *****************************************************" + nl +
                                    " **   Calibration COMPLETE! "                     + nl +
                                    " **"                                              + nl +
-                                   " **   Shooter should be at min shooting position" + nl +
+                                   " **   Wrist should be at min shooting position" + nl +
                                    " **   New Zero Offset value is " + zeroOffset     + nl +
                                    " **      Update Constants.java file"              + nl +
                                    " **      Calibration COMPLETE! "                  + nl +
@@ -163,14 +163,14 @@ public class CalibrateAngle extends Command {
                 stallCount = 0;
             }
 
-            // The shooter should be able to move to the min position, so we
-            // should never enter this loop. Indicates the shooter is stuck
+            // The wrist should be able to move to the min position, so we
+            // should never enter this loop. Indicates the wrist is stuck
             // or calibration failed.
             if (stallCount == 4) {
-                Robot.shooter.moveRotationPercentPower(0);
+                Robot.wrist.moveWristPercentPower(0);
                 System.out.println(" ****************************************" + nl +
                                    " **    Error: Unable to calibrate!!    **" + nl +
-                                   " **    Shooter stalled during final    **" + nl +
+                                   " **    Wrist stalled during final    **" + nl +
                                    " **        test to arrive at the       **" + nl +
                                    " **            lower limit             **" + nl +
                                    " **                                    **" + nl +
@@ -182,10 +182,10 @@ public class CalibrateAngle extends Command {
         }
         //
         // Stage: PAUSE
-        // Pausing test to allow user to verify shooter is at 90 degrees
+        // Pausing test to allow user to verify wrist is at 90 degrees
         //
         if (testingStage == stage.PAUSE) {
-            Robot.shooter.holdRotation();
+            Robot.wrist.holdWrist();
             pauseCounter++;
 
             if (pauseCounter >= 3 * 50){ // 5 seconds x 50 20ms intervals
@@ -197,12 +197,12 @@ public class CalibrateAngle extends Command {
 
         //
         // Stage: TEST_90
-        // Test moving shooter to 90 degree angle.
+        // Test moving wrist to 90 degree angle.
         // Zero offset has already been calculated and set
         // It should not stall.
         //
         if (testingStage == stage.TEST_90) {
-            Robot.shooter.moveRotationPercentPower(increaseAngleSpeed);
+            Robot.wrist.moveWristPercentPower(increaseAngleSpeed);
 
             // check for stalling motor
             if (Math.abs(pos - prevPos) < (1.0 * 1 / 4096)) { // Allows for range of 3 ticks to check, 4096 is number of ticks in 1 rotation
@@ -211,23 +211,23 @@ public class CalibrateAngle extends Command {
                 stallCount = 0;
             }
 
-            if (pos >= Robot.shooter.degreesToAbsolute(90)) {
-                Robot.shooter.moveRotationPercentPower(0);
+            if (pos >= Robot.wrist.degreesToAbsolute(90)) {
+                Robot.wrist.moveWristPercentPower(0);
                 printStatus("90 degree test complete");
                 printStatus("");
-                printStatus("Shooter should be pointing to 90 degrees");
+                printStatus("Wrist should be pointing to 90 degrees");
                 printStatus("Waiting 3 seconds to verify visually ... ");
                 testingStage = stage.PAUSE;
             }
 
-            // The shooter should be able to move to the 90 degree position, so we
-            // should never enter this loop. Indicates the shooter is stuck
+            // The wrist should be able to move to the 90 degree position, so we
+            // should never enter this loop. Indicates the wrist is stuck
             // or calibration failed.
             if (stallCount == 2) {
-                Robot.shooter.moveRotationPercentPower(0);
+                Robot.wrist.moveWristPercentPower(0);
                 System.out.println(" ***************************************" + nl +
                                    " **    Error: Unable to calibrate!!   **" + nl +
-                                   " **    Shooter stalled during test    **" + nl +
+                                   " **    Wrist stalled during test    **" + nl +
                                    " **      to arrive at 90 degrees      **" + nl +
                                    " **                                   **" + nl +
                                    " **        Calibration aborted        **" + nl +
@@ -242,7 +242,7 @@ public class CalibrateAngle extends Command {
         // Prior to this stage, new zero was set correctly
         //
         if (testingStage == stage.TEST_MIN) {
-            Robot.shooter.moveRotationPercentPower(-decreaseAngleSpeed);
+            Robot.wrist.moveWristPercentPower(-decreaseAngleSpeed);
 
             // check for stalling motor
             if (Math.abs(pos - prevPos) < (2.0 * 1.0 / 4096)) { // Allows for range of 3 ticks to check, 4096 is number of ticks in 1 rotation
@@ -250,21 +250,21 @@ public class CalibrateAngle extends Command {
             } else {
                 stallCount = 0;
             }
-            if (pos <= Constants.ShooterRotation.MIN_LIMIT_ABSOLUTE) {
-                Robot.shooter.moveRotationPercentPower(0);
+            if (pos <= Constants.Wrist.MIN_LIMIT_ABSOLUTE) {
+                Robot.wrist.moveWristPercentPower(0);
                 printStatus("Min limit test complete");
                 printStatus("Moving to 90 degrees ...");
                 testingStage = stage.TEST_90;
             }
 
-            // The shooter should be able to move to the min position, so we
-            // should never enter this loop. Indicates the shooter is stuck
+            // The wrist should be able to move to the min position, so we
+            // should never enter this loop. Indicates the wrist is stuck
             // or calibration failed.
             if (stallCount == 4) {
-                Robot.shooter.moveRotationPercentPower(0);
+                Robot.wrist.moveWristPercentPower(0);
                 System.out.println(" ****************************************" + nl +
                                    " **    Error: Unable to calibrate!!    **" + nl +
-                                   " **    Shooter stalled during first    **" + nl +
+                                   " **    Wrist stalled during first    **" + nl +
                                    " **    test to arrive at the target    **" + nl +
                                    " **            min position.           **" + nl +
                                    " **                                    **" + nl +
@@ -285,8 +285,8 @@ public class CalibrateAngle extends Command {
     // Called when the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
-        Robot.shooter.moveRotationPercentPower(0);
-        Robot.shooter.setTargetPosition(Robot.shooter.getPosition());
+        Robot.wrist.moveWristPercentPower(0);
+        Robot.wrist.setTargetPosition(Robot.wrist.getPosition());
     }
 
     void printStatus(String status) {

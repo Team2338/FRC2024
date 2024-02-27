@@ -25,9 +25,9 @@ public class UI {
         shuffleboardTab.addBoolean("Collector Manual Control", Robot.collector::getCollectorManualControl);
         shuffleboardTab.addBoolean("Indexer Manual Control", Robot.indexer::getIndexerManualFlag);
 
-        shuffleboardTab.addString("Shooter Actual", Robot.shooter::getPosition_Shuffleboard);
-        shuffleboardTab.addDouble("Shooter Target", Robot.shooter::getTargetPosition);
-        shuffleboardTab.addString("Shooter Degrees", Robot.shooter::getRotationDegrees_Shuffleboard);
+        shuffleboardTab.addString("Wrist Actual", Robot.wrist::getPosition_Shuffleboard);
+        shuffleboardTab.addDouble("Wrist Target", Robot.wrist::getTargetPosition);
+        shuffleboardTab.addString("Wrist Degrees", Robot.wrist::getWristDegrees_Shuffleboard);
 
         shuffleboardTab.addBoolean("Stage Safe", Robot.diagnostics::getSafeToDriveUnderStage);
 
@@ -52,9 +52,9 @@ public class UI {
 
         //shooter
         diagnosticsTab.addDouble("Shooter Temp", Robot.shooter::getShooterMotorTemp).withPosition(6,0);
-        diagnosticsTab.addDouble("Shooter Rotation Temp", Robot.shooter::getShooterRotationMotorTemp).withPosition(7,0);
+        diagnosticsTab.addDouble("Wrist Temp", Robot.wrist::getWristMotorTemp).withPosition(7,0);
         diagnosticsTab.addBoolean("Shooter Cool", Robot.shooter::isShooterCool).withPosition(6,1);
-        diagnosticsTab.addBoolean("Shooter Rotation Cool", Robot.shooter::isShooterRotationCool).withPosition(7,1);
+        diagnosticsTab.addBoolean("Wrist Cool", Robot.wrist::isWristCool).withPosition(7,1);
 
         //collector
         diagnosticsTab.addDouble("Collector Temp", Robot.collector::getMotorTemp).withPosition(8,0);

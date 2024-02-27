@@ -17,14 +17,13 @@ import team.gif.robot.commands.drivetrain.MoveRightSlow;
 import team.gif.robot.commands.drivetrain.Reset0;
 import team.gif.robot.commands.indexer.FullIndexerReverse;
 import team.gif.robot.commands.indexer.IndexerManualControl;
-import team.gif.robot.commands.shooter.CalibrateAngle;
+import team.gif.robot.commands.wrist.CalibrateAngle;
 import team.gif.robot.commands.shooter.RevFlyWheels;
 import team.gif.robot.commands.shooter.Shoot;
 import team.gif.robot.commands.shooter.ShootManu;
-import team.gif.robot.commands.shooterAngle.ShooterAngleUp;
-import team.gif.robot.commands.shooterAngle.ShooterAngleDown;
+import team.gif.robot.commands.wrist.WristAngleUp;
+import team.gif.robot.commands.wrist.WristAngleDown;
 import team.gif.robot.commands.shooter.TrapShoot;
-import team.gif.robot.commands.toggleManualControl.ToggleManualControl;
 
 public class OI {
     /*
@@ -130,7 +129,7 @@ public class OI {
 
 //        aDPadUp.whileTrue(new IndexerDefault());
 
-        dStart.whileTrue(new FullIndexerReverse());
+//        dStart.whileTrue(new FullIndexerReverse());
 
         // manual control
 //        aBack.toggleOnTrue(new ToggleManualControl());
@@ -138,17 +137,17 @@ public class OI {
         aBack.whileTrue(new CollectorManualControl()); // used when limelight fails
         aStart.whileTrue(new CollectorManualControl().alongWith(new IndexerManualControl())); // used when sensors fail
 
-        aDPadUp.onTrue(new InstantCommand(Robot.shooter::setRotationFar));
-        aDPadRight.onTrue(new InstantCommand(Robot.shooter::setRotationMid));
-        aDPadLeft.onTrue(new InstantCommand(Robot.shooter::setRotationNear));
-        aDPadDown.onTrue(new InstantCommand(Robot.shooter::setRotationWall));
+        aDPadUp.onTrue(new InstantCommand(Robot.wrist::setWristFar));
+        aDPadRight.onTrue(new InstantCommand(Robot.wrist::setWristMid));
+        aDPadLeft.onTrue(new InstantCommand(Robot.wrist::setWristNear));
+        aDPadDown.onTrue(new InstantCommand(Robot.wrist::setWristWall));
 
         //shooter
         aRTrigger.whileTrue(new RevFlyWheels());
-        aLBump.whileTrue(new Shoot());
+        aLBump.onTrue(new Shoot().andThen(new InstantCommand(Robot.wrist::setWristCollect)));
         dA.whileTrue(new ShootManu());
-        aY.whileTrue(new ShooterAngleUp());
-        aX.whileTrue(new ShooterAngleDown());
+        aY.whileTrue(new WristAngleUp());
+        aX.whileTrue(new WristAngleDown());
         dY.whileTrue(new RaiseClimber());
         dX.whileTrue(new LowerClimber());
         aB.onTrue(new CalibrateAngle());
@@ -159,7 +158,7 @@ public class OI {
         // auto sensor actions
         gamePieceSensor.onTrue(
 //                new InstantCommand(Robot.ledSubsystem::setLEDGamePieceColor)
-                new InstantCommand(Robot.shooter::setRotationCollect)
+                new InstantCommand(Robot.wrist::setWristCollect)
         );
     }
 

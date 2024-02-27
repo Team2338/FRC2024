@@ -41,6 +41,6 @@ public class Diagnostics extends SubsystemBase {
     }
 
     public boolean getSafeToDriveUnderStage() {
-        return Robot.shooter.getPosition() <= Robot.shooter.degreesToAbsolute(50);//(Robot.climber.getPosition() < 100 && Robot.elevator.getPosition() < 100 && Robot.shooter.getPosition() < 100);
+        return Robot.wrist.getPosition() <= Robot.wrist.degreesToAbsolute(50);//(Robot.climber.getPosition() < 100 && Robot.elevator.getPosition() < 100 && Robot.shooter.getPosition() < 100);
     }
 }

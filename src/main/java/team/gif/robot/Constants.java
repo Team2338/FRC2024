@@ -9,8 +9,6 @@ import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.math.util.Units;
 
-import javax.swing.plaf.PanelUI;
-
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
  * constants. This class should not be used for any other purpose. All constants should be declared
@@ -267,14 +265,14 @@ public final class Constants {
 
     public static final class Shooter { // ToDo tune - remove when done (tuned for 5800RPM)
         public static final double REV = 1.0;
-        public static final int REV_RPM = 5800;//5100; // need to tune for comp, Neo Max at 5000
+        public static final int REV_RPM = 6200;//5100; // need to tune for comp, Neo Max at 5000
         public static final int TRAP_RPM = 1000;
-        public static final double FF = 0.000130;//0.000019;//190;
-        public static final double kP = 0.0006;//28;
-        public static final double kI = 0.0000015;//6;//8;
+        public static final double FF = 0.000157; // gets to 6025    // 0.000130;  // 5800 RPM
+        public static final double kP = 0.01;//0.0100;               // 0.0006;    // 5800 RPM
+        public static final double kI = 0.001;//0.001;               // 0.0000015; // 5800 RPM
     }
 
-    public static final class ShooterRotation { // tuned 02/22
+    public static final class Wrist { // tuned 02/22
         public static final double INCREASE_ANGLE_PWR_PERC = 0.1;
         public static final double INCREASE_ANGLE_PWR_PERC_CALIBRATION = 0.1;
         public static final double DECREASE_ANGLE_PWR_PERC = 0.1;

@@ -10,7 +10,7 @@ public class Shoot extends Command {
 
     public Shoot() {
         super();
-        addRequirements(Robot.indexer,Robot.shooter); // uncomment
+        addRequirements(Robot.indexer,Robot.shooter);
     }
 
     // Called when the command is initially scheduled.
@@ -46,6 +46,6 @@ public class Shoot extends Command {
     public void end(boolean interrupted) {
         Robot.indexer.stopIndexer();
         Robot.shooter.setVoltagePercent(0);
-        Robot.shooter.setRotationCollect();
+//        Robot.wrist.setRotationCollect();
     }
 }
