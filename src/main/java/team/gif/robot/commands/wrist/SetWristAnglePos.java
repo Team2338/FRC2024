@@ -1,37 +1,35 @@
-package team.gif.robot.commands.shooterAngle;
+package team.gif.robot.commands.wrist;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import team.gif.robot.Constants;
 import team.gif.robot.Robot;
 
-public class ShooterAnglePIDControl extends Command {
+public class SetWristAnglePos extends Command {
+    double targetPos;
+    double currentPos;
 
-    private int counter=0;
-
-    public ShooterAnglePIDControl() {
+    public SetWristAnglePos(double targetPos) {
         super();
-        addRequirements(Robot.shooter);
+        addRequirements(Robot.wrist);
+        this.targetPos = targetPos;
     }
 
     // Called when the command is initially scheduled.
     @Override
-    public void initialize() {}
+    public void initialize() {
+        Robot.wrist.setTargetPosition(targetPos);
+
+        Robot.wrist.PIDWristMove();
+    }
 
     // Called every time the scheduler runs (~20ms) while the command is scheduled
     @Override
     public void execute() {
-        if (Robot.shooter.getPosition() < Constants.ShooterRotation.KILL_LIMIT_ABSOLUTE) {
-            Robot.shooter.PIDRotationMove();
-        } else {
-            // defensive code in case shooter over rotates
-            Robot.shooter.PIDKill();
-        }
     }
 
     // Return true when the command should end, false if it should continue. Runs every ~20ms.
     @Override
     public boolean isFinished() {
-        return false;
+        return (Robot.wrist.getPosition() >= Robot.wrist.getTargetPosition());
     }
 
     // Called when the command ends or is interrupted.

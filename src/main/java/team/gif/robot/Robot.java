@@ -19,7 +19,7 @@ import team.gif.robot.commands.climber.ClimberHold;
 import team.gif.robot.commands.collector.CollectorDefault;
 import team.gif.robot.commands.drivetrain.DriveSwerve;
 import team.gif.robot.commands.indexer.IndexerDefault;
-import team.gif.robot.commands.shooterAngle.ShooterAnglePIDControl;
+import team.gif.robot.commands.wrist.WristAnglePIDControl;
 import team.gif.robot.subsystems.Climber;
 import team.gif.robot.subsystems.Elevator;
 import team.gif.robot.subsystems.Diagnostics;
@@ -28,6 +28,7 @@ import team.gif.robot.subsystems.Collector;
 import team.gif.robot.subsystems.Indexer;
 import team.gif.robot.subsystems.Shooter;
 import team.gif.robot.subsystems.SwerveDrivetrainMK3;
+import team.gif.robot.subsystems.Wrist;
 import team.gif.robot.subsystems.drivers.Limelight;
 import team.gif.robot.subsystems.drivers.Pigeon;
 import team.gif.robot.commands.drivetrainPbot.DrivePracticeSwerve;
@@ -60,6 +61,7 @@ public class Robot extends TimedRobot {
     private static TelemetryFileLogger telemetryLogger;
     public static EventFileLogger eventLogger;
     public static Shooter shooter;
+    public static Wrist wrist;
     public static Indexer indexer;
     public static Collector collector;
     public static Elevator elevator;
@@ -103,10 +105,13 @@ public class Robot extends TimedRobot {
             practiceDrivetrain.enableShuffleboardDebug("FRC2024");
         }
 
+        shooter = new Shooter();
+
         try {
-            shooter = new Shooter();
+            wrist = new Wrist();
         } catch (Exception e) { throw new RuntimeException(e); }
-//        shooter.setDefaultCommand(new ShooterAngle());
+
+        //        shooter.setDefaultCommand(new ShooterAngle());
         indexer = new Indexer();
         indexer.setDefaultCommand(new IndexerDefault());
         collector = new Collector();
@@ -115,7 +120,7 @@ public class Robot extends TimedRobot {
         climber = new Climber();
         diagnostics = new Diagnostics();
 
-        shooter.setDefaultCommand(new ShooterAnglePIDControl());
+        wrist.setDefaultCommand(new WristAnglePIDControl());
 
         climber.setDefaultCommand(new ClimberHold());
 
