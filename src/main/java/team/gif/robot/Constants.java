@@ -281,8 +281,8 @@ public final class Constants {
         public static final double DECREASE_ANGLE_PWR_PERC_CALIBRATION = 0.015;
         public static final double STARTING_LINE_POS = 0.215;
         public static final double STAGE_LINE_POS = 0.284;
-        public static final double FF = 0.007;
-        public static final double kP = 1.0;
+        public static final double FF = 0.015; // 0.020 too much; // 0.007 too little;
+        public static final double kP = 1.0; // 0.9 works pretty well; // 0.5; //1.0
         public static final double kI = 0.0000;
         public static final double kD = 0.0000;
 
@@ -299,7 +299,7 @@ public final class Constants {
         public static final double STAGE_SAFE_DEGREES = 46.0; // maximum value to go under stage
         public static final double SETPOINT_FAR_ABSOLUTE  = (72.9 - MIN_LIMIT_DEGREES) * ABSOLUTE_PER_DEGREE + MIN_LIMIT_ABSOLUTE; // number in degrees, value in absolute
         public static final double SETPOINT_MID_ABSOLUTE  = (68.0 - MIN_LIMIT_DEGREES) * ABSOLUTE_PER_DEGREE + MIN_LIMIT_ABSOLUTE; // number in degrees, value in absolute
-        public static final double SETPOINT_NEAR_ABSOLUTE = (57.6 - MIN_LIMIT_DEGREES) * ABSOLUTE_PER_DEGREE + MIN_LIMIT_ABSOLUTE; // number in degrees, value in absolute
+        public static final double SETPOINT_NEAR_ABSOLUTE = (64.0 - MIN_LIMIT_DEGREES) * ABSOLUTE_PER_DEGREE + MIN_LIMIT_ABSOLUTE; // number in degrees, value in absolute
         public static final double SETPOINT_WALL_ABSOLUTE = (49.0 - MIN_LIMIT_DEGREES) * ABSOLUTE_PER_DEGREE + MIN_LIMIT_ABSOLUTE; // number in degrees, value in absolute
         public static final double SETPOINT_COLLECT_ABSOLUTE = (48.0 - MIN_LIMIT_DEGREES) * ABSOLUTE_PER_DEGREE + MIN_LIMIT_ABSOLUTE; // number in degrees, value in absolute
     }
