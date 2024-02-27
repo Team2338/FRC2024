@@ -129,7 +129,7 @@ public class OI {
 
 //        aDPadUp.whileTrue(new IndexerDefault());
 
-        dStart.whileTrue(new FullIndexerReverse());
+//        dStart.whileTrue(new FullIndexerReverse());
 
         // manual control
 //        aBack.toggleOnTrue(new ToggleManualControl());
