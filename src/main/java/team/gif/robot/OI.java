@@ -8,21 +8,17 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import team.gif.robot.commands.collector.NoteRumble;
 import team.gif.robot.commands.collector.ToggleCollectorDefault;
-import team.gif.robot.commands.climber.LowerClimber;
-import team.gif.robot.commands.climber.RaiseClimber;
 import team.gif.robot.commands.collector.CollectorManualControl;
 import team.gif.robot.commands.driveModes.EnableBoost;
 import team.gif.robot.commands.drivetrain.MoveAwaySlow;
 import team.gif.robot.commands.drivetrain.MoveCloserSlow;
 import team.gif.robot.commands.drivetrain.MoveLeftSlow;
 import team.gif.robot.commands.drivetrain.MoveRightSlow;
-import team.gif.robot.commands.drivetrain.Reset0;
-import team.gif.robot.commands.indexer.FullIndexerReverse;
 import team.gif.robot.commands.indexer.IndexerManualControl;
 import team.gif.robot.commands.wrist.CalibrateAngle;
 import team.gif.robot.commands.shooter.RevFlyWheels;
 import team.gif.robot.commands.shooter.Shoot;
-import team.gif.robot.commands.shooter.ShootManu;
+import team.gif.robot.commands.shooter.ForceShoot;
 import team.gif.robot.commands.wrist.WristAngleUp;
 import team.gif.robot.commands.wrist.WristAngleDown;
 import team.gif.robot.commands.shooter.TrapShoot;
@@ -92,7 +88,7 @@ public class OI {
 //    public final Trigger tDPadDown = test.povDown();
 //    public final Trigger tDPadLeft = test.povLeft();
 
-    public final Trigger gamePieceSensor = new Trigger(Robot.collector.sensor::get);
+    public final Trigger collectorGamePieceSensor = new Trigger(Robot.collector.sensor::get);
 
     public OI() {
         DriverStation.silenceJoystickConnectionWarning(true);
@@ -124,7 +120,7 @@ public class OI {
         }
 
         // MK3 Swerve
-        dA.whileTrue(new Reset0());
+        //dA.whileTrue(new Reset0());
 //        dA.whileTrue(new ResetWheelsPbot());
 
 //        aA.whileTrue(new CollectorDefault());
@@ -147,19 +143,19 @@ public class OI {
         //shooter
         aRTrigger.whileTrue(new RevFlyWheels());
         aLBump.onTrue(new Shoot().andThen(new InstantCommand(Robot.wrist::setWristCollect)));
-        dA.whileTrue(new ShootManu());
+        dA.whileTrue(new ForceShoot());
         aY.whileTrue(new WristAngleUp());
         aX.whileTrue(new WristAngleDown());
-        dY.whileTrue(new RaiseClimber());
-        dX.whileTrue(new LowerClimber());
+//        dY.whileTrue(new RaiseClimber());
+//        dX.whileTrue(new LowerClimber());
         aB.onTrue(new CalibrateAngle());
         aA.onTrue(new TrapShoot().withTimeout(3));
 
         dStart.toggleOnTrue(new ToggleCollectorDefault());
 
         // auto sensor actions
-        gamePieceSensor.onTrue(new NoteRumble().andThen(new WaitCommand(0.1).andThen(new NoteRumble())));
-        gamePieceSensor.onTrue(new InstantCommand(Robot.wrist::setWristCollect));
+        collectorGamePieceSensor.onTrue(new NoteRumble().andThen(new WaitCommand(0.1).andThen(new NoteRumble())));
+        collectorGamePieceSensor.onTrue(new InstantCommand(Robot.wrist::setWristCollect));
     }
 
     public void setRumble(boolean rumble){
