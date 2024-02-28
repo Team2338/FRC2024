@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import team.gif.lib.autoMode;
 import team.gif.lib.delay;
+import team.gif.robot.commands.collector.ToggleCollectorDefault;
 import team.gif.robot.commands.drivetrain.Reset0;
 import team.gif.robot.commands.drivetrain.Reset180;
 
@@ -39,6 +40,9 @@ public class UiSmartDashboard {
                 .withPosition(7, 1)
                 .withSize(2, 1);
 
+        SmartDashboard.putData("Toggle Collector Default", new ToggleCollectorDefault());
+
+
         //Auto Delay
         delayChooser.setDefaultOption("0", delay.DELAY_0);
         delayChooser.addOption("1", delay.DELAY_1);
@@ -63,6 +67,11 @@ public class UiSmartDashboard {
         shuffleboardTab.add("Delay", delayChooser)
                 .withPosition(7, 0)
                 .withSize(1, 1);
+
+
+        shuffleboardTab.addBoolean("Motor Temp", Robot.diagnostics::getAnyMotorTempHot);
+
+        shuffleboardTab.addBoolean("Stage Safe", Robot.diagnostics::getSafeToDriveUnderStage);
     }
 
     public void updateUI() {

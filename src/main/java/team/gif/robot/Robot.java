@@ -15,15 +15,20 @@ import team.gif.lib.autoMode;
 import team.gif.lib.delay;
 import team.gif.lib.logging.EventFileLogger;
 import team.gif.lib.logging.TelemetryFileLogger;
+import team.gif.robot.commands.climber.ClimberHold;
 import team.gif.robot.commands.collector.CollectorDefault;
 import team.gif.robot.commands.drivetrain.DriveSwerve;
 import team.gif.robot.commands.indexer.IndexerDefault;
-import team.gif.robot.commands.shooterAngle.ShooterAnglePIDControl;
+import team.gif.robot.commands.wrist.WristAnglePIDControl;
+import team.gif.robot.subsystems.Climber;
+import team.gif.robot.subsystems.Elevator;
+import team.gif.robot.subsystems.Diagnostics;
 import team.gif.robot.subsystems.SwerveDrivetrain;
 import team.gif.robot.subsystems.Collector;
 import team.gif.robot.subsystems.Indexer;
 import team.gif.robot.subsystems.Shooter;
 import team.gif.robot.subsystems.SwerveDrivetrainMK3;
+import team.gif.robot.subsystems.Wrist;
 import team.gif.robot.subsystems.drivers.Limelight;
 import team.gif.robot.subsystems.drivers.Pigeon;
 import team.gif.robot.commands.drivetrainPbot.DrivePracticeSwerve;
@@ -56,8 +61,12 @@ public class Robot extends TimedRobot {
     private static TelemetryFileLogger telemetryLogger;
     public static EventFileLogger eventLogger;
     public static Shooter shooter;
+    public static Wrist wrist;
     public static Indexer indexer;
     public static Collector collector;
+    public static Elevator elevator;
+    public static Climber climber;
+    public static Diagnostics diagnostics;
 
     public static boolean isCompBot = true; //includes 2023 bot
 
@@ -96,16 +105,24 @@ public class Robot extends TimedRobot {
             practiceDrivetrain.enableShuffleboardDebug("FRC2024");
         }
 
+        shooter = new Shooter();
+
         try {
-            shooter = new Shooter();
+            wrist = new Wrist();
         } catch (Exception e) { throw new RuntimeException(e); }
-//        shooter.setDefaultCommand(new ShooterAngle());
+
+        //        shooter.setDefaultCommand(new ShooterAngle());
         indexer = new Indexer();
         indexer.setDefaultCommand(new IndexerDefault());
         collector = new Collector();
         collector.setDefaultCommand(new CollectorDefault());
+//        elevator = new Elevator();
+        climber = new Climber();
+        diagnostics = new Diagnostics();
 
-        shooter.setDefaultCommand(new ShooterAnglePIDControl());
+        wrist.setDefaultCommand(new WristAnglePIDControl());
+
+        climber.setDefaultCommand(new ClimberHold());
 
         robotContainer = new RobotContainer();
 
@@ -114,7 +131,6 @@ public class Robot extends TimedRobot {
 
         oi = new OI();
         runningAutonomousMode = false;
-
     }
 
     /**
@@ -132,6 +148,17 @@ public class Robot extends TimedRobot {
         // block in order for anything in the Command-based framework to work.
         CommandScheduler.getInstance().run();
         uiSmartDashboard.updateUI();
+
+        if (diagnostics.getDriveMotorTempHot()) {
+            swerveDrivetrain.stopModules();
+            CommandScheduler.getInstance().disable();
+        }
+        if (diagnostics.getShooterMotorTempHot()) {
+            shooter.stop();
+        }
+        if (diagnostics.getIndexerMotorTempHot()) {
+            indexer.stopIndexer();
+        }
     }
 
     /** This function is called once each time the robot enters Disabled mode. */
@@ -191,6 +218,8 @@ public class Robot extends TimedRobot {
         oi.setRumble((timeLeft <= 40.0 && timeLeft >= 36.0) ||
                 (timeLeft <= 25.0 && timeLeft >= 21.0) ||
                 (timeLeft <= 5.0 && timeLeft >= 3.0));
+
+//        shooter.updateShooterPID(); // used for tuning shooter PID using the dashboard
     }
 
     @Override

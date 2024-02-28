@@ -36,8 +36,10 @@ public abstract class RobotMap {
 
     //shooter
     public static final int SHOOTER_ID = 29; //pbot 34
-    public static final int SHOOTER_ANGLE_ID = 50;
-    public static final int SHOOTER_ANGLE_ENCODER_ID = 51;
+
+    // wrist
+    public static final int WRIST_ID = 50;
+    public static final int WRIST_ENCODER_ID = 53;
 
     //indexer
     public static final int STAGE_ONE_ID = 32;
@@ -48,5 +50,11 @@ public abstract class RobotMap {
     //collector
     public static final int COLLECTOR_ID = 31;
     public static final int SENSOR_COLLECTOR_PORT  = 0;
+
+    //Elevator
+    public static final int ELEVATOR_ID = 51;
+
+    //Climber
+    public static final int CLIMBER_ID = 52;
 
 }
