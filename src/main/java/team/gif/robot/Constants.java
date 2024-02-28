@@ -267,9 +267,9 @@ public final class Constants {
         public static final double REV = 1.0;
         public static final int REV_RPM = 6200;//5100; // need to tune for comp, Neo Max at 5000
         public static final int TRAP_RPM = 1000;
-        public static final double FF = 0.000157; // gets to 6025    // 0.000130;  // 5800 RPM
-        public static final double kP = 0.01;//0.0100;               // 0.0006;    // 5800 RPM
-        public static final double kI = 0.001;//0.001;               // 0.0000015; // 5800 RPM
+        public static final double FF = 0.000155; // gets to 6100    // 0.000130;  // 5800 RPM
+        public static final double kP = 0.00030;//0.0100;               // 0.0006;    // 5800 RPM
+        public static final double kI = 0.000;//0.001;               // 0.0000015; // 5800 RPM
     }
 
     public static final class Wrist { // tuned 02/22
@@ -279,14 +279,14 @@ public final class Constants {
         public static final double DECREASE_ANGLE_PWR_PERC_CALIBRATION = 0.015;
         public static final double STARTING_LINE_POS = 0.215;
         public static final double STAGE_LINE_POS = 0.284;
-        public static final double FF = 0.015; // 0.020 too much; // 0.007 too little;
+        public static final double FF = 0.0157; // 0.020 too much; // 0.007 too little;
         public static final double kP = 1.0; // 0.9 works pretty well; // 0.5; //1.0
         public static final double kI = 0.0000;
         public static final double kD = 0.0000;
 
         // Encoder setpoints and values
         // These are the encoder specific values
-        public static final double ENCODER_OFFSET_ABSOLUTE = -0.7364; // this is determined either manually or via the auto-calibration
+        public static final double ENCODER_OFFSET_ABSOLUTE = -0.79379; // this is determined either manually or via the auto-calibration
         public static final double ABSOLUTE_PER_DEGREE = 0.008333;
         // These are the values we want the bot to utilize
         public static final double KILL_LIMIT_ABSOLUTE = 0.87;
@@ -295,7 +295,7 @@ public final class Constants {
         public static final double HARD_STOP_ABSOLUTE = 0.10; // value of encoder at lower limit hard stop
         public static final double MIN_LIMIT_DEGREES = 48.0; // this is calculated during manual calibration from reading the 90 degree value, provides a relationship between Degrees and Absolute
         public static final double STAGE_SAFE_DEGREES = 46.0; // maximum value to go under stage
-        public static final double SETPOINT_FAR_ABSOLUTE  = (72.9 - MIN_LIMIT_DEGREES) * ABSOLUTE_PER_DEGREE + MIN_LIMIT_ABSOLUTE; // number in degrees, value in absolute
+        public static final double SETPOINT_FAR_ABSOLUTE  = (72.0 - MIN_LIMIT_DEGREES) * ABSOLUTE_PER_DEGREE + MIN_LIMIT_ABSOLUTE; // number in degrees, value in absolute
         public static final double SETPOINT_MID_ABSOLUTE  = (68.0 - MIN_LIMIT_DEGREES) * ABSOLUTE_PER_DEGREE + MIN_LIMIT_ABSOLUTE; // number in degrees, value in absolute
         public static final double SETPOINT_NEAR_ABSOLUTE = (64.0 - MIN_LIMIT_DEGREES) * ABSOLUTE_PER_DEGREE + MIN_LIMIT_ABSOLUTE; // number in degrees, value in absolute
         public static final double SETPOINT_WALL_ABSOLUTE = (49.0 - MIN_LIMIT_DEGREES) * ABSOLUTE_PER_DEGREE + MIN_LIMIT_ABSOLUTE; // number in degrees, value in absolute
@@ -304,10 +304,10 @@ public final class Constants {
 
     public static final class Indexer { // ToDo tune - remove when done
         public static final double INDEXER_ONE_COLLECT_PERC = 1.0; //done
-        public static final double INDEXER_TWO_COLLECT_PERC = 0.3; //done
+        public static final double INDEXER_TWO_COLLECT_PERC = 0.26; // 0.24 for 7:1 // 0.3; ; works w/10:1 //done
 
-        public static final double INDEXER_TWO_SHOOT_PERC = 0.9; //done
-        public static final double INDEXER_TWO_TRAP_PERC = 0.6;
+        public static final double INDEXER_TWO_SHOOT_PERC = 1.0; // 0.9; works w/10:1 indexer2 for 5800//done
+        public static final double INDEXER_TWO_TRAP_PERC = 0.6;  // not tuned
 
         public static final double INDEXER_ONE_EJECT_PERC = 0.8;
         public static final double INDEXER_TWO_EJECT_PERC = 0.2;

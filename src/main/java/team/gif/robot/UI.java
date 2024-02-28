@@ -2,6 +2,7 @@ package team.gif.robot;
 
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class UI {
     public UI() {
@@ -56,8 +57,24 @@ public class UI {
         diagnosticsTab.addBoolean("Shooter Cool", Robot.shooter::isShooterCool).withPosition(6,1);
         diagnosticsTab.addBoolean("Wrist Cool", Robot.wrist::isWristCool).withPosition(7,1);
 
+        // shooterPID
+        shuffleboardTab.add("kP",0).getEntry();
+        shuffleboardTab.add("kI",0).getEntry();
+        shuffleboardTab.add("kD",0).getEntry();
+
         //collector
         diagnosticsTab.addDouble("Collector Temp", Robot.collector::getMotorTemp).withPosition(8,0);
         diagnosticsTab.addBoolean("Collector Cool", Robot.collector::isStageOneMotorCool).withPosition(8,1);
+
+        // used for tuning Shooter PID
+//        createSmartDashboardNumber("FF",0.000155);
+//        createSmartDashboardNumber("kP",0.000300);
+//        createSmartDashboardNumber("kI",0.000000);
+    }
+
+    public static double createSmartDashboardNumber(String key, double defValue) {
+        double value = SmartDashboard.getNumber(key, defValue);
+        SmartDashboard.putNumber(key,defValue);
+        return value;
     }
 }

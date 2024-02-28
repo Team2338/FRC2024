@@ -218,6 +218,8 @@ public class Robot extends TimedRobot {
         oi.setRumble((timeLeft <= 40.0 && timeLeft >= 36.0) ||
                 (timeLeft <= 25.0 && timeLeft >= 21.0) ||
                 (timeLeft <= 5.0 && timeLeft >= 3.0));
+
+//        shooter.updateShooterPID(); // used for tuning shooter PID using the dashboard
     }
 
     @Override
