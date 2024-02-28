@@ -3,9 +3,11 @@ package team.gif.robot;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.PrintCommand;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import team.gif.robot.commands.climber.RaiseClimber;
 import team.gif.robot.commands.collector.NoteRumble;
 import team.gif.robot.commands.collector.ToggleCollectorDefault;
 import team.gif.robot.commands.collector.CollectorManualControl;
@@ -14,6 +16,8 @@ import team.gif.robot.commands.drivetrain.MoveAwaySlow;
 import team.gif.robot.commands.drivetrain.MoveCloserSlow;
 import team.gif.robot.commands.drivetrain.MoveLeftSlow;
 import team.gif.robot.commands.drivetrain.MoveRightSlow;
+import team.gif.robot.commands.drivetrain.Reset0;
+import team.gif.robot.commands.indexer.FullIndexerReverse;
 import team.gif.robot.commands.indexer.IndexerManualControl;
 import team.gif.robot.commands.wrist.CalibrateAngle;
 import team.gif.robot.commands.shooter.RevFlyWheels;
@@ -53,6 +57,7 @@ public class OI {
     public final Trigger dDPadRight = driver.povRight();
     public final Trigger dDPadDown = driver.povDown();
     public final Trigger dDPadLeft = driver.povLeft();
+    public final Trigger dDPadDownLeft = driver.povDownLeft();
 
     public final Trigger aA = aux.a();
     public final Trigger aB = aux.b();
@@ -70,6 +75,7 @@ public class OI {
     public final Trigger aDPadRight = aux.povRight();
     public final Trigger aDPadDown = aux.povDown();
     public final Trigger aDPadLeft = aux.povLeft();
+    public final Trigger aDPadDownLeft = aux.povDownLeft();
 
 //    public final Trigger tA = test.a();
 //    public final Trigger tB = test.b();
@@ -110,52 +116,59 @@ public class OI {
         *   aX.onTrue(new PrintCommand("aX"));
         */
 
-        // MK4 (2023 bot)
-        if (Robot.isCompBot) {
-            dDPadUp.whileTrue(new MoveAwaySlow());
-            dDPadRight.whileTrue(new MoveRightSlow());
-            dDPadLeft.whileTrue(new MoveLeftSlow());
-            dDPadDown.whileTrue(new MoveCloserSlow());
-            dLBump.whileTrue(new EnableBoost());
-        }
+        // driver controls
+        dLBump.whileTrue(new EnableBoost());
+//        dRStickBtn.whileTrue(new AutoAlign());
+//        dB.whileTrue(new RotateClockwise());
+//        dX.whileTrue(new RotateCounterClockwise());
+//        dRBump.whileTrue(new EnableRobotOriented());
+        dY.whileTrue(new FullIndexerReverse());
 
-        // MK3 Swerve
-        //dA.whileTrue(new Reset0());
-//        dA.whileTrue(new ResetWheelsPbot());
-
-//        aA.whileTrue(new CollectorDefault());
-
-//        aDPadUp.whileTrue(new IndexerDefault());
-
-//        dStart.whileTrue(new FullIndexerReverse());
+        // calibrations
+        dA.and(dDPadUp).onTrue(new InstantCommand(Robot.pigeon::resetPigeonPosition));
+//        dA.and(dDPadLeft).onTrue(new InstantCommand(Robot.elevator::resetPosition));
+//        dA.and(dDPadRight).onTrue(new InstantCommand(Robot.climber::resetPosition));
+        dA.and(dDPadDown).toggleOnTrue(new ToggleCollectorDefault());
+        dA.and(dBack).onTrue(new CalibrateAngle());
 
         // manual control
-//        aBack.toggleOnTrue(new ToggleManualControl());
-//        aStart.whileTrue(new IndexerManualControl());
-        aBack.whileTrue(new CollectorManualControl()); // used when limelight fails
-        aStart.whileTrue(new CollectorManualControl().alongWith(new IndexerManualControl())); // used when sensors fail
+//-        aA.whileTrue(new CollectorManualControl()); // used when limelight fails
+        aA.negate().onTrue(new PrintCommand("A Pressed"));
 
+        aB.whileTrue(new CollectorManualControl().alongWith(new IndexerManualControl())); // used when sensors fail
+
+        //wrist
         aDPadUp.onTrue(new InstantCommand(Robot.wrist::setWristFar));
         aDPadRight.onTrue(new InstantCommand(Robot.wrist::setWristMid));
         aDPadLeft.onTrue(new InstantCommand(Robot.wrist::setWristNear));
         aDPadDown.onTrue(new InstantCommand(Robot.wrist::setWristWall));
+//        aDPadDownLeft.whileTrue(new EnableAutoWrist());
 
         //shooter
-        aRTrigger.whileTrue(new RevFlyWheels());
+        aRBump.whileTrue(new RevFlyWheels());
         aLBump.onTrue(new Shoot().andThen(new InstantCommand(Robot.wrist::setWristCollect)));
-        dA.whileTrue(new ForceShoot());
-        aY.whileTrue(new WristAngleUp());
-        aX.whileTrue(new WristAngleDown());
-//        dY.whileTrue(new RaiseClimber());
-//        dX.whileTrue(new LowerClimber());
-        aB.onTrue(new CalibrateAngle());
-        aA.onTrue(new TrapShoot().withTimeout(3));
 
-        dStart.toggleOnTrue(new ToggleCollectorDefault());
+//        aRTrigger.onTrue(new AmpPosition()); // goes to position and revs flywheel
+//        aLTrigger.onTrue(new AmpShoot().andThen(new InstantCommand(Robot.wrist::setWristCollect)); // shoots and returns to home
+//        aY.whileTrue(new LoadFromSource());
+
+        aBack.and(aA).onTrue(new PrintCommand("Back and A Pressed"));
+//        aBack.and(aX).onTrue(new RaiseElevatorToTop());
+//        aBack.and(aY).onTrue(new LowerClimberAndElevator());
+        aBack.and(aB).onTrue(new TrapShoot().withTimeout(3));
+
+        aStart.and(aDPadUp).whileTrue(new WristAngleUp());
+        aStart.and(aDPadDown).whileTrue(new WristAngleDown());
+//        aStart.and(aDPadRight).onTrue(new InstantCommand(Robot.wrist::BumpAngle));
+        aX.whileTrue(new ForceShoot());
 
         // auto sensor actions
         collectorGamePieceSensor.onTrue(new NoteRumble().andThen(new WaitCommand(0.1).andThen(new NoteRumble())));
         collectorGamePieceSensor.onTrue(new InstantCommand(Robot.wrist::setWristCollect));
+
+        // testing purposes
+//        dY.whileTrue(new RaiseClimber());
+//        dX.whileTrue(new LowerClimber());
     }
 
     public void setRumble(boolean rumble){
