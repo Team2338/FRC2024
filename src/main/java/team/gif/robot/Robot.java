@@ -163,7 +163,7 @@ public class Robot extends TimedRobot {
             shooter.stop();
         }
         if (diagnostics.getIndexerMotorTempHot()) {
-            indexer.stopIndexer();
+            indexer.stopIndexerCoast();
         }
     }
 

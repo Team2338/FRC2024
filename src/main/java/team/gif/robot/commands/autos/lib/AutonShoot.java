@@ -43,6 +43,6 @@ public class AutonShoot extends Command {
     @Override
     public void end(boolean interrupted) {
         Robot.shooter.setVoltagePercent(0);
-        Robot.indexer.stopIndexer();
+        Robot.indexer.stopIndexerCoast();
     }
 }

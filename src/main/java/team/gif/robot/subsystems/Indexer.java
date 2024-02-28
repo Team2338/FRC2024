@@ -54,7 +54,13 @@ public class Indexer extends SubsystemBase {
         stageTwo.set(stageTwoPercent);
     }
 
-    public void stopIndexer() {
+    public void stopIndexerHard() {
+        stageTwo.setIdleMode(CANSparkBase.IdleMode.kBrake);
+        setIndexer(0,0);
+    }
+
+    public void stopIndexerCoast() {
+        stageTwo.setIdleMode(CANSparkBase.IdleMode.kCoast);
         setIndexer(0,0);
     }
 

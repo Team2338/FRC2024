@@ -44,7 +44,7 @@ public class TrapShoot extends Command {
                 Robot.wrist.moveWristPercentPower(0);
                 finished = true;
             }
-            Robot.indexer.stopIndexer();
+            Robot.indexer.stopIndexerCoast();
             counter++;
         }
     }
@@ -58,7 +58,7 @@ public class TrapShoot extends Command {
     // Called when the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
-        Robot.indexer.stopIndexer();
+        Robot.indexer.stopIndexerCoast();
         Robot.wrist.moveWristPercentPower(0);
         Robot.wrist.setTargetPosition(Robot.wrist.getPosition());
         Robot.shooter.setVoltagePercent(0);

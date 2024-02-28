@@ -30,6 +30,6 @@ public class ForceShoot extends Command {
     // Called when the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
-        Robot.indexer.stopIndexer();
+        Robot.indexer.stopIndexerCoast();
     }
 }

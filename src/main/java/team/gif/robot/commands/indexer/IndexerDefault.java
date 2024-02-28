@@ -42,7 +42,7 @@ public class IndexerDefault extends Command {
             if (Robot.collector.getSensorState()) { // this means the robot has collected a second note
                 Robot.indexer.setIndexer(-Constants.Indexer.INDEXER_ONE_EJECT_PERC, 0);
             } else {
-                Robot.indexer.stopIndexer();
+                Robot.indexer.stopIndexerHard();
             }
             Robot.indexer.setIndexing(false);
         }
@@ -57,6 +57,6 @@ public class IndexerDefault extends Command {
     // Called when the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
-        Robot.indexer.stopIndexer();
+        Robot.indexer.stopIndexerCoast();
     }
 }
