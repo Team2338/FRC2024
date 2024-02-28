@@ -16,7 +16,11 @@ public class CollectorManualControl extends Command {
     // Called every time the scheduler runs (~20ms) while the command is scheduled
     @Override
     public void execute() {
-        Robot.collector.collect();
+        if (!Robot.indexer.getSensorState()) {
+            Robot.collector.collect();
+        } else {
+            Robot.collector.eject();
+        }
     }
 
     // Return true when the command should end, false if it should continue. Runs every ~20ms.
@@ -27,7 +31,5 @@ public class CollectorManualControl extends Command {
 
     // Called when the command ends or is interrupted.
     @Override
-    public void end(boolean interrupted) {
-        Robot.collector.stop();
-    }
+    public void end(boolean interrupted) {}
 }

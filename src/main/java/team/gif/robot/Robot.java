@@ -19,10 +19,12 @@ import team.gif.robot.commands.climber.ClimberHold;
 import team.gif.robot.commands.collector.CollectorDefault;
 import team.gif.robot.commands.drivetrain.DriveSwerve;
 import team.gif.robot.commands.indexer.IndexerDefault;
+import team.gif.robot.commands.led.LEDSubsystemDefault;
 import team.gif.robot.commands.wrist.WristAnglePIDControl;
 import team.gif.robot.subsystems.Climber;
 import team.gif.robot.subsystems.Elevator;
 import team.gif.robot.subsystems.Diagnostics;
+import team.gif.robot.subsystems.LEDSubsystem;
 import team.gif.robot.subsystems.SwerveDrivetrain;
 import team.gif.robot.subsystems.Collector;
 import team.gif.robot.subsystems.Indexer;
@@ -67,6 +69,7 @@ public class Robot extends TimedRobot {
     public static Elevator elevator;
     public static Climber climber;
     public static Diagnostics diagnostics;
+    public static LEDSubsystem ledSubsystem;
 
     public static boolean isCompBot = true; //includes 2023 bot
 
@@ -123,6 +126,9 @@ public class Robot extends TimedRobot {
         wrist.setDefaultCommand(new WristAnglePIDControl());
 
         climber.setDefaultCommand(new ClimberHold());
+
+        ledSubsystem = new LEDSubsystem();
+        ledSubsystem.setDefaultCommand(new LEDSubsystemDefault());
 
         robotContainer = new RobotContainer();
 

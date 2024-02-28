@@ -344,4 +344,7 @@ public final class Constants {
         public static final double DRIVETRAIN_MOTOR_TEMP = 85;
         public static final double COLLECTOR_MOTOR_TEMP = 70;
     }
+    public static final class LED {
+        public static final int NUM_LEDS_TOTAL = 6;
+    }
 }
