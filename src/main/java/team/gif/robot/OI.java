@@ -3,8 +3,10 @@ package team.gif.robot;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import team.gif.robot.commands.collector.NoteRumble;
 import team.gif.robot.commands.collector.ToggleCollectorDefault;
 import team.gif.robot.commands.climber.LowerClimber;
 import team.gif.robot.commands.climber.RaiseClimber;
@@ -156,10 +158,8 @@ public class OI {
         dStart.toggleOnTrue(new ToggleCollectorDefault());
 
         // auto sensor actions
-        gamePieceSensor.onTrue(
-//                new InstantCommand(Robot.ledSubsystem::setLEDGamePieceColor)
-                new InstantCommand(Robot.wrist::setWristCollect)
-        );
+        gamePieceSensor.onTrue(new NoteRumble().andThen(new WaitCommand(0.1).andThen(new NoteRumble())));
+        gamePieceSensor.onTrue(new InstantCommand(Robot.wrist::setWristCollect));
     }
 
     public void setRumble(boolean rumble){
@@ -168,5 +168,4 @@ public class OI {
         aux.getHID().setRumble(GenericHID.RumbleType.kLeftRumble, rumble ? 1.0 : 0.0);
         aux.getHID().setRumble(GenericHID.RumbleType.kRightRumble, rumble ? 1.0 : 0.0);
     }
-
 }
