@@ -141,13 +141,14 @@ public class OI {
 
         //wrist
         aDPadUp.and(aStart.negate()).onTrue(new InstantCommand(Robot.wrist::setWristFar));
-        aDPadRight.onTrue(new InstantCommand(Robot.wrist::setWristMid));
-        aDPadLeft.onTrue(new InstantCommand(Robot.wrist::setWristNear));
+        aDPadRight.and(aStart.negate()).onTrue(new InstantCommand(Robot.wrist::setWristMid));
+        aDPadLeft.and(aStart.negate()).onTrue(new InstantCommand(Robot.wrist::setWristNear));
         aDPadDown.and(aStart.negate()).onTrue(new InstantCommand(Robot.wrist::setWristWall));
 //        aDPadDownLeft.whileTrue(new EnableAutoWrist());
 
         //shooter
         aRBump.whileTrue(new RevFlyWheels());
+        aRBump.onFalse(new InstantCommand(Robot.shooter::stop));
         aLBump.onTrue(new Shoot().andThen(new InstantCommand(Robot.wrist::setWristCollect)));
         aX.and(aBack.negate()).whileTrue(new ForceShoot());
 

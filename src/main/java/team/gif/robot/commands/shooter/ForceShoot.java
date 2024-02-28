@@ -31,6 +31,5 @@ public class ForceShoot extends Command {
     @Override
     public void end(boolean interrupted) {
         Robot.indexer.stopIndexer();
-        Robot.shooter.setVoltagePercent(0);
     }
 }

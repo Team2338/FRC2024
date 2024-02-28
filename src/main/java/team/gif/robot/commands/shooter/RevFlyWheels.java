@@ -31,6 +31,7 @@ public class RevFlyWheels extends Command {
     // Called when the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
-        Robot.shooter.setVoltagePercent(0);
+        // don't want to set shooter RPM to 0 because the shoot command is taking over
+        // instead, use onFalse in OI and call shooter.stop()
     }
 }
