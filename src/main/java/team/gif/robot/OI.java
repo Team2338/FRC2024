@@ -12,10 +12,6 @@ import team.gif.robot.commands.collector.NoteRumble;
 import team.gif.robot.commands.collector.ToggleCollectorDefault;
 import team.gif.robot.commands.collector.CollectorManualControl;
 import team.gif.robot.commands.driveModes.EnableBoost;
-import team.gif.robot.commands.drivetrain.MoveAwaySlow;
-import team.gif.robot.commands.drivetrain.MoveCloserSlow;
-import team.gif.robot.commands.drivetrain.MoveLeftSlow;
-import team.gif.robot.commands.drivetrain.MoveRightSlow;
 import team.gif.robot.commands.drivetrain.Reset0;
 import team.gif.robot.commands.indexer.FullIndexerReverse;
 import team.gif.robot.commands.indexer.IndexerManualControl;
@@ -116,6 +112,10 @@ public class OI {
         *   aX.onTrue(new PrintCommand("aX"));
         */
 
+        /**
+         * Driver Controller
+         */
+
         // driver controls
         dLBump.whileTrue(new EnableBoost());
 //        dRStickBtn.whileTrue(new AutoAlign());
@@ -125,34 +125,37 @@ public class OI {
         dY.whileTrue(new FullIndexerReverse());
 
         // calibrations
-        dA.and(dDPadUp).onTrue(new InstantCommand(Robot.pigeon::resetPigeonPosition));
-//        dA.and(dDPadLeft).onTrue(new InstantCommand(Robot.elevator::resetPosition));
-//        dA.and(dDPadRight).onTrue(new InstantCommand(Robot.climber::resetPosition));
-        dA.and(dDPadDown).toggleOnTrue(new ToggleCollectorDefault());
-        dA.and(dBack).onTrue(new CalibrateAngle());
+        dStart.and(dDPadUp).onTrue(new InstantCommand(Robot.pigeon::resetPigeonPosition));
+//        dStart.and(dDPadLeft).onTrue(new InstantCommand(Robot.elevator::resetPosition));
+//        dStart.and(dDPadRight).onTrue(new InstantCommand(Robot.climber::resetPosition));
+        dStart.and(dDPadDown).toggleOnTrue(new ToggleCollectorDefault());
+        dStart.and(dBack).onTrue(new CalibrateAngle());
+
+        /**
+         *  Aux Controller
+         */
 
         // manual control
-//-        aA.whileTrue(new CollectorManualControl()); // used when limelight fails
-        aA.negate().onTrue(new PrintCommand("A Pressed"));
-
-        aB.whileTrue(new CollectorManualControl().alongWith(new IndexerManualControl())); // used when sensors fail
+        aA.and(aBack.negate()).whileTrue(new CollectorManualControl());
+        aB.and(aBack.negate()).whileTrue(new CollectorManualControl().alongWith(new IndexerManualControl())); // used when sensors fail
 
         //wrist
-        aDPadUp.onTrue(new InstantCommand(Robot.wrist::setWristFar));
+        aDPadUp.and(aStart.negate()).onTrue(new InstantCommand(Robot.wrist::setWristFar));
         aDPadRight.onTrue(new InstantCommand(Robot.wrist::setWristMid));
         aDPadLeft.onTrue(new InstantCommand(Robot.wrist::setWristNear));
-        aDPadDown.onTrue(new InstantCommand(Robot.wrist::setWristWall));
+        aDPadDown.and(aStart.negate()).onTrue(new InstantCommand(Robot.wrist::setWristWall));
 //        aDPadDownLeft.whileTrue(new EnableAutoWrist());
 
         //shooter
         aRBump.whileTrue(new RevFlyWheels());
         aLBump.onTrue(new Shoot().andThen(new InstantCommand(Robot.wrist::setWristCollect)));
+        aX.and(aBack.negate()).whileTrue(new ForceShoot());
 
 //        aRTrigger.onTrue(new AmpPosition()); // goes to position and revs flywheel
 //        aLTrigger.onTrue(new AmpShoot().andThen(new InstantCommand(Robot.wrist::setWristCollect)); // shoots and returns to home
-//        aY.whileTrue(new LoadFromSource());
+//        aY.and(aBack.negate()).whileTrue(new LoadFromSource());
 
-        aBack.and(aA).onTrue(new PrintCommand("Back and A Pressed"));
+//        aBack.and(aA).onTrue(new RaiseCLimberToTop());
 //        aBack.and(aX).onTrue(new RaiseElevatorToTop());
 //        aBack.and(aY).onTrue(new LowerClimberAndElevator());
         aBack.and(aB).onTrue(new TrapShoot().withTimeout(3));
@@ -160,7 +163,6 @@ public class OI {
         aStart.and(aDPadUp).whileTrue(new WristAngleUp());
         aStart.and(aDPadDown).whileTrue(new WristAngleDown());
 //        aStart.and(aDPadRight).onTrue(new InstantCommand(Robot.wrist::BumpAngle));
-        aX.whileTrue(new ForceShoot());
 
         // auto sensor actions
         collectorGamePieceSensor.onTrue(new NoteRumble().andThen(new WaitCommand(0.1).andThen(new NoteRumble())));
@@ -176,5 +178,20 @@ public class OI {
         driver.getHID().setRumble(GenericHID.RumbleType.kRightRumble, rumble ? 1.0 : 0.0);
         aux.getHID().setRumble(GenericHID.RumbleType.kLeftRumble, rumble ? 1.0 : 0.0);
         aux.getHID().setRumble(GenericHID.RumbleType.kRightRumble, rumble ? 1.0 : 0.0);
+    }
+
+    /**
+     * This method provides additional protection when switching between combo buttons.
+     *  aA.and(aBack.negate()).onTrue works but will call aA when aBack is released. This
+     *  may not be desired, but is also not standard user behavior. The combo is typically
+     *  utilized when the user is holding one button down, and then presses a second, then
+     *  releases the secind and then the first.
+     *  If you only want aA to be called when aBack is not active, then use this to route
+     *  the desired command
+     */
+    void routeAButton(){
+        if ( !aux.getHID().getBackButton()) {
+            new PrintCommand("Just A").schedule();
+        }
     }
 }
