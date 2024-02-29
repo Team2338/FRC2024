@@ -64,7 +64,7 @@ public class Indexer extends SubsystemBase {
         setIndexer(0,0);
     }
 
-    public boolean getSensorState() {
+    public boolean getShooterSensorState() {
         return shooterSensor.get();
     }
 

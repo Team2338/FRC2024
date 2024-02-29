@@ -38,7 +38,7 @@ public class IndexerDefault extends Command {
         }
 
         // Note has reached its destination at the indexer sensor
-        if (Robot.indexer.getSensorState()) {
+        if (Robot.indexer.getShooterSensorState()) {
             if (Robot.collector.getSensorState()) { // this means the robot has collected a second note
                 Robot.indexer.setIndexer(-Constants.Indexer.INDEXER_ONE_EJECT_PERC, 0);
             } else {
