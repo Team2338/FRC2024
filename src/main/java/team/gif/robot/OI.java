@@ -11,7 +11,7 @@ import team.gif.robot.commands.collector.NoteRumble;
 import team.gif.robot.commands.collector.ToggleCollectorDefault;
 import team.gif.robot.commands.collector.CollectorManualControl;
 import team.gif.robot.commands.driveModes.EnableBoost;
-import team.gif.robot.commands.driveModes.SwitchRobotOriented;
+import team.gif.robot.commands.driveModes.EnableRobotOrientedMode;
 import team.gif.robot.commands.indexer.FullIndexerReverse;
 import team.gif.robot.commands.indexer.IndexerManualControl;
 import team.gif.robot.commands.wrist.CalibrateAngle;
@@ -120,7 +120,7 @@ public class OI {
 //        dRStickBtn.whileTrue(new AutoAlign());
 //        dB.whileTrue(new RotateClockwise());
 //        dX.whileTrue(new RotateCounterClockwise());
-//        dRBump.whileTrue(new EnableRobotOriented());
+        dRBump.whileTrue(new EnableRobotOrientedMode());
         dY.whileTrue(new FullIndexerReverse());
 
         // calibrations
@@ -167,8 +167,6 @@ public class OI {
         // auto sensor actions
         collectorGamePieceSensor.onTrue(new NoteRumble().andThen(new WaitCommand(0.1).andThen(new NoteRumble())));
         collectorGamePieceSensor.onTrue(new InstantCommand(Robot.wrist::setWristCollectPosition));
-
-        dRBump.toggleOnTrue(new SwitchRobotOriented());
 
         // testing purposes
 //        dY.whileTrue(new RaiseClimber());

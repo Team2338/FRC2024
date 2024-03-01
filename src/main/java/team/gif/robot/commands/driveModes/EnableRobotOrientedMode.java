@@ -5,16 +5,14 @@ import team.gif.lib.drivePace;
 import team.gif.robot.Robot;
 import team.gif.robot.subsystems.SwerveDrivetrain;
 
-public class SwitchRobotOriented extends Command {
-    private drivePace drivePace;
-    public SwitchRobotOriented() {
+public class EnableRobotOrientedMode extends Command {
+    public EnableRobotOrientedMode() {
         super();
     }
 
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
-        drivePace = SwerveDrivetrain.getDrivePace();
         Robot.swerveDrivetrain.setDrivePace(drivePace.COAST_RR);
     }
 
@@ -31,6 +29,6 @@ public class SwitchRobotOriented extends Command {
     // Called when the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
-        Robot.swerveDrivetrain.setDrivePace(drivePace);
+        Robot.swerveDrivetrain.setDrivePace(drivePace.COAST_FR);
     }
 }
