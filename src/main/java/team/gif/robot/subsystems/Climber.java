@@ -1,6 +1,5 @@
 package team.gif.robot.subsystems;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.revrobotics.CANSparkBase;
 import com.revrobotics.CANSparkLowLevel;
 import com.revrobotics.CANSparkMax;
@@ -10,15 +9,15 @@ import team.gif.robot.Constants;
 import team.gif.robot.RobotMap;
 
 public class Climber extends SubsystemBase {
-    public static CANSparkMax climberMotor;
-    public static SparkPIDController pidClimber;
+    public static CANSparkMax motor;
+    public static SparkPIDController pidController;
     public static double targetPosition;
 
     public Climber() {
-        climberMotor = new CANSparkMax(RobotMap.CLIMBER_ID, CANSparkLowLevel.MotorType.kBrushless);
+        motor = new CANSparkMax(RobotMap.CLIMBER_ID, CANSparkLowLevel.MotorType.kBrushless);
         config();
 
-        targetPosition = climberMotor.getEncoder().getPosition();
+        targetPosition = motor.getEncoder().getPosition();
     }
 
 //    public void setClimberPercent(double percent) {
@@ -29,12 +28,12 @@ public class Climber extends SubsystemBase {
         targetPosition = pos;
     }
 
-    public double getClimberPosition() {
-        return climberMotor.getEncoder().getPosition();
+    public double getPosition() {
+        return motor.getEncoder().getPosition();
     }
 
     public void resetPosition() {
-        climberMotor.getEncoder().setPosition(0);
+        motor.getEncoder().setPosition(0);
         targetPosition = 0;
     }
 
@@ -60,7 +59,7 @@ public class Climber extends SubsystemBase {
      */
     public void move(double percent) {
         // soft limits will keep the robot arm in allowable range
-        climberMotor.set(percent);
+        motor.set(percent);
     }
 
 //    public void hold(){
@@ -68,34 +67,41 @@ public class Climber extends SubsystemBase {
 //    }
 
     public void PIDHold() {
-        System.out.println(targetPosition);
-        climberMotor.getPIDController().setReference(targetPosition,CANSparkBase.ControlType.kPosition);
+        motor.getPIDController().setReference(targetPosition,CANSparkBase.ControlType.kPosition);
     }
 
-    public String getClimberPosition_Shuffleboard() {
-        return String.format("%12.0f", getClimberPosition()*100);
+    public String getPosition_Shuffleboard() {
+        return String.format("%12.3f", getPosition());
+    }
+
+    public double getMotorTemp() {
+        return motor.getMotorTemperature();
+    }
+
+    public boolean isMotorCool() {
+        return getMotorTemp() <= Constants.MotorTemps.CLIMBER_MOTOR_TEMP;
     }
 
     public void config() {
-        climberMotor.restoreFactoryDefaults();
-        climberMotor.setIdleMode(CANSparkBase.IdleMode.kBrake);
-        climberMotor.setSoftLimit(CANSparkBase.SoftLimitDirection.kForward,(float) Constants.Climber.MAX_LIMIT/100);
-        climberMotor.setSoftLimit(CANSparkBase.SoftLimitDirection.kReverse,(float) Constants.Climber.MIN_LIMIT/100);
-        climberMotor.enableSoftLimit(CANSparkBase.SoftLimitDirection.kForward,true);
-        climberMotor.enableSoftLimit(CANSparkBase.SoftLimitDirection.kReverse,true);
+        motor.restoreFactoryDefaults();
+        motor.setIdleMode(CANSparkBase.IdleMode.kBrake);
+        motor.setSoftLimit(CANSparkBase.SoftLimitDirection.kForward,(float) Constants.Climber.LIMIT_MAX);
+        motor.setSoftLimit(CANSparkBase.SoftLimitDirection.kReverse,(float) Constants.Climber.LIMIT_MIN);
+        motor.enableSoftLimit(CANSparkBase.SoftLimitDirection.kForward,true);
+        motor.enableSoftLimit(CANSparkBase.SoftLimitDirection.kReverse,true);
 
-        climberMotor.setInverted(true);
+        motor.setInverted(true);
 
-        pidClimber = climberMotor.getPIDController();
-        pidClimber.setFF(Constants.Climber.FF);
-        pidClimber.setP(Constants.Climber.kP);
-        pidClimber.setD(Constants.Climber.kD);
-        pidClimber.setI(Constants.Climber.kI);
+        pidController = motor.getPIDController();
+        pidController.setFF(Constants.Climber.FF);
+        pidController.setP(Constants.Climber.kP);
+        pidController.setD(Constants.Climber.kD);
+        pidController.setI(Constants.Climber.kI);
     }
 
     public void enableSoftLimits(boolean enable) {
-        climberMotor.enableSoftLimit(CANSparkBase.SoftLimitDirection.kForward,enable);
-        climberMotor.enableSoftLimit(CANSparkBase.SoftLimitDirection.kReverse,enable);
+        motor.enableSoftLimit(CANSparkBase.SoftLimitDirection.kForward,enable);
+        motor.enableSoftLimit(CANSparkBase.SoftLimitDirection.kReverse,enable);
     }
 }
 

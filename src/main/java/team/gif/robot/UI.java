@@ -61,7 +61,14 @@ public class UI {
         diagnosticsTab.addBoolean("Shooter Cool", Robot.shooter::isShooterCool).withPosition(6,1);
         diagnosticsTab.addBoolean("Wrist Cool", Robot.wrist::isWristCool).withPosition(7,1);
 
+        // elevator and climber
+        diagnosticsTab.addDouble("Elevator Temp", Robot.elevator::getMotorTemp).withPosition(3,2);
+        diagnosticsTab.addBoolean("Elevator Cool", Robot.elevator::isMotorCool).withPosition(3,3);
+        diagnosticsTab.addDouble("Climber Temp", Robot.climber::getMotorTemp).withPosition(4,2);
+        diagnosticsTab.addBoolean("Climber Cool", Robot.climber::isMotorCool).withPosition(4,3);
+
         diagnosticsTab.add("Climber", new InstantCommand(climber::resetPosition).ignoringDisable(true));
+        diagnosticsTab.add("Elevator", new InstantCommand(elevator::resetPosition).ignoringDisable(true));
 
         // shooterPID
         shuffleboardTab.add("kP",0).getEntry();

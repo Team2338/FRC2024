@@ -36,8 +36,20 @@ public class Diagnostics extends SubsystemBase {
         return (Robot.shooter.getShooterMotorTemp() >= Constants.MotorTemps.SHOOTER_MOTOR_TEMP);
     }
 
+    public boolean getClimberMotorTempHot() {
+        return (Robot.climber.getMotorTemp() >= Constants.MotorTemps.CLIMBER_MOTOR_TEMP);
+    }
+
+    public boolean getElevatorMotorTempHot() {
+        return (Robot.elevator.getMotorTemp() >= Constants.MotorTemps.ELEVATOR_MOTOR_TEMP);
+    }
+
     public boolean getAnyMotorTempHot() {
-        return getShooterMotorTempHot() || getIndexerMotorTempHot() || getDriveMotorTempHot();
+        return  getShooterMotorTempHot() ||
+                getIndexerMotorTempHot() ||
+                getDriveMotorTempHot()   ||
+                getClimberMotorTempHot() ||
+                getElevatorMotorTempHot();
     }
 
     public boolean getSafeToDriveUnderStage() {

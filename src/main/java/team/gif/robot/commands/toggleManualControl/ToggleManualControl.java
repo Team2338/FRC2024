@@ -3,6 +3,7 @@ package team.gif.robot.commands.toggleManualControl;
 import edu.wpi.first.wpilibj2.command.Command;
 import team.gif.robot.Robot;
 import team.gif.robot.commands.climber.ClimberManualControl;
+import team.gif.robot.commands.elevator.ElevatorManualControl;
 
 public class ToggleManualControl extends Command {
 
@@ -16,6 +17,7 @@ public class ToggleManualControl extends Command {
     public void initialize() {
         Robot.manualControlMode = true;
         new ClimberManualControl().schedule();
+        new ElevatorManualControl().schedule();
     }
 
     // Called every time the scheduler runs (~20ms) while the command is scheduled

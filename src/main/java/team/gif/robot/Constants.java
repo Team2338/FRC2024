@@ -322,10 +322,13 @@ public final class Constants {
     }
 
     public static final class Elevator {
-        public static final double kP = 1;
-        public static final double FF = 0.01;
-        public static final double kI = 0.0000;
-        public static final double kD = 0.0000;
+        public static final double FF = 1.00;
+        public static final double kP = 1.80;
+        public static final double kI = 0.0;
+        public static final double kD = 0.0;
+        public static final double LIMIT_MAX = 9.0;
+        public static final double LIMIT_SHUT_OFF = 0.250;
+        public static final double LIMIT_MIN = 0;
     }
 
     public static final class Climber {
@@ -333,8 +336,8 @@ public final class Constants {
         public static final double kP = 0.0;
         public static final double kI = 0.0;
         public static final double kD = 0.0;
-        public static final double MIN_LIMIT = 0;
-        public static final double MAX_LIMIT = 16335; // in hundredths
+        public static final double LIMIT_MAX = 163.35;
+        public static final double LIMIT_MIN = 0;
     }
 
     public static final class MotorTemps {
@@ -343,6 +346,8 @@ public final class Constants {
         public static final double INDEXER_MOTOR_TEMP = 70;
         public static final double DRIVETRAIN_MOTOR_TEMP = 85;
         public static final double COLLECTOR_MOTOR_TEMP = 70;
+        public static final double ELEVATOR_MOTOR_TEMP = 70;
+        public static final double CLIMBER_MOTOR_TEMP = 70;
     }
     public static final class LED {
         public static final int NUM_LEDS_TOTAL = 6;

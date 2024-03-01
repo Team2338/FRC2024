@@ -1,47 +1,57 @@
-package team.gif.robot.commands.climber;
+package team.gif.robot.commands.elevator;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import team.gif.robot.Robot;
 
-public class ClimberManualControl extends Command {
+public class ElevatorManualControl extends Command {
 
     private boolean holdNeedFirstPID;
     private double holdPIDPos;
 
-    public ClimberManualControl() {
+    public ElevatorManualControl() {
         super();
-        addRequirements(Robot.climber);
+        addRequirements(Robot.elevator);
     }
 
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
         holdNeedFirstPID = false;
-        holdPIDPos = Robot.climber.getPosition();
+        holdPIDPos = Robot.elevator.getPosition();
     }
 
     // Called every time the scheduler runs (~20ms) while the command is scheduled
     @Override
     public void execute() {
-        double percent = -Robot.oi.aux.getRightY();
+        double percent = -Robot.oi.aux.getLeftY();
 
-        if (Robot.oi.aux.getHID().getLeftStickButton()) {
-            Robot.climber.enableSoftLimits(false);  // allow to go past soft limits
-        } else {
-            Robot.climber.enableSoftLimits(true);
-        }
-
+/*
         if (percent > -0.09 && percent < 0.09) { // creates a dead band around the joystick
+            Robot.elevator.PIDHold();
+        } else {
+            if( percent > 0 ) {
+                Robot.elevator.move(0.25);
+            } else {
+                Robot.elevator.move(0.05);
+            }
+        }
+*/
+        if (percent > -0.09 && percent < 0.09) {  // creates a dead band around the joystick
             if( holdNeedFirstPID ) {
-                holdPIDPos = Robot.climber.getPosition();
+                holdPIDPos = Robot.elevator.getPosition();
                 holdNeedFirstPID = false;
             }
-            Robot.climber.setTargetPosition(holdPIDPos);
-            Robot.climber.PIDHold();
+            Robot.elevator.setTargetPosition(holdPIDPos);
+            Robot.elevator.PIDHold();
         } else {
             holdNeedFirstPID = true;
-            Robot.climber.move(percent);
+            if( percent > 0 ) {
+                Robot.elevator.move(0.25);
+            } else {
+                Robot.elevator.move(0.05);
+            }
         }
+
 
 /*        boolean moveSlow;
 
@@ -68,7 +78,6 @@ public class ClimberManualControl extends Command {
     // Called when the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
-        Robot.climber.setTargetPosition(Robot.climber.getPosition());
-        Robot.climber.enableSoftLimits(true);
+        Robot.elevator.setTargetPosition(Robot.elevator.getPosition());
     }
 }
