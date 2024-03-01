@@ -9,12 +9,18 @@ public class Shoot extends Command {
     boolean isFiring;
     double counter;
 
+    /**
+     * Creates a new Shoot command. Pass in true in for auto mode.
+     */
     public Shoot() {
         super();
         addRequirements(Robot.indexer,Robot.shooter);
     }
 
     public Shoot(boolean isAuto) {
+        //Pathplanner takes control of the indexer for the entire path
+        //so we remove it here so that we can have the indexer default for
+        //the rest of the path
         super();
         addRequirements(Robot.shooter);
     }
@@ -25,9 +31,11 @@ public class Shoot extends Command {
         isFiring = false;
         counter = 0;
         Robot.indexer.stopIndexerCoast();
+        //We need to remove the default command if we are in autonomous mode
+        //because the default command will fight with this command for control
+        //of the indexer
         if (Robot.runningAutonomousMode) {
             Robot.indexer.removeDefaultCommand();
-            System.out.println("remove");
             Robot.indexer.getCurrentCommand().cancel();
         }
     }
@@ -36,17 +44,15 @@ public class Shoot extends Command {
     @Override
     public void execute() {
         if (Robot.shooter.getShooterRPM() >= (Constants.Shooter.REV_RPM * .98)) { //allow tolerance
+            //this may need to move down to line 48
+            Robot.indexer.setIndexer(0, Constants.Indexer.INDEXER_TWO_SHOOT_PERC);
             isFiring = true;
-//            System.out.println("firing "+counter);
         } else {
             Robot.shooter.setShooterRPM(Constants.Shooter.REV_RPM);
         }
 
-        System.out.println(Robot.indexer.getCurrentCommand());
-
         if (isFiring) {
             counter++;
-            Robot.indexer.setIndexer(0, Constants.Indexer.INDEXER_TWO_SHOOT_PERC);
         }
     }
 
@@ -63,7 +69,6 @@ public class Shoot extends Command {
         Robot.shooter.setVoltagePercent(0);
         if (Robot.indexer.getDefaultCommand() == null) {
             Robot.indexer.setDefaultCommand(new IndexerDefault());
-            System.out.println("set default command");
         }
 //        Robot.wrist.setRotationCollect();
     }
