@@ -7,7 +7,6 @@ import edu.wpi.first.wpilibj2.command.PrintCommand;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
-import team.gif.robot.commands.climber.RaiseClimber;
 import team.gif.robot.commands.collector.NoteRumble;
 import team.gif.robot.commands.collector.ToggleCollectorDefault;
 import team.gif.robot.commands.collector.CollectorManualControl;
@@ -139,8 +138,7 @@ public class OI {
         // manual control
         aA.and(aBack.negate()).whileTrue(new CollectorManualControl());
         aB.and(aBack.negate()).whileTrue(new CollectorManualControl().alongWith(new IndexerManualControl())); // used when sensors fail
-        aLStickBtn.toggleOnTrue(new ToggleManualControl());
-
+        aStart.and(aBack).toggleOnTrue(new ToggleManualControl());
 
         //wrist
         aDPadUp.and(aStart.negate()).onTrue(new InstantCommand(Robot.wrist::setWristFarPosition));

@@ -15,7 +15,6 @@ import team.gif.lib.autoMode;
 import team.gif.lib.delay;
 import team.gif.lib.logging.EventFileLogger;
 import team.gif.lib.logging.TelemetryFileLogger;
-import team.gif.robot.commands.climber.ClimberHold;
 import team.gif.robot.commands.climber.ClimberPIDControl;
 import team.gif.robot.commands.collector.CollectorDefault;
 import team.gif.robot.commands.drivetrain.DriveSwerve;
@@ -128,7 +127,7 @@ public class Robot extends TimedRobot {
 
         wrist.setDefaultCommand(new WristAnglePIDControl());
 
-//        climber.setDefaultCommand(new ClimberPIDControl());
+        climber.setDefaultCommand(new ClimberPIDControl());
 
         ledSubsystem = new LEDSubsystem();
         ledSubsystem.setDefaultCommand(new LEDSubsystemDefault());
