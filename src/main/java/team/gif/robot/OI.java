@@ -12,6 +12,8 @@ import team.gif.robot.commands.collector.ToggleCollectorDefault;
 import team.gif.robot.commands.collector.CollectorManualControl;
 import team.gif.robot.commands.driveModes.EnableBoost;
 import team.gif.robot.commands.driveModes.EnableRobotOrientedMode;
+import team.gif.robot.commands.drivetrain.RotateClockwise;
+import team.gif.robot.commands.drivetrain.RotateCounterClockwise;
 import team.gif.robot.commands.indexer.FullIndexerReverse;
 import team.gif.robot.commands.indexer.IndexerManualControl;
 import team.gif.robot.commands.wrist.CalibrateAngle;
@@ -118,8 +120,8 @@ public class OI {
         // driver controls
         dLBump.whileTrue(new EnableBoost());
 //        dRStickBtn.whileTrue(new AutoAlign());
-//        dB.whileTrue(new RotateClockwise());
-//        dX.whileTrue(new RotateCounterClockwise());
+        dB.whileTrue(new RotateClockwise());
+        dX.whileTrue(new RotateCounterClockwise());
         dRBump.whileTrue(new EnableRobotOrientedMode());
         dY.whileTrue(new FullIndexerReverse());
 
