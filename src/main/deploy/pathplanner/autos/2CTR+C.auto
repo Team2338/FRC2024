@@ -26,12 +26,6 @@
                 "data": {
                   "pathName": "CTR-C-Away"
                 }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "AutoCollect"
-                }
               }
             ]
           }

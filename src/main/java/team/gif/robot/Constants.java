@@ -38,8 +38,8 @@ public final class Constants {
 
         public static final double FRONT_LEFT_OFFSET = 79.189; //82.089;
         public static final double REAR_LEFT_OFFSET = 221.66015;//-138.25195;
-        public static final double FRONT_RIGHT_OFFSET = -20.74219;// + 25.31;
-        public static final double REAR_RIGHT_OFFSET = 153.63281;// + 25.4;
+        public static final double FRONT_RIGHT_OFFSET = 160.40039 + 180;// + 25.31;
+        public static final double REAR_RIGHT_OFFSET = -28.38867 + 180;// + 25.4;
 
         // Distance between centers of right and left wheels on robot
         public static final double TRACK_LENGTH = Units.inchesToMeters(23.5);
@@ -265,7 +265,7 @@ public final class Constants {
 
     public static final class Shooter { // ToDo tune - remove when done (tuned for 5800RPM)
         public static final double REV = 1.0;
-        public static final int REV_RPM = 6200;//5100; // need to tune for comp, Neo Max at 5000
+        public static final int REV_RPM = 4000; //6200;//5100; // need to tune for comp, Neo Max at 5000
         public static final int TRAP_RPM = 1000;
         public static final double FF = 0.000155; // gets to 6100    // 0.000130;  // 5800 RPM
         public static final double kP = 0.00030;//0.0100;               // 0.0006;    // 5800 RPM

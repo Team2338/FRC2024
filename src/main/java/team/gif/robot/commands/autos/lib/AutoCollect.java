@@ -39,13 +39,13 @@ public class AutoCollect extends Command {
         }
 
         // situations where the collector should run
-        if ( (Robot.collector.getSensorState() && !Robot.indexer.getSensorState() ) ||
-                (!Robot.indexer.getSensorState() && !Robot.indexer.isIndexing() && limelightDetectedOrExtension)) {
+        if ( (Robot.collector.getSensorState() && !Robot.indexer.getShooterSensorState() ) ||
+                (!Robot.indexer.getShooterSensorState() && !Robot.indexer.isIndexing() && limelightDetectedOrExtension)) {
             collect = true;
         }
 
         // a bit of a catch-all, if a note is detected by the indexer sensor, do not collect
-        if (Robot.indexer.getSensorState()) {
+        if (Robot.indexer.getShooterSensorState()) {
             collect = false;
         }
 

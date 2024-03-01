@@ -16,6 +16,7 @@ import team.gif.robot.commands.AutonRevFlywheel;
 import team.gif.robot.commands.autos.NoAuto;
 import team.gif.robot.commands.autos.lib.AutoCollect;
 import team.gif.robot.commands.autos.lib.AutonShoot;
+import team.gif.robot.commands.shooter.Shoot;
 
 import java.util.HashMap;
 
@@ -31,7 +32,7 @@ public class RobotContainer {
 
     /** The container for the robot. Contains subsystems, OI devices, and commands. */
     public RobotContainer() {
-        NamedCommands.registerCommand("AutonShoot", new AutonShoot());
+        NamedCommands.registerCommand("AutonShoot", new Shoot());
         NamedCommands.registerCommand("AutonRevFlywheel", new AutonRevFlywheel());
         NamedCommands.registerCommand("AutoCollect", new AutoCollect());
 
