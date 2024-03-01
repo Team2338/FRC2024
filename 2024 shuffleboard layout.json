@@ -245,7 +245,7 @@
               "_glyph": 148,
               "_showGlyph": false,
               "Colors/Color when true": "#00FF00FF",
-              "Colors/Color when false": "#800000FF"
+              "Colors/Color when false": "#FF0000FF"
             }
           },
           "5,3": {
@@ -269,6 +269,6 @@
     "x": -6.400000095367432,
     "y": 0.0,
     "width": 1548.800048828125,
-    "height": 688.0
+    "height": 711.2000122070312
   }
 }

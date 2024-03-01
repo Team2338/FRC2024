@@ -58,5 +58,6 @@ public class IndexerDefault extends Command {
     @Override
     public void end(boolean interrupted) {
         Robot.indexer.stopIndexerCoast();
+        System.out.println("removing");
     }
 }

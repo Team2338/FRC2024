@@ -265,10 +265,10 @@ public final class Constants {
 
     public static final class Shooter { // ToDo tune - remove when done (tuned for 5800RPM)
         public static final double REV = 1.0;
-        public static final int REV_RPM = 4000; //6200;//5100; // need to tune for comp, Neo Max at 5000
+        public static final int REV_RPM = 4800; //6200;//5100; // need to tune for comp, Neo Max at 5000
         public static final int TRAP_RPM = 1000;
-        public static final double FF = 0.000155; // gets to 6100    // 0.000130;  // 5800 RPM
-        public static final double kP = 0.00030;//0.0100;               // 0.0006;    // 5800 RPM
+        public static final double FF = 0.000130; //0.000155; // gets to 6100    // 0.000130;  // 5800 RPM
+        public static final double kP = 0.00055;//0.0100;               // 0.0006;    // 5800 RPM
         public static final double kI = 0.000;//0.001;               // 0.0000015; // 5800 RPM
     }
 
