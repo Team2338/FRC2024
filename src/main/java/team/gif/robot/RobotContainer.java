@@ -13,9 +13,7 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import team.gif.lib.autoMode;
-import team.gif.robot.commands.AutonRevFlywheel;
 import team.gif.robot.commands.autos.NoAuto;
-import team.gif.robot.commands.autos.lib.AutoCollect;
 import team.gif.robot.commands.shooter.Shoot;
 
 import java.util.HashMap;
@@ -33,9 +31,6 @@ public class RobotContainer {
     /** The container for the robot. Contains subsystems, OI devices, and commands. */
     public RobotContainer() {
         NamedCommands.registerCommand("AutonShoot", new InstantCommand(Robot.wrist::setWristWallPosition).andThen(new Shoot(true)));
-//        NamedCommands.registerCommand("AutonShoot", new InstantCommand(Robot.wrist::setWristWallPosition));
-//        NamedCommands.registerCommand("AutonRevFlywheel", new AutonRevFlywheel());
-//        NamedCommands.registerCommand("AutoCollect", new AutoCollect());
 
         // Configure the trigger bindings
         configureBindings();
