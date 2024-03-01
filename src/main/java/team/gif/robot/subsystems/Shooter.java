@@ -1,16 +1,11 @@
 package team.gif.robot.subsystems;
 
-import com.ctre.phoenix6.configs.CANcoderConfiguration;
-import com.ctre.phoenix6.configs.MagnetSensorConfigs;
-import com.ctre.phoenix6.hardware.CANcoder;
-import com.ctre.phoenix6.signals.AbsoluteSensorRangeValue;
-import com.ctre.phoenix6.signals.SensorDirectionValue;
 import com.revrobotics.CANSparkBase;
 import com.revrobotics.CANSparkFlex;
 import com.revrobotics.CANSparkLowLevel;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.SparkPIDController;
-import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import team.gif.robot.Constants;
 import team.gif.robot.RobotMap;
@@ -19,6 +14,11 @@ public class Shooter extends SubsystemBase {
 //    public static CANSparkMax shooterNeo; //Leave for shooter Neo
     public static CANSparkFlex shooter;
     public static SparkPIDController pidShooter;
+
+    private double shooterFF;
+    private double shooterKP;
+    private double shooterKI;
+
 
     public Shooter() {
 //        shooterNeo = new CANSparkMax(RobotMap.SHOOTER_ID, CANSparkLowLevel.MotorType.kBrushless); // Leave for shooter Neo
@@ -55,6 +55,20 @@ public class Shooter extends SubsystemBase {
         pidShooter.setIZone(1000);
     }
 
+    /** used for tuning shooter PID on the dashboard
+     *
+     */
+    public void updateShooterPID() {
+        shooterFF = SmartDashboard.getNumber("FF",0);
+        shooterKP = SmartDashboard.getNumber("kP",0);
+        shooterKI = SmartDashboard.getNumber("kI",0);
+
+        System.out.println(shooterFF*1000 + "    " + shooterKP*1000 + "    " + shooterKI*1000);
+        pidShooter.setFF(shooterFF);
+        pidShooter.setP(shooterKP);
+        pidShooter.setI(shooterKI);
+    }
+
     public double getShooterMotorTemp() {
         return shooter.getMotorTemperature();
     }
@@ -85,5 +99,7 @@ public class Shooter extends SubsystemBase {
         pidShooter.setFF(Constants.Shooter.FF);
         pidShooter.setI(Constants.Shooter.kI);
         pidShooter.setOutputRange(0,1);
+        pidShooter.setIAccum(0.0);
+        pidShooter.setIZone(1000);
     }
 }

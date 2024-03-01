@@ -1,35 +1,39 @@
 package team.gif.robot.commands.collector;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import team.gif.robot.Robot;
 
-public class CollectorManualControl extends Command {
-    public CollectorManualControl() {
+import static team.gif.robot.Robot.oi;
+
+public class NoteRumble extends Command {
+    private int rumbleCounter;
+    private int endCounter;
+
+    public NoteRumble() {
         super();
-        addRequirements(Robot.collector); // uncomment
     }
 
     // Called when the command is initially scheduled.
     @Override
-    public void initialize() {}
+    public void initialize() {
+        rumbleCounter = 0;
+    }
 
     // Called every time the scheduler runs (~20ms) while the command is scheduled
     @Override
     public void execute() {
-        if (!Robot.indexer.getShooterSensorState()) {
-            Robot.collector.collect();
-        } else {
-            Robot.collector.eject();
-        }
+        rumbleCounter++;
+        oi.setRumble(true);
     }
 
     // Return true when the command should end, false if it should continue. Runs every ~20ms.
     @Override
     public boolean isFinished() {
-        return false;
+        return rumbleCounter > 0.1*50;  // 50 cycles in 1 second
     }
 
     // Called when the command ends or is interrupted.
     @Override
-    public void end(boolean interrupted) {}
+    public void end(boolean interrupted) {
+        oi.setRumble(false);
+    }
 }

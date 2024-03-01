@@ -2,6 +2,11 @@ package team.gif.robot;
 
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
+
+import static team.gif.robot.Robot.climber;
+import static team.gif.robot.Robot.elevator;
 
 public class UI {
     public UI() {
@@ -16,7 +21,7 @@ public class UI {
 //        SmartDashboard.putData("Reset 180", new Reset180());
 
         shuffleboardTab.addBoolean("Collector Sensor", Robot.collector::getSensorState);
-        shuffleboardTab.addBoolean("Shooter Sensor", Robot.indexer::getSensorState);
+        shuffleboardTab.addBoolean("Shooter Sensor", Robot.indexer::getShooterSensorState);
         shuffleboardTab.addBoolean("Mid Sensor", Robot.indexer::getStageOneSensorState);
 
 //        shuffleboardTab.addDouble("Shooter Angle", Robot.shooter::get)
@@ -56,8 +61,33 @@ public class UI {
         diagnosticsTab.addBoolean("Shooter Cool", Robot.shooter::isShooterCool).withPosition(6,1);
         diagnosticsTab.addBoolean("Wrist Cool", Robot.wrist::isWristCool).withPosition(7,1);
 
+        // elevator and climber
+        diagnosticsTab.addDouble("Elevator Temp", Robot.elevator::getMotorTemp).withPosition(3,2);
+        diagnosticsTab.addBoolean("Elevator Cool", Robot.elevator::isMotorCool).withPosition(3,3);
+        diagnosticsTab.addDouble("Climber Temp", Robot.climber::getMotorTemp).withPosition(4,2);
+        diagnosticsTab.addBoolean("Climber Cool", Robot.climber::isMotorCool).withPosition(4,3);
+
+        diagnosticsTab.add("Climber", new InstantCommand(climber::resetPosition).ignoringDisable(true));
+        diagnosticsTab.add("Elevator", new InstantCommand(elevator::resetPosition).ignoringDisable(true));
+
+        // shooterPID
+        shuffleboardTab.add("kP",0).getEntry();
+        shuffleboardTab.add("kI",0).getEntry();
+        shuffleboardTab.add("kD",0).getEntry();
+
         //collector
         diagnosticsTab.addDouble("Collector Temp", Robot.collector::getMotorTemp).withPosition(8,0);
         diagnosticsTab.addBoolean("Collector Cool", Robot.collector::isStageOneMotorCool).withPosition(8,1);
+
+        // used for tuning Shooter PID
+//        createSmartDashboardNumber("FF",0.000155);
+//        createSmartDashboardNumber("kP",0.000300);
+//        createSmartDashboardNumber("kI",0.000000);
+    }
+
+    public static double createSmartDashboardNumber(String key, double defValue) {
+        double value = SmartDashboard.getNumber(key, defValue);
+        SmartDashboard.putNumber(key,defValue);
+        return value;
     }
 }

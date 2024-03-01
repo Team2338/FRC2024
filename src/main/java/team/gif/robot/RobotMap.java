@@ -57,4 +57,8 @@ public abstract class RobotMap {
     //Climber
     public static final int CLIMBER_ID = 52;
 
+    //LEDs
+    public static final int LED_PWM_PORT = 9;
+    public static final int[] NOTE_LEDS = {0,5};
+    public static final int[] STAGE_LEDS = {1,2,3,4};
 }

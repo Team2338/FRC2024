@@ -15,14 +15,17 @@ import team.gif.lib.autoMode;
 import team.gif.lib.delay;
 import team.gif.lib.logging.EventFileLogger;
 import team.gif.lib.logging.TelemetryFileLogger;
-import team.gif.robot.commands.climber.ClimberHold;
+import team.gif.robot.commands.climber.ClimberPIDControl;
 import team.gif.robot.commands.collector.CollectorDefault;
 import team.gif.robot.commands.drivetrain.DriveSwerve;
+import team.gif.robot.commands.elevator.ElevatorPIDControl;
 import team.gif.robot.commands.indexer.IndexerDefault;
+import team.gif.robot.commands.led.LEDSubsystemDefault;
 import team.gif.robot.commands.wrist.WristAnglePIDControl;
 import team.gif.robot.subsystems.Climber;
 import team.gif.robot.subsystems.Elevator;
 import team.gif.robot.subsystems.Diagnostics;
+import team.gif.robot.subsystems.LEDSubsystem;
 import team.gif.robot.subsystems.SwerveDrivetrain;
 import team.gif.robot.subsystems.Collector;
 import team.gif.robot.subsystems.Indexer;
@@ -67,8 +70,11 @@ public class Robot extends TimedRobot {
     public static Elevator elevator;
     public static Climber climber;
     public static Diagnostics diagnostics;
+    public static LEDSubsystem ledSubsystem;
 
     public static boolean isCompBot = true; //includes 2023 bot
+
+    public static boolean manualControlMode;
 
     //https://github.com/mjansen4857/pathplanner/tree/main/examples/java/src/main/java/frc/robot
 
@@ -116,13 +122,17 @@ public class Robot extends TimedRobot {
         indexer.setDefaultCommand(new IndexerDefault());
         collector = new Collector();
         collector.setDefaultCommand(new CollectorDefault());
-//        elevator = new Elevator();
+        elevator = new Elevator();
         climber = new Climber();
         diagnostics = new Diagnostics();
 
         wrist.setDefaultCommand(new WristAnglePIDControl());
 
-        climber.setDefaultCommand(new ClimberHold());
+        elevator.setDefaultCommand(new ElevatorPIDControl());
+        climber.setDefaultCommand(new ClimberPIDControl());
+
+        ledSubsystem = new LEDSubsystem();
+        ledSubsystem.setDefaultCommand(new LEDSubsystemDefault());
 
         robotContainer = new RobotContainer();
 
@@ -130,6 +140,8 @@ public class Robot extends TimedRobot {
         uiSmartDashboard = new UiSmartDashboard();
 
         oi = new OI();
+
+        manualControlMode = false;
         runningAutonomousMode = false;
     }
 
@@ -157,7 +169,7 @@ public class Robot extends TimedRobot {
             shooter.stop();
         }
         if (diagnostics.getIndexerMotorTempHot()) {
-            indexer.stopIndexer();
+            indexer.stopIndexerCoast();
         }
     }
 
@@ -217,6 +229,8 @@ public class Robot extends TimedRobot {
         oi.setRumble((timeLeft <= 40.0 && timeLeft >= 36.0) ||
                 (timeLeft <= 25.0 && timeLeft >= 21.0) ||
                 (timeLeft <= 5.0 && timeLeft >= 3.0));
+
+//        shooter.updateShooterPID(); // used for tuning shooter PID using the dashboard
     }
 
     @Override
@@ -249,4 +263,7 @@ public class Robot extends TimedRobot {
         autonomousCommand.cancel();
     }
 
+    public static boolean getManualControlMode() {
+        return manualControlMode;
+    }
 }

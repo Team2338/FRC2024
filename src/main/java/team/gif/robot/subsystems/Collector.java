@@ -12,6 +12,7 @@ public class Collector extends SubsystemBase {
 
     public static TalonSRX collector;
     public static DigitalInput sensor;
+    public static boolean collectingState;
 
     public boolean collectorManualControl = false;
 
@@ -21,17 +22,21 @@ public class Collector extends SubsystemBase {
         collector.setNeutralMode(NeutralMode.Brake);
 
         sensor = new DigitalInput(RobotMap.SENSOR_COLLECTOR_PORT);
+        collectingState = false;
     }
 
     public void collect() {
+        collectingState = true;
         collector.set(ControlMode.PercentOutput, Constants.Collector.COLLECT_PERCENT);
     }
 
     public void eject() {
+        collectingState = false;
         collector.set(ControlMode.PercentOutput, -Constants.Collector.EJECT_PERCENT);
     }
 
     public void stop() {
+        collectingState = false;
         collector.set(ControlMode.PercentOutput, 0);
     }
 
@@ -42,6 +47,8 @@ public class Collector extends SubsystemBase {
     public boolean getCollectorManualControl() {
         return collectorManualControl;
     }
+
+    public boolean getCollectingState() { return collectingState;}
 
     public double getMotorTemp() {
         return collector.getTemperature();

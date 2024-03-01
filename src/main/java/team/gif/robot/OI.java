@@ -3,24 +3,22 @@ package team.gif.robot;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.PrintCommand;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import team.gif.robot.commands.collector.NoteRumble;
 import team.gif.robot.commands.collector.ToggleCollectorDefault;
-import team.gif.robot.commands.climber.LowerClimber;
-import team.gif.robot.commands.climber.RaiseClimber;
 import team.gif.robot.commands.collector.CollectorManualControl;
 import team.gif.robot.commands.driveModes.EnableBoost;
-import team.gif.robot.commands.drivetrain.MoveAwaySlow;
-import team.gif.robot.commands.drivetrain.MoveCloserSlow;
-import team.gif.robot.commands.drivetrain.MoveLeftSlow;
-import team.gif.robot.commands.drivetrain.MoveRightSlow;
-import team.gif.robot.commands.drivetrain.Reset0;
+import team.gif.robot.commands.driveModes.EnableRobotOrientedMode;
 import team.gif.robot.commands.indexer.FullIndexerReverse;
 import team.gif.robot.commands.indexer.IndexerManualControl;
+import team.gif.robot.commands.toggleManualControl.ToggleManualControl;
 import team.gif.robot.commands.wrist.CalibrateAngle;
 import team.gif.robot.commands.shooter.RevFlyWheels;
 import team.gif.robot.commands.shooter.Shoot;
-import team.gif.robot.commands.shooter.ShootManu;
+import team.gif.robot.commands.shooter.ForceShoot;
 import team.gif.robot.commands.wrist.WristAngleUp;
 import team.gif.robot.commands.wrist.WristAngleDown;
 import team.gif.robot.commands.shooter.TrapShoot;
@@ -55,6 +53,7 @@ public class OI {
     public final Trigger dDPadRight = driver.povRight();
     public final Trigger dDPadDown = driver.povDown();
     public final Trigger dDPadLeft = driver.povLeft();
+    public final Trigger dDPadDownLeft = driver.povDownLeft();
 
     public final Trigger aA = aux.a();
     public final Trigger aB = aux.b();
@@ -72,6 +71,7 @@ public class OI {
     public final Trigger aDPadRight = aux.povRight();
     public final Trigger aDPadDown = aux.povDown();
     public final Trigger aDPadLeft = aux.povLeft();
+    public final Trigger aDPadDownLeft = aux.povDownLeft();
 
 //    public final Trigger tA = test.a();
 //    public final Trigger tB = test.b();
@@ -90,7 +90,7 @@ public class OI {
 //    public final Trigger tDPadDown = test.povDown();
 //    public final Trigger tDPadLeft = test.povLeft();
 
-    public final Trigger gamePieceSensor = new Trigger(Robot.collector.sensor::get);
+    public final Trigger collectorGamePieceSensor = new Trigger(Robot.collector.sensor::get);
 
     public OI() {
         DriverStation.silenceJoystickConnectionWarning(true);
@@ -112,54 +112,67 @@ public class OI {
         *   aX.onTrue(new PrintCommand("aX"));
         */
 
-        // MK4 (2023 bot)
-        if (Robot.isCompBot) {
-            dDPadUp.whileTrue(new MoveAwaySlow());
-            dDPadRight.whileTrue(new MoveRightSlow());
-            dDPadLeft.whileTrue(new MoveLeftSlow());
-            dDPadDown.whileTrue(new MoveCloserSlow());
-            dLBump.whileTrue(new EnableBoost());
-        }
+        /**
+         * Driver Controller
+         */
 
-        // MK3 Swerve
-        dA.whileTrue(new Reset0());
-//        dA.whileTrue(new ResetWheelsPbot());
+        // driver controls
+        dLBump.whileTrue(new EnableBoost());
+//        dRStickBtn.whileTrue(new AutoAlign());
+//        dB.whileTrue(new RotateClockwise());
+//        dX.whileTrue(new RotateCounterClockwise());
+        dRBump.whileTrue(new EnableRobotOrientedMode());
+        dY.whileTrue(new FullIndexerReverse());
 
-//        aA.whileTrue(new CollectorDefault());
+        // calibrations
+        dStart.and(dDPadUp).onTrue(new InstantCommand(Robot.pigeon::resetPigeonPosition).ignoringDisable(true));
+//        dStart.and(dDPadLeft).onTrue(new InstantCommand(Robot.elevator::resetPosition));
+        dStart.and(dDPadRight).onTrue(new InstantCommand(Robot.climber::resetPosition).ignoringDisable(true));
+        dStart.and(dDPadDown).toggleOnTrue(new ToggleCollectorDefault());
+        dStart.and(dBack).onTrue(new CalibrateAngle());
 
-//        aDPadUp.whileTrue(new IndexerDefault());
-
-//        dStart.whileTrue(new FullIndexerReverse());
+        /**
+         *  Aux Controller
+         */
 
         // manual control
-//        aBack.toggleOnTrue(new ToggleManualControl());
-//        aStart.whileTrue(new IndexerManualControl());
-        aBack.whileTrue(new CollectorManualControl()); // used when limelight fails
-        aStart.whileTrue(new CollectorManualControl().alongWith(new IndexerManualControl())); // used when sensors fail
+        aA.and(aBack.negate()).whileTrue(new CollectorManualControl());
+        aB.and(aBack.negate()).whileTrue(new CollectorManualControl().alongWith(new IndexerManualControl())); // used when sensors fail
+        aStart.and(aBack).toggleOnTrue(new ToggleManualControl());
 
-        aDPadUp.onTrue(new InstantCommand(Robot.wrist::setWristFar));
-        aDPadRight.onTrue(new InstantCommand(Robot.wrist::setWristMid));
-        aDPadLeft.onTrue(new InstantCommand(Robot.wrist::setWristNear));
-        aDPadDown.onTrue(new InstantCommand(Robot.wrist::setWristWall));
+        //wrist
+        aDPadUp.and(aStart.negate()).onTrue(new InstantCommand(Robot.wrist::setWristFarPosition));
+        aDPadRight.and(aStart.negate()).onTrue(new InstantCommand(Robot.wrist::setWristMidPosition));
+        aDPadLeft.and(aStart.negate()).onTrue(new InstantCommand(Robot.wrist::setWristNearPosition));
+        aDPadDown.and(aStart.negate()).onTrue(new InstantCommand(Robot.wrist::setWristWallPosition));
+//        aDPadDownLeft.whileTrue(new EnableAutoWrist());
 
         //shooter
-        aRTrigger.whileTrue(new RevFlyWheels());
-        aLBump.onTrue(new Shoot().andThen(new InstantCommand(Robot.wrist::setWristCollect)));
-        dA.whileTrue(new ShootManu());
-        aY.whileTrue(new WristAngleUp());
-        aX.whileTrue(new WristAngleDown());
-        dY.whileTrue(new RaiseClimber());
-        dX.whileTrue(new LowerClimber());
-        aB.onTrue(new CalibrateAngle());
-        aA.onTrue(new TrapShoot().withTimeout(3));
+        aRBump.whileTrue(new RevFlyWheels());
+        aRBump.onFalse(new InstantCommand(Robot.shooter::stop));
+        aLBump.onTrue(new Shoot().andThen(new InstantCommand(Robot.wrist::setWristCollectPosition)));
+        aX.and(aBack.negate()).whileTrue(new ForceShoot());
 
-        dStart.toggleOnTrue(new ToggleCollectorDefault());
+//        aRTrigger.onTrue(new AmpPosition()); // goes to position and revs flywheel
+//        aLTrigger.onTrue(new AmpShoot().andThen(new InstantCommand(Robot.wrist::setWristCollect)); // shoots and returns to home
+//        aY.and(aBack.negate()).whileTrue(new LoadFromSource());
+
+//        aBack.and(aA).onTrue(new RaiseCLimberToTop());
+//        aBack.and(aX).onTrue(new RaiseElevatorToTop());
+//        aBack.and(aY).onTrue(new LowerClimberAndElevator());
+        aBack.and(aB).onTrue(new TrapShoot().withTimeout(3));
+
+        aStart.and(aDPadUp).whileTrue(new WristAngleUp());
+        aStart.and(aDPadDown).whileTrue(new WristAngleDown());
+//        aStart.and(aDPadRight).onTrue(new InstantCommand(Robot.wrist::BumpAngle));
 
         // auto sensor actions
-        gamePieceSensor.onTrue(
-//                new InstantCommand(Robot.ledSubsystem::setLEDGamePieceColor)
-                new InstantCommand(Robot.wrist::setWristCollect)
-        );
+        collectorGamePieceSensor.onTrue(new NoteRumble().andThen(new WaitCommand(0.1).andThen(new NoteRumble())));
+        collectorGamePieceSensor.onTrue(new InstantCommand(Robot.wrist::setWristCollectPosition));
+
+        // testing purposes
+//        dY.whileTrue(new RaiseClimber());
+//        dX.whileTrue(new LowerClimber());
     }
 
     public void setRumble(boolean rumble){
@@ -167,5 +180,20 @@ public class OI {
         driver.getHID().setRumble(GenericHID.RumbleType.kRightRumble, rumble ? 1.0 : 0.0);
         aux.getHID().setRumble(GenericHID.RumbleType.kLeftRumble, rumble ? 1.0 : 0.0);
         aux.getHID().setRumble(GenericHID.RumbleType.kRightRumble, rumble ? 1.0 : 0.0);
+    }
+
+    /**
+     * This method provides additional protection when switching between combo buttons.
+     *  aA.and(aBack.negate()).onTrue works but will call aA when aBack is released. This
+     *  may not be desired, but is also not standard user behavior. The combo is typically
+     *  utilized when the user is holding one button down, and then presses a second, then
+     *  releases the secind and then the first.
+     *  If you only want aA to be called when aBack is not active, then use this to route
+     *  the desired command
+     */
+    void routeAButton(){
+        if ( !aux.getHID().getBackButton()) {
+            new PrintCommand("Just A").schedule();
+        }
     }
 }
