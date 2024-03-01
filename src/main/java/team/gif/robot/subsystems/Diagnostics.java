@@ -56,7 +56,7 @@ public class Diagnostics extends SubsystemBase {
         boolean result;
 
         // all the conditions to indicate the robot can drive under the stage safely
-        result = (Robot.wrist.getPosition() <= Robot.wrist.degreesToAbsolute(50)) && false;//(Robot.climber.getPosition() < 100 && Robot.elevator.getPosition() < 100 && Robot.shooter.getPosition() < 100);
+        result = (Robot.wrist.getPosition() <= Robot.wrist.degreesToAbsolute(53)) ;//&& false;//(Robot.climber.getPosition() < 100 && Robot.elevator.getPosition() < 100 && Robot.shooter.getPosition() < 100);
 
         // set the LEDs accordingly
         if (result) {

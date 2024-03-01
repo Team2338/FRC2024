@@ -65,6 +65,6 @@ public class Shoot extends Command {
             Robot.indexer.setDefaultCommand(new IndexerDefault());
             System.out.println("set default command");
         }
-//        Robot.wrist.setRotationCollect();
+        Robot.wrist.setWristCollectPosition();
     }
 }
