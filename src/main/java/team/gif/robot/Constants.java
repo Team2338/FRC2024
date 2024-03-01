@@ -329,12 +329,12 @@ public final class Constants {
     }
 
     public static final class Climber {
-        public static final double kP = 1;
-        public static final double FF = 0.01;
-        public static final double kI = 0.0000;
-        public static final double kD = 0.0000;
-        public static final double MIN_LIMIT = 50;
-        public static final double MAX_LIMIT = 400;
+        public static final double FF = 0.0;
+        public static final double kP = 0.0;
+        public static final double kI = 0.0;
+        public static final double kD = 0.0;
+        public static final double MIN_LIMIT = 0;
+        public static final double MAX_LIMIT = 16335; // in hundredths
     }
 
     public static final class MotorTemps {

@@ -72,6 +72,10 @@ public class UiSmartDashboard {
         shuffleboardTab.addBoolean("Motor Temp", Robot.diagnostics::getAnyMotorTempHot);
 
         shuffleboardTab.addBoolean("Stage Safe", Robot.diagnostics::getSafeToDriveUnderStage);
+
+        shuffleboardTab.addString("Climber", Robot.climber::getClimberPosition_Shuffleboard);
+
+        shuffleboardTab.addBoolean("Manual", Robot::getManualControlMode);
     }
 
     public void updateUI() {
