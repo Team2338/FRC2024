@@ -17,7 +17,7 @@ public class UI {
 //        SmartDashboard.putData("Reset 180", new Reset180());
 
         shuffleboardTab.addBoolean("Collector Sensor", Robot.collector::getSensorState);
-        shuffleboardTab.addBoolean("Shooter Sensor", Robot.indexer::getSensorState);
+        shuffleboardTab.addBoolean("Shooter Sensor", Robot.indexer::getShooterSensorState);
         shuffleboardTab.addBoolean("Mid Sensor", Robot.indexer::getStageOneSensorState);
 
 //        shuffleboardTab.addDouble("Shooter Angle", Robot.shooter::get)

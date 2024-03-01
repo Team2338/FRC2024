@@ -16,7 +16,7 @@ public class CollectorManualControl extends Command {
     // Called every time the scheduler runs (~20ms) while the command is scheduled
     @Override
     public void execute() {
-        if (!Robot.indexer.getSensorState()) {
+        if (!Robot.indexer.getShooterSensorState()) {
             Robot.collector.collect();
         } else {
             Robot.collector.eject();

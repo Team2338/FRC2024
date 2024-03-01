@@ -48,7 +48,7 @@ public class Collector extends SubsystemBase {
         return collectorManualControl;
     }
 
-    public boolean getCollectorState() { return collectingState;}
+    public boolean getCollectingState() { return collectingState;}
 
     public double getMotorTemp() {
         return collector.getTemperature();

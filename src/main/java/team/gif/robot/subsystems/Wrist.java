@@ -111,32 +111,32 @@ public class Wrist extends SubsystemBase {
     /**
      * Moves shooter rotation to the Far setpoint defined in constants.java
      */
-    public void setWristFar() {
+    public void setWristFarPosition() {
         targetPosition = Constants.Wrist.SETPOINT_FAR_ABSOLUTE;
     }
 
     /**
      * Moves shooter rotation to the Mid setpoint defined in constants.java
      */
-    public void setWristMid() {
+    public void setWristMidPosition() {
         targetPosition = Constants.Wrist.SETPOINT_MID_ABSOLUTE;
     }
 
     /**
      * Moves shooter rotation to the Near setpoint defined in constants.java
      */
-    public void setWristNear() {
+    public void setWristNearPosition() {
         targetPosition = Constants.Wrist.SETPOINT_NEAR_ABSOLUTE;
     }
 
     /**
      * Moves shooter rotation to the Wall setpoint defined in constants.java
      */
-    public void setWristWall() {
+    public void setWristWallPosition() {
         targetPosition = Constants.Wrist.SETPOINT_WALL_ABSOLUTE;
     }
 
-    public void setWristCollect() {
+    public void setWristCollectPosition() {
         targetPosition = Constants.Wrist.SETPOINT_COLLECT_ABSOLUTE;
     }
 

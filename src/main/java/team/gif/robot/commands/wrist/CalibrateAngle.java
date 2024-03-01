@@ -124,6 +124,44 @@ public class CalibrateAngle extends Command {
         }
 
         //
+        // Stage: TEST_MIN
+        // Test moving to min (not hard min). It should not stall.
+        // Prior to this stage, new zero was set correctly
+        //
+        if (testingStage == stage.TEST_MIN) {
+            Robot.wrist.moveWristPercentPower(-decreaseAngleSpeed);
+
+            // check for stalling motor
+            if (Math.abs(pos - prevPos) < (2.0 * 1.0 / 4096)) { // Allows for range of 3 ticks to check, 4096 is number of ticks in 1 rotation
+                stallCount++;
+            } else {
+                stallCount = 0;
+            }
+            if (pos <= Constants.Wrist.MIN_LIMIT_ABSOLUTE) {
+                Robot.wrist.moveWristPercentPower(0);
+                printStatus("Min limit test complete");
+                printStatus("Moving to 90 degrees ...");
+                testingStage = stage.TEST_90;
+            }
+
+            // The wrist should be able to move to the min position, so we
+            // should never enter this loop. Indicates the wrist is stuck
+            // or calibration failed.
+            if (stallCount == 4) {
+                Robot.wrist.moveWristPercentPower(0);
+                System.out.println(" ****************************************" + nl +
+                                   " **    Error: Unable to calibrate!!    **" + nl +
+                                   " **    Wrist stalled during first      **" + nl +
+                                   " **    test to arrive at the target    **" + nl +
+                                   " **            min position.           **" + nl +
+                                   " **                                    **" + nl +
+                                   " **        Calibration aborted         **" + nl +
+                                   " ****************************************");
+                testingStage = stage.FINISHED;
+            }
+        }
+
+        //
         // Stage: SET_ZERO
         // Set the zero offset
         //
@@ -236,43 +274,6 @@ public class CalibrateAngle extends Command {
             }
         }
 
-        //
-        // Stage: TEST_MIN
-        // Test moving to min (not hard min). It should not stall.
-        // Prior to this stage, new zero was set correctly
-        //
-        if (testingStage == stage.TEST_MIN) {
-            Robot.wrist.moveWristPercentPower(-decreaseAngleSpeed);
-
-            // check for stalling motor
-            if (Math.abs(pos - prevPos) < (2.0 * 1.0 / 4096)) { // Allows for range of 3 ticks to check, 4096 is number of ticks in 1 rotation
-                stallCount++;
-            } else {
-                stallCount = 0;
-            }
-            if (pos <= Constants.Wrist.MIN_LIMIT_ABSOLUTE) {
-                Robot.wrist.moveWristPercentPower(0);
-                printStatus("Min limit test complete");
-                printStatus("Moving to 90 degrees ...");
-                testingStage = stage.TEST_90;
-            }
-
-            // The wrist should be able to move to the min position, so we
-            // should never enter this loop. Indicates the wrist is stuck
-            // or calibration failed.
-            if (stallCount == 4) {
-                Robot.wrist.moveWristPercentPower(0);
-                System.out.println(" ****************************************" + nl +
-                                   " **    Error: Unable to calibrate!!    **" + nl +
-                                   " **    Wrist stalled during first    **" + nl +
-                                   " **    test to arrive at the target    **" + nl +
-                                   " **            min position.           **" + nl +
-                                   " **                                    **" + nl +
-                                   " **        Calibration aborted         **" + nl +
-                                   " ****************************************");
-                testingStage = stage.FINISHED;
-            }
-        }
         prevPos = pos;
     }
 

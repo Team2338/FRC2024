@@ -44,7 +44,7 @@ public class Diagnostics extends SubsystemBase {
         boolean result;
 
         // all the conditions to indicate the robot can drive under the stage safely
-        result = Robot.wrist.getPosition() <= Robot.wrist.degreesToAbsolute(50);//(Robot.climber.getPosition() < 100 && Robot.elevator.getPosition() < 100 && Robot.shooter.getPosition() < 100);
+        result = (Robot.wrist.getPosition() <= Robot.wrist.degreesToAbsolute(50)) && false;//(Robot.climber.getPosition() < 100 && Robot.elevator.getPosition() < 100 && Robot.shooter.getPosition() < 100);
 
         // set the LEDs accordingly
         if (result) {
@@ -61,6 +61,6 @@ public class Diagnostics extends SubsystemBase {
      * @return true if the robot has a note, false of not
      */
     public boolean getRobotHasNote() {
-        return Robot.collector.getSensorState() || Robot.indexer.getStageOneSensorState() || Robot.indexer.getSensorState();
+        return Robot.collector.getSensorState() || Robot.indexer.getStageOneSensorState() || Robot.indexer.getShooterSensorState();
     }
 }

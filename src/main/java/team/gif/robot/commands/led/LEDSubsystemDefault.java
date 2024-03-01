@@ -22,7 +22,7 @@ public class LEDSubsystemDefault extends Command {
         double flashLength = 0.25; // in seconds, used as a timer for flashing when we are collecting
 
         // if the robot is attempting to collect and does not have a game piece, flash the LEDs
-        if (Robot.collector.getCollectorState() && !Robot.collector.getSensorState()) {
+        if (Robot.collector.getCollectingState() && !Robot.collector.getSensorState()) {
             flashCounter++;
             if ( flashCounter < flashLength/2*50) {
                 Robot.ledSubsystem.setNoteCollecting(); // first half of flash length
@@ -33,7 +33,7 @@ public class LEDSubsystemDefault extends Command {
                 flashCounter = 0;
             }
         } else {
-            if (Robot.diagnostics.getRobotHasNote()) {
+            if (Robot.indexer.getShooterSensorState()) {
                 Robot.ledSubsystem.setNoteCollected();
             } else {
                 Robot.ledSubsystem.setNoteEmpty();
