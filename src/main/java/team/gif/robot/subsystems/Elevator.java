@@ -44,14 +44,9 @@ public class Elevator extends SubsystemBase {
     }
 
     public void PIDHold() {
-        if (getPosition() > Constants.Elevator.LIMIT_SHUT_OFF) {
-            // pid hold
-//            Robot.elevator.move(0.15); // used for percent hold
-            System.out.println("target " + targetPosition);
-            motor.getPIDController().setReference(targetPosition,CANSparkBase.ControlType.kPosition);
-        } else {
-            Robot.elevator.move(0.0);
-        }
+        System.out.println("target " + targetPosition);
+//        move(0.03); // used for percent hold
+        motor.getPIDController().setReference(targetPosition,CANSparkBase.ControlType.kPosition);
     }
 
     public String getPosition_Shuffleboard() {
@@ -70,10 +65,6 @@ public class Elevator extends SubsystemBase {
      *  All the config setting for Elevator (controller, pid)
      */
     public void config() {
-//        shooterNeo.restoreFactoryDefaults(); // Leave for shooter Neo
-//        shooterNeo.setInverted(true); // Leave for shooter Neo
-//        shooterNeo.setIdleMode(CANSparkBase.IdleMode.kCoast); // Leave for shooter Neo
-
         motor.restoreFactoryDefaults();
         motor.setIdleMode(CANSparkBase.IdleMode.kBrake);
         motor.enableVoltageCompensation(12);

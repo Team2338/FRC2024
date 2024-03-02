@@ -20,10 +20,6 @@ public class Climber extends SubsystemBase {
         targetPosition = motor.getEncoder().getPosition();
     }
 
-//    public void setClimberPercent(double percent) {
-//        climberMotor.set(percent);
-//    }
-
     public void setTargetPosition(double pos) {
         targetPosition = pos;
     }
@@ -37,34 +33,14 @@ public class Climber extends SubsystemBase {
         targetPosition = 0;
     }
 
-//    public void up(boolean slow){
-//        if (slow) {
-//            setClimberPercent(0.2); // +0.3 for climber, +0.25 for elevator
-//        } else {
-//            setClimberPercent(0.8);
-//        }
-//    }
-//
-//    public void down(boolean slow){
-//        if (slow) {
-//            setClimberPercent(-0.2); // -.30 for climber, +0.05 for elevator
-//        } else {
-//            setClimberPercent(-0.8);
-//        }
-//    }
-
     /**
      * Used to move climber in manual mode, using joystick % is input
      * @param percent
      */
     public void move(double percent) {
-        // soft limits will keep the robot arm in allowable range
+        // soft limits will keep the robot climber in allowable range
         motor.set(percent);
     }
-
-//    public void hold(){
-//        setClimberPercent(0); // 0 for climber, +0.15 for elevator
-//    }
 
     public void PIDHold() {
         motor.getPIDController().setReference(targetPosition,CANSparkBase.ControlType.kPosition);

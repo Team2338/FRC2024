@@ -9,6 +9,8 @@ import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.math.util.Units;
 
+import javax.swing.plaf.PanelUI;
+
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
  * constants. This class should not be used for any other purpose. All constants should be declared
@@ -300,6 +302,8 @@ public final class Constants {
         public static final double SETPOINT_NEAR_ABSOLUTE = (64.0 - MIN_LIMIT_DEGREES) * ABSOLUTE_PER_DEGREE + MIN_LIMIT_ABSOLUTE; // number in degrees, value in absolute
         public static final double SETPOINT_WALL_ABSOLUTE = (49.0 - MIN_LIMIT_DEGREES) * ABSOLUTE_PER_DEGREE + MIN_LIMIT_ABSOLUTE; // number in degrees, value in absolute
         public static final double SETPOINT_COLLECT_ABSOLUTE = (48.0 - MIN_LIMIT_DEGREES) * ABSOLUTE_PER_DEGREE + MIN_LIMIT_ABSOLUTE; // number in degrees, value in absolute
+
+        public static final double SAFE_STAGE_DEGREES = 53;
     }
 
     public static final class Indexer { // ToDo tune - remove when done
@@ -322,13 +326,15 @@ public final class Constants {
     }
 
     public static final class Elevator {
-        public static final double FF = 1.00;
+        public static final double FF = .00;
         public static final double kP = 1.80;
         public static final double kI = 0.0;
         public static final double kD = 0.0;
-        public static final double LIMIT_MAX = 9.0;
-        public static final double LIMIT_SHUT_OFF = 0.250;
+        public static final double LIMIT_MAX = 56.500;
         public static final double LIMIT_MIN = 0;
+
+        public static final double SAFE_STAGE = 1.0; //TODO: needs tuning
+        public static final double TRAP_POS = 54.500;
     }
 
     public static final class Climber {
@@ -337,7 +343,11 @@ public final class Constants {
         public static final double kI = 0.0;
         public static final double kD = 0.0;
         public static final double LIMIT_MAX = 163.35;
-        public static final double LIMIT_MIN = 0;
+        public static final double LIMIT_MIN = -163.35; // TODO: needs tuning
+
+        public static final double SAFE_STAGE_POS = 0;
+        public static final double TRAP_POS = LIMIT_MIN;
+        public static final double TRAP_MOVE_ELEVATOR_POS = 100.00;
     }
 
     public static final class MotorTemps {

@@ -7,11 +7,14 @@ import edu.wpi.first.wpilibj2.command.PrintCommand;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import team.gif.robot.commands.climber.LowerClimberAndElevator;
+import team.gif.robot.commands.climber.RaiseClimberToTop;
 import team.gif.robot.commands.collector.NoteRumble;
 import team.gif.robot.commands.collector.ToggleCollectorDefault;
 import team.gif.robot.commands.collector.CollectorManualControl;
 import team.gif.robot.commands.driveModes.EnableBoost;
 import team.gif.robot.commands.driveModes.EnableRobotOrientedMode;
+import team.gif.robot.commands.elevator.RaiseElevatorToTop;
 import team.gif.robot.commands.indexer.FullIndexerReverse;
 import team.gif.robot.commands.indexer.IndexerManualControl;
 import team.gif.robot.commands.toggleManualControl.ToggleManualControl;
@@ -157,9 +160,9 @@ public class OI {
 //        aLTrigger.onTrue(new AmpShoot().andThen(new InstantCommand(Robot.wrist::setWristCollect)); // shoots and returns to home
 //        aY.and(aBack.negate()).whileTrue(new LoadFromSource());
 
-//        aBack.and(aA).onTrue(new RaiseCLimberToTop());
-//        aBack.and(aX).onTrue(new RaiseElevatorToTop());
-//        aBack.and(aY).onTrue(new LowerClimberAndElevator());
+        aBack.and(aA).onTrue(new RaiseClimberToTop());
+        aBack.and(aX).onTrue(new RaiseElevatorToTop());
+        aBack.and(aY).onTrue(new LowerClimberAndElevator());
         aBack.and(aB).onTrue(new TrapShoot().withTimeout(3));
 
         aStart.and(aDPadUp).whileTrue(new WristAngleUp());

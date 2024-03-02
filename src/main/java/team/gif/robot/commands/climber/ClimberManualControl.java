@@ -31,7 +31,7 @@ public class ClimberManualControl extends Command {
             Robot.climber.enableSoftLimits(true);
         }
 
-        if (percent > -0.09 && percent < 0.09) { // creates a dead band around the joystick
+        if (percent > -0.15 && percent < 0.15) { // creates a dead band around the joystick
             if( holdNeedFirstPID ) {
                 holdPIDPos = Robot.climber.getPosition();
                 holdNeedFirstPID = false;

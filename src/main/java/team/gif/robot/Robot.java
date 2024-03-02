@@ -129,7 +129,6 @@ public class Robot extends TimedRobot {
         wrist.setDefaultCommand(new WristAnglePIDControl());
 
         elevator.setDefaultCommand(new ElevatorPIDControl());
-        climber.setDefaultCommand(new ClimberPIDControl());
 
         ledSubsystem = new LEDSubsystem();
         ledSubsystem.setDefaultCommand(new LEDSubsystemDefault());
@@ -193,8 +192,6 @@ public class Robot extends TimedRobot {
         elapsedTime.reset();
         elapsedTime.start();
         runAutoScheduler = true;
-
-
 
     }
 

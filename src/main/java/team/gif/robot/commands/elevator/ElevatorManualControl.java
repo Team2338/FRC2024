@@ -25,18 +25,7 @@ public class ElevatorManualControl extends Command {
     public void execute() {
         double percent = -Robot.oi.aux.getLeftY();
 
-/*
-        if (percent > -0.09 && percent < 0.09) { // creates a dead band around the joystick
-            Robot.elevator.PIDHold();
-        } else {
-            if( percent > 0 ) {
-                Robot.elevator.move(0.25);
-            } else {
-                Robot.elevator.move(0.05);
-            }
-        }
-*/
-        if (percent > -0.09 && percent < 0.09) {  // creates a dead band around the joystick
+        if (percent > -0.15 && percent < 0.15) {  // creates a dead band around the joystick
             if( holdNeedFirstPID ) {
                 holdPIDPos = Robot.elevator.getPosition();
                 holdNeedFirstPID = false;
@@ -46,27 +35,11 @@ public class ElevatorManualControl extends Command {
         } else {
             holdNeedFirstPID = true;
             if( percent > 0 ) {
-                Robot.elevator.move(0.25);
+                Robot.elevator.move(0.18) ; //0.25);
             } else {
-                Robot.elevator.move(0.05);
+                Robot.elevator.move(-.08); //0.05);
             }
         }
-
-
-/*        boolean moveSlow;
-
-        if (Robot.manualControlMode) {
-            double percent = -Robot.oi.aux.getHID().getRightY(); // direction of climber
-
-            if (percent > 0.15) {
-                    Robot.climber.up(moveSlow);
-            } else if (percent < -0.15) {
-                    Robot.climber.down(moveSlow);
-            } else {
-                Robot.climber.hold();
-            }
-        }
-*/
     }
 
     // Return true when the command should end, false if it should continue. Runs every ~20ms.
