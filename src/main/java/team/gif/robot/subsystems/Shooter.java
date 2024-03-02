@@ -3,12 +3,12 @@ package team.gif.robot.subsystems;
 import com.revrobotics.CANSparkBase;
 import com.revrobotics.CANSparkFlex;
 import com.revrobotics.CANSparkLowLevel;
-import com.revrobotics.CANSparkMax;
 import com.revrobotics.SparkPIDController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import team.gif.robot.Constants;
 import team.gif.robot.RobotMap;
+import team.gif.lib.shooterParams;
 
 public class Shooter extends SubsystemBase {
 //    public static CANSparkMax shooterNeo; //Leave for shooter Neo
@@ -19,11 +19,13 @@ public class Shooter extends SubsystemBase {
     private double shooterKP;
     private double shooterKI;
 
+    private shooterParams shooterParams;
+
 
     public Shooter() {
 //        shooterNeo = new CANSparkMax(RobotMap.SHOOTER_ID, CANSparkLowLevel.MotorType.kBrushless); // Leave for shooter Neo
         shooter = new CANSparkFlex(RobotMap.SHOOTER_ID, CANSparkLowLevel.MotorType.kBrushless);
-
+        shooterParams = team.gif.lib.shooterParams.NEAR;
         configShooter();
     }
 
@@ -95,11 +97,24 @@ public class Shooter extends SubsystemBase {
 //        pidShooter = shooterNeo.getPIDController(); // Leave for shooter Neo
         pidShooter = shooter.getPIDController();
 
-        pidShooter.setP(Constants.Shooter.kP);
-        pidShooter.setFF(Constants.Shooter.FF);
-        pidShooter.setI(Constants.Shooter.kI);
+        pidShooter.setP(shooterParams.getP());
+        pidShooter.setFF(shooterParams.getFF());
+        pidShooter.setI(shooterParams.getI());
         pidShooter.setOutputRange(0,1);
         pidShooter.setIAccum(0.0);
         pidShooter.setIZone(1000);
+    }
+
+
+    public void setShooterParams(shooterParams shooterParams) {
+        this.shooterParams = shooterParams;
+
+        pidShooter.setP(shooterParams.getP());
+        pidShooter.setFF(shooterParams.getFF());
+        pidShooter.setI(shooterParams.getI());
+    }
+
+    public shooterParams getShooterParams() {
+        return this.shooterParams;
     }
 }

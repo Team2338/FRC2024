@@ -272,6 +272,31 @@ public final class Constants {
         public static final double FF = 0.000155;//0.000130; //0.000155; // gets to 6100    // 0.000130;  // 5800 RPM
         public static final double kP = 0.00030;//0.00055;//0.0100;               // 0.0006;    // 5800 RPM
         public static final double kI = 0.000;//0.001;               // 0.0000015; // 5800 RPM
+
+        //Wall
+        public static final double RPM_WALL = 4000;
+        public static final double FF_WALL = 0.000155; // gets to 6100    // 0.000130;  // 5800 RPM
+        public static final double kP_WALL = 0.00030;//0.0100;               // 0.0006;    // 5800 RPM
+        public static final double kI_WALL = 0.000;//0.001;               // 0.0000015; // 5800 RPM
+
+        //Near
+        public static final double RPM_NEAR = 4000;
+        public static final double FF_NEAR = 0.000155; // gets to 6100    // 0.000130;  // 5800 RPM
+        public static final double kP_NEAR = 0.00030;//0.0100;               // 0.0006;    // 5800 RPM
+        public static final double kI_NEAR = 0.000;//0.001;               // 0.0000015; // 5800 RPM
+
+        //Mid
+        public static final double RPM_MID = 4000;
+        public static final double FF_MID = 0.000155; // gets to 6100    // 0.000130;  // 5800 RPM
+        public static final double kP_MID = 0.00030;//0.0100;               // 0.0006;    // 5800 RPM
+        public static final double kI_MID = 0.000;//0.001;               // 0.0000015; // 5800 RPM
+
+        //Far
+        public static final double RPM_FAR = 4000;
+        public static final double FF_FAR = 0.000155; // gets to 6100    // 0.000130;  // 5800 RPM
+        public static final double kP_FAR = 0.00030;//0.0100;               // 0.0006;    // 5800 RPM
+        public static final double kI_FAR = 0.000;//0.001;               // 0.0000015; // 5800 RPM
+
     }
 
     public static final class Wrist { // tuned 02/22
