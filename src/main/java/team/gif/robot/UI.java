@@ -79,6 +79,8 @@ public class UI {
         diagnosticsTab.addDouble("Collector Temp", Robot.collector::getMotorTemp).withPosition(8,0);
         diagnosticsTab.addBoolean("Collector Cool", Robot.collector::isStageOneMotorCool).withPosition(8,1);
 
+        shuffleboardTab.addString("Elevator Pos", elevator::getPosition_Shuffleboard);
+
         // used for tuning Shooter PID
 //        createSmartDashboardNumber("FF",0.000155);
 //        createSmartDashboardNumber("kP",0.000300);
