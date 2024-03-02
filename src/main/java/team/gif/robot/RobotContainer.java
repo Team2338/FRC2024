@@ -14,6 +14,8 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import team.gif.lib.autoMode;
 import team.gif.robot.commands.autos.NoAuto;
+import team.gif.robot.commands.shooter.ForceShoot;
+import team.gif.robot.commands.shooter.RevFlyWheels;
 import team.gif.robot.commands.shooter.Shoot;
 
 import java.util.HashMap;

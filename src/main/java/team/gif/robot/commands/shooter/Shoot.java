@@ -8,6 +8,7 @@ import team.gif.robot.commands.indexer.IndexerDefault;
 public class Shoot extends Command {
     boolean isFiring;
     double counter;
+    double autonCounter;
 
     /**
      * Creates a new Shoot command. Pass in true in for auto mode.
@@ -30,6 +31,7 @@ public class Shoot extends Command {
     public void initialize() {
         isFiring = false;
         counter = 0;
+        autonCounter = 0;
         Robot.indexer.stopIndexerCoast();
         //We need to remove the default command if we are in autonomous mode
         //because the default command will fight with this command for control
@@ -43,7 +45,8 @@ public class Shoot extends Command {
     // Called every time the scheduler runs (~20ms) while the command is scheduled
     @Override
     public void execute() {
-        if (Robot.shooter.getShooterRPM() >= (Constants.Shooter.REV_RPM * .98)) { //allow tolerance
+        if (Robot.shooter.getShooterRPM() >= (Constants.Shooter.REV_RPM * .98) ||
+                (Robot.runningAutonomousMode && autonCounter++ > 1.0*50)) { //allow tolerance
             //this may need to move down to line 48
             Robot.indexer.setIndexer(0, Constants.Indexer.INDEXER_TWO_SHOOT_PERC);
             isFiring = true;
