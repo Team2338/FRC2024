@@ -8,24 +8,19 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import team.gif.robot.Constants;
 import team.gif.robot.RobotMap;
-import team.gif.lib.shooterParams;
+import team.gif.lib.shootParams;
 
 public class Shooter extends SubsystemBase {
 //    public static CANSparkMax shooterNeo; //Leave for shooter Neo
     public static CANSparkFlex shooter;
     public static SparkPIDController pidShooter;
 
-    private double shooterFF;
-    private double shooterKP;
-    private double shooterKI;
-
-    private shooterParams shooterParams;
-
+    private shootParams nextShot;
 
     public Shooter() {
 //        shooterNeo = new CANSparkMax(RobotMap.SHOOTER_ID, CANSparkLowLevel.MotorType.kBrushless); // Leave for shooter Neo
         shooter = new CANSparkFlex(RobotMap.SHOOTER_ID, CANSparkLowLevel.MotorType.kBrushless);
-        shooterParams = team.gif.lib.shooterParams.NEAR;
+        nextShot = shootParams.NEAR;
         configShooter();
     }
 
@@ -61,9 +56,9 @@ public class Shooter extends SubsystemBase {
      *
      */
     public void updateShooterPID() {
-        shooterFF = SmartDashboard.getNumber("FF",0);
-        shooterKP = SmartDashboard.getNumber("kP",0);
-        shooterKI = SmartDashboard.getNumber("kI",0);
+        double shooterFF = SmartDashboard.getNumber("FF",0);
+        double shooterKP = SmartDashboard.getNumber("kP",0);
+        double shooterKI = SmartDashboard.getNumber("kI",0);
 
         System.out.println(shooterFF*1000 + "    " + shooterKP*1000 + "    " + shooterKI*1000);
         pidShooter.setFF(shooterFF);
@@ -76,10 +71,7 @@ public class Shooter extends SubsystemBase {
     }
 
     public boolean isShooterCool() {
-        if (getShooterMotorTemp() >= Constants.MotorTemps.SHOOTER_MOTOR_TEMP) {
-            return false;
-        }
-        return true;
+        return !(getShooterMotorTemp() >= Constants.MotorTemps.SHOOTER_MOTOR_TEMP);
     }
 
     /**
@@ -97,24 +89,31 @@ public class Shooter extends SubsystemBase {
 //        pidShooter = shooterNeo.getPIDController(); // Leave for shooter Neo
         pidShooter = shooter.getPIDController();
 
-        pidShooter.setP(shooterParams.getP());
-        pidShooter.setFF(shooterParams.getFF());
-        pidShooter.setI(shooterParams.getI());
+        pidShooter.setFF(nextShot.getFF());
+        pidShooter.setP(nextShot.getP());
+        pidShooter.setI(nextShot.getI());
         pidShooter.setOutputRange(0,1);
         pidShooter.setIAccum(0.0);
         pidShooter.setIZone(1000);
     }
 
+    /**
+     * Sets up the parameters for the next shot the robot will take
+     * @param nextShot
+     */
+    public void setNextShot(shootParams nextShot) {
+        this.nextShot = nextShot;
 
-    public void setShooterParams(shooterParams shooterParams) {
-        this.shooterParams = shooterParams;
-
-        pidShooter.setP(shooterParams.getP());
-        pidShooter.setFF(shooterParams.getFF());
-        pidShooter.setI(shooterParams.getI());
+        pidShooter.setP(nextShot.getP());
+        pidShooter.setFF(nextShot.getFF());
+        pidShooter.setI(nextShot.getI());
     }
 
-    public shooterParams getShooterParams() {
-        return this.shooterParams;
+    /**
+     * Returns the current setting for the next shot
+     * @return
+     */
+    public shootParams getNextShot() {
+        return this.nextShot;
     }
 }
