@@ -7,6 +7,7 @@ import com.revrobotics.SparkPIDController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import team.gif.robot.Constants;
+import team.gif.robot.Robot;
 import team.gif.robot.RobotMap;
 import team.gif.lib.shootParams;
 
@@ -20,7 +21,7 @@ public class Shooter extends SubsystemBase {
     public Shooter() {
 //        shooterNeo = new CANSparkMax(RobotMap.SHOOTER_ID, CANSparkLowLevel.MotorType.kBrushless); // Leave for shooter Neo
         shooter = new CANSparkFlex(RobotMap.SHOOTER_ID, CANSparkLowLevel.MotorType.kBrushless);
-        nextShot = shootParams.NEAR;
+//        nextShot = shootParams.NEAR;
         configShooter();
     }
 
@@ -89,9 +90,9 @@ public class Shooter extends SubsystemBase {
 //        pidShooter = shooterNeo.getPIDController(); // Leave for shooter Neo
         pidShooter = shooter.getPIDController();
 
-        pidShooter.setFF(nextShot.getFF());
-        pidShooter.setP(nextShot.getP());
-        pidShooter.setI(nextShot.getI());
+        pidShooter.setFF(Robot.nextShot.getFF());
+        pidShooter.setP(Robot.nextShot.getP());
+        pidShooter.setI(Robot.nextShot.getI());
         pidShooter.setOutputRange(0,1);
         pidShooter.setIAccum(0.0);
         pidShooter.setIZone(1000);
@@ -103,7 +104,6 @@ public class Shooter extends SubsystemBase {
      */
     public void setNextShot(shootParams nextShot) {
         this.nextShot = nextShot;
-
         pidShooter.setP(nextShot.getP());
         pidShooter.setFF(nextShot.getFF());
         pidShooter.setI(nextShot.getI());

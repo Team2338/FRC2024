@@ -10,7 +10,9 @@ import com.revrobotics.CANSparkLowLevel;
 import com.revrobotics.CANSparkMax;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import team.gif.lib.shootParams;
 import team.gif.robot.Constants;
+import team.gif.robot.Robot;
 import team.gif.robot.RobotMap;
 
 public class Wrist extends SubsystemBase {
@@ -113,6 +115,7 @@ public class Wrist extends SubsystemBase {
      */
     public void setWristFarPosition() {
         targetPosition = Constants.Wrist.SETPOINT_FAR_ABSOLUTE;
+        Robot.nextShot = shootParams.FAR;
     }
 
     /**
@@ -120,6 +123,7 @@ public class Wrist extends SubsystemBase {
      */
     public void setWristMidPosition() {
         targetPosition = Constants.Wrist.SETPOINT_MID_ABSOLUTE;
+        Robot.nextShot = shootParams.MID;
     }
 
     /**
@@ -127,6 +131,7 @@ public class Wrist extends SubsystemBase {
      */
     public void setWristNearPosition() {
         targetPosition = Constants.Wrist.SETPOINT_NEAR_ABSOLUTE;
+        Robot.nextShot = shootParams.NEAR;
     }
 
     /**
@@ -134,6 +139,7 @@ public class Wrist extends SubsystemBase {
      */
     public void setWristWallPosition() {
         targetPosition = Constants.Wrist.SETPOINT_WALL_ABSOLUTE;
+        Robot.nextShot = shootParams.WALL;
     }
 
     public void setWristCollectPosition() {
