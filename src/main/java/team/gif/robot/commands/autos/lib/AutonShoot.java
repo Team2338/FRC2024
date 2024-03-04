@@ -1,4 +1,4 @@
-package team.gif.robot.commands;
+package team.gif.robot.commands.autos.lib;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import team.gif.robot.Constants;
@@ -23,8 +23,8 @@ public class AutonShoot extends Command {
     // Called every time the scheduler runs (~20ms) while the command is scheduled
     @Override
     public void execute() {
-        Robot.shooter.setShooterRPM(Constants.Shooter.REV_RPM);
-        if(Robot.shooter.getShooterRPM() >= Constants.Shooter.REV_RPM * .9) {
+        Robot.shooter.setShooterRPM(2000);//Constants.Shooter.REV_RPM);
+        if(Robot.shooter.getShooterRPM() >= 2000 * .9) {
             counter++;
             Robot.indexer.setIndexer(0, Constants.Indexer.INDEXER_TWO_SHOOT_PERC);
         }

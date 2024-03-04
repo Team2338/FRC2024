@@ -1,0 +1,49 @@
+{
+  "version": 1.0,
+  "startingPose": {
+    "position": {
+      "x": 0.88,
+      "y": 4.276762702536705
+    },
+    "rotation": -62.63566497816518
+  },
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "named",
+          "data": {
+            "name": "AutonShoot"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "2Wall-8 Away"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "2Wall-8 Return"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "AutonShoot"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "2Wall-7 Away"
+          }
+        }
+      ]
+    }
+  },
+  "folder": null,
+  "choreoAuto": false
+}

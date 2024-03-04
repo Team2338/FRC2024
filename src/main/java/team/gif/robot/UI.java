@@ -3,6 +3,10 @@ package team.gif.robot;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
+
+import static team.gif.robot.Robot.climber;
+import static team.gif.robot.Robot.elevator;
 
 public class UI {
     public UI() {
@@ -56,6 +60,15 @@ public class UI {
         diagnosticsTab.addDouble("Wrist Temp", Robot.wrist::getWristMotorTemp).withPosition(7,0);
         diagnosticsTab.addBoolean("Shooter Cool", Robot.shooter::isShooterCool).withPosition(6,1);
         diagnosticsTab.addBoolean("Wrist Cool", Robot.wrist::isWristCool).withPosition(7,1);
+
+        // elevator and climber
+        diagnosticsTab.addDouble("Elevator Temp", Robot.elevator::getMotorTemp).withPosition(3,2);
+        diagnosticsTab.addBoolean("Elevator Cool", Robot.elevator::isMotorCool).withPosition(3,3);
+        diagnosticsTab.addDouble("Climber Temp", Robot.climber::getMotorTemp).withPosition(4,2);
+        diagnosticsTab.addBoolean("Climber Cool", Robot.climber::isMotorCool).withPosition(4,3);
+
+        diagnosticsTab.add("Climber", new InstantCommand(climber::resetPosition).ignoringDisable(true));
+        diagnosticsTab.add("Elevator", new InstantCommand(elevator::resetPosition).ignoringDisable(true));
 
         // shooterPID
         shuffleboardTab.add("kP",0).getEntry();

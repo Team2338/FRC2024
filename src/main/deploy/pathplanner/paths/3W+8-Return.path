@@ -1,0 +1,67 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 7.93,
+        "y": 0.78
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 5.814484107600694,
+        "y": 0.7601200387585969
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 1.8962711037204554,
+        "y": 3.087786719380086
+      },
+      "prevControl": {
+        "x": 3.603617652316686,
+        "y": 1.9183712751360917
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": null
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "eventMarkers": [
+    {
+      "name": "AutonRevFlyWheel",
+      "waypointRelativePos": 0.5,
+      "command": {
+        "type": "parallel",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "AutonRevFlywheel"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "globalConstraints": {
+    "maxVelocity": 3.0,
+    "maxAcceleration": 3.0,
+    "maxAngularVelocity": 50.0,
+    "maxAngularAcceleration": 150.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": -48.945186229037645,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": "3W+8+7",
+  "previewStartingState": null,
+  "useDefaultConstraints": false
+}

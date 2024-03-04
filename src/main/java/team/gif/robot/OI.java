@@ -7,13 +7,17 @@ import edu.wpi.first.wpilibj2.command.PrintCommand;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import team.gif.robot.commands.climber.LowerClimberAndElevator;
+import team.gif.robot.commands.climber.RaiseClimberToTop;
 import team.gif.robot.commands.collector.NoteRumble;
 import team.gif.robot.commands.collector.ToggleCollectorDefault;
 import team.gif.robot.commands.collector.CollectorManualControl;
 import team.gif.robot.commands.driveModes.EnableBoost;
 import team.gif.robot.commands.driveModes.EnableRobotOrientedMode;
+import team.gif.robot.commands.elevator.RaiseElevatorToTop;
 import team.gif.robot.commands.indexer.FullIndexerReverse;
 import team.gif.robot.commands.indexer.IndexerManualControl;
+import team.gif.robot.commands.toggleManualControl.ToggleManualControl;
 import team.gif.robot.commands.wrist.CalibrateAngle;
 import team.gif.robot.commands.shooter.RevFlyWheels;
 import team.gif.robot.commands.shooter.Shoot;
@@ -124,9 +128,9 @@ public class OI {
         dY.whileTrue(new FullIndexerReverse());
 
         // calibrations
-        dStart.and(dDPadUp).onTrue(new InstantCommand(Robot.pigeon::resetPigeonPosition));
+        dStart.and(dDPadUp).onTrue(new InstantCommand(Robot.pigeon::resetPigeonPosition).ignoringDisable(true));
 //        dStart.and(dDPadLeft).onTrue(new InstantCommand(Robot.elevator::resetPosition));
-//        dStart.and(dDPadRight).onTrue(new InstantCommand(Robot.climber::resetPosition));
+        dStart.and(dDPadRight).onTrue(new InstantCommand(Robot.climber::resetPosition).ignoringDisable(true));
         dStart.and(dDPadDown).toggleOnTrue(new ToggleCollectorDefault());
         dStart.and(dBack).onTrue(new CalibrateAngle());
 
@@ -137,6 +141,7 @@ public class OI {
         // manual control
         aA.and(aBack.negate()).whileTrue(new CollectorManualControl());
         aB.and(aBack.negate()).whileTrue(new CollectorManualControl().alongWith(new IndexerManualControl())); // used when sensors fail
+        aStart.and(aBack).toggleOnTrue(new ToggleManualControl());
 
         //wrist
         aDPadUp.and(aStart.negate()).onTrue(new InstantCommand(Robot.wrist::setWristFarPosition));
@@ -155,9 +160,9 @@ public class OI {
 //        aLTrigger.onTrue(new AmpShoot().andThen(new InstantCommand(Robot.wrist::setWristCollect)); // shoots and returns to home
 //        aY.and(aBack.negate()).whileTrue(new LoadFromSource());
 
-//        aBack.and(aA).onTrue(new RaiseCLimberToTop());
-//        aBack.and(aX).onTrue(new RaiseElevatorToTop());
-//        aBack.and(aY).onTrue(new LowerClimberAndElevator());
+        aBack.and(aA).onTrue(new RaiseClimberToTop());
+        aBack.and(aX).onTrue(new RaiseElevatorToTop());
+        aBack.and(aY).onTrue(new LowerClimberAndElevator());
         aBack.and(aB).onTrue(new TrapShoot().withTimeout(3));
 
         aStart.and(aDPadUp).whileTrue(new WristAngleUp());

@@ -20,6 +20,7 @@ public class TrapShoot extends Command {
         stopFlyWheel = false;
         finished = false;
         counter = 0;
+        Robot.wrist.PIDKill();
     }
 
     // Called every time the scheduler runs (~20ms) while the command is scheduled

@@ -31,5 +31,6 @@ public class ForceShoot extends Command {
     @Override
     public void end(boolean interrupted) {
         Robot.indexer.stopIndexerCoast();
+        Robot.wrist.setWristCollectPosition();
     }
 }

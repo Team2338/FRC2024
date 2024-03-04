@@ -3,42 +3,88 @@ package team.gif.robot.subsystems;
 import com.revrobotics.CANSparkBase;
 import com.revrobotics.CANSparkLowLevel;
 import com.revrobotics.CANSparkMax;
-import com.revrobotics.SparkAbsoluteEncoder;
 import com.revrobotics.SparkPIDController;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import team.gif.robot.Constants;
+import team.gif.robot.Robot;
 import team.gif.robot.RobotMap;
 
 public class Elevator extends SubsystemBase {
-    public static CANSparkMax elevator;
-    public static SparkPIDController pidElevator;
+    public static CANSparkMax motor;
+    public static SparkPIDController pidController;
+    public static double targetPosition;
 
     public Elevator(){
-        elevator = new CANSparkMax(RobotMap.ELEVATOR_ID, CANSparkLowLevel.MotorType.kBrushless);
+        motor = new CANSparkMax(RobotMap.ELEVATOR_ID, CANSparkLowLevel.MotorType.kBrushless);
+        config();
+
+        targetPosition = motor.getEncoder().getPosition();
     }
 
-    public double getPosition(){
-        return elevator.getAbsoluteEncoder(SparkAbsoluteEncoder.Type.kDutyCycle).getPosition();
+    public void setTargetPosition(double pos) {
+        targetPosition = pos;
+    }
+
+    public double getPosition() {
+        return motor.getEncoder().getPosition();
+    }
+
+    public void resetPosition() {
+        motor.getEncoder().setPosition(0);
+        targetPosition = 0;
     }
 
     /**
-     *  All the config setting for Shooter (controller, pid)
+     * Used to move elevator in manual mode, using joystick % is input
+     * @param percent
      */
-    public void configElevator() {
-//        shooterNeo.restoreFactoryDefaults(); // Leave for shooter Neo
-//        shooterNeo.setInverted(true); // Leave for shooter Neo
-//        shooterNeo.setIdleMode(CANSparkBase.IdleMode.kCoast); // Leave for shooter Neo
+    public void move(double percent) {
+        // soft limits will keep the robot arm in allowable range
+        motor.set(percent);
+    }
 
-        elevator.restoreFactoryDefaults();
-        elevator.setInverted(true);
-        elevator.setIdleMode(CANSparkBase.IdleMode.kBrake);
+    public void PIDHold() {
+        System.out.println("target " + targetPosition);
+//        move(0.03); // used for percent hold
+        motor.getPIDController().setReference(targetPosition,CANSparkBase.ControlType.kPosition);
+    }
 
-//        pidShooter = shooterNeo.getPIDController(); // Leave for shooter Neo
-        pidElevator = elevator.getPIDController();
+    public String getPosition_Shuffleboard() {
+        return String.format("%12.3f", getPosition());
+    }
 
-        pidElevator.setP(Constants.Elevator.kP);
-        pidElevator.setFF(Constants.Elevator.FF);
-        pidElevator.setI(Constants.Elevator.kI);
-        pidElevator.setOutputRange(0,1);
+    public double getMotorTemp() {
+        return motor.getMotorTemperature();
+    }
+
+    public boolean isMotorCool() {
+        return getMotorTemp() <= Constants.MotorTemps.ELEVATOR_MOTOR_TEMP;
+    }
+
+    /**
+     *  All the config setting for Elevator (controller, pid)
+     */
+    public void config() {
+        motor.restoreFactoryDefaults();
+        motor.setIdleMode(CANSparkBase.IdleMode.kBrake);
+        motor.enableVoltageCompensation(12);
+        motor.setSoftLimit(CANSparkBase.SoftLimitDirection.kForward,(float) Constants.Elevator.LIMIT_MAX);
+        motor.setSoftLimit(CANSparkBase.SoftLimitDirection.kReverse,(float) Constants.Elevator.LIMIT_MIN);
+        motor.enableSoftLimit(CANSparkBase.SoftLimitDirection.kForward,true);
+        motor.enableSoftLimit(CANSparkBase.SoftLimitDirection.kReverse,true);
+
+        motor.setInverted(false);
+
+        pidController = motor.getPIDController();
+        pidController.setFF(Constants.Elevator.FF);
+        pidController.setP(Constants.Elevator.kP);
+        pidController.setI(Constants.Elevator.kI);
+        pidController.setFF(Constants.Elevator.kD);
+        pidController.setOutputRange(0,1);
+    }
+
+    public void enableSoftLimits(boolean enable) {
+        motor.enableSoftLimit(CANSparkBase.SoftLimitDirection.kForward,enable);
+        motor.enableSoftLimit(CANSparkBase.SoftLimitDirection.kReverse,enable);
     }
 }

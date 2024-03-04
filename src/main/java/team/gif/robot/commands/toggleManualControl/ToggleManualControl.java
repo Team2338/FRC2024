@@ -2,8 +2,12 @@ package team.gif.robot.commands.toggleManualControl;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import team.gif.robot.Robot;
+import team.gif.robot.commands.climber.ClimberManualControl;
+import team.gif.robot.commands.climber.ClimberPIDControl;
+import team.gif.robot.commands.elevator.ElevatorManualControl;
 
 public class ToggleManualControl extends Command {
+
     public ToggleManualControl() {
         super();
         //addRequirements(Robot.climber); // uncomment
@@ -12,8 +16,11 @@ public class ToggleManualControl extends Command {
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
-        Robot.indexer.indexerManualFlag = true;
-        Robot.collector.collectorManualControl = true;
+        Robot.manualControlMode = true;
+        new ClimberManualControl().schedule();
+        Robot.climber.setDefaultCommand(new ClimberPIDControl());
+
+        new ElevatorManualControl().schedule();
     }
 
     // Called every time the scheduler runs (~20ms) while the command is scheduled
@@ -29,7 +36,8 @@ public class ToggleManualControl extends Command {
     // Called when the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
-        Robot.indexer.indexerManualFlag = false;
-        Robot.collector.collectorManualControl = false;
+        Robot.manualControlMode = false;
+        Robot.climber.removeDefaultCommand();
+        Robot.climber.getDefaultCommand().cancel();
     }
 }

@@ -4,7 +4,14 @@ public enum autoMode {
     NONE(0),
     MOBILITY(0),
     CIRCLE(0),
-    CTR_C(0)
+    TWO_CTR_C(0),
+    TWO_SRC_7(0),
+    TWO_SRC_8(0),
+    TWO_SRC_S(0),
+    THREE_AMP_A_4_5(0),
+    THREE_W_8_7(0),
+    FOUR_AMP_A_C_S(0),
+    FIVE_SRC_S_C_A_4(0),
     ;
 
     private int value;
