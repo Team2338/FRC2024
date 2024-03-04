@@ -114,6 +114,8 @@ public class Robot extends TimedRobot {
             practiceDrivetrain.enableShuffleboardDebug("FRC2024");
         }
 
+        nextShot = shootParams.WALL;
+
         shooter = new Shooter();
 
         try {
@@ -145,6 +147,7 @@ public class Robot extends TimedRobot {
 
         manualControlMode = false;
         runningAutonomousMode = false;
+
     }
 
     /**

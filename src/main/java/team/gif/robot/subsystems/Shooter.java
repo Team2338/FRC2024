@@ -21,7 +21,6 @@ public class Shooter extends SubsystemBase {
     public Shooter() {
 //        shooterNeo = new CANSparkMax(RobotMap.SHOOTER_ID, CANSparkLowLevel.MotorType.kBrushless); // Leave for shooter Neo
         shooter = new CANSparkFlex(RobotMap.SHOOTER_ID, CANSparkLowLevel.MotorType.kBrushless);
-//        nextShot = shootParams.NEAR;
         configShooter();
     }
 
