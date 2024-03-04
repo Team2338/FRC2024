@@ -114,7 +114,7 @@ public class Wrist extends SubsystemBase {
      * Moves shooter rotation to the Far setpoint defined in constants.java
      */
     public void setWristFarPosition() {
-        targetPosition = Constants.Wrist.SETPOINT_FAR_ABSOLUTE;
+//        targetPosition = Constants.Wrist.SETPOINT_FAR_ABSOLUTE;
         Robot.nextShot = shootParams.FAR;
     }
 
@@ -122,7 +122,7 @@ public class Wrist extends SubsystemBase {
      * Moves shooter rotation to the Mid setpoint defined in constants.java
      */
     public void setWristMidPosition() {
-        targetPosition = Constants.Wrist.SETPOINT_MID_ABSOLUTE;
+//        targetPosition = Constants.Wrist.SETPOINT_MID_ABSOLUTE;
         Robot.nextShot = shootParams.MID;
     }
 
@@ -130,7 +130,7 @@ public class Wrist extends SubsystemBase {
      * Moves shooter rotation to the Near setpoint defined in constants.java
      */
     public void setWristNearPosition() {
-        targetPosition = Constants.Wrist.SETPOINT_NEAR_ABSOLUTE;
+//        targetPosition = Constants.Wrist.SETPOINT_NEAR_ABSOLUTE;
         Robot.nextShot = shootParams.NEAR;
     }
 
@@ -138,7 +138,7 @@ public class Wrist extends SubsystemBase {
      * Moves shooter rotation to the Wall setpoint defined in constants.java
      */
     public void setWristWallPosition() {
-        targetPosition = Constants.Wrist.SETPOINT_WALL_ABSOLUTE;
+//        targetPosition = Constants.Wrist.SETPOINT_WALL_ABSOLUTE;
         Robot.nextShot = shootParams.WALL;
     }
 

@@ -22,7 +22,7 @@ public class WristAnglePIDControl extends Command {
     @Override
     public void execute() {
         if (Robot.wrist.getPosition() < Constants.Wrist.KILL_LIMIT_ABSOLUTE) {
-//            Robot.wrist.PIDWristMove(); // SO that it doesn't move until the revFlyWheel
+            Robot.wrist.PIDWristMove(); // SO that it doesn't move until the revFlyWheel
         } else {
             // defensive code in case shooter over rotates
             Robot.wrist.PIDKill();

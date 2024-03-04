@@ -20,7 +20,7 @@ public class RevFlyWheels extends Command {
     @Override
     public void execute() {
 //        Robot.wrist.setWristNearPosition(); // ToDo temp test - need to combine position with rev flywheel to reduce buttons required
-        Robot.wrist.PIDWristMove();
+        Robot.wrist.setTargetPosition(Robot.nextShot.getWristAngle());
         Robot.shooter.setShooterRPM(Robot.nextShot.getShooterRPM());
     }
 
