@@ -10,7 +10,9 @@ import com.revrobotics.CANSparkLowLevel;
 import com.revrobotics.CANSparkMax;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import team.gif.lib.shootParams;
 import team.gif.robot.Constants;
+import team.gif.robot.Robot;
 import team.gif.robot.RobotMap;
 
 public class Wrist extends SubsystemBase {
@@ -48,7 +50,11 @@ public class Wrist extends SubsystemBase {
      * @param percent  The percentage of motor power
      */
     public void moveWristPercentPower(double percent) {
-        wristController.set(percent);
+        if(getPosition() < Constants.Wrist.KILL_LIMIT_ABSOLUTE) {
+            wristController.set(percent);
+        } else {
+            wristController.set(0);
+        }
     }
 
     /**
@@ -112,28 +118,32 @@ public class Wrist extends SubsystemBase {
      * Moves shooter rotation to the Far setpoint defined in constants.java
      */
     public void setWristFarPosition() {
-        targetPosition = Constants.Wrist.SETPOINT_FAR_ABSOLUTE;
+//        targetPosition = Constants.Wrist.SETPOINT_FAR_ABSOLUTE;
+        Robot.nextShot = shootParams.FAR;
     }
 
     /**
      * Moves shooter rotation to the Mid setpoint defined in constants.java
      */
     public void setWristMidPosition() {
-        targetPosition = Constants.Wrist.SETPOINT_MID_ABSOLUTE;
+//        targetPosition = Constants.Wrist.SETPOINT_MID_ABSOLUTE;
+        Robot.nextShot = shootParams.MID;
     }
 
     /**
      * Moves shooter rotation to the Near setpoint defined in constants.java
      */
     public void setWristNearPosition() {
-        targetPosition = Constants.Wrist.SETPOINT_NEAR_ABSOLUTE;
+//        targetPosition = Constants.Wrist.SETPOINT_NEAR_ABSOLUTE;
+        Robot.nextShot = shootParams.NEAR;
     }
 
     /**
      * Moves shooter rotation to the Wall setpoint defined in constants.java
      */
     public void setWristWallPosition() {
-        targetPosition = Constants.Wrist.SETPOINT_WALL_ABSOLUTE;
+//        targetPosition = Constants.Wrist.SETPOINT_WALL_ABSOLUTE;
+        Robot.nextShot = shootParams.WALL;
     }
 
     public void setWristCollectPosition() {
@@ -160,6 +170,12 @@ public class Wrist extends SubsystemBase {
         pidWrist.setP(0.0);
         pidWrist.setI(0.0);
         pidWrist.setD(0.0);
+    }
+
+    public void PIDEnable() {
+        pidWrist.setP(Constants.Wrist.kP);
+        pidWrist.setI(Constants.Wrist.kI);
+        pidWrist.setD(Constants.Wrist.kD);
     }
 
     public double getWristMotorTemp() {

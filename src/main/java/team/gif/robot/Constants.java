@@ -272,6 +272,31 @@ public final class Constants {
         public static final double FF = 0.000155;//0.000130; //0.000155; // gets to 6100    // 0.000130;  // 5800 RPM
         public static final double kP = 0.00030;//0.00055;//0.0100;               // 0.0006;    // 5800 RPM
         public static final double kI = 0.000;//0.001;               // 0.0000015; // 5800 RPM
+
+        //Wall
+        public static final double RPM_WALL = 4000;
+        public static final double FF_WALL = 0.000155; // gets to 6100    // 0.000130;  // 5800 RPM
+        public static final double kP_WALL = 0.00030;//0.0100;               // 0.0006;    // 5800 RPM
+        public static final double kI_WALL = 0.000;//0.001;               // 0.0000015; // 5800 RPM
+
+        //Near
+        public static final double RPM_NEAR = 4000;
+        public static final double FF_NEAR = 0.000155; // gets to 6100    // 0.000130;  // 5800 RPM
+        public static final double kP_NEAR = 0.00030;//0.0100;               // 0.0006;    // 5800 RPM
+        public static final double kI_NEAR = 0.000;//0.001;               // 0.0000015; // 5800 RPM
+
+        //Mid
+        public static final double RPM_MID = 4000;
+        public static final double FF_MID = 0.000155; // gets to 6100    // 0.000130;  // 5800 RPM
+        public static final double kP_MID = 0.00030;//0.0100;               // 0.0006;    // 5800 RPM
+        public static final double kI_MID = 0.000;//0.001;               // 0.0000015; // 5800 RPM
+
+        //Far
+        public static final double RPM_FAR = 4000;
+        public static final double FF_FAR = 0.000155; // gets to 6100    // 0.000130;  // 5800 RPM
+        public static final double kP_FAR = 0.00030;//0.0100;               // 0.0006;    // 5800 RPM
+        public static final double kI_FAR = 0.000;//0.001;               // 0.0000015; // 5800 RPM
+
     }
 
     public static final class Wrist { // tuned 02/22
@@ -327,23 +352,24 @@ public final class Constants {
 
     public static final class Elevator {
         public static final double FF = .00;
-        public static final double kP = 0.0;//1.80;
+        public static final double kP = 0.03;//1.80;
+        public static final double kP_DOWN = 0.03;
         public static final double kI = 0.0;
         public static final double kD = 0.0;
-        public static final double LIMIT_MAX = 56.500;
+        public static final double LIMIT_MAX = 57.500;
         public static final double LIMIT_MIN = 0;
 
         public static final double SAFE_STAGE = 1.0; //TODO: needs tuning
-        public static final double TRAP_POS = 54.500;
+        public static final double TRAP_POS = 52.500;
     }
 
     public static final class Climber {
-        public static final double FF = 0.0;
-        public static final double kP = 0.0;
+        public static final double FF = 0.0003;
+        public static final double kP = 0.00000003;
         public static final double kI = 0.0;
         public static final double kD = 0.0;
-        public static final double LIMIT_MAX = 163.35;
-        public static final double LIMIT_MIN = -163.35; // TODO: needs tuning
+        public static final double LIMIT_MAX = 150; //163.35; is max setting 150 letting to over run
+        public static final double LIMIT_MIN = -210;//-163.35; is min is correct // TODO: needs tuning
 
         public static final double SAFE_STAGE_POS = 0.119;
         public static final double TRAP_POS = LIMIT_MIN;

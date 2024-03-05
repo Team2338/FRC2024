@@ -83,6 +83,10 @@ public class Elevator extends SubsystemBase {
         pidController.setOutputRange(0,1);
     }
 
+    public void set_kP(double kP) {
+        pidController.setP(kP);
+    }
+
     public void enableSoftLimits(boolean enable) {
         motor.enableSoftLimit(CANSparkBase.SoftLimitDirection.kForward,enable);
         motor.enableSoftLimit(CANSparkBase.SoftLimitDirection.kReverse,enable);

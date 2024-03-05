@@ -15,6 +15,7 @@ import team.gif.lib.autoMode;
 import team.gif.lib.delay;
 import team.gif.lib.logging.EventFileLogger;
 import team.gif.lib.logging.TelemetryFileLogger;
+import team.gif.lib.shootParams;
 import team.gif.robot.commands.climber.ClimberPIDControl;
 import team.gif.robot.commands.collector.CollectorDefault;
 import team.gif.robot.commands.drivetrain.DriveSwerve;
@@ -72,6 +73,8 @@ public class Robot extends TimedRobot {
     public static Diagnostics diagnostics;
     public static LEDSubsystem ledSubsystem;
 
+    public static shootParams nextShot;
+
     public static boolean isCompBot = true; //includes 2023 bot
 
     public static boolean manualControlMode;
@@ -111,6 +114,8 @@ public class Robot extends TimedRobot {
             practiceDrivetrain.enableShuffleboardDebug("FRC2024");
         }
 
+        nextShot = shootParams.WALL;
+
         shooter = new Shooter();
 
         try {
@@ -142,6 +147,7 @@ public class Robot extends TimedRobot {
 
         manualControlMode = false;
         runningAutonomousMode = false;
+
     }
 
     /**

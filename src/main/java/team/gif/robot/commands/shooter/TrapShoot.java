@@ -29,7 +29,7 @@ public class TrapShoot extends Command {
         if (counter <= (0.25 * 50)) { // run the flywheel from start to 0.25 seconds after game piece leaves shooter
             Robot.shooter.setShooterRPM(Constants.Shooter.TRAP_RPM);
         } else {
-            Robot.shooter.setVoltagePercent(0);
+            Robot.shooter.stop();
         }
 
         // once shooterRPM gets to target, run the indexer
@@ -39,7 +39,8 @@ public class TrapShoot extends Command {
 
         // once we no longer have the game piece, rotate the shooter mechanism
         if(!Robot.indexer.getShooterSensorState()) {
-            if (counter <= (.3333*50)) { // rotate the shooter for 0.5 seconds // todo consider changing to using PID
+            //TODO: Stop before encoder reaches 1 and resets
+            if (counter <= (.4*50)) { // rotate the shooter for 0.5 seconds // todo consider changing to using PID
                 Robot.wrist.moveWristPercentPower(.3);//0.3);
             } else {
                 Robot.wrist.moveWristPercentPower(0);
@@ -62,6 +63,7 @@ public class TrapShoot extends Command {
         Robot.indexer.stopIndexerCoast();
         Robot.wrist.moveWristPercentPower(0);
         Robot.wrist.setTargetPosition(Robot.wrist.getPosition());
+        Robot.wrist.PIDEnable();
         Robot.shooter.setVoltagePercent(0);
     }
 }

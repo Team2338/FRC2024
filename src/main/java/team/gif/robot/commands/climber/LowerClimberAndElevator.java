@@ -7,33 +7,38 @@ import team.gif.robot.Robot;
 public class LowerClimberAndElevator extends Command {
     public LowerClimberAndElevator() {
         super();
-        addRequirements(Robot.elevator, Robot.climber);
+        addRequirements(Robot.climber);
     }
 
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
-        Robot.climber.setTargetPosition(Constants.Climber.TRAP_POS);
+//        Robot.climber.setTargetPosition(Constants.Climber.TRAP_POS);
+        Robot.elevator.set_kP(Constants.Elevator.kP_DOWN);
     }
 
     // Called every time the scheduler runs (~20ms) while the command is scheduled
     @Override
     public void execute() {
+        Robot.climber.move(-0.8);
+        if (Robot.climber.getPosition() < Constants.Climber.TRAP_MOVE_ELEVATOR_POS) {
+            Robot.elevator.setTargetPosition(Constants.Elevator.TRAP_POS);
+        }
     }
 
     // Return true when the command should end, false if it should continue. Runs every ~20ms.
     @Override
     public boolean isFinished() {
-        if (Robot.climber.getPosition() < Constants.Climber.TRAP_MOVE_ELEVATOR_POS) {
-            Robot.elevator.setTargetPosition(Constants.Elevator.TRAP_POS);
-            return true;
-        }
-        return false;
+        return Robot.climber.getPosition() < Constants.Climber.LIMIT_MIN;
+//        return false;
     }
 
     // Called when the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
-
+        Robot.climber.move(0);
+        Robot.climber.setTargetPosition(Robot.climber.getPosition());
+        Robot.climber.setDefaultCommand(new ClimberPIDControl());
+        Robot.elevator.set_kP(Constants.Elevator.kP);
     }
 }

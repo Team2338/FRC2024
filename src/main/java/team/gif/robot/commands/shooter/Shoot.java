@@ -45,8 +45,9 @@ public class Shoot extends Command {
     // Called every time the scheduler runs (~20ms) while the command is scheduled
     @Override
     public void execute() {
-        if (Robot.shooter.getShooterRPM() >= (Constants.Shooter.REV_RPM * .98) ||
-                (Robot.runningAutonomousMode && autonCounter++ > 1.0*50)) { //allow tolerance
+        Robot.wrist.setTargetPosition(Robot.nextShot.getWristAngle());
+        if (Robot.shooter.getShooterRPM() >= (Constants.Shooter.REV_RPM * .98) &&
+                Robot.wrist.absoluteToDegrees(Robot.wrist.getPosition()) <= (Robot.nextShot.getWristAngle()*.98)) { //allow tolerance
             //this may need to move down to line 48
             Robot.indexer.setIndexer(0, Constants.Indexer.INDEXER_TWO_SHOOT_PERC);
             isFiring = true;
