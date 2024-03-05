@@ -9,8 +9,6 @@ import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.math.util.Units;
 
-import javax.swing.plaf.PanelUI;
-
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
  * constants. This class should not be used for any other purpose. All constants should be declared
@@ -328,7 +326,7 @@ public final class Constants {
         public static final double SETPOINT_WALL_ABSOLUTE = (49.0 - MIN_LIMIT_DEGREES) * ABSOLUTE_PER_DEGREE + MIN_LIMIT_ABSOLUTE; // number in degrees, value in absolute
         public static final double SETPOINT_COLLECT_ABSOLUTE = (48.0 - MIN_LIMIT_DEGREES) * ABSOLUTE_PER_DEGREE + MIN_LIMIT_ABSOLUTE; // number in degrees, value in absolute
 
-        public static final double SAFE_STAGE_DEGREES = 53;
+        public static final double SAFE_STAGE_DEGREES = 50;
     }
 
     public static final class Indexer { // ToDo tune - remove when done
@@ -359,7 +357,7 @@ public final class Constants {
         public static final double LIMIT_MAX = 57.500;
         public static final double LIMIT_MIN = 0;
 
-        public static final double SAFE_STAGE = 1.0; //TODO: needs tuning
+        public static final double SAFE_STAGE_POS = 0.4;
         public static final double TRAP_POS = 52.500;
     }
 
@@ -371,7 +369,7 @@ public final class Constants {
         public static final double LIMIT_MAX = 150; //163.35; is max setting 150 letting to over run
         public static final double LIMIT_MIN = -210;//-163.35; is min is correct // TODO: needs tuning
 
-        public static final double SAFE_STAGE_POS = 0.119;
+        public static final double SAFE_STAGE_POS = 1.200;
         public static final double TRAP_POS = LIMIT_MIN;
         public static final double TRAP_MOVE_ELEVATOR_POS = 100.00;
     }

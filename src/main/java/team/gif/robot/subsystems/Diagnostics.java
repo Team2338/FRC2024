@@ -57,8 +57,8 @@ public class Diagnostics extends SubsystemBase {
 
         // all the conditions to indicate the robot can drive under the stage safely
         result = (Robot.wrist.getPosition() <= Robot.wrist.degreesToAbsolute(Constants.Wrist.SAFE_STAGE_DEGREES)) &&
-                 (Robot.climber.getPosition() < Constants.Climber.SAFE_STAGE_POS) &&
-                 (Robot.elevator.getPosition() < Constants.Elevator.SAFE_STAGE);
+                 (Robot.climber.getPosition() <= Constants.Climber.SAFE_STAGE_POS) &&
+                 (Robot.elevator.getPosition() <= Constants.Elevator.SAFE_STAGE_POS);
 
         // set the LEDs accordingly
         if (result) {

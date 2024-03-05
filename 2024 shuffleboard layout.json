@@ -260,6 +260,19 @@
               "_glyph": 148,
               "_showGlyph": false
             }
+          },
+          "7,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///Shuffleboard/FRC2024/Wrist Degrees",
+              "_title": "Wrist Degrees",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
           }
         }
       }
