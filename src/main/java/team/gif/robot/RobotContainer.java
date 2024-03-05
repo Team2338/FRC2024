@@ -33,7 +33,7 @@ public class RobotContainer {
 
     /** The container for the robot. Contains subsystems, OI devices, and commands. */
     public RobotContainer() {
-        NamedCommands.registerCommand("AutonRevFlywheel", new RevFlyWheels());
+        NamedCommands.registerCommand("AutonRevFlywheel", new RevFlyWheels(true));
         NamedCommands.registerCommand("AutonShoot", new InstantCommand(Robot.wrist::setWristWallPosition).andThen(new Shoot(true)));
         NamedCommands.registerCommand("AutonWristMid", new InstantCommand(Robot.wrist::setWristNearPosition));
         NamedCommands.registerCommand("AutonWristMidShoot", new Shoot(true));

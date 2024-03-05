@@ -25,7 +25,6 @@ public class RevFlyWheels extends Command {
     // Called every time the scheduler runs (~20ms) while the command is scheduled
     @Override
     public void execute() {
-//        Robot.wrist.setWristNearPosition(); // ToDo temp test - need to combine position with rev flywheel to reduce buttons required
         Robot.wrist.setTargetPosition(Robot.nextShot.getWristAngle());
         Robot.shooter.setShooterRPM(Robot.nextShot.getShooterRPM());
     }

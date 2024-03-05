@@ -161,7 +161,7 @@ public class Wrist extends SubsystemBase {
     public String getTargetPosition_Shuffleboard() {
         return String.format("%3.3f", targetPosition);
     }
-    
+
     /**
      * Get the current error of the arm PID
      * @return the current error of the arm PID
