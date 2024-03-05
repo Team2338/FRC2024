@@ -8,20 +8,20 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.409675605065496,
-        "y": 4.130789215864146
+        "x": 1.2069872572793579,
+        "y": 4.02278912819934
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 2.699662542182228,
-        "y": 4.09
+        "x": 2.6,
+        "y": 4.12
       },
       "prevControl": {
-        "x": 1.2190572952574483,
-        "y": 4.06068108421931
+        "x": 2.295727180018157,
+        "y": 4.12
       },
       "nextControl": null,
       "isLocked": false,
@@ -30,26 +30,52 @@
   ],
   "rotationTargets": [
     {
-      "waypointRelativePos": 0.4,
-      "rotationDegrees": 0,
+      "waypointRelativePos": 0,
+      "rotationDegrees": -60.0,
+      "rotateFast": false
+    },
+    {
+      "waypointRelativePos": 0.3,
+      "rotationDegrees": 0.0,
       "rotateFast": false
     }
   ],
   "constraintZones": [],
-  "eventMarkers": [],
+  "eventMarkers": [
+    {
+      "name": "New Event Marker",
+      "waypointRelativePos": 0.5,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "AutonWristMid"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
   "globalConstraints": {
     "maxVelocity": 0.75,
     "maxAcceleration": 2.0,
-    "maxAngularVelocity": 15.0,
-    "maxAngularAcceleration": 50.0
+    "maxAngularVelocity": 50.0,
+    "maxAngularAcceleration": 150.0
   },
   "goalEndState": {
     "velocity": 0,
     "rotation": 0,
-    "rotateFast": false
+    "rotateFast": true
   },
   "reversed": false,
   "folder": "2SRC+S",
-  "previewStartingState": null,
+  "previewStartingState": {
+    "rotation": -60.0,
+    "velocity": 0
+  },
   "useDefaultConstraints": false
 }

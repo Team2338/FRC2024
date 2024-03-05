@@ -18,16 +18,9 @@
           }
         },
         {
-          "type": "parallel",
+          "type": "path",
           "data": {
-            "commands": [
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "SRC-S-Away"
-                }
-              }
-            ]
+            "pathName": "SRC-S-Away"
           }
         },
         {
@@ -39,7 +32,13 @@
         {
           "type": "named",
           "data": {
-            "name": "AutonShoot"
+            "name": "AutonRotate"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "AutonWristMidShoot"
           }
         }
       ]

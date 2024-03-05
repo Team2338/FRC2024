@@ -3,7 +3,6 @@ package team.gif.robot.commands.toggleManualControl;
 import edu.wpi.first.wpilibj2.command.Command;
 import team.gif.robot.Robot;
 import team.gif.robot.commands.climber.ClimberManualControl;
-import team.gif.robot.commands.climber.ClimberPIDControl;
 import team.gif.robot.commands.elevator.ElevatorManualControl;
 
 public class ToggleManualControl extends Command {
@@ -18,7 +17,7 @@ public class ToggleManualControl extends Command {
     public void initialize() {
         Robot.manualControlMode = true;
         new ClimberManualControl().schedule();
-        Robot.climber.setDefaultCommand(new ClimberPIDControl());
+//        Robot.climber.setDefaultCommand(new ClimberPIDControl());
 
         new ElevatorManualControl().schedule();
     }
@@ -37,7 +36,7 @@ public class ToggleManualControl extends Command {
     @Override
     public void end(boolean interrupted) {
         Robot.manualControlMode = false;
-        Robot.climber.removeDefaultCommand();
-        Robot.climber.getCurrentCommand().cancel();
+//        Robot.climber.removeDefaultCommand();
+//        Robot.climber.getCurrentCommand().cancel();
     }
 }

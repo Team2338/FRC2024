@@ -26,9 +26,8 @@ public class AutoRotate extends Command {
 
         if (Robot.limelightShooter.hasTarget()) {
             xOffset = Robot.limelightShooter.getXOffset();
-            if (xOffset < -2.0 || xOffset > 2.0) {
-//                System.out.println( (xOffset>0?-1:1)*(ffGain+pGain*Math.abs(xOffset)));
-                System.out.println(xOffset);
+//            System.out.println( "xoffset: " + xOffset + "rot: " + (xOffset>0?-1:1)*(ffGain+pGain*Math.abs(xOffset)));
+            if (xOffset <= -2.0 || xOffset >= 2.0) {
                 Robot.swerveDrivetrain.drive(0,0,(xOffset>0?-1:1)*(ffGain+pGain*Math.abs(xOffset)));
             } else {
                 isComplete = true;

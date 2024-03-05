@@ -5,8 +5,8 @@ import team.gif.robot.Robot;
 
 public class ClimberManualControl extends Command {
 
-    private boolean holdNeedFirstPID;
-    private double holdPIDPos;
+//    private boolean holdNeedFirstPID;
+//    private double holdPIDPos;
 
     public ClimberManualControl() {
         super();
@@ -16,8 +16,8 @@ public class ClimberManualControl extends Command {
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
-        holdNeedFirstPID = false;
-        holdPIDPos = Robot.climber.getPosition();
+//        holdNeedFirstPID = false;
+//        holdPIDPos = Robot.climber.getPosition();
     }
 
     // Called every time the scheduler runs (~20ms) while the command is scheduled
@@ -32,14 +32,16 @@ public class ClimberManualControl extends Command {
         }
 
         if (percent > -0.15 && percent < 0.15) { // creates a dead band around the joystick
-            if( holdNeedFirstPID ) {
-                holdPIDPos = Robot.climber.getPosition();
-                holdNeedFirstPID = false;
-            }
-            Robot.climber.setTargetPosition(holdPIDPos);
-            Robot.climber.PIDHold();
+//            if( holdNeedFirstPID ) {
+//                holdPIDPos = Robot.climber.getPosition();
+//                holdNeedFirstPID = false;
+//            }
+//            Robot.climber.setTargetPosition(holdPIDPos);
+//            Robot.climber.PIDHold();
+            Robot.climber.move(0);
+
         } else {
-            holdNeedFirstPID = true;
+//            holdNeedFirstPID = true;
             Robot.climber.move(percent);
         }
 

@@ -132,7 +132,7 @@ public class OI {
 
         // calibrations
         dStart.and(dDPadUp).onTrue(new InstantCommand(Robot.pigeon::resetPigeonPosition).ignoringDisable(true));
-//        dStart.and(dDPadLeft).onTrue(new InstantCommand(Robot.elevator::resetPosition));
+        dStart.and(dDPadLeft).onTrue(new InstantCommand(Robot.elevator::resetPosition).ignoringDisable(true));
         dStart.and(dDPadRight).onTrue(new InstantCommand(Robot.climber::resetPosition).ignoringDisable(true));
         dStart.and(dDPadDown).toggleOnTrue(new ToggleCollectorDefault());
         dStart.and(dBack).onTrue(new CalibrateAngle());
