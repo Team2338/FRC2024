@@ -56,7 +56,13 @@ public class DriveSwerve extends Command {
             //Forward speed, Sideways speed, Rotation Speed
             forward = forwardLimiter.calculate(forward) * Constants.ModuleConstants.TELE_DRIVE_MAX_SPEED_METERS_PER_SECOND;
             strafe = strafeLimiter.calculate(strafe) * Constants.ModuleConstants.TELE_DRIVE_MAX_SPEED_METERS_PER_SECOND;
-            rot = turnLimiter.calculate(rot) * Constants.ModuleConstants.TELE_DRIVE_MAX_ANGULAR_SPEED_RADIANS_PER_SECOND;
+
+            if (Robot.oi.driver.getHID().getRightStickButton()) {
+                // use limelight target for rotation
+                rot = limelightRotate(forward, strafe);
+            } else {
+                rot = turnLimiter.calculate(rot) * Constants.ModuleConstants.TELE_DRIVE_MAX_ANGULAR_SPEED_RADIANS_PER_SECOND;
+            }
 
             // the robot starts facing the driver station so for this year negating y and x
             Robot.swerveDrivetrain.drive(forward, strafe, rot);
@@ -69,5 +75,30 @@ public class DriveSwerve extends Command {
     @Override
     public boolean isFinished() {
         return false;
+    }
+
+    private double limelightRotate(double forward, double strafe) {
+        double xOffset;
+        double pGain = 0.012;
+        double ffGain = 0.10;
+        double result;
+        double strafeAdjust;
+
+//        System.out.println("fwd: " + forward + " strafe: " + strafe);
+        if (Robot.limelightShooter.hasTarget()) {
+            xOffset = Robot.limelightShooter.getXOffset();
+
+            if (xOffset <= -2.0 || xOffset >= 2.0) {
+                if (Math.abs(strafe) < 0.3) {
+                    result = (xOffset > 0 ? -1 : 1) * (ffGain + pGain * Math.abs(xOffset));
+                    System.out.println("stationary");
+                }  else {
+                    result = (xOffset > 0 ? -1 : 1) * (ffGain + (9.0 * strafe * strafe) * pGain * Math.abs(xOffset));
+                System.out.println("rot: " + result);
+                }
+                return (result);
+            }
+        }
+        return 0;
     }
 }
