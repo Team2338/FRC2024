@@ -50,7 +50,11 @@ public class Wrist extends SubsystemBase {
      * @param percent  The percentage of motor power
      */
     public void moveWristPercentPower(double percent) {
-        wristController.set(percent);
+        if(getPosition() < Constants.Wrist.KILL_LIMIT_ABSOLUTE) {
+            wristController.set(percent);
+        } else {
+            wristController.set(0);
+        }
     }
 
     /**
@@ -166,6 +170,12 @@ public class Wrist extends SubsystemBase {
         pidWrist.setP(0.0);
         pidWrist.setI(0.0);
         pidWrist.setD(0.0);
+    }
+
+    public void PIDEnable() {
+        pidWrist.setP(Constants.Wrist.kP);
+        pidWrist.setI(Constants.Wrist.kI);
+        pidWrist.setD(Constants.Wrist.kD);
     }
 
     public double getWristMotorTemp() {

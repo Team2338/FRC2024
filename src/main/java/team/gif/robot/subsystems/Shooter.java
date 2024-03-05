@@ -40,7 +40,7 @@ public class Shooter extends SubsystemBase {
     }
 
     public void stop() {
-        shooter.set(0);
+        shooter.setVoltage(0);
     }
 
     public String getShooterRPM_Shuffleboard() {

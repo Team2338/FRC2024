@@ -44,7 +44,7 @@ public class Elevator extends SubsystemBase {
     }
 
     public void PIDHold() {
-        System.out.println("target " + targetPosition);
+//        System.out.println("target " + targetPosition);
 //        move(0.03); // used for percent hold
         motor.getPIDController().setReference(targetPosition,CANSparkBase.ControlType.kPosition);
     }
@@ -81,6 +81,10 @@ public class Elevator extends SubsystemBase {
         pidController.setI(Constants.Elevator.kI);
         pidController.setFF(Constants.Elevator.kD);
         pidController.setOutputRange(0,1);
+    }
+
+    public void set_kP(double kP) {
+        pidController.setP(kP);
     }
 
     public void enableSoftLimits(boolean enable) {
