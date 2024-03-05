@@ -38,6 +38,6 @@ public class ToggleManualControl extends Command {
     public void end(boolean interrupted) {
         Robot.manualControlMode = false;
         Robot.climber.removeDefaultCommand();
-        Robot.climber.getDefaultCommand().cancel();
+        Robot.climber.getCurrentCommand().cancel();
     }
 }
