@@ -56,9 +56,9 @@ public class Diagnostics extends SubsystemBase {
         boolean result;
 
         // all the conditions to indicate the robot can drive under the stage safely
-        result = (Robot.wrist.getPosition() <= Robot.wrist.degreesToAbsolute(Constants.Wrist.SAFE_STAGE_DEGREES)) &&
-                 (Robot.climber.getPosition() <= Constants.Climber.SAFE_STAGE_POS) &&
-                 (Robot.elevator.getPosition() <= Constants.Elevator.SAFE_STAGE_POS);
+        result = getSafeStageWrist() &&
+                 getSafeStageClimber() &&
+                 getSafeStageElevator();
 
         // set the LEDs accordingly
         if (result) {
@@ -70,6 +70,17 @@ public class Diagnostics extends SubsystemBase {
         return result;
     }
 
+    public boolean getSafeStageWrist() {
+        return Robot.wrist.getPosition() <= Robot.wrist.degreesToAbsolute(Constants.Wrist.SAFE_STAGE_DEGREES);
+    }
+
+    public boolean getSafeStageClimber() {
+        return Robot.climber.getPosition() <= Constants.Climber.SAFE_STAGE_POS;
+    }
+
+    public boolean getSafeStageElevator() {
+        return Robot.elevator.getPosition() <= Constants.Elevator.SAFE_STAGE_POS;
+    }
     /**
      *  General purpose method to let other subsystems know if the robot has a note
      * @return true if the robot has a note, false of not

@@ -1,9 +1,14 @@
 package team.gif.robot;
 
+import edu.wpi.first.wpilibj.shuffleboard.BuiltInLayouts;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardContainer;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardLayout;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+
+import java.util.Map;
 
 import static team.gif.robot.Robot.climber;
 import static team.gif.robot.Robot.elevator;
@@ -12,29 +17,43 @@ public class UI {
     public UI() {
         ShuffleboardTab shuffleboardTab = Shuffleboard.getTab("FRC2024");
 
-//        shuffleboardTab.addDouble("Shooter Voltage", Robot.shooter::getVoltage);
+        ShuffleboardLayout safeStageNumbers = shuffleboardTab
+                .getLayout("Positions", BuiltInLayouts.kList)
+                .withSize(1, 2)
+                .withPosition(4,1)
+                .withProperties(Map.of("Label position", "LEFT")); // hide labels for commands
 
-//        shuffleboardTab.addString("Shooter RPM", Robot.shooter::getShooterRPM_Shuffleboard);
-        shuffleboardTab.addDouble("Shooter RPM", Robot.shooter::getShooterRPM);
+        safeStageNumbers.addString("Wrist", Robot.wrist::getWristDegrees_Shuffleboard);
+        safeStageNumbers.addString("Elev", Robot.elevator::getPosition_Shuffleboard);
+        safeStageNumbers.addString("Climb", Robot.climber::getPosition_Shuffleboard);
 
-//        SmartDashboard.putData("Reset", new Reset0());
-//        SmartDashboard.putData("Reset 180", new Reset180());
+        shuffleboardTab.addBoolean("Stage Safe", Robot.diagnostics::getSafeToDriveUnderStage).withPosition(5,0);
 
-        shuffleboardTab.addBoolean("Collector Sensor", Robot.collector::getSensorState);
-        shuffleboardTab.addBoolean("Shooter Sensor", Robot.indexer::getShooterSensorState);
-        shuffleboardTab.addBoolean("Mid Sensor", Robot.indexer::getStageOneSensorState);
+        ShuffleboardLayout safeStageIndicators = shuffleboardTab
+                .getLayout("Safe Stage", BuiltInLayouts.kList)
+                .withSize(1, 2)
+                .withPosition(5,1)
+                .withProperties(Map.of("Label position", "LEFT")); // hide labels for commands
 
-//        shuffleboardTab.addDouble("Shooter Angle", Robot.shooter::get)
+        safeStageIndicators.addBoolean("Wrist   ", Robot.diagnostics::getSafeStageWrist);
+        safeStageIndicators.addBoolean("Elevator", Robot.diagnostics::getSafeStageElevator);
+        safeStageIndicators.addBoolean("Climber ", Robot.diagnostics::getSafeStageClimber);
 
+        shuffleboardTab.addDouble("Shooter RPM", Robot.shooter::getShooterRPM).withPosition(2,1);
 
-        shuffleboardTab.addBoolean("Collector Manual Control", Robot.collector::getCollectorManualControl);
-        shuffleboardTab.addBoolean("Indexer Manual Control", Robot.indexer::getIndexerManualFlag);
+        shuffleboardTab.addBoolean("Shooter Sensor", Robot.indexer::getShooterSensorState).withPosition(6,0);
+        shuffleboardTab.addBoolean("Mid Sensor", Robot.indexer::getStageOneSensorState).withPosition(6,1);
+        shuffleboardTab.addBoolean("Collector Sensor", Robot.collector::getSensorState).withPosition(6,2);
 
-        shuffleboardTab.addString("Wrist Actual", Robot.wrist::getPosition_Shuffleboard);
-        shuffleboardTab.addDouble("Wrist Target", Robot.wrist::getTargetPosition);
-        shuffleboardTab.addString("Wrist Degrees", Robot.wrist::getWristDegrees_Shuffleboard);
+        ShuffleboardLayout wristPositions = shuffleboardTab
+                .getLayout("Wrist", BuiltInLayouts.kList)
+                .withSize(1, 2)
+                .withPosition(3,1)
+                .withProperties(Map.of("Label position", "LEFT")); // hide labels for commands
 
-        shuffleboardTab.addBoolean("Stage Safe", Robot.diagnostics::getSafeToDriveUnderStage);
+        wristPositions.addString("Actual", Robot.wrist::getPosition_Shuffleboard);
+        wristPositions.addString("Target", Robot.wrist::getTargetPosition_Shuffleboard);
+        wristPositions.addString("Degrees", Robot.wrist::getWristDegrees_Shuffleboard);
 
         ShuffleboardTab diagnosticsTab = Shuffleboard.getTab("Diagnostics");
 
@@ -71,15 +90,13 @@ public class UI {
         diagnosticsTab.add("Elevator", new InstantCommand(elevator::resetPosition).ignoringDisable(true));
 
         // shooterPID
-        shuffleboardTab.add("kP",0).getEntry();
-        shuffleboardTab.add("kI",0).getEntry();
-        shuffleboardTab.add("kD",0).getEntry();
+//        shuffleboardTab.add("kP",0).getEntry();
+//        shuffleboardTab.add("kI",0).getEntry();
+//        shuffleboardTab.add("kD",0).getEntry();
 
         //collector
         diagnosticsTab.addDouble("Collector Temp", Robot.collector::getMotorTemp).withPosition(8,0);
         diagnosticsTab.addBoolean("Collector Cool", Robot.collector::isStageOneMotorCool).withPosition(8,1);
-
-        shuffleboardTab.addString("Elevator Pos", elevator::getPosition_Shuffleboard);
 
         // used for tuning Shooter PID
 //        createSmartDashboardNumber("FF",0.000155);

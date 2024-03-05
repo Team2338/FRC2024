@@ -18,7 +18,6 @@ public class Indexer extends SubsystemBase {
     public static DigitalInput midSensor;
     public static DigitalInput shooterSensor;
 
-    public boolean indexerManualFlag = false;
     private boolean isIndexing;
     private boolean notePassedCollector;
 
@@ -70,10 +69,6 @@ public class Indexer extends SubsystemBase {
 
     public boolean getStageOneSensorState() {
         return midSensor.get();
-    }
-
-    public boolean getIndexerManualFlag() {
-        return indexerManualFlag;
     }
 
     /**

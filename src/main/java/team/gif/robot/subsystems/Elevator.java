@@ -50,7 +50,7 @@ public class Elevator extends SubsystemBase {
     }
 
     public String getPosition_Shuffleboard() {
-        return String.format("%12.3f", getPosition());
+        return String.format("%3.3f", getPosition());
     }
 
     public double getMotorTemp() {

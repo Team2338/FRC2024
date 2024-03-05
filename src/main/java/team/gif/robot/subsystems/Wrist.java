@@ -38,7 +38,7 @@ public class Wrist extends SubsystemBase {
     }
 
     public String getWristDegrees_Shuffleboard() {
-        return String.format("%12.1f", absoluteToDegrees(getPosition()));
+        return String.format("%4.1f", absoluteToDegrees(getPosition()));
     }
 
     /**
@@ -81,7 +81,7 @@ public class Wrist extends SubsystemBase {
     }
 
     public String getPosition_Shuffleboard() {
-        return String.format("%12.3f", getPosition());
+        return String.format("%3.3f", getPosition());
     }
 
     /**
@@ -158,6 +158,10 @@ public class Wrist extends SubsystemBase {
         return targetPosition;
     }
 
+    public String getTargetPosition_Shuffleboard() {
+        return String.format("%3.3f", targetPosition);
+    }
+    
     /**
      * Get the current error of the arm PID
      * @return the current error of the arm PID
