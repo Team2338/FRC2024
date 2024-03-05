@@ -36,7 +36,7 @@ erosion_steps:0
 exposure:651
 fiducial_decoder_strictness:strict
 fiducial_denoise:0.000000
-fiducial_idfilters:4,5,11,12
+fiducial_idfilters:4,5,11,12,13,6,7,14,15,16
 fiducial_locfilters:
 fiducial_qualitythreshold:4
 fiducial_resdiv:2
