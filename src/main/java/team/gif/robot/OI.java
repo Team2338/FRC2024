@@ -23,6 +23,7 @@ import team.gif.robot.commands.wrist.CalibrateAngle;
 import team.gif.robot.commands.shooter.RevFlyWheels;
 import team.gif.robot.commands.shooter.Shoot;
 import team.gif.robot.commands.shooter.ForceShoot;
+import team.gif.robot.commands.wrist.SetWristPos;
 import team.gif.robot.commands.wrist.WristAngleUp;
 import team.gif.robot.commands.wrist.WristAngleDown;
 import team.gif.robot.commands.shooter.TrapShoot;
@@ -147,11 +148,11 @@ public class OI {
         aStart.and(aBack).toggleOnTrue(new ToggleManualControl());
 
         //wrist
-        aDPadUp.and(aStart.negate()).onTrue(new InstantCommand(Robot.wrist::setWristFarPosition));
-        aDPadRight.and(aStart.negate()).onTrue(new InstantCommand(Robot.wrist::setWristMidPosition));
-        aDPadLeft.and(aStart.negate()).onTrue(new InstantCommand(Robot.wrist::setWristNearPosition));
-        aDPadDown.and(aStart.negate()).onTrue(new InstantCommand(Robot.wrist::setWristWallPosition));
-//        aDPadDownLeft.whileTrue(new EnableAutoWrist());
+        // Single press will set the next shoot position, holding will move wrist
+        aDPadUp.and(aStart.negate()).whileTrue(new InstantCommand(Robot.wrist::setWristFarPosition).andThen(new SetWristPos()));
+        aDPadRight.and(aStart.negate()).whileTrue(new InstantCommand(Robot.wrist::setWristMidPosition).andThen(new SetWristPos()));
+        aDPadLeft.and(aStart.negate()).whileTrue(new InstantCommand(Robot.wrist::setWristNearPosition).andThen(new SetWristPos()));
+        aDPadDown.and(aStart.negate()).whileTrue(new InstantCommand(Robot.wrist::setWristWallPosition).andThen(new SetWristPos()));
 
         //shooter
         aRBump.whileTrue(new RevFlyWheels());
