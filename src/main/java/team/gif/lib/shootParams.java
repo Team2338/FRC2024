@@ -6,7 +6,8 @@ public enum shootParams {
     WALL(Constants.Wrist.SETPOINT_WALL_ABSOLUTE, Constants.Shooter.RPM_WALL, Constants.Shooter.RPM_MIN_WALL, Constants.Shooter.FF_WALL, Constants.Shooter.kP_WALL, Constants.Shooter.kI_WALL),
     NEAR(Constants.Wrist.SETPOINT_NEAR_ABSOLUTE, Constants.Shooter.RPM_NEAR, Constants.Shooter.RPM_MIN_NEAR, Constants.Shooter.FF_NEAR, Constants.Shooter.kP_NEAR, Constants.Shooter.kI_NEAR),
     MID(Constants.Wrist.SETPOINT_MID_ABSOLUTE, Constants.Shooter.RPM_MID, Constants.Shooter.RPM_MIN_MID, Constants.Shooter.FF_MID, Constants.Shooter.kP_MID, Constants.Shooter.kI_MID),
-    FAR(Constants.Wrist.SETPOINT_FAR_ABSOLUTE, Constants.Shooter.RPM_FAR, Constants.Shooter.RPM_MIN_FAR, Constants.Shooter.FF_FAR, Constants.Shooter.kP_FAR, Constants.Shooter.kI_FAR);
+    FAR(Constants.Wrist.SETPOINT_FAR_ABSOLUTE, Constants.Shooter.RPM_FAR, Constants.Shooter.RPM_MIN_FAR, Constants.Shooter.FF_FAR, Constants.Shooter.kP_FAR, Constants.Shooter.kI_FAR),
+    AMP(Constants.Wrist.SETPOINT_AMP_ABSOLUTE, Constants.Shooter.RPM_AMP, Constants.Shooter.RPM_MIN_AMP, Constants.Shooter.FF_AMP, Constants.Shooter.kP_AMP, Constants.Shooter.kI_AMP);
 
 
     private double wristAngle;

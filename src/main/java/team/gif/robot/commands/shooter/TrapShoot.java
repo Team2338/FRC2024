@@ -20,7 +20,6 @@ public class TrapShoot extends Command {
         finished = false;
         wristEngaged = false;
         counter = 0;
-//        Robot.wrist.PIDKill();
     }
 
     // Called every time the scheduler runs (~20ms) while the command is scheduled
@@ -51,7 +50,6 @@ public class TrapShoot extends Command {
 
         // once the robot no longer has the game piece, rotate the wrist to "trap"
         if (!Robot.indexer.getShooterSensorState() && !wristEngaged) {
-//            if (counter <= (.4*50)) { // rotate the shooter for 0.5 seconds // todo consider changing to using PID
             // rotate until desired position
             if (Robot.wrist.getPosition() < Constants.Wrist.SETPOINT_TRAP_ABSOLUTE) {
                 Robot.wrist.moveWristPercentPower(.3);//0.3);

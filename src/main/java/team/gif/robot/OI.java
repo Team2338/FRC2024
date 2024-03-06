@@ -23,6 +23,8 @@ import team.gif.robot.commands.wrist.CalibrateAngle;
 import team.gif.robot.commands.shooter.RevFlyWheels;
 import team.gif.robot.commands.shooter.Shoot;
 import team.gif.robot.commands.shooter.ForceShoot;
+import team.gif.robot.commands.shooter.AmpPosition;
+import team.gif.robot.commands.shooter.AmpShoot;
 import team.gif.robot.commands.wrist.SetWristPos;
 import team.gif.robot.commands.wrist.WristAngleUp;
 import team.gif.robot.commands.wrist.WristAngleDown;
@@ -160,8 +162,8 @@ public class OI {
         aLBump.onTrue(new Shoot().andThen(new InstantCommand(Robot.wrist::setWristCollectPosition)));
         aX.and(aBack.negate()).whileTrue(new ForceShoot());
 
-//        aRTrigger.onTrue(new AmpPosition()); // goes to position and revs flywheel
-//        aLTrigger.onTrue(new AmpShoot().andThen(new InstantCommand(Robot.wrist::setWristCollect)); // shoots and returns to home
+        aRTrigger.onTrue(new AmpPosition()); // goes to position and revs flywheel
+        aLTrigger.onTrue(new AmpShoot().andThen(new InstantCommand(Robot.wrist::setWristCollectPosition))); // shoots and returns to home
 //        aY.and(aBack.negate()).whileTrue(new LoadFromSource());
 
         aBack.and(aA).onTrue(new RaiseClimberToTop());
