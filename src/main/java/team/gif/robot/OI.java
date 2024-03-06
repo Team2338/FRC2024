@@ -167,7 +167,7 @@ public class OI {
         aBack.and(aA).onTrue(new RaiseClimberToTop());
         aBack.and(aX).onTrue(new RaiseElevatorToTop());
         aBack.and(aY).onTrue(new LowerClimberAndElevator());
-        aBack.and(aB).onTrue(new TrapShoot().withTimeout(3));
+        aBack.and(aB).onTrue(new TrapShoot().withTimeout(5));
 
         aStart.and(aDPadUp).whileTrue(new WristAngleUp());
         aStart.and(aDPadDown).whileTrue(new WristAngleDown());

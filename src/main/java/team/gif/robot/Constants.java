@@ -314,7 +314,7 @@ public final class Constants {
 
         // Encoder setpoints and values
         // These are the encoder specific values
-        public static final double ENCODER_OFFSET_ABSOLUTE = -0.01694335;//-0.850439; // this is determined either manually or via the auto-calibration
+        public static final double ENCODER_OFFSET_ABSOLUTE = -0.074072;//-0.850439; // this is determined either manually or via the auto-calibration
         public static final double ABSOLUTE_PER_DEGREE = 0.008333;
         // These are the values we want the bot to utilize
         public static final double KILL_LIMIT_ABSOLUTE = 0.87;
@@ -328,7 +328,8 @@ public final class Constants {
         public static final double SETPOINT_NEAR_ABSOLUTE = (64.0 - MIN_LIMIT_DEGREES) * ABSOLUTE_PER_DEGREE + MIN_LIMIT_ABSOLUTE; // number in degrees, value in absolute
         public static final double SETPOINT_WALL_ABSOLUTE = (49.0 - MIN_LIMIT_DEGREES) * ABSOLUTE_PER_DEGREE + MIN_LIMIT_ABSOLUTE; // number in degrees, value in absolute
         public static final double SETPOINT_COLLECT_ABSOLUTE = (48.0 - MIN_LIMIT_DEGREES) * ABSOLUTE_PER_DEGREE + MIN_LIMIT_ABSOLUTE; // number in degrees, value in absolute
-
+        public static final double SETPOINT_TRAP_ABSOLUTE = 0.45;
+        public static final double SETPOINT_TRAP_FINAL_ABSOLUTE = 0.25;
         public static final double SAFE_STAGE_DEGREES = 50;
     }
 

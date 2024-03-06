@@ -8,6 +8,7 @@ public class TrapShoot extends Command {
     boolean stopFlyWheel;
     int counter;
     boolean finished;
+    boolean wristEngaged;
 
     public TrapShoot() {
         super();
@@ -19,6 +20,7 @@ public class TrapShoot extends Command {
     public void initialize() {
         stopFlyWheel = false;
         finished = false;
+        wristEngaged = false;
         counter = 0;
         Robot.wrist.PIDKill();
     }
@@ -31,6 +33,17 @@ public class TrapShoot extends Command {
         } else {
             Robot.shooter.stop();
         }
+        System.out.println(counter);
+        if (counter >= 3*50) {
+            System.out.println("Wrist " + Robot.wrist.getPosition());
+            if (Robot.wrist.getPosition() > Constants.Wrist.SETPOINT_TRAP_FINAL_ABSOLUTE) {
+                Robot.wrist.moveWristPercentPower(-0.5);//0.3);
+                System.out.println("final");
+            } else {
+                Robot.wrist.moveWristPercentPower(0);
+                finished = true;
+            }
+        }
 
         // once shooterRPM gets to target, run the indexer
         if (Robot.shooter.getShooterRPM() >= (Constants.Shooter.TRAP_RPM * 0.9)) { // 0.9 provides tolerance
@@ -38,13 +51,14 @@ public class TrapShoot extends Command {
         }
 
         // once we no longer have the game piece, rotate the shooter mechanism
-        if(!Robot.indexer.getShooterSensorState()) {
+        if (!Robot.indexer.getShooterSensorState()) {
             //TODO: Stop before encoder reaches 1 and resets
-            if (counter <= (.4*50)) { // rotate the shooter for 0.5 seconds // todo consider changing to using PID
+//            if (counter <= (.4*50)) { // rotate the shooter for 0.5 seconds // todo consider changing to using PID
+            if (Robot.wrist.getPosition() < Constants.Wrist.SETPOINT_TRAP_ABSOLUTE) {
                 Robot.wrist.moveWristPercentPower(.3);//0.3);
             } else {
                 Robot.wrist.moveWristPercentPower(0);
-                finished = true;
+                wristEngaged = true;
             }
             Robot.indexer.stopIndexerCoast();
             counter++;
@@ -65,5 +79,6 @@ public class TrapShoot extends Command {
         Robot.wrist.setTargetPosition(Robot.wrist.getPosition());
         Robot.wrist.PIDEnable();
         Robot.shooter.setVoltagePercent(0);
+        System.out.println("complete!!");
     }
 }
