@@ -81,24 +81,31 @@ public class DriveSwerve extends Command {
         double xOffset;
         double pGain = 0.012;
         double ffGain = 0.10;
-        double result;
+        double result = 0;
         double strafeAdjust;
+        double kP = 0.0357;
 
 //        System.out.println("fwd: " + forward + " strafe: " + strafe);
         if (Robot.limelightShooter.hasTarget()) {
             xOffset = Robot.limelightShooter.getXOffset();
+            System.out.println("xOffset = " + xOffset);
 
-            if (xOffset <= -2.0 || xOffset >= 2.0) {
-                if (Math.abs(strafe) < 0.3) {
-                    result = (xOffset > 0 ? -1 : 1) * (ffGain + pGain * Math.abs(xOffset));
-                    System.out.println("stationary");
-                }  else {
-                    result = (xOffset > 0 ? -1 : 1) * (ffGain + (9.0 * strafe * strafe) * pGain * Math.abs(xOffset));
-                System.out.println("rot: " + result);
+//            if (xOffset <= -2.0 || xOffset >= 2.0) {
+//                    result = xOffset * kP;
+                    result = turnLimiter.calculate(xOffset * kP) * Constants.ModuleConstants.TELE_DRIVE_MAX_ANGULAR_SPEED_RADIANS_PER_SECOND;
+                    result *= -1.0;
+                    //                  result = (xOffset > 0 ? -1 : 1) * result;
+
+//                if (Math.abs(strafe) < 0.3) {
+//                    result = (xOffset > 0 ? -1 : 1) * (ffGain + pGain * Math.abs(xOffset));
+//                    System.out.println("stationary");
+//                }  else {
+//                    result = (xOffset > 0 ? -1 : 1) * (ffGain + (9.0 * strafe * strafe) * pGain * Math.abs(xOffset));
+//                System.out.println("rot: " + result);
                 }
                 return (result);
             }
-        }
-        return 0;
-    }
+//        }
+//        return 0;
+//    }
 }

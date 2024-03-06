@@ -149,8 +149,8 @@ public class OI {
 
         //wrist
         // Single press will set the next shoot position, holding will move wrist
-        aDPadUp.and(aStart.negate()).whileTrue(new InstantCommand(Robot.wrist::setWristFarPosition).andThen(new SetWristPos()));
-        aDPadRight.and(aStart.negate()).whileTrue(new InstantCommand(Robot.wrist::setWristMidPosition).andThen(new SetWristPos()));
+        aDPadUp.and(aStart.negate()).whileTrue(new InstantCommand(Robot.wrist::setWristMidPosition).andThen(new SetWristPos()));
+        aDPadRight.and(aStart.negate()).whileTrue(new InstantCommand(Robot.wrist::setWristFarPosition).andThen(new SetWristPos()));
         aDPadLeft.and(aStart.negate()).whileTrue(new InstantCommand(Robot.wrist::setWristNearPosition).andThen(new SetWristPos()));
         aDPadDown.and(aStart.negate()).whileTrue(new InstantCommand(Robot.wrist::setWristWallPosition).andThen(new SetWristPos()));
 

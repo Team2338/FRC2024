@@ -46,10 +46,8 @@ public class Shoot extends Command {
     @Override
     public void execute() {
         Robot.wrist.setTargetPosition(Robot.nextShot.getWristAngle());
-        System.out.println("RPM Error: " + (Robot.nextShot.getShooterRPM() - Robot.shooter.getShooterRPM()));
-        if (Robot.shooter.getShooterRPM() >= (Robot.nextShot.getMinimumRPM()) || isFiring){
-                //&&
-                //Robot.wrist.absoluteToDegrees(Robot.wrist.getPosition()) <= (Robot.nextShot.getWristAngle()*.98)) { //allow tolerance
+        if ((Robot.shooter.getShooterRPM() >= Robot.nextShot.getMinimumRPM() || isFiring) &&
+                (Robot.wrist.absoluteToDegrees(Robot.wrist.getPosition()) <= (Robot.nextShot.getWristAngle()*.95))) { //allow tolerance
             //this may need to move down to line 48
             Robot.indexer.setIndexer(0, Constants.Indexer.INDEXER_TWO_SHOOT_PERC);
             isFiring = true;
