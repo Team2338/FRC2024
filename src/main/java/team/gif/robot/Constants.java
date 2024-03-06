@@ -41,11 +41,11 @@ public final class Constants {
         public static final double FRONT_RIGHT_OFFSET = 160.40039 + 180;// + 25.31;
         public static final double REAR_RIGHT_OFFSET = -28.38867 + 180;// + 25.4;
 
-        // Distance between centers of right and left wheels on robot
-        public static final double TRACK_LENGTH = Units.inchesToMeters(23.5);
+        // Distance between centers of front and back wheels on robot
+        public static final double TRACK_LENGTH = Units.inchesToMeters(22.5);
 
-        // Distance between front and back wheels on robot
-        public static final double TRACK_WIDTH = Units.inchesToMeters(22.5);
+        // Distance between centers of left and right wheels on robot
+        public static final double TRACK_WIDTH = Units.inchesToMeters(23.5);
 
         // location of wheels from center of robot using following axis
         //        +x
