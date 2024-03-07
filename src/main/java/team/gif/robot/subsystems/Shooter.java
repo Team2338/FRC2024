@@ -29,10 +29,26 @@ public class Shooter extends SubsystemBase {
         shooter.set(percent);
     }
 
+    /**
+     * Sets the shooter RPM
+     *
+     * @param rpm Desired velocity of shooter in RPM
+     */
     public void setShooterRPM(double rpm) {
 //        pidShooter.setReference(rpm, CANSparkBase.ControlType.kVelocity); // Leave for shooter Neo
         pidShooter.setReference(rpm, CANSparkFlex.ControlType.kVelocity);
     }
+
+    /**
+     * Sets up the shooter RPM and revs the flywheel
+     *
+     * @param rpm Desired velocity of shooter in RPM
+     */
+    public void setupAndRev(double rpm) {
+        setupNextShot();
+        setShooterRPM(rpm);
+    }
+
 
     public double getShooterRPM() {
 //        return shooterNeo.getEncoder().getVelocity(); // Leave for shooter Neo

@@ -25,8 +25,7 @@ public class RevFlyWheels extends Command {
     @Override
     public void execute() {
         Robot.wrist.setTargetPosition(Robot.nextShot.getWristAngle());
-        Robot.shooter.setupNextShot();
-        Robot.shooter.setShooterRPM(Robot.nextShot.getShooterRPM());
+        Robot.shooter.setupAndRev(Robot.nextShot.getShooterRPM());
     }
 
     // Return true when the command should end, false if it should continue. Runs every ~20ms.

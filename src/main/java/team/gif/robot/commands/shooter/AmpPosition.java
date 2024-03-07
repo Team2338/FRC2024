@@ -24,8 +24,7 @@ public class AmpPosition extends Command {
         Robot.elevator.setTargetPosition(Constants.Elevator.AMP_POS);
 
         Robot.wrist.setTargetPosition(Robot.nextShot.getWristAngle());
-        Robot.shooter.setupNextShot();
-        Robot.shooter.setShooterRPM(Robot.nextShot.getShooterRPM());
+        Robot.shooter.setupAndRev(Robot.nextShot.getShooterRPM());
     }
 
     // Return true when the command should end, false if it should continue. Runs every ~20ms.
