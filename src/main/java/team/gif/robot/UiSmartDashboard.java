@@ -77,6 +77,8 @@ public class UiSmartDashboard {
 
         shuffleboardTab.addBoolean("Stage Safe", Robot.diagnostics::getSafeToDriveUnderStage);
 
+        shuffleboardTab.addBoolean("Ready", Robot.shooter::getShooterAtMinRPM);
+
 //        shuffleboardTab.addString("Climber", Robot.climber::getPosition_Shuffleboard);
 //        shuffleboardTab.addString("Elevator", Robot.elevator::getPosition_Shuffleboard);
 

@@ -39,6 +39,10 @@ public class Shooter extends SubsystemBase {
         return shooter.getEncoder().getVelocity();
     }
 
+    public boolean getShooterAtMinRPM() {
+        return getShooterRPM() > Robot.nextShot.getMinimumRPM();
+    }
+
     public void stop() {
         shooter.setVoltage(0);
     }

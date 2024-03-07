@@ -159,8 +159,9 @@ public class OI {
         //shooter
         aRBump.whileTrue(new RevFlyWheels());
         aRBump.onFalse(new InstantCommand(Robot.shooter::stop));
-        aLBump.onTrue(new Shoot().andThen(new InstantCommand(Robot.wrist::setWristCollectPosition)));
+        aLBump.onTrue(new Shoot()); //.andThen(new InstantCommand(Robot.wrist::setWristCollectPosition)));
         aX.and(aBack.negate()).whileTrue(new ForceShoot());
+        //aX.and(aBack.negate()).whileTrue(new ForceShoot());
 
         aRTrigger.onTrue(new AmpPosition()); // goes to position and revs flywheel
         aLTrigger.onTrue(new AmpShoot().andThen(new InstantCommand(Robot.wrist::setWristCollectPosition))); // shoots and returns to home

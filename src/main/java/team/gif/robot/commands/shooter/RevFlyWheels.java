@@ -6,6 +6,7 @@ import team.gif.robot.Robot;
 
 public class RevFlyWheels extends Command {
     double counter;
+
     public RevFlyWheels() {
         super();
         addRequirements(Robot.shooter); // uncomment
@@ -27,6 +28,12 @@ public class RevFlyWheels extends Command {
     public void execute() {
         Robot.wrist.setTargetPosition(Robot.nextShot.getWristAngle());
         Robot.shooter.setShooterRPM(Robot.nextShot.getShooterRPM());
+
+        if (Robot.shooter.getShooterRPM() >= Robot.nextShot.getMinimumRPM()){
+            Robot.oi.setRumble(true);
+        } else {
+            Robot.oi.setRumble(false);
+        }
     }
 
     // Return true when the command should end, false if it should continue. Runs every ~20ms.
@@ -43,5 +50,6 @@ public class RevFlyWheels extends Command {
     public void end(boolean interrupted) {
         // don't want to set shooter RPM to 0 because the shoot command is taking over
         // instead, use onFalse in OI and call shooter.stop()
+        Robot.oi.setRumble(false);
     }
 }

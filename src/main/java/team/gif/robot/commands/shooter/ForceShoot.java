@@ -27,7 +27,6 @@ public class ForceShoot extends Command {
             Robot.indexer.removeDefaultCommand();
             Robot.indexer.getCurrentCommand().cancel();
         }
-        System.out.println("shooting");
         counter = 0;
     }
 
@@ -40,7 +39,6 @@ public class ForceShoot extends Command {
     // Return true when the command should end, false if it should continue. Runs every ~20ms.
     @Override
     public boolean isFinished() {
-        System.out.println("FS "+counter);
         return Robot.runningAutonomousMode && counter++ > 2.5*50;
     }
 
