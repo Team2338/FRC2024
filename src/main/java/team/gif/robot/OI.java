@@ -163,7 +163,7 @@ public class OI {
         aX.and(aBack.negate()).whileTrue(new ForceShoot());
 
         aRTrigger.onTrue(new AmpPosition()); // goes to position and revs flywheel
-        aLTrigger.onTrue(new AmpShoot().andThen(new InstantCommand(Robot.wrist::setWristCollectPosition))); // shoots and returns to home
+        aLTrigger.onTrue(new AmpShoot().andThen(new InstantCommand(Robot.wrist::setWristCollectPosition))); // shoots and returns to home TODO: I don't think we need this, we can just use shoot.java
 //        aY.and(aBack.negate()).whileTrue(new LoadFromSource());
 
         aBack.and(aA).onTrue(new RaiseClimberToTop());

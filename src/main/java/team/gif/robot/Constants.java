@@ -299,7 +299,7 @@ public final class Constants {
         public static final double kP_FAR = 0.00030;//0.0100;               // 0.0006;    // 5800 RPM
         public static final double kI_FAR = 0.000;//0.001;               // 0.0000015; // 5800 RPM
 
-        //Far
+        //Amp
         public static final double RPM_AMP = 6200;
         public static final double RPM_MIN_AMP = 3000;
         public static final double FF_AMP = 0.000155; // gets to 6100    // 0.000130;  // 5800 RPM
@@ -371,6 +371,7 @@ public final class Constants {
         public static final double LIMIT_MAX = 57.500;
         public static final double LIMIT_MIN = 0;
 
+        public static final double AMP_POS = 45.0;
         public static final double SAFE_STAGE_POS = 0.4;
         public static final double TRAP_POS = 52.500;
     }
