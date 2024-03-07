@@ -6,7 +6,6 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.SparkPIDController;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import team.gif.robot.Constants;
-import team.gif.robot.Robot;
 import team.gif.robot.RobotMap;
 
 public class Elevator extends SubsystemBase {
@@ -44,7 +43,6 @@ public class Elevator extends SubsystemBase {
     }
 
     public void PIDHold() {
-//        System.out.println("target " + targetPosition);
 //        move(0.03); // used for percent hold
         motor.getPIDController().setReference(targetPosition,CANSparkBase.ControlType.kPosition);
     }
@@ -80,11 +78,7 @@ public class Elevator extends SubsystemBase {
         pidController.setP(Constants.Elevator.kP);
         pidController.setI(Constants.Elevator.kI);
         pidController.setFF(Constants.Elevator.kD);
-        pidController.setOutputRange(0,1);
-    }
-
-    public void set_kP(double kP) {
-        pidController.setP(kP);
+        pidController.setOutputRange(-0.12,1);
     }
 
     public void enableSoftLimits(boolean enable) {

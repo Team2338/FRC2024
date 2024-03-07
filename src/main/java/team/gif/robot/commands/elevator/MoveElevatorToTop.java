@@ -4,10 +4,9 @@ import edu.wpi.first.wpilibj2.command.Command;
 import team.gif.robot.Constants;
 import team.gif.robot.Robot;
 
-public class RaiseElevatorToTop extends Command {
-    public RaiseElevatorToTop() {
+public class MoveElevatorToTop extends Command {
+    public MoveElevatorToTop() {
         super();
-        addRequirements(Robot.elevator);
     }
 
     // Called when the command is initially scheduled.

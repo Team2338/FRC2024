@@ -300,13 +300,12 @@ public final class Constants {
         public static final double kP_FAR = 0.00030;//0.0100;               // 0.0006;    // 5800 RPM
         public static final double kI_FAR = 0.000;//0.001;               // 0.0000015; // 5800 RPM
 
-        //Far
-        public static final double RPM_AMP = 6200;
-        public static final double RPM_MIN_AMP = 3000;
-        public static final double FF_AMP = 0.000155; // gets to 6100    // 0.000130;  // 5800 RPM
-        public static final double kP_AMP = 0.00030;//0.0100;               // 0.0006;    // 5800 RPM
-        public static final double kI_AMP = 0.000;//0.001;               // 0.0000015; // 5800 RPM
-
+        //Amp
+        public static final double RPM_AMP = 2000;
+        public static final double RPM_MIN_AMP = 1900;
+        public static final double FF_AMP = 0.000145; // gets to 1800
+        public static final double kP_AMP = 0.00030;
+        public static final double kI_AMP = 0.00000;
     }
 
     public static final class Wrist { // tuned 02/22
@@ -340,7 +339,7 @@ public final class Constants {
         public static final double SETPOINT_COLLECT_ABSOLUTE = (48.0 - MIN_LIMIT_DEGREES) * ABSOLUTE_PER_DEGREE + MIN_LIMIT_ABSOLUTE; // number in degrees, value in absolute
         public static final double SETPOINT_TRAP_ABSOLUTE = (92.0 - MIN_LIMIT_DEGREES) * ABSOLUTE_PER_DEGREE + MIN_LIMIT_ABSOLUTE; // number in degrees, value in absolute
         public static final double SETPOINT_TRAP_FINAL_ABSOLUTE = (64.0 - MIN_LIMIT_DEGREES) * ABSOLUTE_PER_DEGREE + MIN_LIMIT_ABSOLUTE; // number in degrees, value in absolute
-        public static final double SETPOINT_AMP_ABSOLUTE = (105.0 - MIN_LIMIT_DEGREES) * ABSOLUTE_PER_DEGREE + MIN_LIMIT_ABSOLUTE; // number in degrees, value in absolute
+        public static final double SETPOINT_AMP_ABSOLUTE = (120.0 - MIN_LIMIT_DEGREES) * ABSOLUTE_PER_DEGREE + MIN_LIMIT_ABSOLUTE; // number in degrees, value in absolute
         public static final double SAFE_STAGE_DEGREES = 50;
     }
 
@@ -366,14 +365,15 @@ public final class Constants {
     public static final class Elevator {
         public static final double FF = .00;
         public static final double kP = 0.03;//1.80;
-        public static final double kP_DOWN = 0.03;
         public static final double kI = 0.0;
         public static final double kD = 0.0;
         public static final double LIMIT_MAX = 57.500;
         public static final double LIMIT_MIN = 0;
 
+        public static final double AMP_POS = 20.0;
         public static final double SAFE_STAGE_POS = 0.4;
         public static final double TRAP_POS = 52.500;
+        public static final double HOME_POS = 0.0;
     }
 
     public static final class Climber {

@@ -13,8 +13,6 @@ public class LowerClimberAndElevator extends Command {
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
-//        Robot.climber.setTargetPosition(Constants.Climber.TRAP_POS);
-        Robot.elevator.set_kP(Constants.Elevator.kP_DOWN);
     }
 
     // Called every time the scheduler runs (~20ms) while the command is scheduled
@@ -30,7 +28,6 @@ public class LowerClimberAndElevator extends Command {
     @Override
     public boolean isFinished() {
         return Robot.climber.getPosition() < Constants.Climber.LIMIT_MIN;
-//        return false;
     }
 
     // Called when the command ends or is interrupted.
@@ -39,6 +36,5 @@ public class LowerClimberAndElevator extends Command {
         Robot.climber.move(0);
         Robot.climber.setTargetPosition(Robot.climber.getPosition());
         Robot.climber.setDefaultCommand(new ClimberPIDControl());
-        Robot.elevator.set_kP(Constants.Elevator.kP);
     }
 }

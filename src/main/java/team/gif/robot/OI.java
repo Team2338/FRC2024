@@ -15,7 +15,8 @@ import team.gif.robot.commands.collector.ToggleCollectorDefault;
 import team.gif.robot.commands.collector.CollectorManualControl;
 import team.gif.robot.commands.driveModes.EnableBoost;
 import team.gif.robot.commands.driveModes.EnableRobotOrientedMode;
-import team.gif.robot.commands.elevator.RaiseElevatorToTop;
+import team.gif.robot.commands.elevator.MoveElevatorToBottom;
+import team.gif.robot.commands.elevator.MoveElevatorToTop;
 import team.gif.robot.commands.indexer.FullIndexerReverse;
 import team.gif.robot.commands.indexer.IndexerManualControl;
 import team.gif.robot.commands.toggleManualControl.ToggleManualControl;
@@ -24,7 +25,6 @@ import team.gif.robot.commands.shooter.RevFlyWheels;
 import team.gif.robot.commands.shooter.Shoot;
 import team.gif.robot.commands.shooter.ForceShoot;
 import team.gif.robot.commands.shooter.AmpPosition;
-import team.gif.robot.commands.shooter.AmpShoot;
 import team.gif.robot.commands.wrist.SetWristPos;
 import team.gif.robot.commands.wrist.WristAngleUp;
 import team.gif.robot.commands.wrist.WristAngleDown;
@@ -166,11 +166,11 @@ public class OI {
         //aX.and(aBack.negate()).whileTrue(new ForceShoot());
 
         aRTrigger.onTrue(new AmpPosition()); // goes to position and revs flywheel
-        aLTrigger.onTrue(new AmpShoot().andThen(new InstantCommand(Robot.wrist::setWristCollectPosition))); // shoots and returns to home
+        aLTrigger.onTrue(new Shoot().andThen(new WaitCommand(0.25).andThen(new MoveElevatorToBottom()))); // shoots and returns to home
 //        aY.and(aBack.negate()).whileTrue(new LoadFromSource());
 
         aBack.and(aA).onTrue(new RaiseClimberToTop());
-        aBack.and(aX).onTrue(new RaiseElevatorToTop());
+        aBack.and(aX).onTrue(new MoveElevatorToTop());
         aBack.and(aY).onTrue(new LowerClimberAndElevator());
         aBack.and(aB).onTrue(new TrapShoot().withTimeout(5));
 

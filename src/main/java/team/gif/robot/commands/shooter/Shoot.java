@@ -52,7 +52,7 @@ public class Shoot extends Command {
             Robot.indexer.setIndexer(0, Constants.Indexer.INDEXER_TWO_SHOOT_PERC);
             isFiring = true;
         } else {
-            Robot.shooter.setShooterRPM(Robot.nextShot.getShooterRPM());
+            Robot.shooter.setupAndRev(Robot.nextShot.getShooterRPM());
         }
 
         if (isFiring) {
