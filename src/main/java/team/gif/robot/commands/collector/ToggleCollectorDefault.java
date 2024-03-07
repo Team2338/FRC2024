@@ -8,13 +8,14 @@ public class ToggleCollectorDefault extends Command {
 
     public ToggleCollectorDefault() {
         super();
-        addRequirements(Robot.collector);
+        addRequirements(Robot.collector,Robot.shooter);
     }
 
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
         Robot.collector.removeDefaultCommand();
+        Robot.shooter.setShooterRPM(0);
     }
 
     // Called every time the scheduler runs (~20ms) while the command is scheduled

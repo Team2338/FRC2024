@@ -34,6 +34,10 @@ public class Shooter extends SubsystemBase {
         pidShooter.setReference(rpm, CANSparkFlex.ControlType.kVelocity);
     }
 
+    public void setShooterRPMIdle() {
+        setShooterRPM(Constants.Shooter.IDLE_RPM);
+    }
+
     public double getShooterRPM() {
 //        return shooterNeo.getEncoder().getVelocity(); // Leave for shooter Neo
         return shooter.getEncoder().getVelocity();

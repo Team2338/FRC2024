@@ -155,6 +155,7 @@ public class Wrist extends SubsystemBase {
 
     public void setWristCollectPosition() {
         targetPosition = Constants.Wrist.SETPOINT_COLLECT_ABSOLUTE;
+        System.out.println("setting to wrist");
     }
 
     /**

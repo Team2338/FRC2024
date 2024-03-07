@@ -98,6 +98,8 @@ public class OI {
 //    public final Trigger tDPadLeft = test.povLeft();
 
     public final Trigger collectorGamePieceSensor = new Trigger(Robot.collector.sensor::get);
+    public final Trigger shooterGamePieceSensor = new Trigger(Robot.indexer.shooterSensor::get);
+
 
     public OI() {
         DriverStation.silenceJoystickConnectionWarning(true);
@@ -179,6 +181,7 @@ public class OI {
         // auto sensor actions
         collectorGamePieceSensor.onTrue(new NoteRumble().andThen(new WaitCommand(0.1).andThen(new NoteRumble())));
         collectorGamePieceSensor.onTrue(new InstantCommand(Robot.wrist::setWristCollectPosition));
+        shooterGamePieceSensor.onTrue(new InstantCommand(Robot.shooter::setShooterRPMIdle));
 
         // testing purposes
 //        dY.whileTrue(new RaiseClimber());
