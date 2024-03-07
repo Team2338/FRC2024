@@ -1,31 +1,22 @@
-package team.gif.robot.commands.shooter;
+package team.gif.robot.commands.elevator;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import team.gif.lib.shootParams;
 import team.gif.robot.Constants;
 import team.gif.robot.Robot;
 
-public class AmpPosition extends Command {
-
-    public AmpPosition() {
+public class MoveElevatorToBottom extends Command {
+    public MoveElevatorToBottom() {
         super();
-        //addRequirements(); // Command is not actually controlling elevator or wrist, just setting new target position
     }
 
     // Called when the command is initially scheduled.
     @Override
-    public void initialize() {
-        Robot.nextShot = shootParams.AMP;
-    }
+    public void initialize() {}
 
     // Called every time the scheduler runs (~20ms) while the command is scheduled
     @Override
     public void execute() {
-        Robot.elevator.setTargetPosition(Constants.Elevator.AMP_POS);
-
-        Robot.wrist.setTargetPosition(Robot.nextShot.getWristAngle());
-        Robot.shooter.setupNextShot();
-        Robot.shooter.setShooterRPM(Robot.nextShot.getShooterRPM());
+        Robot.elevator.setTargetPosition(Constants.Elevator.HOME_POS);
     }
 
     // Return true when the command should end, false if it should continue. Runs every ~20ms.

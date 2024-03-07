@@ -1,7 +1,6 @@
 package team.gif.robot.commands.shooter;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import team.gif.robot.Constants;
 import team.gif.robot.Robot;
 
 public class RevFlyWheels extends Command {
@@ -26,6 +25,7 @@ public class RevFlyWheels extends Command {
     @Override
     public void execute() {
         Robot.wrist.setTargetPosition(Robot.nextShot.getWristAngle());
+        Robot.shooter.setupNextShot();
         Robot.shooter.setShooterRPM(Robot.nextShot.getShooterRPM());
     }
 

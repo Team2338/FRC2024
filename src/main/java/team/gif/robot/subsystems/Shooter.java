@@ -99,13 +99,13 @@ public class Shooter extends SubsystemBase {
 
     /**
      * Sets up the parameters for the next shot the robot will take
-     * @param nextShot
+     *
+     * @param
      */
-    public void setNextShot(shootParams nextShot) {
-        this.nextShot = nextShot;
-        pidShooter.setP(nextShot.getP());
-        pidShooter.setFF(nextShot.getFF());
-        pidShooter.setI(nextShot.getI());
+    public void setupNextShot() {
+        pidShooter.setP(Robot.nextShot.getP());
+        pidShooter.setFF(Robot.nextShot.getFF());
+        pidShooter.setI(Robot.nextShot.getI());
     }
 
     /**
