@@ -21,6 +21,10 @@ public class LEDSubsystemDefault extends Command {
     public void execute() {
         double flashLength = 0.25; // in seconds, used as a timer for flashing when we are collecting
 
+        //
+        // set the note colors
+        //
+
         // if the robot is attempting to collect and does not have a game piece, flash the LEDs
         if (Robot.collector.getCollectingState() && !Robot.collector.getSensorState()) {
             flashCounter++;
@@ -39,6 +43,18 @@ public class LEDSubsystemDefault extends Command {
                 Robot.ledSubsystem.setNoteEmpty();
             }
             flashCounter = 0;
+        }
+
+        //
+        // Set the Stage colors
+        //
+
+        if( !Robot.ledSubsystem.getAutoAlignFlash()) {
+            if (Robot.diagnostics.getSafeToDriveUnderStage()) {
+                Robot.ledSubsystem.setStageSafe();
+            } else {
+                Robot.ledSubsystem.setStageAvoid();
+            }
         }
 
         Robot.ledSubsystem.setColors();
