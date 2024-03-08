@@ -10,11 +10,15 @@ public class LEDSubsystem extends SubsystemBase {
     private static AddressableLED led;
     private static AddressableLEDBuffer ledBuffer;
 
+    private static boolean autoAlignFlash;
+
     private final int [] Note = {0,0,0}; // array are colors
     private final int [] Stage = {0,0,0};
 
     public LEDSubsystem() {
         super();
+        autoAlignFlash = false;
+
         //initializes by inputting PWM port number from Roborio
         led = new AddressableLED(RobotMap.LED_PWM_PORT);
 
@@ -69,6 +73,15 @@ public class LEDSubsystem extends SubsystemBase {
     }
 
     /**
+     * Turns the LEDs off
+     */
+    public void setLEDOff() {
+        Stage[0] = 0;
+        Stage[1] = 0;
+        Stage[2] = 0;
+    }
+
+    /**
      * Sets the colors of the LEDs
      */
     public void setColors() {
@@ -81,4 +94,13 @@ public class LEDSubsystem extends SubsystemBase {
             led.setData(ledBuffer);
         }
     }
+
+    public boolean getAutoAlignFlash() {
+        return autoAlignFlash;
+    }
+
+    public void setAutoAlignFlash(boolean flashing) {
+        autoAlignFlash = flashing;
+    }
+
 }

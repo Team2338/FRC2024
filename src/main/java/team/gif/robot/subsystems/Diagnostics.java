@@ -60,13 +60,6 @@ public class Diagnostics extends SubsystemBase {
                  getSafeStageClimber() &&
                  getSafeStageElevator();
 
-        // set the LEDs accordingly
-        if (result) {
-            Robot.ledSubsystem.setStageSafe();
-        } else {
-            Robot.ledSubsystem.setStageAvoid();
-        }
-
         return result;
     }
 

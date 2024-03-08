@@ -77,7 +77,7 @@ public class DriveSwerve extends Command {
         return false;
     }
 
-    private double limelightRotate(double forward, double strafe) {
+    private double limelightRotate(double forward, double strafe) { //TODO does not work
         double xOffset;
         double pGain = 0.012;
         double ffGain = 0.10;
@@ -88,7 +88,7 @@ public class DriveSwerve extends Command {
 //        System.out.println("fwd: " + forward + " strafe: " + strafe);
         if (Robot.limelightShooter.hasTarget()) {
             xOffset = Robot.limelightShooter.getXOffset();
-            System.out.println("xOffset = " + xOffset);
+//            System.out.println("xOffset = " + xOffset);
 
 //            if (xOffset <= -2.0 || xOffset >= 2.0) {
 //                    result = xOffset * kP;

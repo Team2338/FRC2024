@@ -2,10 +2,12 @@ package team.gif.robot.commands.autos;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import team.gif.robot.Robot;
+import team.gif.robot.commands.led.FlashLEDTargetAlign;
 
 public class AutoRotate extends Command {
     double xOffset;
     boolean isComplete;
+
     public AutoRotate() {
         super();
 //        addRequirements(Robot.swerveDrivetrain); // uncomment
@@ -31,7 +33,7 @@ public class AutoRotate extends Command {
                 Robot.swerveDrivetrain.drive(0,0,(xOffset>0?-1:1)*(ffGain+pGain*Math.abs(xOffset)));
             } else {
                 isComplete = true;
-                System.out.println("done");
+                new FlashLEDTargetAlign().schedule();
                 Robot.swerveDrivetrain.drive(0,0,0);
             }
         } else {
