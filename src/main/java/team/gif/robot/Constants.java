@@ -126,6 +126,13 @@ public final class Constants {
         }
     }
 
+    public static final class DrivetrainAuto {
+        public static final double kP_FORWARD = 3.0;
+        public static final double kP_ROTATION = 3.0;
+        public static final double MAX_MODULE_SPEED_MPS = 3.5;
+        public static final double DRIVEBASE_RADIUS_METERS = 0.4131;
+    }
+
     public static final class AutoConstants {
         public static final double MAX_SPEED_METERS_PER_SECOND = 3;
         public static final double MAX_ACCELERATION_METERS_PER_SECOND_SQUARED = 3;
