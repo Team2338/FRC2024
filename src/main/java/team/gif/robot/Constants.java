@@ -36,10 +36,10 @@ public final class Constants {
         public static final boolean kFrontRightTurningMotorReversed = false;
         public static final boolean kRearRightTurningMotorReversed = false;
 
-        public static final double FRONT_LEFT_OFFSET = 79.189; //82.089;
-        public static final double REAR_LEFT_OFFSET = 221.66015;//-138.25195;
-        public static final double FRONT_RIGHT_OFFSET = 160.40039 + 180;// + 25.31;
-        public static final double REAR_RIGHT_OFFSET = -28.38867 + 180;// + 25.4;
+        public static final double FRONT_LEFT_OFFSET = 70.41015625; //79.189; //82.089; // these are exact values
+        public static final double REAR_LEFT_OFFSET = -137.373046875; //221.66015;//-138.25195;
+        public static final double FRONT_RIGHT_OFFSET = -17.138671875; //160.40039 + 180;// + 25.31;
+        public static final double REAR_RIGHT_OFFSET = 153.017578125; // -28.38867 + 180;// + 25.4;
 
         // Distance between centers of front and back wheels on robot
         public static final double TRACK_LENGTH = Units.inchesToMeters(22.5);
@@ -115,13 +115,13 @@ public final class Constants {
         public static final double TURNING_ENCODER_RPM_2_RAD_PER_SECOND = TURNING_ENCODER_ROT_TO_RAD / 60;
 
         public static final class DrivetrainPID { //TODO: tuning pid
-            public static final double frontLeftP = 0.35;// 0.35; //pBot 0.4 all P
+            public static final double frontLeftP = 0.6;// 0.35; //pBot 0.4 all P
             public static final double frontLeftFF = 0.01;//0.01; //pBot 0.01 all FF
-            public static final double frontRightP = 0.35;
+            public static final double frontRightP = 0.6;
             public static final double frontRightFF = 0.01; //issa good
-            public static final double rearLeftP = 0.35;//0.35;
+            public static final double rearLeftP = 0.6;//0.35;
             public static final double rearLeftFF = 0.01;//0.01;
-            public static final double rearRightP = 0.35;//0.35; // 0.6
+            public static final double rearRightP = 0.6;//0.35; // 0.6
             public static final double rearRightFF = 0.01;//0.01;
         }
     }
