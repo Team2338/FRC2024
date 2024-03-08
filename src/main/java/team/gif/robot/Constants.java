@@ -36,7 +36,7 @@ public final class Constants {
         public static final boolean kFrontRightTurningMotorReversed = false;
         public static final boolean kRearRightTurningMotorReversed = false;
 
-        public static final double FRONT_LEFT_OFFSET = 70.41015625; //79.189; //82.089; // these are exact values
+        public static final double FRONT_LEFT_OFFSET = 79.541015625; //79.189; //82.089; // these are exact values
         public static final double REAR_LEFT_OFFSET = -137.373046875; //221.66015;//-138.25195;
         public static final double FRONT_RIGHT_OFFSET = -17.138671875; //160.40039 + 180;// + 25.31;
         public static final double REAR_RIGHT_OFFSET = 153.017578125; // -28.38867 + 180;// + 25.4;
