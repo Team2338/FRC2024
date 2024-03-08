@@ -36,16 +36,16 @@ public final class Constants {
         public static final boolean kFrontRightTurningMotorReversed = false;
         public static final boolean kRearRightTurningMotorReversed = false;
 
-        public static final double FRONT_LEFT_OFFSET = 79.189; //82.089;
-        public static final double REAR_LEFT_OFFSET = 221.66015;//-138.25195;
-        public static final double FRONT_RIGHT_OFFSET = -20.74219;// + 25.31;
-        public static final double REAR_RIGHT_OFFSET = 153.63281;// + 25.4;
+        public static final double FRONT_LEFT_OFFSET = 79.641015625; //79.189; //82.089; // these are off by .1 values
+        public static final double REAR_LEFT_OFFSET = -137.473046875; //221.66015;//-138.25195;
+        public static final double FRONT_RIGHT_OFFSET = -20.578515625; //160.40039 + 180;// + 25.31;
+        public static final double REAR_RIGHT_OFFSET = 155.490625; // updated with new encoder 3/7/24
 
-        // Distance between centers of right and left wheels on robot
-        public static final double TRACK_LENGTH = Units.inchesToMeters(23.5);
+        // Distance between centers of front and back wheels on robot
+        public static final double TRACK_LENGTH = Units.inchesToMeters(22.5);
 
-        // Distance between front and back wheels on robot
-        public static final double TRACK_WIDTH = Units.inchesToMeters(22.5);
+        // Distance between centers of left and right wheels on robot
+        public static final double TRACK_WIDTH = Units.inchesToMeters(23.5);
 
         // location of wheels from center of robot using following axis
         //        +x
@@ -115,13 +115,13 @@ public final class Constants {
         public static final double TURNING_ENCODER_RPM_2_RAD_PER_SECOND = TURNING_ENCODER_ROT_TO_RAD / 60;
 
         public static final class DrivetrainPID { //TODO: tuning pid
-            public static final double frontLeftP = 0.35;// 0.35; //pBot 0.4 all P
+            public static final double frontLeftP = 0.55;// 0.35; //pBot 0.4 all P
             public static final double frontLeftFF = 0.01;//0.01; //pBot 0.01 all FF
-            public static final double frontRightP = 0.35;
+            public static final double frontRightP = 0.55;
             public static final double frontRightFF = 0.01; //issa good
-            public static final double rearLeftP = 0.35;//0.35;
+            public static final double rearLeftP = 0.55;//0.35;
             public static final double rearLeftFF = 0.01;//0.01;
-            public static final double rearRightP = 0.35;//0.35; // 0.6
+            public static final double rearRightP = 0.55;//0.35; // 0.6
             public static final double rearRightFF = 0.01;//0.01;
         }
     }
@@ -265,11 +265,47 @@ public final class Constants {
 
     public static final class Shooter { // ToDo tune - remove when done (tuned for 5800RPM)
         public static final double REV = 1.0;
-        public static final int REV_RPM = 6200;//5100; // need to tune for comp, Neo Max at 5000
+        public static final int REV_RPM = 6200;//4800; //5100; // need to tune for comp, Neo Max at 5000
         public static final int TRAP_RPM = 1000;
-        public static final double FF = 0.000155; // gets to 6100    // 0.000130;  // 5800 RPM
-        public static final double kP = 0.00030;//0.0100;               // 0.0006;    // 5800 RPM
+        public static final int IDLE_RPM = 1000;
+        public static final double FF = 0.000155;//0.000130; //0.000155; // gets to 6100    // 0.000130;  // 5800 RPM
+        public static final double kP = 0.00030;//0.00055;//0.0100;               // 0.0006;    // 5800 RPM
         public static final double kI = 0.000;//0.001;               // 0.0000015; // 5800 RPM
+
+        //Wall
+        public static final double RPM_WALL = 6200;
+        public static final double RPM_MIN_WALL = 4200;
+        public static final double FF_WALL = 0.000155; // gets to 6100    // 0.000130;  // 5800 RPM
+        public static final double kP_WALL = 0.00030;//0.0100;               // 0.0006;    // 5800 RPM
+        public static final double kI_WALL = 0.000;//0.001;               // 0.0000015; // 5800 RPM
+
+        //Near
+        public static final double RPM_NEAR = 6200;
+        public static final double RPM_MIN_NEAR = 4500;
+        public static final double FF_NEAR = 0.000155; // gets to 6100    // 0.000130;  // 5800 RPM
+        public static final double kP_NEAR = 0.00030;//0.0100;               // 0.0006;    // 5800 RPM
+        public static final double kI_NEAR = 0.000;//0.001;               // 0.0000015; // 5800 RPM
+
+        //Mid
+        public static final double RPM_MID = 6200;
+        public static final double RPM_MIN_MID = 5600;
+        public static final double FF_MID = 0.000155; // gets to 6100    // 0.000130;  // 5800 RPM
+        public static final double kP_MID = 0.00030;//0.0100;               // 0.0006;    // 5800 RPM
+        public static final double kI_MID = 0.000;//0.001;               // 0.0000015; // 5800 RPM
+
+        //Far
+        public static final double RPM_FAR = 6200;
+        public static final double RPM_MIN_FAR = 6000;
+        public static final double FF_FAR = 0.000155; // gets to 6100    // 0.000130;  // 5800 RPM
+        public static final double kP_FAR = 0.00030;//0.0100;               // 0.0006;    // 5800 RPM
+        public static final double kI_FAR = 0.000;//0.001;               // 0.0000015; // 5800 RPM
+
+        //Amp
+        public static final double RPM_AMP = 2000;
+        public static final double RPM_MIN_AMP = 1900;
+        public static final double FF_AMP = 0.000145; // gets to 1800
+        public static final double kP_AMP = 0.00030;
+        public static final double kI_AMP = 0.00000;
     }
 
     public static final class Wrist { // tuned 02/22
@@ -286,7 +322,7 @@ public final class Constants {
 
         // Encoder setpoints and values
         // These are the encoder specific values
-        public static final double ENCODER_OFFSET_ABSOLUTE = -0.79379; // this is determined either manually or via the auto-calibration
+        public static final double ENCODER_OFFSET_ABSOLUTE = -0.074072;//-0.850439; // this is determined either manually or via the auto-calibration
         public static final double ABSOLUTE_PER_DEGREE = 0.008333;
         // These are the values we want the bot to utilize
         public static final double KILL_LIMIT_ABSOLUTE = 0.87;
@@ -295,11 +331,16 @@ public final class Constants {
         public static final double HARD_STOP_ABSOLUTE = 0.10; // value of encoder at lower limit hard stop
         public static final double MIN_LIMIT_DEGREES = 48.0; // this is calculated during manual calibration from reading the 90 degree value, provides a relationship between Degrees and Absolute
         public static final double STAGE_SAFE_DEGREES = 46.0; // maximum value to go under stage
+        public static final double MAX_LIMIT_DEGREES = (MAX_LIMIT_ABSOLUTE - MIN_LIMIT_ABSOLUTE)/ABSOLUTE_PER_DEGREE+MIN_LIMIT_DEGREES; // Convert MAX_LIMIT
         public static final double SETPOINT_FAR_ABSOLUTE  = (72.0 - MIN_LIMIT_DEGREES) * ABSOLUTE_PER_DEGREE + MIN_LIMIT_ABSOLUTE; // number in degrees, value in absolute
         public static final double SETPOINT_MID_ABSOLUTE  = (68.0 - MIN_LIMIT_DEGREES) * ABSOLUTE_PER_DEGREE + MIN_LIMIT_ABSOLUTE; // number in degrees, value in absolute
         public static final double SETPOINT_NEAR_ABSOLUTE = (64.0 - MIN_LIMIT_DEGREES) * ABSOLUTE_PER_DEGREE + MIN_LIMIT_ABSOLUTE; // number in degrees, value in absolute
         public static final double SETPOINT_WALL_ABSOLUTE = (49.0 - MIN_LIMIT_DEGREES) * ABSOLUTE_PER_DEGREE + MIN_LIMIT_ABSOLUTE; // number in degrees, value in absolute
         public static final double SETPOINT_COLLECT_ABSOLUTE = (48.0 - MIN_LIMIT_DEGREES) * ABSOLUTE_PER_DEGREE + MIN_LIMIT_ABSOLUTE; // number in degrees, value in absolute
+        public static final double SETPOINT_TRAP_ABSOLUTE = (92.0 - MIN_LIMIT_DEGREES) * ABSOLUTE_PER_DEGREE + MIN_LIMIT_ABSOLUTE; // number in degrees, value in absolute
+        public static final double SETPOINT_TRAP_FINAL_ABSOLUTE = (64.0 - MIN_LIMIT_DEGREES) * ABSOLUTE_PER_DEGREE + MIN_LIMIT_ABSOLUTE; // number in degrees, value in absolute
+        public static final double SETPOINT_AMP_ABSOLUTE = (120.0 - MIN_LIMIT_DEGREES) * ABSOLUTE_PER_DEGREE + MIN_LIMIT_ABSOLUTE; // number in degrees, value in absolute
+        public static final double SAFE_STAGE_DEGREES = 50;
     }
 
     public static final class Indexer { // ToDo tune - remove when done
@@ -322,19 +363,30 @@ public final class Constants {
     }
 
     public static final class Elevator {
-        public static final double kP = 1;
-        public static final double FF = 0.01;
-        public static final double kI = 0.0000;
-        public static final double kD = 0.0000;
+        public static final double FF = .00;
+        public static final double kP = 0.03;//1.80;
+        public static final double kI = 0.0;
+        public static final double kD = 0.0;
+        public static final double LIMIT_MAX = 57.500;
+        public static final double LIMIT_MIN = 0;
+
+        public static final double AMP_POS = 20.0;
+        public static final double SAFE_STAGE_POS = 0.4;
+        public static final double TRAP_POS = 52.500;
+        public static final double HOME_POS = 0.0;
     }
 
     public static final class Climber {
-        public static final double kP = 1;
-        public static final double FF = 0.01;
-        public static final double kI = 0.0000;
-        public static final double kD = 0.0000;
-        public static final double MIN_LIMIT = 50;
-        public static final double MAX_LIMIT = 400;
+        public static final double FF = 0.0003;
+        public static final double kP = 0.00000003;
+        public static final double kI = 0.0;
+        public static final double kD = 0.0;
+        public static final double LIMIT_MAX = 150; //163.35; is max setting 150 letting to over run
+        public static final double LIMIT_MIN = -210;//-163.35; is min is correct // TODO: needs tuning
+
+        public static final double SAFE_STAGE_POS = 1.200;
+        public static final double TRAP_POS = LIMIT_MIN;
+        public static final double TRAP_MOVE_ELEVATOR_POS = 100.00;
     }
 
     public static final class MotorTemps {
@@ -343,6 +395,8 @@ public final class Constants {
         public static final double INDEXER_MOTOR_TEMP = 70;
         public static final double DRIVETRAIN_MOTOR_TEMP = 85;
         public static final double COLLECTOR_MOTOR_TEMP = 70;
+        public static final double ELEVATOR_MOTOR_TEMP = 70;
+        public static final double CLIMBER_MOTOR_TEMP = 70;
     }
     public static final class LED {
         public static final int NUM_LEDS_TOTAL = 6;

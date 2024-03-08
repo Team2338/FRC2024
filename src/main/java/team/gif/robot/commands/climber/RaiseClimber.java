@@ -17,7 +17,11 @@ public class RaiseClimber extends Command {
     // Called every time the scheduler runs (~20ms) while the command is scheduled
     @Override
     public void execute() {
-        Robot.climber.up();
+//        if (Robot.climber.getClimberPosition() > Constants.Climber.MAX_LIMIT/100) {
+//            Robot.climber.hold();
+//        } else {
+//            Robot.climber.up(false);
+//        }
     }
 
     // Return true when the command should end, false if it should continue. Runs every ~20ms.
@@ -29,6 +33,6 @@ public class RaiseClimber extends Command {
     // Called when the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
-        Robot.climber.setClimberPercent(0);
+//        Robot.climber.setClimberPercent(0);
     }
 }

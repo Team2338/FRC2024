@@ -7,17 +7,25 @@ import edu.wpi.first.wpilibj2.command.PrintCommand;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import team.gif.robot.commands.autos.AutoRotate;
+import team.gif.robot.commands.climber.LowerClimberAndElevator;
+import team.gif.robot.commands.climber.RaiseClimberToTop;
 import team.gif.robot.commands.collector.NoteRumble;
 import team.gif.robot.commands.collector.ToggleCollectorDefault;
 import team.gif.robot.commands.collector.CollectorManualControl;
 import team.gif.robot.commands.driveModes.EnableBoost;
 import team.gif.robot.commands.driveModes.EnableRobotOrientedMode;
+import team.gif.robot.commands.elevator.MoveElevatorToBottom;
+import team.gif.robot.commands.elevator.MoveElevatorToTop;
 import team.gif.robot.commands.indexer.FullIndexerReverse;
 import team.gif.robot.commands.indexer.IndexerManualControl;
+import team.gif.robot.commands.toggleManualControl.ToggleManualControl;
 import team.gif.robot.commands.wrist.CalibrateAngle;
 import team.gif.robot.commands.shooter.RevFlyWheels;
 import team.gif.robot.commands.shooter.Shoot;
 import team.gif.robot.commands.shooter.ForceShoot;
+import team.gif.robot.commands.shooter.AmpPosition;
+import team.gif.robot.commands.wrist.SetWristPos;
 import team.gif.robot.commands.wrist.WristAngleUp;
 import team.gif.robot.commands.wrist.WristAngleDown;
 import team.gif.robot.commands.shooter.TrapShoot;
@@ -90,6 +98,8 @@ public class OI {
 //    public final Trigger tDPadLeft = test.povLeft();
 
     public final Trigger collectorGamePieceSensor = new Trigger(Robot.collector.sensor::get);
+    public final Trigger shooterGamePieceSensor = new Trigger(Robot.indexer.shooterSensor::get);
+
 
     public OI() {
         DriverStation.silenceJoystickConnectionWarning(true);
@@ -123,10 +133,12 @@ public class OI {
         dRBump.whileTrue(new EnableRobotOrientedMode());
         dY.whileTrue(new FullIndexerReverse());
 
+        dA.onTrue(new AutoRotate());
+
         // calibrations
-        dStart.and(dDPadUp).onTrue(new InstantCommand(Robot.pigeon::resetPigeonPosition));
-//        dStart.and(dDPadLeft).onTrue(new InstantCommand(Robot.elevator::resetPosition));
-//        dStart.and(dDPadRight).onTrue(new InstantCommand(Robot.climber::resetPosition));
+        dStart.and(dDPadUp).onTrue(new InstantCommand(Robot.pigeon::resetPigeonPosition).ignoringDisable(true));
+        dStart.and(dDPadLeft).onTrue(new InstantCommand(Robot.elevator::resetPosition).ignoringDisable(true));
+        dStart.and(dDPadRight).onTrue(new InstantCommand(Robot.climber::resetPosition).ignoringDisable(true));
         dStart.and(dDPadDown).toggleOnTrue(new ToggleCollectorDefault());
         dStart.and(dBack).onTrue(new CalibrateAngle());
 
@@ -137,28 +149,30 @@ public class OI {
         // manual control
         aA.and(aBack.negate()).whileTrue(new CollectorManualControl());
         aB.and(aBack.negate()).whileTrue(new CollectorManualControl().alongWith(new IndexerManualControl())); // used when sensors fail
+        aStart.and(aBack).toggleOnTrue(new ToggleManualControl());
 
         //wrist
-        aDPadUp.and(aStart.negate()).onTrue(new InstantCommand(Robot.wrist::setWristFarPosition));
-        aDPadRight.and(aStart.negate()).onTrue(new InstantCommand(Robot.wrist::setWristMidPosition));
-        aDPadLeft.and(aStart.negate()).onTrue(new InstantCommand(Robot.wrist::setWristNearPosition));
-        aDPadDown.and(aStart.negate()).onTrue(new InstantCommand(Robot.wrist::setWristWallPosition));
-//        aDPadDownLeft.whileTrue(new EnableAutoWrist());
+        // Single press will set the next shoot position, holding will move wrist
+        aDPadUp.and(aStart.negate()).whileTrue(new InstantCommand(Robot.wrist::setWristMidPosition).andThen(new SetWristPos()));
+        aDPadRight.and(aStart.negate()).whileTrue(new InstantCommand(Robot.wrist::setWristFarPosition).andThen(new SetWristPos()));
+        aDPadLeft.and(aStart.negate()).whileTrue(new InstantCommand(Robot.wrist::setWristNearPosition).andThen(new SetWristPos()));
+        aDPadDown.and(aStart.negate()).whileTrue(new InstantCommand(Robot.wrist::setWristWallPosition).andThen(new SetWristPos()));
 
         //shooter
         aRBump.whileTrue(new RevFlyWheels());
         aRBump.onFalse(new InstantCommand(Robot.shooter::stop));
-        aLBump.onTrue(new Shoot().andThen(new InstantCommand(Robot.wrist::setWristCollectPosition)));
+        aLBump.onTrue(new Shoot()); //.andThen(new InstantCommand(Robot.wrist::setWristCollectPosition)));
         aX.and(aBack.negate()).whileTrue(new ForceShoot());
+        //aX.and(aBack.negate()).whileTrue(new ForceShoot());
 
-//        aRTrigger.onTrue(new AmpPosition()); // goes to position and revs flywheel
-//        aLTrigger.onTrue(new AmpShoot().andThen(new InstantCommand(Robot.wrist::setWristCollect)); // shoots and returns to home
+        aRTrigger.onTrue(new AmpPosition()); // goes to position and revs flywheel
+        aLTrigger.onTrue(new Shoot().andThen(new WaitCommand(0.25).andThen(new MoveElevatorToBottom()))); // shoots and returns to home
 //        aY.and(aBack.negate()).whileTrue(new LoadFromSource());
 
-//        aBack.and(aA).onTrue(new RaiseCLimberToTop());
-//        aBack.and(aX).onTrue(new RaiseElevatorToTop());
-//        aBack.and(aY).onTrue(new LowerClimberAndElevator());
-        aBack.and(aB).onTrue(new TrapShoot().withTimeout(3));
+        aBack.and(aA).onTrue(new RaiseClimberToTop());
+        aBack.and(aX).onTrue(new MoveElevatorToTop());
+        aBack.and(aY).onTrue(new LowerClimberAndElevator());
+        aBack.and(aB).onTrue(new TrapShoot().withTimeout(5));
 
         aStart.and(aDPadUp).whileTrue(new WristAngleUp());
         aStart.and(aDPadDown).whileTrue(new WristAngleDown());
@@ -167,6 +181,7 @@ public class OI {
         // auto sensor actions
         collectorGamePieceSensor.onTrue(new NoteRumble().andThen(new WaitCommand(0.1).andThen(new NoteRumble())));
         collectorGamePieceSensor.onTrue(new InstantCommand(Robot.wrist::setWristCollectPosition));
+        shooterGamePieceSensor.onTrue(new InstantCommand(Robot.shooter::setShooterRPMIdle));
 
         // testing purposes
 //        dY.whileTrue(new RaiseClimber());

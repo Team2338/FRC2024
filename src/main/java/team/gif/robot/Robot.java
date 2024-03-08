@@ -15,9 +15,10 @@ import team.gif.lib.autoMode;
 import team.gif.lib.delay;
 import team.gif.lib.logging.EventFileLogger;
 import team.gif.lib.logging.TelemetryFileLogger;
-import team.gif.robot.commands.climber.ClimberHold;
+import team.gif.lib.shootParams;
 import team.gif.robot.commands.collector.CollectorDefault;
 import team.gif.robot.commands.drivetrain.DriveSwerve;
+import team.gif.robot.commands.elevator.ElevatorPIDControl;
 import team.gif.robot.commands.indexer.IndexerDefault;
 import team.gif.robot.commands.led.LEDSubsystemDefault;
 import team.gif.robot.commands.wrist.WristAnglePIDControl;
@@ -71,7 +72,11 @@ public class Robot extends TimedRobot {
     public static Diagnostics diagnostics;
     public static LEDSubsystem ledSubsystem;
 
+    public static shootParams nextShot;
+
     public static boolean isCompBot = true; //includes 2023 bot
+
+    public static boolean manualControlMode;
 
     //https://github.com/mjansen4857/pathplanner/tree/main/examples/java/src/main/java/frc/robot
 
@@ -108,6 +113,8 @@ public class Robot extends TimedRobot {
             practiceDrivetrain.enableShuffleboardDebug("FRC2024");
         }
 
+        nextShot = shootParams.WALL;
+
         shooter = new Shooter();
 
         try {
@@ -119,13 +126,13 @@ public class Robot extends TimedRobot {
         indexer.setDefaultCommand(new IndexerDefault());
         collector = new Collector();
         collector.setDefaultCommand(new CollectorDefault());
-//        elevator = new Elevator();
+        elevator = new Elevator();
         climber = new Climber();
         diagnostics = new Diagnostics();
 
         wrist.setDefaultCommand(new WristAnglePIDControl());
 
-        climber.setDefaultCommand(new ClimberHold());
+        elevator.setDefaultCommand(new ElevatorPIDControl());
 
         ledSubsystem = new LEDSubsystem();
         ledSubsystem.setDefaultCommand(new LEDSubsystemDefault());
@@ -136,7 +143,10 @@ public class Robot extends TimedRobot {
         uiSmartDashboard = new UiSmartDashboard();
 
         oi = new OI();
+
+        manualControlMode = false;
         runningAutonomousMode = false;
+
     }
 
     /**
@@ -188,9 +198,6 @@ public class Robot extends TimedRobot {
         elapsedTime.start();
         runAutoScheduler = true;
 
-
-        // TODO change - this is to offset the starting position of the auto
-        swerveDrivetrain.resetOdometry(new Pose2d(new Translation2d(1.27, 5.54), pigeon.getRotation2d()));
     }
 
     /** This function is called periodically during autonomous. */
@@ -258,4 +265,7 @@ public class Robot extends TimedRobot {
         autonomousCommand.cancel();
     }
 
+    public static boolean getManualControlMode() {
+        return manualControlMode;
+    }
 }

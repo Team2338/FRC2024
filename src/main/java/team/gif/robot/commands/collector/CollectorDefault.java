@@ -53,6 +53,10 @@ public class CollectorDefault extends Command {
             collect = false;
         }
 
+        if (Robot.runningAutonomousMode) {
+            collect = !Robot.indexer.getShooterSensorState();
+        }
+
         if (collect) {
             Robot.collector.collect();
         } else {

@@ -32,7 +32,12 @@ public class UiSmartDashboard {
         autoModeChooser.addOption("NONE", autoMode.NONE);
         autoModeChooser.addOption("Circle", autoMode.CIRCLE);
         autoModeChooser.addOption("Mobility", autoMode.MOBILITY);
-        autoModeChooser.addOption("CTR-C", autoMode.CTR_C);
+        autoModeChooser.addOption("2CTR+C", autoMode.TWO_CTR_C);
+        autoModeChooser.addOption("2SRC+S", autoMode.TWO_SRC_S);
+        autoModeChooser.addOption("2SRC+8", autoMode.TWO_SRC_8);
+        autoModeChooser.addOption("2SRC+7", autoMode.TWO_SRC_7);
+        autoModeChooser.addOption("4AMP+A+C+S", autoMode.FOUR_AMP_A_C_S);
+        autoModeChooser.addOption("Line Test", autoMode.LINE_TEST);
 
 
         shuffleboardTab.add("Auto Select", autoModeChooser)
@@ -72,6 +77,13 @@ public class UiSmartDashboard {
         shuffleboardTab.addBoolean("Motor Temp", Robot.diagnostics::getAnyMotorTempHot);
 
         shuffleboardTab.addBoolean("Stage Safe", Robot.diagnostics::getSafeToDriveUnderStage);
+
+        shuffleboardTab.addBoolean("Ready", Robot.shooter::getShooterAtMinRPM);
+
+//        shuffleboardTab.addString("Climber", Robot.climber::getPosition_Shuffleboard);
+//        shuffleboardTab.addString("Elevator", Robot.elevator::getPosition_Shuffleboard);
+
+        shuffleboardTab.addBoolean("Manual", Robot::getManualControlMode);
     }
 
     public void updateUI() {

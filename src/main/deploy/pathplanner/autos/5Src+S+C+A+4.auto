@@ -1,0 +1,73 @@
+{
+  "version": 1.0,
+  "startingPose": {
+    "position": {
+      "x": 0.8230650130085572,
+      "y": 6.778491578699259
+    },
+    "rotation": 61.9957344991097
+  },
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "named",
+          "data": {
+            "name": "AutonShoot"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "5SRC+S-Away"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "AutonShoot"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "5SRC+S+C"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "AutonShoot"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "5SRC+S+C+A"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "AutonShoot"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "5SRC+A+4-Away"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "5SRC+A+4-Return"
+          }
+        }
+      ]
+    }
+  },
+  "folder": null,
+  "choreoAuto": false
+}

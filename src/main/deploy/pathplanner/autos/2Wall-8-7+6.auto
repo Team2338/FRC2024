@@ -2,10 +2,10 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 1.5,
-      "y": 5.54
+      "x": 0.88,
+      "y": 4.276762702536705
     },
-    "rotation": 0
+    "rotation": -62.63566497816518
   },
   "command": {
     "type": "sequential",
@@ -20,13 +20,25 @@
         {
           "type": "path",
           "data": {
-            "pathName": "CTR-C"
+            "pathName": "2Wall-8 Away"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "2Wall-8 Return"
           }
         },
         {
           "type": "named",
           "data": {
             "name": "AutonShoot"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "2Wall-7 Away"
           }
         }
       ]

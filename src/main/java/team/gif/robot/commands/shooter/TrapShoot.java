@@ -5,9 +5,9 @@ import team.gif.robot.Constants;
 import team.gif.robot.Robot;
 
 public class TrapShoot extends Command {
-    boolean stopFlyWheel;
     int counter;
     boolean finished;
+    boolean wristEngaged;
 
     public TrapShoot() {
         super();
@@ -17,18 +17,30 @@ public class TrapShoot extends Command {
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
-        stopFlyWheel = false;
         finished = false;
+        wristEngaged = false;
         counter = 0;
     }
 
     // Called every time the scheduler runs (~20ms) while the command is scheduled
     @Override
     public void execute() {
-        if (counter <= (0.25 * 50)) { // run the flywheel from start to 0.25 seconds after game piece leaves shooter
+        // run the flywheel from start to 0.25 seconds after game piece leaves shooter
+        if (counter <= (0.25 * 50)) {
             Robot.shooter.setShooterRPM(Constants.Shooter.TRAP_RPM);
         } else {
-            Robot.shooter.setVoltagePercent(0);
+            Robot.shooter.stop();
+        }
+
+        // after being held for N seconds, rotate the wrist back to a safer position
+        if (wristEngaged && counter++ >= 1*50) {
+            if (Robot.wrist.getPosition() > Constants.Wrist.SETPOINT_TRAP_FINAL_ABSOLUTE) {
+                Robot.wrist.moveWristPercentPower(-0.10);
+            } else {
+                // wrist is at desired position, set power to zero and end
+                Robot.wrist.moveWristPercentPower(0);
+                finished = true;
+            }
         }
 
         // once shooterRPM gets to target, run the indexer
@@ -36,13 +48,16 @@ public class TrapShoot extends Command {
             Robot.indexer.setIndexer(0,Constants.Indexer.INDEXER_TWO_TRAP_PERC);
         }
 
-        // once we no longer have the game piece, rotate the shooter mechanism
-        if(!Robot.indexer.getShooterSensorState()) {
-            if (counter <= (.3333*50)) { // rotate the shooter for 0.5 seconds // todo consider changing to using PID
+        // once the robot no longer has the game piece, rotate the wrist to "trap"
+        if (!Robot.indexer.getShooterSensorState() && !wristEngaged) {
+            // rotate until desired position
+            if (Robot.wrist.getPosition() < Constants.Wrist.SETPOINT_TRAP_ABSOLUTE) {
                 Robot.wrist.moveWristPercentPower(.3);//0.3);
             } else {
+                // reached desired position
                 Robot.wrist.moveWristPercentPower(0);
-                finished = true;
+                wristEngaged = true;
+                Robot.wrist.setTargetPosition(Robot.wrist.getPosition());
             }
             Robot.indexer.stopIndexerCoast();
             counter++;
@@ -58,9 +73,8 @@ public class TrapShoot extends Command {
     // Called when the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
-        Robot.indexer.stopIndexerCoast();
-        Robot.wrist.moveWristPercentPower(0);
         Robot.wrist.setTargetPosition(Robot.wrist.getPosition());
         Robot.shooter.setVoltagePercent(0);
+        System.out.println("Game over! You did GREAT!!!");
     }
 }

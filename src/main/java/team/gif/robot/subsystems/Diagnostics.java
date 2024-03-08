@@ -36,15 +36,29 @@ public class Diagnostics extends SubsystemBase {
         return (Robot.shooter.getShooterMotorTemp() >= Constants.MotorTemps.SHOOTER_MOTOR_TEMP);
     }
 
+    public boolean getClimberMotorTempHot() {
+        return (Robot.climber.getMotorTemp() >= Constants.MotorTemps.CLIMBER_MOTOR_TEMP);
+    }
+
+    public boolean getElevatorMotorTempHot() {
+        return (Robot.elevator.getMotorTemp() >= Constants.MotorTemps.ELEVATOR_MOTOR_TEMP);
+    }
+
     public boolean getAnyMotorTempHot() {
-        return getShooterMotorTempHot() || getIndexerMotorTempHot() || getDriveMotorTempHot();
+        return  getShooterMotorTempHot() ||
+                getIndexerMotorTempHot() ||
+                getDriveMotorTempHot()   ||
+                getClimberMotorTempHot() ||
+                getElevatorMotorTempHot();
     }
 
     public boolean getSafeToDriveUnderStage() {
         boolean result;
 
         // all the conditions to indicate the robot can drive under the stage safely
-        result = (Robot.wrist.getPosition() <= Robot.wrist.degreesToAbsolute(50)) && false;//(Robot.climber.getPosition() < 100 && Robot.elevator.getPosition() < 100 && Robot.shooter.getPosition() < 100);
+        result = getSafeStageWrist() &&
+                 getSafeStageClimber() &&
+                 getSafeStageElevator();
 
         // set the LEDs accordingly
         if (result) {
@@ -56,6 +70,17 @@ public class Diagnostics extends SubsystemBase {
         return result;
     }
 
+    public boolean getSafeStageWrist() {
+        return Robot.wrist.getPosition() <= Robot.wrist.degreesToAbsolute(Constants.Wrist.SAFE_STAGE_DEGREES);
+    }
+
+    public boolean getSafeStageClimber() {
+        return Robot.climber.getPosition() <= Constants.Climber.SAFE_STAGE_POS;
+    }
+
+    public boolean getSafeStageElevator() {
+        return Robot.elevator.getPosition() <= Constants.Elevator.SAFE_STAGE_POS;
+    }
     /**
      *  General purpose method to let other subsystems know if the robot has a note
      * @return true if the robot has a note, false of not

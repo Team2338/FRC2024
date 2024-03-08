@@ -16,7 +16,7 @@ public class ClimberHold extends Command {
     // Called every time the scheduler runs (~20ms) while the command is scheduled
     @Override
     public void execute() {
-            Robot.climber.hold();
+//            Robot.climber.hold();
     }
 
     // Return true when the command should end, false if it should continue. Runs every ~20ms.
