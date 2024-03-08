@@ -59,7 +59,7 @@ public class DriveSwerve extends Command {
 
             if (Robot.oi.driver.getHID().getRightStickButton()) {
                 // use limelight target for rotation
-                rot = limelightRotate(forward, strafe);
+                rot = turnLimiter.calculate(limelightRotate()) * Constants.ModuleConstants.TELE_DRIVE_MAX_ANGULAR_SPEED_RADIANS_PER_SECOND;
             } else {
                 rot = turnLimiter.calculate(rot) * Constants.ModuleConstants.TELE_DRIVE_MAX_ANGULAR_SPEED_RADIANS_PER_SECOND;
             }
@@ -77,35 +77,22 @@ public class DriveSwerve extends Command {
         return false;
     }
 
-    private double limelightRotate(double forward, double strafe) { //TODO does not work
+    public double limelightRotate() {
         double xOffset;
-        double pGain = 0.012;
-        double ffGain = 0.10;
-        double result = 0;
-        double strafeAdjust;
-        double kP = 0.0357;
 
-//        System.out.println("fwd: " + forward + " strafe: " + strafe);
         if (Robot.limelightShooter.hasTarget()) {
             xOffset = Robot.limelightShooter.getXOffset();
-//            System.out.println("xOffset = " + xOffset);
-
-//            if (xOffset <= -2.0 || xOffset >= 2.0) {
-//                    result = xOffset * kP;
-                    result = turnLimiter.calculate(xOffset * kP) * Constants.ModuleConstants.TELE_DRIVE_MAX_ANGULAR_SPEED_RADIANS_PER_SECOND;
-                    result *= -1.0;
-                    //                  result = (xOffset > 0 ? -1 : 1) * result;
-
-//                if (Math.abs(strafe) < 0.3) {
-//                    result = (xOffset > 0 ? -1 : 1) * (ffGain + pGain * Math.abs(xOffset));
-//                    System.out.println("stationary");
-//                }  else {
-//                    result = (xOffset > 0 ? -1 : 1) * (ffGain + (9.0 * strafe * strafe) * pGain * Math.abs(xOffset));
-//                System.out.println("rot: " + result);
-                }
-                return (result);
+            if (xOffset <= -2.0 || xOffset >= 2.0) {
+                return limelightRotateMath(xOffset);
             }
-//        }
-//        return 0;
-//    }
+        }
+        return 0;
+    }
+
+    public double limelightRotateMath(double xOffset) {
+        // 30.4 is max degrees so pGain = 1/30.4 *.30 (0.30 equiv to limiting "joystick" speed)
+        double pGain = (1/30.4) * .30;
+
+        return (xOffset > 0 ? -1 : 1) * (pGain * Math.abs(xOffset));
+    }
 }
