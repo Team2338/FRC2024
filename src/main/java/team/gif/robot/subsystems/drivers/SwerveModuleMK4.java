@@ -272,9 +272,16 @@ public class SwerveModuleMK4 {
     /**
      * Get the position of the swerve module - TODO: HAS BUG
      * @return the position of the swerve module
+     *
+     * Process:
+     * Set adjust to 1.0
+     * Create auto with the longest straight line possible
+     * adjust = actual distance / desired distance
+     *
      */
     public SwerveModulePosition getPosition() {
-        return new SwerveModulePosition(driveMotor.getPosition().getValueAsDouble() * Constants.ModuleConstants.DRIVE_ENCODER_ROT_2_METER  * 2176.5 * 0.92751003463, new Rotation2d(getTurningHeading()));
+        double adjust = 0.9578661376;
+        return new SwerveModulePosition(driveMotor.getPosition().getValueAsDouble() * Constants.ModuleConstants.DRIVE_ENCODER_ROT_2_METER  * 2176.5 * adjust, new Rotation2d(getTurningHeading()));
     }
 
     /**
