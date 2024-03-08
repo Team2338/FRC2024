@@ -39,7 +39,7 @@ public final class Constants {
         public static final double FRONT_LEFT_OFFSET = 79.641015625; //79.189; //82.089; // these are off by .1 values
         public static final double REAR_LEFT_OFFSET = -137.473046875; //221.66015;//-138.25195;
         public static final double FRONT_RIGHT_OFFSET = -20.578515625; //160.40039 + 180;// + 25.31;
-        public static final double REAR_RIGHT_OFFSET = 153.7328123; // -28.38867 + 180;// + 25.4;
+        public static final double REAR_RIGHT_OFFSET = 155.490625; // updated with new encoder 3/7/24
 
         // Distance between centers of front and back wheels on robot
         public static final double TRACK_LENGTH = Units.inchesToMeters(22.5);
@@ -115,13 +115,13 @@ public final class Constants {
         public static final double TURNING_ENCODER_RPM_2_RAD_PER_SECOND = TURNING_ENCODER_ROT_TO_RAD / 60;
 
         public static final class DrivetrainPID { //TODO: tuning pid
-            public static final double frontLeftP = 0.6;// 0.35; //pBot 0.4 all P
+            public static final double frontLeftP = 0.55;// 0.35; //pBot 0.4 all P
             public static final double frontLeftFF = 0.01;//0.01; //pBot 0.01 all FF
-            public static final double frontRightP = 0.6;
+            public static final double frontRightP = 0.55;
             public static final double frontRightFF = 0.01; //issa good
-            public static final double rearLeftP = 0.6;//0.35;
+            public static final double rearLeftP = 0.55;//0.35;
             public static final double rearLeftFF = 0.01;//0.01;
-            public static final double rearRightP = 0.6;//0.35; // 0.6
+            public static final double rearRightP = 0.55;//0.35; // 0.6
             public static final double rearRightFF = 0.01;//0.01;
         }
     }
