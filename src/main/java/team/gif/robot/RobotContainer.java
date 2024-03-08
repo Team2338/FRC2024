@@ -66,7 +66,7 @@ public class RobotContainer {
         autoCommands.put(autoMode.THREE_W_8_7, new PathPlannerAuto("3W+8+7"));
         autoCommands.put(autoMode.FOUR_AMP_A_C_S, new PathPlannerAuto("4AMP+A+C+S"));
         autoCommands.put(autoMode.FIVE_SRC_S_C_A_4, new PathPlannerAuto("5SRC+S+C+A+4"));
-//        autoCommands.put(autoMode.LINE_TEST, new PathPlannerAuto("Straight Line Test"));
+        autoCommands.put(autoMode.LINE_TEST, new PathPlannerAuto("Straight Line Test"));
     }
 
     /**

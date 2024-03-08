@@ -37,7 +37,7 @@ public class UiSmartDashboard {
         autoModeChooser.addOption("2SRC+8", autoMode.TWO_SRC_8);
         autoModeChooser.addOption("2SRC+7", autoMode.TWO_SRC_7);
         autoModeChooser.addOption("4AMP+A+C+S", autoMode.FOUR_AMP_A_C_S);
-//        autoModeChooser.addOption("Line Test", autoMode.LINE_TEST);
+        autoModeChooser.addOption("Line Test", autoMode.LINE_TEST);
 
 
         shuffleboardTab.add("Auto Select", autoModeChooser)
