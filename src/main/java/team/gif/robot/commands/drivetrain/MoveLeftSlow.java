@@ -20,7 +20,7 @@ public class MoveLeftSlow extends Command {
         if( Robot.oi.driver.getHID().getRightStickButton())
             Robot.swerveDrivetrain.drive(0.0, 0.2, 0.0);
         else
-            Robot.swerveDrivetrain.drive(0.0, 0.5, 0.0);
+            Robot.swerveDrivetrain.drive(0.0, 0.2, 0.0);
     }
 
     // Called when the command ends or is interrupted.

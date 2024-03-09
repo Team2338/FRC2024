@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import team.gif.robot.commands.autos.AutoRotate;
+import team.gif.robot.commands.autos.AutoRotateStage;
 import team.gif.robot.commands.climber.LowerClimberAndElevator;
 import team.gif.robot.commands.climber.RaiseClimberToTop;
 import team.gif.robot.commands.collector.NoteRumble;
@@ -15,6 +16,10 @@ import team.gif.robot.commands.collector.ToggleCollectorDefault;
 import team.gif.robot.commands.collector.CollectorManualControl;
 import team.gif.robot.commands.driveModes.EnableBoost;
 import team.gif.robot.commands.driveModes.EnableRobotOrientedMode;
+import team.gif.robot.commands.drivetrain.MoveAwaySlow;
+import team.gif.robot.commands.drivetrain.MoveCloserSlow;
+import team.gif.robot.commands.drivetrain.MoveLeftSlow;
+import team.gif.robot.commands.drivetrain.MoveRightSlow;
 import team.gif.robot.commands.elevator.MoveElevatorToBottom;
 import team.gif.robot.commands.elevator.MoveElevatorToTop;
 import team.gif.robot.commands.indexer.FullIndexerReverse;
@@ -133,7 +138,14 @@ public class OI {
         dRBump.whileTrue(new EnableRobotOrientedMode());
         dY.whileTrue(new FullIndexerReverse());
 
+        dB.onTrue(new AutoRotateStage(120));
+        dX.onTrue(new AutoRotateStage(240));
         dA.onTrue(new AutoRotate());
+
+        dDPadUp.and(dStart.negate()).whileTrue(new MoveCloserSlow());
+        dDPadDown.and(dStart.negate()).whileTrue(new MoveAwaySlow());
+        dDPadLeft.and(dStart.negate()).whileTrue(new MoveRightSlow());
+        dDPadRight.and(dStart.negate()).whileTrue(new MoveLeftSlow());
 
         // calibrations
         dStart.and(dDPadUp).onTrue(new InstantCommand(Robot.pigeon::resetPigeonPosition).ignoringDisable(true));
