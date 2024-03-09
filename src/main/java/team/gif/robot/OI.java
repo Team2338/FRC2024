@@ -138,8 +138,8 @@ public class OI {
         dRBump.whileTrue(new EnableRobotOrientedMode());
         dY.whileTrue(new FullIndexerReverse());
 
-        dB.onTrue(new AutoRotateStage(120));
-        dX.onTrue(new AutoRotateStage(240));
+        dX.onTrue(new AutoRotateStage(120));
+        dB.onTrue(new AutoRotateStage(240));
         dA.onTrue(new AutoRotate());
 
         dDPadUp.and(dStart.negate()).whileTrue(new MoveCloserSlow());

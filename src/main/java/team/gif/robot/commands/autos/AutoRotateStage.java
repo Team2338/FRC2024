@@ -35,7 +35,7 @@ public class AutoRotateStage extends Command {
         double rot;
 
         xOffset = Robot.pigeon.get360Heading() - targetDegree;
-        if (xOffset <= -2.0 || xOffset >= 2.0) {
+        if (xOffset <= -1.0 || xOffset >= 1.0) {
             rot = Robot.driveSwerve.limelightRotateMath(xOffset);
             rot = turnLimiter.calculate(rot) * Constants.ModuleConstants.TELE_DRIVE_MAX_ANGULAR_SPEED_RADIANS_PER_SECOND;
             Robot.swerveDrivetrain.drive(0,0,rot);
