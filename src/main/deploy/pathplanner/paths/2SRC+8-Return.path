@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.2,
-        "y": 0.17
+        "x": 8.25,
+        "y": 0.5
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.361706967448549,
-        "y": 0.17000000000000026
+        "x": 6.411706967448549,
+        "y": 0.5000000000000002
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 1.2069872572793579,
-        "y": 4.303448834817898
+        "x": 2.0,
+        "y": 4.12
       },
       "prevControl": {
-        "x": 3.019581195857548,
-        "y": 2.537631514009468
+        "x": 3.81259393857819,
+        "y": 2.3541826791915703
       },
       "nextControl": null,
       "isLocked": false,
@@ -33,7 +33,7 @@
   "eventMarkers": [
     {
       "name": "AutonRevFlywheel",
-      "waypointRelativePos": 0.7,
+      "waypointRelativePos": 0.55,
       "command": {
         "type": "parallel",
         "data": {
@@ -47,21 +47,38 @@
           ]
         }
       }
+    },
+    {
+      "name": "AutonWristMid",
+      "waypointRelativePos": 0.6,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "AutonWristMid"
+              }
+            }
+          ]
+        }
+      }
     }
   ],
   "globalConstraints": {
-    "maxVelocity": 2.0,
+    "maxVelocity": 3.0,
     "maxAcceleration": 2.0,
-    "maxAngularVelocity": 25.0,
-    "maxAngularAcceleration": 100.0
+    "maxAngularVelocity": 181.0,
+    "maxAngularAcceleration": 180.0
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -45.00000000000003,
+    "rotation": -36.13723002690452,
     "rotateFast": false
   },
   "reversed": false,
   "folder": "2SRC+8",
   "previewStartingState": null,
-  "useDefaultConstraints": false
+  "useDefaultConstraints": true
 }

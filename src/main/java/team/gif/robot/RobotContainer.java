@@ -38,10 +38,10 @@ public class RobotContainer {
         NamedCommands.registerCommand("AutonWristMid", new InstantCommand(Robot.wrist::setWristNearPosition));
 
         // Used in "Autos"
+        NamedCommands.registerCommand("AutonShoot", new InstantCommand(Robot.wrist::setWristWallPosition).andThen(new Shoot(true)));
         NamedCommands.registerCommand("AutonRotate", new AutoRotate());
         NamedCommands.registerCommand("AutonWristMidShoot", new Shoot(true));
 
-        NamedCommands.registerCommand("AutonShoot", new InstantCommand(Robot.wrist::setWristWallPosition).andThen(new Shoot(true)));
         // Configure the trigger bindings
         configureBindings();
         buildAutoCommands();
