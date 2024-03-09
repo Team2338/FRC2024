@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.05,
-        "y": 2.36
+        "x": 8.0,
+        "y": 2.3
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.81897020936899,
-        "y": 1.2167350048985814
+        "x": 5.814484107600694,
+        "y": 0.06694154442439997
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 0.85,
-        "y": 3.9
+        "x": 2.0,
+        "y": 4.12
       },
       "prevControl": {
-        "x": 2.6091349468413223,
-        "y": 0.23513552741391208
+        "x": 3.812243916864375,
+        "y": 2.3545901366005495
       },
       "nextControl": null,
       "isLocked": false,
@@ -33,7 +33,7 @@
   "eventMarkers": [
     {
       "name": "New Event Marker",
-      "waypointRelativePos": 0.8,
+      "waypointRelativePos": 0.55,
       "command": {
         "type": "parallel",
         "data": {
@@ -42,6 +42,23 @@
               "type": "named",
               "data": {
                 "name": "AutonRevFlywheel"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "New Event Marker",
+      "waypointRelativePos": 0.7,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "AutonWristMid"
               }
             }
           ]
@@ -57,7 +74,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -60.0,
+    "rotation": -36.139999999999986,
     "rotateFast": false
   },
   "reversed": false,

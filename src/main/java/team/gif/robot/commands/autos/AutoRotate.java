@@ -6,6 +6,10 @@ import team.gif.robot.Constants;
 import team.gif.robot.Robot;
 import team.gif.robot.commands.led.FlashLEDTargetAlign;
 
+/**
+ * Used in both Autonomous and Teleop
+ */
+
 public class AutoRotate extends Command {
     double xOffset;
     boolean isComplete;

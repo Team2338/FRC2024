@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import team.gif.lib.autoMode;
 import team.gif.robot.commands.autos.AutoRotate;
 import team.gif.robot.commands.autos.NoAuto;
+import team.gif.robot.commands.collector.ToggleCollectorDefault;
 import team.gif.robot.commands.shooter.RevFlyWheels;
 import team.gif.robot.commands.shooter.Shoot;
 
@@ -32,11 +33,15 @@ public class RobotContainer {
 
     /** The container for the robot. Contains subsystems, OI devices, and commands. */
     public RobotContainer() {
+        // Used in "Paths"
         NamedCommands.registerCommand("AutonRevFlywheel", new RevFlyWheels(true));
-        NamedCommands.registerCommand("AutonShoot", new InstantCommand(Robot.wrist::setWristWallPosition).andThen(new Shoot(true)));
         NamedCommands.registerCommand("AutonWristMid", new InstantCommand(Robot.wrist::setWristNearPosition));
-        NamedCommands.registerCommand("AutonWristMidShoot", new Shoot(true));
+
+        // Used in "Autos"
+        NamedCommands.registerCommand("AutonShoot", new InstantCommand(Robot.wrist::setWristWallPosition).andThen(new Shoot(true)));
         NamedCommands.registerCommand("AutonRotate", new AutoRotate());
+        NamedCommands.registerCommand("AutonWristMidShoot", new Shoot(true));
+
         // Configure the trigger bindings
         configureBindings();
         buildAutoCommands();
@@ -57,7 +62,8 @@ public class RobotContainer {
     private void buildAutoCommands(){
         autoCommands.put(autoMode.NONE, new NoAuto());
         autoCommands.put(autoMode.CIRCLE, AutoBuilder.followPath(PathPlannerPath.fromPathFile("Circle Path")));
-        autoCommands.put(autoMode.MOBILITY, AutoBuilder.followPath(PathPlannerPath.fromPathFile("Mobility")));
+//        autoCommands.put(autoMode.MOBILITY, AutoBuilder.followPath(PathPlannerPath.fromPathFile("Mobility")));
+        autoCommands.put(autoMode.MOBILITY, new PathPlannerAuto("Mobility"));
         autoCommands.put(autoMode.TWO_CTR_C, new PathPlannerAuto("2CTR+C"));
         autoCommands.put(autoMode.TWO_SRC_S, new PathPlannerAuto("2SRC+S"));
         autoCommands.put(autoMode.TWO_SRC_8, new PathPlannerAuto("2SRC+8"));

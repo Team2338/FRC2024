@@ -28,7 +28,7 @@ public class RevFlyWheels extends Command {
         Robot.wrist.setTargetPosition(Robot.nextShot.getWristAngle());
         Robot.shooter.setupAndRev(Robot.nextShot.getShooterRPM());
 
-        if (Robot.shooter.getShooterRPM() >= Robot.nextShot.getMinimumRPM()){
+        if (Robot.shooter.getShooterRPM() >= Robot.nextShot.getMinimumRPM() && !Robot.runningAutonomousMode){
             Robot.oi.setRumble(true);
         } else {
             Robot.oi.setRumble(false);

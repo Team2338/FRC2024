@@ -1,6 +1,7 @@
 package team.gif.robot.commands.collector;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import team.gif.robot.Robot;
 
 import static team.gif.robot.Robot.oi;
 
@@ -22,7 +23,10 @@ public class NoteRumble extends Command {
     @Override
     public void execute() {
         rumbleCounter++;
-        oi.setRumble(true);
+
+        if (!Robot.runningAutonomousMode) {
+            oi.setRumble(true);
+        }
     }
 
     // Return true when the command should end, false if it should continue. Runs every ~20ms.

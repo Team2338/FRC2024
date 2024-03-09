@@ -106,10 +106,10 @@ public class SwerveDrivetrain extends SubsystemBase {
                 this::getRobotRelativeSpeed,
                 this::setModuleChassisSpeeds,
                 new HolonomicPathFollowerConfig( // HolonomicPathFollowerConfig, this should likely live in your Constants class
-                        new PIDConstants(5.0, 0.0, 0.0), // Translation PID constants
-                        new PIDConstants(5.0, 0.0, 0.0), // Rotation PID constants
-                        4.5, // Max module speed, in m/s
-                        0.4, // Drive base radius in meters. Distance from robot center to furthest module.
+                        new PIDConstants(Constants.DrivetrainAuto.kP_FORWARD, 0.0, 0.0), // Translation PID constants
+                        new PIDConstants(Constants.DrivetrainAuto.kP_ROTATION, 0.0, 0.0), // Rotation PID constants
+                        Constants.DrivetrainAuto.MAX_MODULE_SPEED_MPS, // Max module speed, in m/s
+                        Constants.DrivetrainAuto.DRIVEBASE_RADIUS_METERS, // Drive base radius in meters. Distance from robot center to furthest module.
                         new ReplanningConfig() // Default path replanning config. See the API for the options here
                 ),
                 () -> {
