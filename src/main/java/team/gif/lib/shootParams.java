@@ -11,7 +11,6 @@ public enum shootParams {
     AUTO_THREE(Constants.Wrist.SETPOINT_AUTO_THREE_ABSOLUTE, Constants.Shooter.RPM_AMP, Constants.Shooter.RPM_MIN_AMP, Constants.Shooter.FF_AMP, Constants.Shooter.kP_AMP, Constants.Shooter.kI_AMP),
     AUTO_FAR(Constants.Wrist.SETPOINT_AUTO_FAR_ABSOLUTE, Constants.Shooter.RPM_FAR, Constants.Shooter.RPM_MIN_FAR, Constants.Shooter.FF_FAR, Constants.Shooter.kP_FAR, Constants.Shooter.kI_FAR);
 
-
     private double wristAngle;
     private double shooterRPM;
     private double minimumRPM;
