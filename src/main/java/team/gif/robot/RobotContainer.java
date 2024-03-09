@@ -36,9 +36,13 @@ public class RobotContainer {
         // Used in "Paths"
         NamedCommands.registerCommand("AutonRevFlywheel", new RevFlyWheels(true));
         NamedCommands.registerCommand("AutonWristMid", new InstantCommand(Robot.wrist::setWristNearPosition));
+        NamedCommands.registerCommand("AutonWrist3", new InstantCommand(Robot.wrist::setWristThreePosition));
+        NamedCommands.registerCommand("AutonWristMiddle", new InstantCommand(Robot.wrist::setWristFarPosition));
+        NamedCommands.registerCommand("AutonWristFar", new InstantCommand(Robot.wrist::setWristAutoFarPosition));
 
         // Used in "Autos"
         NamedCommands.registerCommand("AutonShoot", new InstantCommand(Robot.wrist::setWristWallPosition).andThen(new Shoot(true)));
+        NamedCommands.registerCommand("AutonShoot2", new Shoot(true));
         NamedCommands.registerCommand("AutonRotate", new AutoRotate());
         NamedCommands.registerCommand("AutonWristMidShoot", new Shoot(true));
 
@@ -72,6 +76,7 @@ public class RobotContainer {
         autoCommands.put(autoMode.THREE_W_8_7, new PathPlannerAuto("3W+8+7"));
         autoCommands.put(autoMode.FOUR_AMP_A_C_S, new PathPlannerAuto("4AMP+A+C+S"));
         autoCommands.put(autoMode.FIVE_SRC_S_C_A_4, new PathPlannerAuto("5SRC+S+C+A+4"));
+        autoCommands.put(autoMode.TWO_SCSPLIT_SIX, new PathPlannerAuto("2SCSplit+6"));
         autoCommands.put(autoMode.LINE_TEST, new PathPlannerAuto("Straight Line Test"));
     }
 

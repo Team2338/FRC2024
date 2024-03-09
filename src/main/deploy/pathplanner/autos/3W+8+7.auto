@@ -20,7 +20,13 @@
         {
           "type": "named",
           "data": {
-            "name": "AutonShoot"
+            "name": "AutonRotate"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "AutonWristMidShoot"
           }
         },
         {
@@ -32,7 +38,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "2SRC+8-Return"
+            "pathName": "2W+8-Return"
           }
         },
         {
