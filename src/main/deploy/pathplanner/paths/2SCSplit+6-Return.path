@@ -32,25 +32,8 @@
   "constraintZones": [],
   "eventMarkers": [
     {
-      "name": "AutonRevFlywheel",
-      "waypointRelativePos": 0.2,
-      "command": {
-        "type": "sequential",
-        "data": {
-          "commands": [
-            {
-              "type": "named",
-              "data": {
-                "name": "AutonRevFlywheel"
-              }
-            }
-          ]
-        }
-      }
-    },
-    {
-      "name": "AutonWristMid",
-      "waypointRelativePos": 0.85,
+      "name": "ShotSetup",
+      "waypointRelativePos": 0.75,
       "command": {
         "type": "parallel",
         "data": {
@@ -59,6 +42,12 @@
               "type": "named",
               "data": {
                 "name": "AutonWristNear"
+              }
+            },
+            {
+              "type": "named",
+              "data": {
+                "name": "AutonRevFlywheel"
               }
             }
           ]

@@ -34,19 +34,20 @@ public class RobotContainer {
     /** The container for the robot. Contains subsystems, OI devices, and commands. */
     public RobotContainer() {
         // Used in "Paths"
-        NamedCommands.registerCommand("AutonRevFlywheel", new RevFlyWheels(true));
+        NamedCommands.registerCommand("AutonRevFlywheel", new RevFlyWheels(true)); // will move wrist to next target position
+        NamedCommands.registerCommand("AutonWristWall", new InstantCommand(Robot.wrist::setWristWallPosition));
+        NamedCommands.registerCommand("AutonWristFar3", new InstantCommand(Robot.wrist::setWristFar3Position));
+        NamedCommands.registerCommand("AutonWristFar2", new InstantCommand(Robot.wrist::setWristFar2Position));
+        NamedCommands.registerCommand("AutonWristMiddle", new InstantCommand(Robot.wrist::setWristMiddlePosition));
+        NamedCommands.registerCommand("AutonWristFar", new InstantCommand(Robot.wrist::setWristFarPosition));
+        NamedCommands.registerCommand("AutonWristMid", new InstantCommand(Robot.wrist::setWristMidPosition));
+        NamedCommands.registerCommand("AutonWristNear", new InstantCommand(Robot.wrist::setWristNearPosition));
+        NamedCommands.registerCommand("AutonWristWall", new InstantCommand(Robot.wrist::setWristWallPosition));
 
-        // Used in "Autos" - sets wrist and shoots
-        NamedCommands.registerCommand("AutonShootFar3", new InstantCommand(Robot.wrist::setWristFar3Position).andThen(new Shoot(true)));
-        NamedCommands.registerCommand("AutonShootFar2", new InstantCommand(Robot.wrist::setWristFar2Position).andThen(new Shoot(true)));
-        NamedCommands.registerCommand("AutonShootMiddle", new InstantCommand(Robot.wrist::setWristMiddlePosition).andThen(new Shoot(true)));
-        NamedCommands.registerCommand("AutonShootFar", new InstantCommand(Robot.wrist::setWristFarPosition).andThen(new Shoot(true)));
-        NamedCommands.registerCommand("AutonShootMid", new InstantCommand(Robot.wrist::setWristMidPosition).andThen(new Shoot(true)));
-        NamedCommands.registerCommand("AutonShootNear", new InstantCommand(Robot.wrist::setWristNearPosition).andThen(new Shoot(true)));
-        NamedCommands.registerCommand("AutonShootWall", new InstantCommand(Robot.wrist::setWristWallPosition).andThen(new Shoot(true)));
-//        NamedCommands.registerCommand("AutonShoot", new Shoot(true));
+        // Used in "Autos" - shoots (and may set wrist first0
+        NamedCommands.registerCommand("AutonShoot", new Shoot(true));
+        NamedCommands.registerCommand("AutonShootWall", new InstantCommand(Robot.wrist::setWristWallPosition).andThen(new Shoot(true))); // used for first shot
         NamedCommands.registerCommand("AutonRotate", new AutoRotate());
-//        NamedCommands.registerCommand("AutonWristMidShoot", new Shoot(true));
 
         // Configure the trigger bindings
         configureBindings();

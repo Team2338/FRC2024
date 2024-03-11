@@ -20,7 +20,7 @@
         {
           "type": "named",
           "data": {
-            "name": "AutonShootFar3"
+            "name": "AutonShoot"
           }
         },
         {
@@ -44,7 +44,7 @@
         {
           "type": "named",
           "data": {
-            "name": "AutonShootMid"
+            "name": "AutonShoot"
           }
         }
       ]
