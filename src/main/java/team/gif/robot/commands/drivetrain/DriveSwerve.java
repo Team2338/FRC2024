@@ -95,7 +95,7 @@ public class DriveSwerve extends Command {
         double pGain = (1/30.4) * .30;
 
         value = pGain * Math.abs(xOffset);
-        value = Math.max( value, 0.012);
+        value = Math.max( value, 0.020);
 
         return (xOffset > 0 ? -1 : 1) * value;
     }

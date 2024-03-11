@@ -32,7 +32,6 @@ public class AutoStrafeStage extends Command {
     public void execute() {
 
         xOffset = Robot.limelightShooter.getXOffset();
-        System.out.println(xOffset);
         if (xOffset <= -1.0 || xOffset >= 1.0) {
             Robot.swerveDrivetrain.drive(0,(xOffset > 0 ? 1 : -1) * 0.15, 0);
         } else {
