@@ -401,6 +401,9 @@ public final class Constants {
         public static final double LIMIT_MAX = 57.500;
         public static final double LIMIT_MIN = 0;
 
+        public static final double TRAP_UP_POS = 30;//57.5;
+        public static final double TRAP_UP_MIN_POS = 28;//55.0;
+
         public static final double AMP_POS = 20.0;
         public static final double SAFE_STAGE_POS = 0.4;
         public static final double TRAP_POS = 52.500;
