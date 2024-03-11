@@ -4,24 +4,24 @@
     {
       "anchor": {
         "x": 2.74,
-        "y": 5.54
+        "y": 6.8
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.4125636756116813,
-        "y": 5.832353861061
+        "x": 2.6637375279330073,
+        "y": 6.735315880200538
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 2.74,
-        "y": 6.876162812154685
+        "x": 2.2,
+        "y": 6.4
       },
       "prevControl": {
-        "x": 2.0255780682501534,
-        "y": 6.3616200166873265
+        "x": 2.4465676281779913,
+        "y": 6.630585568863445
       },
       "nextControl": null,
       "isLocked": false,
@@ -32,8 +32,8 @@
   "constraintZones": [],
   "eventMarkers": [
     {
-      "name": "ShotSetup",
-      "waypointRelativePos": 0.4,
+      "name": "4th Shot Setup",
+      "waypointRelativePos": 0.0,
       "command": {
         "type": "parallel",
         "data": {
@@ -41,7 +41,7 @@
             {
               "type": "named",
               "data": {
-                "name": "AutonWristMiddle"
+                "name": "AutonWristNear"
               }
             },
             {
@@ -63,11 +63,11 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 35.76,
+    "rotation": 31.827446576673097,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "TBD 4CTR+S+C+A-4",
+  "folder": "4CTR+S+C+A-4",
   "previewStartingState": null,
   "useDefaultConstraints": true
 }

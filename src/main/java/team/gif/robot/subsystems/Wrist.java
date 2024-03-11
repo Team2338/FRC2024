@@ -157,6 +157,13 @@ public class Wrist extends SubsystemBase {
     }
 
     /**
+     * Moves shooter rotation to the Near setpoint defined in constants.java
+     */
+    public void setWristClosePosition() {
+        Robot.nextShot = shootParams.CLOSE;
+    }
+
+    /**
      * Moves shooter rotation to the Wall setpoint defined in constants.java
      */
     public void setWristWallPosition() {
