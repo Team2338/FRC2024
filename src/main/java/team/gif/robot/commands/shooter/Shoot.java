@@ -8,7 +8,6 @@ import team.gif.robot.commands.indexer.IndexerDefault;
 public class Shoot extends Command {
     boolean isFiring;
     double counter;
-    double autonCounter;
 
     /**
      * Creates a new Shoot command. Pass in true in for auto mode.
@@ -31,7 +30,6 @@ public class Shoot extends Command {
     public void initialize() {
         isFiring = false;
         counter = 0;
-        autonCounter = 0;
         Robot.indexer.stopIndexerCoast();
         //We need to remove the default command if we are in autonomous mode
         //because the default command will fight with this command for control
@@ -63,7 +61,7 @@ public class Shoot extends Command {
     // Return true when the command should end, false if it should continue. Runs every ~20ms.
     @Override
     public boolean isFinished() {
-        return counter > (0.25*50);
+        return counter > (0.25*50); // need to run the indexer for 0.25 seconds to push note through
     }
 
     // Called when the command ends or is interrupted.

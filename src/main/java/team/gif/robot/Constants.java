@@ -300,12 +300,33 @@ public final class Constants {
         public static final double kP_MID = 0.00030;//0.0100;               // 0.0006;    // 5800 RPM
         public static final double kI_MID = 0.000;//0.001;               // 0.0000015; // 5800 RPM
 
+        //Mid
+        public static final double RPM_MIDDLE = 6200;
+        public static final double RPM_MIN_MIDDLE = 5600;
+        public static final double FF_MIDDLE = 0.000155; // gets to 6100    // 0.000130;  // 5800 RPM
+        public static final double kP_MIDDLE = 0.00030;//0.0100;               // 0.0006;    // 5800 RPM
+        public static final double kI_MIDDLE = 0.000;//0.001;               // 0.0000015; // 5800 RPM
+
         //Far
         public static final double RPM_FAR = 6200;
         public static final double RPM_MIN_FAR = 6000;
         public static final double FF_FAR = 0.000155; // gets to 6100    // 0.000130;  // 5800 RPM
         public static final double kP_FAR = 0.00030;//0.0100;               // 0.0006;    // 5800 RPM
         public static final double kI_FAR = 0.000;//0.001;               // 0.0000015; // 5800 RPM
+
+        //Far
+        public static final double RPM_FAR2 = 6200;
+        public static final double RPM_MIN_FAR2 = 6000;
+        public static final double FF_FAR2 = 0.000155; // gets to 6100    // 0.000130;  // 5800 RPM
+        public static final double kP_FAR2 = 0.00030;//0.0100;               // 0.0006;    // 5800 RPM
+        public static final double kI_FAR2 = 0.000;//0.001;               // 0.0000015; // 5800 RPM
+
+        //Far
+        public static final double RPM_FAR3 = 6200;
+        public static final double RPM_MIN_FAR3 = 6000;
+        public static final double FF_FAR3 = 0.000155; // gets to 6100    // 0.000130;  // 5800 RPM
+        public static final double kP_FAR3 = 0.00030;//0.0100;               // 0.0006;    // 5800 RPM
+        public static final double kI_FAR3 = 0.000;//0.001;               // 0.0000015; // 5800 RPM
 
         //Amp
         public static final double RPM_AMP = 2000;
@@ -339,16 +360,17 @@ public final class Constants {
         public static final double MIN_LIMIT_DEGREES = 48.0; // this is calculated during manual calibration from reading the 90 degree value, provides a relationship between Degrees and Absolute
         public static final double STAGE_SAFE_DEGREES = 46.0; // maximum value to go under stage
         public static final double MAX_LIMIT_DEGREES = (MAX_LIMIT_ABSOLUTE - MIN_LIMIT_ABSOLUTE)/ABSOLUTE_PER_DEGREE+MIN_LIMIT_DEGREES; // Convert MAX_LIMIT
+        public static final double SETPOINT_FAR3_ABSOLUTE = (80.0 - MIN_LIMIT_DEGREES) * ABSOLUTE_PER_DEGREE + MIN_LIMIT_ABSOLUTE;
+        public static final double SETPOINT_FAR2_ABSOLUTE = (76.0 - MIN_LIMIT_DEGREES) * ABSOLUTE_PER_DEGREE + MIN_LIMIT_ABSOLUTE;
         public static final double SETPOINT_FAR_ABSOLUTE  = (72.0 - MIN_LIMIT_DEGREES) * ABSOLUTE_PER_DEGREE + MIN_LIMIT_ABSOLUTE; // number in degrees, value in absolute
         public static final double SETPOINT_MID_ABSOLUTE  = (68.0 - MIN_LIMIT_DEGREES) * ABSOLUTE_PER_DEGREE + MIN_LIMIT_ABSOLUTE; // number in degrees, value in absolute
+        public static final double SETPOINT_MIDDLE_ABSOLUTE  = (68.0 - MIN_LIMIT_DEGREES) * ABSOLUTE_PER_DEGREE + MIN_LIMIT_ABSOLUTE; // number in degrees, value in absolute
         public static final double SETPOINT_NEAR_ABSOLUTE = (64.0 - MIN_LIMIT_DEGREES) * ABSOLUTE_PER_DEGREE + MIN_LIMIT_ABSOLUTE; // number in degrees, value in absolute
         public static final double SETPOINT_WALL_ABSOLUTE = (49.0 - MIN_LIMIT_DEGREES) * ABSOLUTE_PER_DEGREE + MIN_LIMIT_ABSOLUTE; // number in degrees, value in absolute
         public static final double SETPOINT_COLLECT_ABSOLUTE = (48.0 - MIN_LIMIT_DEGREES) * ABSOLUTE_PER_DEGREE + MIN_LIMIT_ABSOLUTE; // number in degrees, value in absolute
         public static final double SETPOINT_TRAP_ABSOLUTE = (92.0 - MIN_LIMIT_DEGREES) * ABSOLUTE_PER_DEGREE + MIN_LIMIT_ABSOLUTE; // number in degrees, value in absolute
         public static final double SETPOINT_TRAP_FINAL_ABSOLUTE = (64.0 - MIN_LIMIT_DEGREES) * ABSOLUTE_PER_DEGREE + MIN_LIMIT_ABSOLUTE; // number in degrees, value in absolute
         public static final double SETPOINT_AMP_ABSOLUTE = (120.0 - MIN_LIMIT_DEGREES) * ABSOLUTE_PER_DEGREE + MIN_LIMIT_ABSOLUTE; // number in degrees, value in absolute
-        public static final double SETPOINT_AUTO_FAR_ABSOLUTE = (76.0 - MIN_LIMIT_DEGREES) * ABSOLUTE_PER_DEGREE + MIN_LIMIT_ABSOLUTE;
-        public static final double SETPOINT_AUTO_THREE_ABSOLUTE = (90.0 - MIN_LIMIT_DEGREES) * ABSOLUTE_PER_DEGREE + MIN_LIMIT_ABSOLUTE;
         public static final double SAFE_STAGE_DEGREES = 50;
     }
 

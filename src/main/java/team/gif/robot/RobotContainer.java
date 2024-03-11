@@ -36,23 +36,17 @@ public class RobotContainer {
         // Used in "Paths"
         NamedCommands.registerCommand("AutonRevFlywheel", new RevFlyWheels(true));
 
-        // wrist position
-        NamedCommands.registerCommand("AutonWristFar", new InstantCommand(Robot.wrist::setWristFarPosition));
-        NamedCommands.registerCommand("AutonWristNear", new InstantCommand(Robot.wrist::setWristNearPosition));
-        NamedCommands.registerCommand("AutonWristMid", new InstantCommand(Robot.wrist::setWristMidPosition));
-        NamedCommands.registerCommand("AutonWristWall", new InstantCommand(Robot.wrist::setWristWallPosition));
-        NamedCommands.registerCommand("AutonWristAutoFar", new InstantCommand(Robot.wrist::setWristAutoFarPosition));
-
-//        NamedCommands.registerCommand("AutonWristMid", new InstantCommand(Robot.wrist::setWristNearPosition));
-
-        NamedCommands.registerCommand("AutonWrist3", new InstantCommand(Robot.wrist::setWristThreePosition)); // TODO: In 2SCSplit+6 autos, we were calling AutonShoot, which will set nextShot to wall position(line 44), so it was fighting between AutonWrist3 and wall shot. I changed it in pathplanner.
-        NamedCommands.registerCommand("AutonWristMiddle", new InstantCommand(Robot.wrist::setWristFarPosition));
-
-        // Used in "Autos"
-        NamedCommands.registerCommand("AutonShootWallPos", new InstantCommand(Robot.wrist::setWristWallPosition).andThen(new Shoot(true)));
-        NamedCommands.registerCommand("AutonShoot2", new Shoot(true));
+        // Used in "Autos" - sets wrist and shoots
+        NamedCommands.registerCommand("AutonShootFar3", new InstantCommand(Robot.wrist::setWristFar3Position).andThen(new Shoot(true)));
+        NamedCommands.registerCommand("AutonShootFar2", new InstantCommand(Robot.wrist::setWristFar2Position).andThen(new Shoot(true)));
+        NamedCommands.registerCommand("AutonShootMiddle", new InstantCommand(Robot.wrist::setWristMiddlePosition).andThen(new Shoot(true)));
+        NamedCommands.registerCommand("AutonShootFar", new InstantCommand(Robot.wrist::setWristFarPosition).andThen(new Shoot(true)));
+        NamedCommands.registerCommand("AutonShootMid", new InstantCommand(Robot.wrist::setWristMidPosition).andThen(new Shoot(true)));
+        NamedCommands.registerCommand("AutonShootNear", new InstantCommand(Robot.wrist::setWristNearPosition).andThen(new Shoot(true)));
+        NamedCommands.registerCommand("AutonShootWall", new InstantCommand(Robot.wrist::setWristWallPosition).andThen(new Shoot(true)));
+//        NamedCommands.registerCommand("AutonShoot", new Shoot(true));
         NamedCommands.registerCommand("AutonRotate", new AutoRotate());
-        NamedCommands.registerCommand("AutonWristMidShoot", new Shoot(true));
+//        NamedCommands.registerCommand("AutonWristMidShoot", new Shoot(true));
 
         // Configure the trigger bindings
         configureBindings();

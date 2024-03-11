@@ -14,19 +14,13 @@
         {
           "type": "named",
           "data": {
-            "name": "AutonWrist3"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
             "name": "AutonRotate"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "AutonWristMidShoot"
+            "name": "AutonShootFar3"
           }
         },
         {
@@ -50,7 +44,7 @@
         {
           "type": "named",
           "data": {
-            "name": "AutonWristMidShoot"
+            "name": "AutonShootMid"
           }
         }
       ]
