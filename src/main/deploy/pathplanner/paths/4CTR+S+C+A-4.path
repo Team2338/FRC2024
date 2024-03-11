@@ -1,0 +1,49 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 2.74,
+        "y": 6.88
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 4.7503160533386595,
+        "y": 7.3556231442947215
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 7.931126061682322,
+        "y": 7.449176379834242
+      },
+      "prevControl": {
+        "x": 5.9780622250623745,
+        "y": 7.449176379834242
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": null
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 3.0,
+    "maxAcceleration": 2.0,
+    "maxAngularVelocity": 181.0,
+    "maxAngularAcceleration": 180.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 0.0,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": "TBD 4CTR+S+C+A-4",
+  "previewStartingState": null,
+  "useDefaultConstraints": true
+}
