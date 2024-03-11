@@ -18,6 +18,7 @@ import team.gif.lib.logging.TelemetryFileLogger;
 import team.gif.lib.shootParams;
 import team.gif.robot.commands.collector.CollectorDefault;
 import team.gif.robot.commands.drivetrain.DriveSwerve;
+import team.gif.robot.commands.drivetrain.ResetHeadingAfterAuto;
 import team.gif.robot.commands.elevator.ElevatorPIDControl;
 import team.gif.robot.commands.indexer.IndexerDefault;
 import team.gif.robot.commands.led.LEDSubsystemDefault;
@@ -222,6 +223,8 @@ public class Robot extends TimedRobot {
             autonomousCommand.cancel();
         }
         runningAutonomousMode = false;
+
+        new ResetHeadingAfterAuto().schedule();
     }
 
     /** This function is called periodically during operator control. */
