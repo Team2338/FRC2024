@@ -3,9 +3,9 @@
   "startingPose": {
     "position": {
       "x": 1.48,
-      "y": 2.65
+      "y": 3.0
     },
-    "rotation": -45.0
+    "rotation": -90.0
   },
   "command": {
     "type": "sequential",
@@ -38,7 +38,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "2W+8-Return"
+            "pathName": "3W+8-Return"
           }
         },
         {

@@ -8,7 +8,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import team.gif.lib.autoMode;
 import team.gif.lib.delay;
-import team.gif.robot.commands.autos.AutoRotate;
 import team.gif.robot.commands.collector.ToggleCollectorDefault;
 import team.gif.robot.commands.drivetrain.Reset0;
 import team.gif.robot.commands.drivetrain.Reset180;
@@ -38,6 +37,7 @@ public class UiSmartDashboard {
         autoModeChooser.addOption("2SRC+8", autoMode.TWO_SRC_8);
         autoModeChooser.addOption("2SRC+7", autoMode.TWO_SRC_7); // TODO: testing need, I'm not sure about this
         autoModeChooser.addOption("3W+8+7", autoMode.THREE_W_8_7);
+        autoModeChooser.addOption("4CTR+S+C+A-4", autoMode.FOUR_CTR_S_C_A_4);
         autoModeChooser.addOption("2SCSplit+6", autoMode.TWO_SCSPLIT_SIX);
 //        autoModeChooser.addOption("4AMP+A+C+S", autoMode.FOUR_AMP_A_C_S);
 //        autoModeChooser.addOption("Line Test", autoMode.LINE_TEST);

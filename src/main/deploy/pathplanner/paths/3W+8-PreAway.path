@@ -4,12 +4,12 @@
     {
       "anchor": {
         "x": 1.4782254470169316,
-        "y": 2.65
+        "y": 3.0
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.9808593837929915,
-        "y": 2.65
+        "x": 2.107437149347233,
+        "y": 3.0045730584338672
       },
       "isLocked": false,
       "linkedName": null
@@ -17,11 +17,11 @@
     {
       "anchor": {
         "x": 2.34,
-        "y": 2.65
+        "y": 3.0
       },
       "prevControl": {
         "x": 1.6349468865995893,
-        "y": 2.65
+        "y": 3.0
       },
       "nextControl": null,
       "isLocked": false,
@@ -41,7 +41,7 @@
             {
               "type": "named",
               "data": {
-                "name": "AutonWristFar"
+                "name": "AutonWristMid"
               }
             },
             {

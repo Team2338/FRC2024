@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.15,
-        "y": 0.45
+        "x": 2.74,
+        "y": 5.54
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.034390701511031,
-        "y": 0.4499999999999998
+        "x": 2.388096855965791,
+        "y": 5.5196408968316515
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 2.1,
-        "y": 3.5
+        "x": 2.0,
+        "y": 5.54
       },
       "prevControl": {
-        "x": 3.8615603157132234,
-        "y": 1.7073465485962325
+        "x": 2.8537172486176487,
+        "y": 5.54
       },
       "nextControl": null,
       "isLocked": false,
@@ -32,22 +32,35 @@
   "constraintZones": [],
   "eventMarkers": [
     {
-      "name": "ShotSetup",
-      "waypointRelativePos": 0.7,
+      "name": "3rd Shot Setup",
+      "waypointRelativePos": 0.0,
       "command": {
-        "type": "parallel",
+        "type": "sequential",
         "data": {
           "commands": [
             {
-              "type": "named",
+              "type": "wait",
               "data": {
-                "name": "AutonWristMid"
+                "waitTime": 0.4
               }
             },
             {
-              "type": "named",
+              "type": "parallel",
               "data": {
-                "name": "AutonRevFlywheel"
+                "commands": [
+                  {
+                    "type": "named",
+                    "data": {
+                      "name": "AutonWristClose"
+                    }
+                  },
+                  {
+                    "type": "named",
+                    "data": {
+                      "name": "AutonRevFlywheel"
+                    }
+                  }
+                ]
               }
             }
           ]
@@ -63,11 +76,11 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -48.94999999999999,
+    "rotation": 0.0,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "3W+8+7",
+  "folder": "4CTR+S+C+A-4",
   "previewStartingState": null,
   "useDefaultConstraints": true
 }

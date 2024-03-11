@@ -30,31 +30,7 @@
   ],
   "rotationTargets": [],
   "constraintZones": [],
-  "eventMarkers": [
-    {
-      "name": "ShotSetup",
-      "waypointRelativePos": 0.25,
-      "command": {
-        "type": "parallel",
-        "data": {
-          "commands": [
-            {
-              "type": "named",
-              "data": {
-                "name": "AutonWristMid"
-              }
-            },
-            {
-              "type": "named",
-              "data": {
-                "name": "AutonRevFlywheel"
-              }
-            }
-          ]
-        }
-      }
-    }
-  ],
+  "eventMarkers": [],
   "globalConstraints": {
     "maxVelocity": 3.0,
     "maxAcceleration": 2.0,
@@ -67,7 +43,7 @@
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "TBD 4CTR+S+C+A-4",
+  "folder": "4CTR+S+C+A-4",
   "previewStartingState": null,
   "useDefaultConstraints": true
 }

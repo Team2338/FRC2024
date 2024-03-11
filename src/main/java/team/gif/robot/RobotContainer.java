@@ -13,9 +13,8 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import team.gif.lib.autoMode;
-import team.gif.robot.commands.autos.AutoRotate;
+import team.gif.robot.commands.drivetrain.AutoRotate;
 import team.gif.robot.commands.autos.NoAuto;
-import team.gif.robot.commands.collector.ToggleCollectorDefault;
 import team.gif.robot.commands.shooter.RevFlyWheels;
 import team.gif.robot.commands.shooter.Shoot;
 
@@ -42,6 +41,7 @@ public class RobotContainer {
         NamedCommands.registerCommand("AutonWristFar", new InstantCommand(Robot.wrist::setWristFarPosition));
         NamedCommands.registerCommand("AutonWristMid", new InstantCommand(Robot.wrist::setWristMidPosition));
         NamedCommands.registerCommand("AutonWristNear", new InstantCommand(Robot.wrist::setWristNearPosition));
+        NamedCommands.registerCommand("AutonWristClose", new InstantCommand(Robot.wrist::setWristClosePosition));
         NamedCommands.registerCommand("AutonWristWall", new InstantCommand(Robot.wrist::setWristWallPosition));
 
         // Used in "Autos" - shoots (and may set wrist first0
@@ -79,6 +79,7 @@ public class RobotContainer {
         autoCommands.put(autoMode.THREE_W_8_7, new PathPlannerAuto("3W+8+7"));
         autoCommands.put(autoMode.FOUR_AMP_A_C_S, new PathPlannerAuto("4AMP+A+C+S"));
         autoCommands.put(autoMode.FIVE_SRC_S_C_A_4, new PathPlannerAuto("5SRC+S+C+A+4"));
+        autoCommands.put(autoMode.FOUR_CTR_S_C_A_4, new PathPlannerAuto("4CTR+S+C+A-4"));
         autoCommands.put(autoMode.TWO_SCSPLIT_SIX, new PathPlannerAuto("2SCSplit+6"));
         autoCommands.put(autoMode.LINE_TEST, new PathPlannerAuto("Straight Line Test"));
     }

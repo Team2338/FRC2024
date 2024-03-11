@@ -8,8 +8,8 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.231034447823882,
-        "y": 4.641319413237118
+        "x": 2.247767002656512,
+        "y": 4.7595208580730555
       },
       "isLocked": false,
       "linkedName": null
@@ -20,8 +20,8 @@
         "y": 5.54
       },
       "prevControl": {
-        "x": 2.2221889344063586,
-        "y": 5.072233822302404
+        "x": 2.2009903848867527,
+        "y": 5.028486410249174
       },
       "nextControl": null,
       "isLocked": false,
@@ -32,8 +32,8 @@
   "constraintZones": [],
   "eventMarkers": [
     {
-      "name": "ShotSetup",
-      "waypointRelativePos": 0.25,
+      "name": "2nd Shot Setup",
+      "waypointRelativePos": 0.1,
       "command": {
         "type": "parallel",
         "data": {
@@ -41,7 +41,7 @@
             {
               "type": "named",
               "data": {
-                "name": "AutonWristMid"
+                "name": "AutonWristClose"
               }
             },
             {
@@ -67,7 +67,7 @@
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "TBD 4CTR+S+C+A-4",
+  "folder": "4CTR+S+C+A-4",
   "previewStartingState": null,
   "useDefaultConstraints": true
 }

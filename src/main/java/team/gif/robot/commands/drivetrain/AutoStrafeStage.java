@@ -1,7 +1,8 @@
-package team.gif.robot.commands.autos;
+package team.gif.robot.commands.drivetrain;
 
 import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.wpilibj2.command.Command;
+import team.gif.lib.drivePace;
 import team.gif.robot.Constants;
 import team.gif.robot.Robot;
 import team.gif.robot.commands.led.FlashLEDTargetAlign;
@@ -10,38 +11,31 @@ import team.gif.robot.commands.led.FlashLEDTargetAlign;
  * Used in both Autonomous and Teleop
  */
 
-public class AutoRotateStage extends Command {
+public class AutoStrafeStage extends Command {
     double xOffset;
     boolean isComplete;
-    private SlewRateLimiter turnLimiter;
-    double targetDegree;
 
-    public AutoRotateStage(double targetDegree) {
+    public AutoStrafeStage() {
         super();
-//        addRequirements(Robot.swerveDrivetrain); // uncomment
-        this.targetDegree = targetDegree;
+        addRequirements(Robot.swerveDrivetrain); // uncomment
     }
 
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
         isComplete = false;
-        turnLimiter = new SlewRateLimiter(Constants.ModuleConstants.TELE_DRIVE_MAX_ANGULAR_ACCELERATION_UNITS_PER_SECOND);
+        Robot.swerveDrivetrain.setDrivePace(drivePace.COAST_RR);
     }
 
     // Called every time the scheduler runs (~20ms) while the command is scheduled
     @Override
     public void execute() {
-        double rot;
 
-        xOffset = Robot.pigeon.get360Heading() - targetDegree;
+        xOffset = Robot.limelightShooter.getXOffset();
         if (xOffset <= -1.0 || xOffset >= 1.0) {
-            rot = Robot.driveSwerve.limelightRotateMath(xOffset);
-            rot = turnLimiter.calculate(rot) * Constants.ModuleConstants.TELE_DRIVE_MAX_ANGULAR_SPEED_RADIANS_PER_SECOND;
-            Robot.swerveDrivetrain.drive(0,0,rot);
+            Robot.swerveDrivetrain.drive(0,(xOffset > 0 ? 1 : -1) * 0.15, 0);
         } else {
             isComplete = true;
-            new FlashLEDTargetAlign().schedule();
             Robot.swerveDrivetrain.drive(0, 0, 0);
         }
     }
@@ -54,5 +48,7 @@ public class AutoRotateStage extends Command {
 
     // Called when the command ends or is interrupted.
     @Override
-    public void end(boolean interrupted) {}
+    public void end(boolean interrupted) {
+        Robot.swerveDrivetrain.setDrivePace(drivePace.COAST_FR);
+    }
 }
