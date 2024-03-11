@@ -15,7 +15,9 @@
     "TBD 5Src+S+C+A+4",
     "TBD 3AMP+A-4+5"
   ],
-  "autoFolders": [],
+  "autoFolders": [
+    "TBD"
+  ],
   "defaultMaxVel": 3.0,
   "defaultMaxAccel": 2.0,
   "defaultMaxAngVel": 181.0,
