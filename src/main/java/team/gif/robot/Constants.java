@@ -401,8 +401,8 @@ public final class Constants {
         public static final double LIMIT_MAX = 57.500;
         public static final double LIMIT_MIN = 0;
 
-        public static final double TRAP_UP_POS = 30;//57.5;
-        public static final double TRAP_UP_MIN_POS = 28;//55.0;
+        public static final double TRAP_UP_POS = 57.5;
+        public static final double TRAP_UP_MIN_POS = 53.0;
 
         public static final double AMP_POS = 20.0;
         public static final double SAFE_STAGE_POS = 0.4;
@@ -419,7 +419,7 @@ public final class Constants {
         public static final double LIMIT_MIN = -210;//-163.35; is min is correct // TODO: needs tuning
 
         public static final double SAFE_STAGE_POS = 1.200;
-        public static final double TRAP_POS = LIMIT_MIN;
+        public static final double TRAP_POS = -100;
         public static final double TRAP_MOVE_ELEVATOR_POS = 100.00;
     }
 

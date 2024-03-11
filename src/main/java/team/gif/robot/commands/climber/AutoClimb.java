@@ -11,13 +11,12 @@ import team.gif.robot.commands.shooter.TrapShoot;
 public class AutoClimb extends Command {
     boolean climberLowered;
     boolean elevatorRaisedToTop;
-    boolean isFinished;
 
     int counter;
 
     public AutoClimb() {
         super();
-        //addRequirements(Robot.climber); // uncomment
+        addRequirements(Robot.climber);
     }
 
     // Called when the command is initially scheduled.
@@ -38,42 +37,43 @@ public class AutoClimb extends Command {
         // Raise the elevator
         if (!elevatorRaisedToTop) {
             if (Robot.elevator.getPosition() < Constants.Elevator.TRAP_UP_MIN_POS ) {
-                System.out.println(counter++ + " " + Robot.elevator.getPosition());
+                System.out.println("Elevator up: " + counter++ + " " + Robot.elevator.getPosition());
                Robot.elevator.setTargetPosition(Constants.Elevator.TRAP_UP_POS);
             } else {
                 elevatorRaisedToTop = true;
-                isFinished = true;
-                System.out.println("done");
-                System.out.println(counter++ + " " + Robot.elevator.getPosition());
+                System.out.println("Elevator up: done");
+                System.out.println("Elevator up: " + counter + " " + Robot.elevator.getPosition());
             }
         }
-/*
+
         // lower the climber and elevator
         if (elevatorRaisedToTop && !climberLowered) {
-            if (Robot.climber.getPosition() > Constants.Climber.LIMIT_MIN) {
-                Robot.climber.move(-0.8);
+            if (Robot.climber.getPosition() > Constants.Climber.TRAP_POS) {
+                System.out.println("Climber down: " + counter++ + " " + Robot.climber.getPosition());
+                Robot.climber.move(-0.8); //-0.8 for climbing
                 if (Robot.climber.getPosition() < Constants.Climber.TRAP_MOVE_ELEVATOR_POS) {
                     Robot.elevator.setTargetPosition(Constants.Elevator.TRAP_POS);
                 }
             } else {
                 climberLowered = true;
+                System.out.println("Climber Down: done");
+                System.out.println("CLimber down: " + counter + " " + Robot.climber.getPosition());
                 Robot.climber.move(0);
                 Robot.climber.setTargetPosition(Robot.climber.getPosition());
                 Robot.climber.setDefaultCommand(new ClimberPIDControl());
             }
         }
 
-        if (elevatorRaisedToTop && !climberLowered) {
-            new TrapShoot().schedule();
-            isFinished = true;
+        if (elevatorRaisedToTop && climberLowered) {
+//            new TrapShoot().schedule();
+            System.out.println("We are done!");
         }
-*/
     }
 
     // Return true when the command should end, false if it should continue. Runs every ~20ms.
     @Override
     public boolean isFinished() {
-        return isFinished;
+        return elevatorRaisedToTop && climberLowered;
     }
 
     // Called when the command ends or is interrupted.
@@ -86,5 +86,6 @@ public class AutoClimb extends Command {
         // hold the climber
         Robot.climber.setTargetPosition(Robot.climber.getPosition());
         Robot.climber.setDefaultCommand(new ClimberPIDControl());
+        System.out.println("end trap sequence ");
     }
 }
