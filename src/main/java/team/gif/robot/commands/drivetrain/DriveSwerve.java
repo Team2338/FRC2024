@@ -90,9 +90,13 @@ public class DriveSwerve extends Command {
     }
 
     public double limelightRotateMath(double xOffset) {
+        double value;
         // 30.4 is max degrees so pGain = 1/30.4 *.30 (0.30 equiv to limiting "joystick" speed)
         double pGain = (1/30.4) * .30;
 
-        return (xOffset > 0 ? -1 : 1) * (pGain * Math.abs(xOffset));
+        value = pGain * Math.abs(xOffset);
+        value = Math.max( value, 0.012);
+
+        return (xOffset > 0 ? -1 : 1) * value;
     }
 }

@@ -31,15 +31,13 @@ public class AutoStrafeStage extends Command {
     @Override
     public void execute() {
 
-        if (Robot.limelightShooter.hasTarget()) {
-            xOffset = Robot.limelightShooter.getXOffset();
-            System.out.println(xOffset);
-            if (xOffset <= -1.0 || xOffset >= 1.0) {
-                Robot.swerveDrivetrain.drive(0,(xOffset > 0 ? 1 : -1) * 0.15, 0);
-            } else {
-                isComplete = true;
-                Robot.swerveDrivetrain.drive(0, 0, 0);
-            }
+        xOffset = Robot.limelightShooter.getXOffset();
+        System.out.println(xOffset);
+        if (xOffset <= -1.0 || xOffset >= 1.0) {
+            Robot.swerveDrivetrain.drive(0,(xOffset > 0 ? 1 : -1) * 0.15, 0);
+        } else {
+            isComplete = true;
+            Robot.swerveDrivetrain.drive(0, 0, 0);
         }
     }
 
@@ -53,6 +51,5 @@ public class AutoStrafeStage extends Command {
     @Override
     public void end(boolean interrupted) {
         Robot.swerveDrivetrain.setDrivePace(drivePace.COAST_FR);
-
     }
 }
