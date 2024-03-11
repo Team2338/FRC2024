@@ -1,0 +1,91 @@
+{
+  "version": 1.0,
+  "startingPose": {
+    "position": {
+      "x": 0.75,
+      "y": 4.38
+    },
+    "rotation": -60.0
+  },
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "named",
+          "data": {
+            "name": "AutonShootWall"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "4SRC+S-Away"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "4CTR+S+C1"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "AutonRotate"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "AutonShoot"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "4CTR+S+C2"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "AutonRotate"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "AutonShoot"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "4CTR+S+C+A"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "AutonRotate"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "AutonShoot"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "4CTR+S+C+A-4"
+          }
+        }
+      ]
+    }
+  },
+  "folder": null,
+  "choreoAuto": false
+}
