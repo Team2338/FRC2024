@@ -35,13 +35,21 @@ public class RobotContainer {
     public RobotContainer() {
         // Used in "Paths"
         NamedCommands.registerCommand("AutonRevFlywheel", new RevFlyWheels(true));
-        NamedCommands.registerCommand("AutonWristMid", new InstantCommand(Robot.wrist::setWristNearPosition));
-        NamedCommands.registerCommand("AutonWrist3", new InstantCommand(Robot.wrist::setWristThreePosition));
+
+        // wrist position
+        NamedCommands.registerCommand("AutonWristFar", new InstantCommand(Robot.wrist::setWristFarPosition));
+        NamedCommands.registerCommand("AutonWristNear", new InstantCommand(Robot.wrist::setWristNearPosition));
+        NamedCommands.registerCommand("AutonWristMid", new InstantCommand(Robot.wrist::setWristMidPosition));
+        NamedCommands.registerCommand("AutonWristWall", new InstantCommand(Robot.wrist::setWristWallPosition));
+        NamedCommands.registerCommand("AutonWristAutoFar", new InstantCommand(Robot.wrist::setWristAutoFarPosition));
+
+//        NamedCommands.registerCommand("AutonWristMid", new InstantCommand(Robot.wrist::setWristNearPosition));
+
+        NamedCommands.registerCommand("AutonWrist3", new InstantCommand(Robot.wrist::setWristThreePosition)); // TODO: In 2SCSplit+6 autos, we were calling AutonShoot, which will set nextShot to wall position(line 44), so it was fighting between AutonWrist3 and wall shot. I changed it in pathplanner.
         NamedCommands.registerCommand("AutonWristMiddle", new InstantCommand(Robot.wrist::setWristFarPosition));
-        NamedCommands.registerCommand("AutonWristFar", new InstantCommand(Robot.wrist::setWristAutoFarPosition));
 
         // Used in "Autos"
-        NamedCommands.registerCommand("AutonShoot", new InstantCommand(Robot.wrist::setWristWallPosition).andThen(new Shoot(true)));
+        NamedCommands.registerCommand("AutonShootWallPos", new InstantCommand(Robot.wrist::setWristWallPosition).andThen(new Shoot(true)));
         NamedCommands.registerCommand("AutonShoot2", new Shoot(true));
         NamedCommands.registerCommand("AutonRotate", new AutoRotate());
         NamedCommands.registerCommand("AutonWristMidShoot", new Shoot(true));

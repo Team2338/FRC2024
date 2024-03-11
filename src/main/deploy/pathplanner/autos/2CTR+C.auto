@@ -14,20 +14,19 @@
         {
           "type": "named",
           "data": {
-            "name": "AutonShoot"
+            "name": "AutonWristWall"
           }
         },
         {
-          "type": "parallel",
+          "type": "named",
           "data": {
-            "commands": [
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "CTR-C-Away"
-                }
-              }
-            ]
+            "name": "AutonShoot2"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "CTR-C-Away"
           }
         },
         {
