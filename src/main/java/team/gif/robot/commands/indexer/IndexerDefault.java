@@ -6,6 +6,8 @@ import team.gif.robot.Robot;
 
 public class IndexerDefault extends Command {
 
+    private int midSensorCounter;
+
     public IndexerDefault() {
         super();
         addRequirements(Robot.indexer); // uncomment
@@ -15,6 +17,7 @@ public class IndexerDefault extends Command {
     @Override
     public void initialize() {
         Robot.indexer.setIndexing(false);
+        midSensorCounter = 0;
     }
 
     // Called every time the scheduler runs (~20ms) while the command is scheduled
@@ -32,8 +35,12 @@ public class IndexerDefault extends Command {
         if (!Robot.collector.getSensorState() &&
             Robot.indexer.getStageOneSensorState() &&
             !Robot.indexer.getShooterSensorState() &&
-            !Robot.indexer.isIndexing() ) {
+            !Robot.indexer.isIndexing() &&
+                midSensorCounter++ > 3 ) { // midSensor debounce
             Robot.indexer.setIndexing(true);
+            System.out.println("Mid sensor tripped");
+        } else {
+            midSensorCounter = 0;
         }
 
         // Bot is indexing. Run the indexers
