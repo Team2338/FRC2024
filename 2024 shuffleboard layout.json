@@ -205,7 +205,7 @@
               "Colors/Color when false": "#800000FF"
             }
           },
-          "7,3": {
+          "8,3": {
             "size": [
               1,
               1
@@ -283,6 +283,21 @@
               "_type": "Boolean Box",
               "_source0": "network_table:///Shuffleboard/SmartDashboard/Ready",
               "_title": "RPM Ready",
+              "_glyph": 148,
+              "_showGlyph": false,
+              "Colors/Color when true": "#7CFC00FF",
+              "Colors/Color when false": "#8B0000FF"
+            }
+          },
+          "7,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Boolean Box",
+              "_source0": "network_table:///Shuffleboard/SmartDashboard/Aligned",
+              "_title": "Aligned",
               "_glyph": 148,
               "_showGlyph": false,
               "Colors/Color when true": "#7CFC00FF",

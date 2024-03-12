@@ -81,4 +81,20 @@ public class Diagnostics extends SubsystemBase {
     public boolean getRobotHasNote() {
         return Robot.collector.getSensorState() || Robot.indexer.getStageOneSensorState() || Robot.indexer.getShooterSensorState();
     }
+
+    /**
+     * Uses the "box" the limelight draws around April Tags to
+     * determine if the cross-hair is within the box
+     *
+     * @return true if the cross-hair is within the box
+     */
+    public boolean getTargetAligned() {
+        // update the status of the target alignment
+        double xOffset = Robot.limelightShooter.getXOffset();
+        double targetWidthPixels = Robot.limelightShooter.getLongLength();
+        double pixelsPerDegree = 320/29.8; // 320 horizontal pixels equivalent to 29.8 degrees
+        double targetWidthDegrees = targetWidthPixels / pixelsPerDegree / 2; // divide by 2 for half of length
+
+        return Robot.limelightShooter.hasTarget() && Math.abs(xOffset) <= targetWidthDegrees;
+    }
 }
