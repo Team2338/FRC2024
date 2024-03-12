@@ -12,7 +12,9 @@ public enum autoMode {
     THREE_W_8_7(0),
     FOUR_AMP_A_C_S(0),
     FIVE_SRC_S_C_A_4(0),
+    FOUR_CTR_S_C_A_4(0),
     LINE_TEST(0),
+    TWO_SCSPLIT_SIX(0),
     ;
 
     private int value;

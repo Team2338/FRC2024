@@ -26,6 +26,16 @@ public class IndexerDefault extends Command {
             Robot.indexer.setNotePassedCollector(false);
         }
 
+        // Note is between collector and shooter sensor
+        // This may occur at the end of auto and start of teleop
+        // It's the "dead zone" and needs to be handled
+        if (!Robot.collector.getSensorState() &&
+            Robot.indexer.getStageOneSensorState() &&
+            !Robot.indexer.getShooterSensorState() &&
+            !Robot.indexer.isIndexing() ) {
+            Robot.indexer.setIndexing(true);
+        }
+
         // Bot is indexing. Run the indexers
         if (Robot.indexer.isIndexing()) {
             Robot.indexer.setIndexer(Constants.Indexer.INDEXER_ONE_COLLECT_PERC, Constants.Indexer.INDEXER_TWO_COLLECT_PERC);

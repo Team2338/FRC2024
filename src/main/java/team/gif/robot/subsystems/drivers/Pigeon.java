@@ -108,7 +108,7 @@ public class Pigeon {
     }
 
     public void resetPigeonPosition() {
-        System.out.println("resetting pigeon empty");
+//        System.out.println("resetting pigeon empty"); // for debugging
         resetPigeonPosition(0);
     }
 
@@ -117,7 +117,7 @@ public class Pigeon {
      * @param angle the initial angle in degrees
      */
     public void resetPigeonPosition(double angle) {
-        System.out.println("resetting pigeon " + angle);
+//        System.out.println("resetting pigeon " + angle); // for debugging
         setYaw(angle);
         zeroPitch();
     }
@@ -133,7 +133,7 @@ public class Pigeon {
     public double[] getYPR() {
         double[] ypr = new double[3];
         _pigeon.getYawPitchRoll(ypr);
-        System.out.format("YPR %.1f %.1f %.1f", ypr[0], ypr[1], ypr[2]);
+//        System.out.format("YPR %.1f %.1f %.1f", ypr[0], ypr[1], ypr[2]); // for debugging
         return ypr;
     }
 

@@ -2,15 +2,27 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 1.25,
-      "y": 2.43
+      "x": 1.48,
+      "y": 3.0
     },
-    "rotation": -60.0
+    "rotation": -90.0
   },
   "command": {
     "type": "sequential",
     "data": {
       "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "3W+8-PreAway"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "AutonRotate"
+          }
+        },
         {
           "type": "named",
           "data": {
@@ -32,19 +44,7 @@
         {
           "type": "named",
           "data": {
-            "name": "AutonShoot"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "3W+7-Away"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "3W+7-Return"
+            "name": "AutonRotate"
           }
         },
         {

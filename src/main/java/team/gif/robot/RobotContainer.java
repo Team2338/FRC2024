@@ -8,14 +8,14 @@ import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
 import com.pathplanner.lib.commands.PathPlannerAuto;
 import com.pathplanner.lib.path.PathPlannerPath;
+import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import team.gif.lib.autoMode;
-import team.gif.robot.commands.autos.AutoRotate;
+import team.gif.robot.commands.drivetrain.AutoRotate;
 import team.gif.robot.commands.autos.NoAuto;
-import team.gif.robot.commands.collector.ToggleCollectorDefault;
 import team.gif.robot.commands.shooter.RevFlyWheels;
 import team.gif.robot.commands.shooter.Shoot;
 
@@ -29,22 +29,34 @@ import java.util.HashMap;
  */
 public class RobotContainer {
 
+    private double autonomousInitialHeading;
+
     private final HashMap<autoMode, Command> autoCommands = new HashMap<>();
 
     /** The container for the robot. Contains subsystems, OI devices, and commands. */
     public RobotContainer() {
         // Used in "Paths"
-        NamedCommands.registerCommand("AutonRevFlywheel", new RevFlyWheels(true));
-        NamedCommands.registerCommand("AutonWristMid", new InstantCommand(Robot.wrist::setWristNearPosition));
+        NamedCommands.registerCommand("AutonRevFlywheel", new RevFlyWheels(true)); // will move wrist to next target position
+        NamedCommands.registerCommand("AutonWristWall", new InstantCommand(Robot.wrist::setWristWallPosition));
+        NamedCommands.registerCommand("AutonWristFar3", new InstantCommand(Robot.wrist::setWristFar3Position));
+        NamedCommands.registerCommand("AutonWristFar2", new InstantCommand(Robot.wrist::setWristFar2Position));
+        NamedCommands.registerCommand("AutonWristMiddle", new InstantCommand(Robot.wrist::setWristMiddlePosition));
+        NamedCommands.registerCommand("AutonWristFar", new InstantCommand(Robot.wrist::setWristFarPosition));
+        NamedCommands.registerCommand("AutonWristMid", new InstantCommand(Robot.wrist::setWristMidPosition));
+        NamedCommands.registerCommand("AutonWristNear", new InstantCommand(Robot.wrist::setWristNearPosition));
+        NamedCommands.registerCommand("AutonWristClose", new InstantCommand(Robot.wrist::setWristClosePosition));
+        NamedCommands.registerCommand("AutonWristWall", new InstantCommand(Robot.wrist::setWristWallPosition));
 
-        // Used in "Autos"
-        NamedCommands.registerCommand("AutonShoot", new InstantCommand(Robot.wrist::setWristWallPosition).andThen(new Shoot(true)));
+        // Used in "Autos" - shoots (and may set wrist first0
+        NamedCommands.registerCommand("AutonShoot", new Shoot(true));
+        NamedCommands.registerCommand("AutonShootWall", new InstantCommand(Robot.wrist::setWristWallPosition).andThen(new Shoot(true))); // used for first shot
         NamedCommands.registerCommand("AutonRotate", new AutoRotate());
-        NamedCommands.registerCommand("AutonWristMidShoot", new Shoot(true));
 
         // Configure the trigger bindings
         configureBindings();
         buildAutoCommands();
+
+        autonomousInitialHeading = 0;
     }
 
     /**
@@ -72,6 +84,8 @@ public class RobotContainer {
         autoCommands.put(autoMode.THREE_W_8_7, new PathPlannerAuto("3W+8+7"));
         autoCommands.put(autoMode.FOUR_AMP_A_C_S, new PathPlannerAuto("4AMP+A+C+S"));
         autoCommands.put(autoMode.FIVE_SRC_S_C_A_4, new PathPlannerAuto("5SRC+S+C+A+4"));
+        autoCommands.put(autoMode.FOUR_CTR_S_C_A_4, new PathPlannerAuto("4CTR+S+C+A-4"));
+        autoCommands.put(autoMode.TWO_SCSPLIT_SIX, new PathPlannerAuto("2SCSplit+6"));
         autoCommands.put(autoMode.LINE_TEST, new PathPlannerAuto("Straight Line Test"));
     }
 
@@ -81,15 +95,20 @@ public class RobotContainer {
      * @return the command to run in autonomous
      */
     public Command getAutonomousCommand(autoMode chosenAuto) {
+        Pose2d startingPose;
         Command autonomousCommand = autoCommands.get(chosenAuto);
 
         if (chosenAuto == null) {
             System.out.println("Autonomous selection is null. Robot will do nothing in auto :(");
+        } else {
+            startingPose = PathPlannerAuto.getStaringPoseFromAutoFile(autonomousCommand.getName());
+            autonomousInitialHeading = startingPose.getRotation().getDegrees();
         }
 
         return autonomousCommand;
-//        PathPlannerPath path= PathPlannerPath.fromPathFile("Circle Path");
+    }
 
- //       return AutoBuilder.followPath(path);
+    public double getAutonomousInitialHeading(){
+        return  autonomousInitialHeading;
     }
 }

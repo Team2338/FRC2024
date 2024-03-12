@@ -286,6 +286,13 @@ public final class Constants {
         public static final double kP_WALL = 0.00030;//0.0100;               // 0.0006;    // 5800 RPM
         public static final double kI_WALL = 0.000;//0.001;               // 0.0000015; // 5800 RPM
 
+        //Close
+        public static final double RPM_CLOSE = 6200;
+        public static final double RPM_MIN_CLOSE = 4500;
+        public static final double FF_CLOSE = 0.000155; // gets to 6100    // 0.000130;  // 5800 RPM
+        public static final double kP_CLOSE = 0.00030;//0.0100;               // 0.0006;    // 5800 RPM
+        public static final double kI_CLOSE = 0.000;//0.001;               // 0.0000015; // 5800 RPM
+
         //Near
         public static final double RPM_NEAR = 6200;
         public static final double RPM_MIN_NEAR = 4500;
@@ -300,12 +307,33 @@ public final class Constants {
         public static final double kP_MID = 0.00030;//0.0100;               // 0.0006;    // 5800 RPM
         public static final double kI_MID = 0.000;//0.001;               // 0.0000015; // 5800 RPM
 
+        //Mid
+        public static final double RPM_MIDDLE = 6200;
+        public static final double RPM_MIN_MIDDLE = 5600;
+        public static final double FF_MIDDLE = 0.000155; // gets to 6100    // 0.000130;  // 5800 RPM
+        public static final double kP_MIDDLE = 0.00030;//0.0100;               // 0.0006;    // 5800 RPM
+        public static final double kI_MIDDLE = 0.000;//0.001;               // 0.0000015; // 5800 RPM
+
         //Far
         public static final double RPM_FAR = 6200;
         public static final double RPM_MIN_FAR = 6000;
         public static final double FF_FAR = 0.000155; // gets to 6100    // 0.000130;  // 5800 RPM
         public static final double kP_FAR = 0.00030;//0.0100;               // 0.0006;    // 5800 RPM
         public static final double kI_FAR = 0.000;//0.001;               // 0.0000015; // 5800 RPM
+
+        //Far
+        public static final double RPM_FAR2 = 6200;
+        public static final double RPM_MIN_FAR2 = 6000;
+        public static final double FF_FAR2 = 0.000155; // gets to 6100    // 0.000130;  // 5800 RPM
+        public static final double kP_FAR2 = 0.00030;//0.0100;               // 0.0006;    // 5800 RPM
+        public static final double kI_FAR2 = 0.000;//0.001;               // 0.0000015; // 5800 RPM
+
+        //Far
+        public static final double RPM_FAR3 = 6200;
+        public static final double RPM_MIN_FAR3 = 6000;
+        public static final double FF_FAR3 = 0.000155; // gets to 6100    // 0.000130;  // 5800 RPM
+        public static final double kP_FAR3 = 0.00030;//0.0100;               // 0.0006;    // 5800 RPM
+        public static final double kI_FAR3 = 0.000;//0.001;               // 0.0000015; // 5800 RPM
 
         //Amp
         public static final double RPM_AMP = 2000;
@@ -329,7 +357,7 @@ public final class Constants {
 
         // Encoder setpoints and values
         // These are the encoder specific values
-        public static final double ENCODER_OFFSET_ABSOLUTE = -0.074072;//-0.850439; // this is determined either manually or via the auto-calibration
+        public static final double ENCODER_OFFSET_ABSOLUTE = -0.1285155625;//-0.1290039;//-0.850439; // this is determined either manually or via the auto-calibration
         public static final double ABSOLUTE_PER_DEGREE = 0.008333;
         // These are the values we want the bot to utilize
         public static final double KILL_LIMIT_ABSOLUTE = 0.87;
@@ -339,9 +367,13 @@ public final class Constants {
         public static final double MIN_LIMIT_DEGREES = 48.0; // this is calculated during manual calibration from reading the 90 degree value, provides a relationship between Degrees and Absolute
         public static final double STAGE_SAFE_DEGREES = 46.0; // maximum value to go under stage
         public static final double MAX_LIMIT_DEGREES = (MAX_LIMIT_ABSOLUTE - MIN_LIMIT_ABSOLUTE)/ABSOLUTE_PER_DEGREE+MIN_LIMIT_DEGREES; // Convert MAX_LIMIT
+        public static final double SETPOINT_FAR3_ABSOLUTE = (80.0 - MIN_LIMIT_DEGREES) * ABSOLUTE_PER_DEGREE + MIN_LIMIT_ABSOLUTE;
+        public static final double SETPOINT_FAR2_ABSOLUTE = (76.0 - MIN_LIMIT_DEGREES) * ABSOLUTE_PER_DEGREE + MIN_LIMIT_ABSOLUTE;
         public static final double SETPOINT_FAR_ABSOLUTE  = (72.0 - MIN_LIMIT_DEGREES) * ABSOLUTE_PER_DEGREE + MIN_LIMIT_ABSOLUTE; // number in degrees, value in absolute
         public static final double SETPOINT_MID_ABSOLUTE  = (68.0 - MIN_LIMIT_DEGREES) * ABSOLUTE_PER_DEGREE + MIN_LIMIT_ABSOLUTE; // number in degrees, value in absolute
+        public static final double SETPOINT_MIDDLE_ABSOLUTE  = (66.0 - MIN_LIMIT_DEGREES) * ABSOLUTE_PER_DEGREE + MIN_LIMIT_ABSOLUTE; // number in degrees, value in absolute
         public static final double SETPOINT_NEAR_ABSOLUTE = (64.0 - MIN_LIMIT_DEGREES) * ABSOLUTE_PER_DEGREE + MIN_LIMIT_ABSOLUTE; // number in degrees, value in absolute
+        public static final double SETPOINT_CLOSE_ABSOLUTE = (55.0 - MIN_LIMIT_DEGREES) * ABSOLUTE_PER_DEGREE + MIN_LIMIT_ABSOLUTE; // number in degrees, value in absolute
         public static final double SETPOINT_WALL_ABSOLUTE = (49.0 - MIN_LIMIT_DEGREES) * ABSOLUTE_PER_DEGREE + MIN_LIMIT_ABSOLUTE; // number in degrees, value in absolute
         public static final double SETPOINT_COLLECT_ABSOLUTE = (48.0 - MIN_LIMIT_DEGREES) * ABSOLUTE_PER_DEGREE + MIN_LIMIT_ABSOLUTE; // number in degrees, value in absolute
         public static final double SETPOINT_TRAP_ABSOLUTE = (92.0 - MIN_LIMIT_DEGREES) * ABSOLUTE_PER_DEGREE + MIN_LIMIT_ABSOLUTE; // number in degrees, value in absolute
@@ -371,11 +403,14 @@ public final class Constants {
 
     public static final class Elevator {
         public static final double FF = .00;
-        public static final double kP = 0.03;//1.80;
+        public static final double kP = 0.040;//1.80;
         public static final double kI = 0.0;
         public static final double kD = 0.0;
         public static final double LIMIT_MAX = 57.500;
         public static final double LIMIT_MIN = 0;
+
+        public static final double TRAP_UP_POS = 57.5;
+        public static final double TRAP_UP_MIN_POS = 56.5;
 
         public static final double AMP_POS = 20.0;
         public static final double SAFE_STAGE_POS = 0.4;
@@ -392,8 +427,8 @@ public final class Constants {
         public static final double LIMIT_MIN = -210;//-163.35; is min is correct // TODO: needs tuning
 
         public static final double SAFE_STAGE_POS = 1.200;
-        public static final double TRAP_POS = LIMIT_MIN;
-        public static final double TRAP_MOVE_ELEVATOR_POS = 100.00;
+        public static final double TRAP_POS = -210;
+        public static final double TRAP_MOVE_ELEVATOR_POS = 0.0;//100.00;
     }
 
     public static final class MotorTemps {

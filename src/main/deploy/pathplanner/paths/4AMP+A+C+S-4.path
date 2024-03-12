@@ -8,8 +8,8 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.63,
-        "y": 4.707740904677981
+        "x": 1.5847038777410891,
+        "y": 4.925696619911759
       },
       "isLocked": false,
       "linkedName": null
@@ -17,11 +17,11 @@
     {
       "anchor": {
         "x": 2.63,
-        "y": 4.081259900411539
+        "y": 4.084160598876753
       },
       "prevControl": {
-        "x": 2.6300000000000003,
-        "y": 5.601950532986091
+        "x": 1.3547081816385858,
+        "y": 4.212837410005304
       },
       "nextControl": null,
       "isLocked": false,
@@ -61,7 +61,7 @@
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "4AMP+A+C+S",
+  "folder": "TBD 4AMP+A+C+S",
   "previewStartingState": null,
   "useDefaultConstraints": false
 }

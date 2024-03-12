@@ -222,6 +222,9 @@ public class Robot extends TimedRobot {
             autonomousCommand.cancel();
         }
         runningAutonomousMode = false;
+
+        // Autos may start with a heading other than 0, but bot starts with 0 heading, Need to adjust pigeon.
+        Robot.pigeon.resetPigeonPosition(Robot.pigeon.get360Heading() - robotContainer.getAutonomousInitialHeading());
     }
 
     /** This function is called periodically during operator control. */

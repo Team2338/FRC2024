@@ -1,0 +1,92 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 1.4842759308160125,
+        "y": 6.363414821169265
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 2.28577088693011,
+        "y": 6.363414821169265
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 4.165608331216663,
+        "y": 6.363414821169265
+      },
+      "prevControl": {
+        "x": 3.165662440932568,
+        "y": 6.373817537350232
+      },
+      "nextControl": {
+        "x": 6.586298300801729,
+        "y": 6.338231707802447
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 8.085313419054511,
+        "y": 4.338277557058259
+      },
+      "prevControl": {
+        "x": 6.247167821970971,
+        "y": 6.455173252226847
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": null
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "eventMarkers": [
+    {
+      "name": "ShotSetup",
+      "waypointRelativePos": 0.0,
+      "command": {
+        "type": "parallel",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "AutonWristMiddle"
+              }
+            },
+            {
+              "type": "named",
+              "data": {
+                "name": "AutonRevFlywheel"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "globalConstraints": {
+    "maxVelocity": 3.0,
+    "maxAcceleration": 2.0,
+    "maxAngularVelocity": 181.0,
+    "maxAngularAcceleration": 180.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": -47.84972272300177,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": "2SCSplit+6",
+  "previewStartingState": {
+    "rotation": 0,
+    "velocity": 0
+  },
+  "useDefaultConstraints": true
+}

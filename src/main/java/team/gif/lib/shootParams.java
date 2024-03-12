@@ -3,12 +3,16 @@ package team.gif.lib;
 import team.gif.robot.Constants;
 
 public enum shootParams {
-    WALL(Constants.Wrist.SETPOINT_WALL_ABSOLUTE, Constants.Shooter.RPM_WALL, Constants.Shooter.RPM_MIN_WALL, Constants.Shooter.FF_WALL, Constants.Shooter.kP_WALL, Constants.Shooter.kI_WALL),
-    NEAR(Constants.Wrist.SETPOINT_NEAR_ABSOLUTE, Constants.Shooter.RPM_NEAR, Constants.Shooter.RPM_MIN_NEAR, Constants.Shooter.FF_NEAR, Constants.Shooter.kP_NEAR, Constants.Shooter.kI_NEAR),
-    MID(Constants.Wrist.SETPOINT_MID_ABSOLUTE, Constants.Shooter.RPM_MID, Constants.Shooter.RPM_MIN_MID, Constants.Shooter.FF_MID, Constants.Shooter.kP_MID, Constants.Shooter.kI_MID),
+    FAR3(Constants.Wrist.SETPOINT_FAR3_ABSOLUTE, Constants.Shooter.RPM_FAR3, Constants.Shooter.RPM_MIN_FAR3, Constants.Shooter.FF_FAR3, Constants.Shooter.kP_FAR3, Constants.Shooter.kI_FAR3),
+    FAR2(Constants.Wrist.SETPOINT_FAR2_ABSOLUTE, Constants.Shooter.RPM_FAR2, Constants.Shooter.RPM_MIN_FAR2, Constants.Shooter.FF_FAR2, Constants.Shooter.kP_FAR2, Constants.Shooter.kI_FAR2),
     FAR(Constants.Wrist.SETPOINT_FAR_ABSOLUTE, Constants.Shooter.RPM_FAR, Constants.Shooter.RPM_MIN_FAR, Constants.Shooter.FF_FAR, Constants.Shooter.kP_FAR, Constants.Shooter.kI_FAR),
-    AMP(Constants.Wrist.SETPOINT_AMP_ABSOLUTE, Constants.Shooter.RPM_AMP, Constants.Shooter.RPM_MIN_AMP, Constants.Shooter.FF_AMP, Constants.Shooter.kP_AMP, Constants.Shooter.kI_AMP);
+    MID(Constants.Wrist.SETPOINT_MID_ABSOLUTE, Constants.Shooter.RPM_MID, Constants.Shooter.RPM_MIN_MID, Constants.Shooter.FF_MID, Constants.Shooter.kP_MID, Constants.Shooter.kI_MID),
+    MIDDLE(Constants.Wrist.SETPOINT_MIDDLE_ABSOLUTE, Constants.Shooter.RPM_MIDDLE, Constants.Shooter.RPM_MIN_MIDDLE, Constants.Shooter.FF_MIDDLE, Constants.Shooter.kP_MIDDLE, Constants.Shooter.kI_MIDDLE),
+    NEAR(Constants.Wrist.SETPOINT_NEAR_ABSOLUTE, Constants.Shooter.RPM_NEAR, Constants.Shooter.RPM_MIN_NEAR, Constants.Shooter.FF_NEAR, Constants.Shooter.kP_NEAR, Constants.Shooter.kI_NEAR),
+    CLOSE(Constants.Wrist.SETPOINT_CLOSE_ABSOLUTE, Constants.Shooter.RPM_CLOSE, Constants.Shooter.RPM_MIN_CLOSE, Constants.Shooter.FF_CLOSE, Constants.Shooter.kP_CLOSE, Constants.Shooter.kI_CLOSE),
+    WALL(Constants.Wrist.SETPOINT_WALL_ABSOLUTE, Constants.Shooter.RPM_WALL, Constants.Shooter.RPM_MIN_WALL, Constants.Shooter.FF_WALL, Constants.Shooter.kP_WALL, Constants.Shooter.kI_WALL),
 
+    AMP(Constants.Wrist.SETPOINT_AMP_ABSOLUTE, Constants.Shooter.RPM_AMP, Constants.Shooter.RPM_MIN_AMP, Constants.Shooter.FF_AMP, Constants.Shooter.kP_AMP, Constants.Shooter.kI_AMP);
 
     private double wristAngle;
     private double shooterRPM;

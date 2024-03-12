@@ -7,7 +7,9 @@ import edu.wpi.first.wpilibj2.command.PrintCommand;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
-import team.gif.robot.commands.autos.AutoRotate;
+import team.gif.robot.commands.climber.AutoClimb;
+import team.gif.robot.commands.drivetrain.AutoRotate;
+import team.gif.robot.commands.drivetrain.AutoRotateStage;
 import team.gif.robot.commands.climber.LowerClimberAndElevator;
 import team.gif.robot.commands.climber.RaiseClimberToTop;
 import team.gif.robot.commands.collector.NoteRumble;
@@ -15,6 +17,11 @@ import team.gif.robot.commands.collector.ToggleCollectorDefault;
 import team.gif.robot.commands.collector.CollectorManualControl;
 import team.gif.robot.commands.driveModes.EnableBoost;
 import team.gif.robot.commands.driveModes.EnableRobotOrientedMode;
+import team.gif.robot.commands.drivetrain.AutoStrafeStage;
+import team.gif.robot.commands.drivetrain.MoveAwaySlow;
+import team.gif.robot.commands.drivetrain.MoveCloserSlow;
+import team.gif.robot.commands.drivetrain.MoveLeftSlow;
+import team.gif.robot.commands.drivetrain.MoveRightSlow;
 import team.gif.robot.commands.elevator.MoveElevatorToBottom;
 import team.gif.robot.commands.elevator.MoveElevatorToTop;
 import team.gif.robot.commands.indexer.FullIndexerReverse;
@@ -133,7 +140,16 @@ public class OI {
         dRBump.whileTrue(new EnableRobotOrientedMode());
         dY.whileTrue(new FullIndexerReverse());
 
+        dX.whileTrue(new AutoRotateStage(120).andThen(new AutoStrafeStage()));
+        dB.whileTrue(new AutoRotateStage(240).andThen(new AutoStrafeStage()));
         dA.onTrue(new AutoRotate());
+
+        dDPadUp.and(dStart.negate()).whileTrue(new MoveCloserSlow());
+        dDPadDown.and(dStart.negate()).whileTrue(new MoveAwaySlow());
+        dDPadLeft.and(dStart.negate()).whileTrue(new MoveRightSlow());
+        dDPadRight.and(dStart.negate()).whileTrue(new MoveLeftSlow());
+
+        dLTrigger.and(dRTrigger).whileTrue(new AutoClimb());
 
         // calibrations
         dStart.and(dDPadUp).onTrue(new InstantCommand(Robot.pigeon::resetPigeonPosition).ignoringDisable(true));
@@ -171,8 +187,9 @@ public class OI {
 
         aBack.and(aA).onTrue(new RaiseClimberToTop());
         aBack.and(aX).onTrue(new MoveElevatorToTop());
-        aBack.and(aY).onTrue(new LowerClimberAndElevator());
-        aBack.and(aB).onTrue(new TrapShoot().withTimeout(5));
+        aBack.and(aY).whileTrue(new AutoClimb());
+//        aBack.and(aY).onTrue(new LowerClimberAndElevator());
+//        aBack.and(aB).onTrue(new TrapShoot().withTimeout(5));
 
         aStart.and(aDPadUp).whileTrue(new WristAngleUp());
         aStart.and(aDPadDown).whileTrue(new WristAngleDown());

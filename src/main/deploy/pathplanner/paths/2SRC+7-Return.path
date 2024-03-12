@@ -4,12 +4,12 @@
     {
       "anchor": {
         "x": 8.0,
-        "y": 2.3
+        "y": 2.1
       },
       "prevControl": null,
       "nextControl": {
         "x": 5.814484107600694,
-        "y": 0.06694154442439997
+        "y": -0.13305845557559975
       },
       "isLocked": false,
       "linkedName": null
@@ -32,8 +32,8 @@
   "constraintZones": [],
   "eventMarkers": [
     {
-      "name": "New Event Marker",
-      "waypointRelativePos": 0.55,
+      "name": "ShotSetup",
+      "waypointRelativePos": 0.7,
       "command": {
         "type": "parallel",
         "data": {
@@ -41,24 +41,13 @@
             {
               "type": "named",
               "data": {
-                "name": "AutonRevFlywheel"
+                "name": "AutonWristNear"
               }
-            }
-          ]
-        }
-      }
-    },
-    {
-      "name": "New Event Marker",
-      "waypointRelativePos": 0.7,
-      "command": {
-        "type": "sequential",
-        "data": {
-          "commands": [
+            },
             {
               "type": "named",
               "data": {
-                "name": "AutonWristMid"
+                "name": "AutonRevFlywheel"
               }
             }
           ]
