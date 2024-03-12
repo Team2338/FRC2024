@@ -83,6 +83,8 @@ public class UiSmartDashboard {
 
         shuffleboardTab.addBoolean("Ready", Robot.shooter::getShooterAtMinRPM);
 
+        shuffleboardTab.addBoolean("Aligned", Robot.diagnostics::getTargetAligned);
+
 //        shuffleboardTab.addString("Climber", Robot.climber::getPosition_Shuffleboard);
 //        shuffleboardTab.addString("Elevator", Robot.elevator::getPosition_Shuffleboard);
 
