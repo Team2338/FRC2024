@@ -3,12 +3,12 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.15,
+        "x": 8.4,
         "y": 0.45
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.034390701511031,
+        "x": 6.284390701511031,
         "y": 0.4499999999999998
       },
       "isLocked": false,
@@ -17,11 +17,11 @@
     {
       "anchor": {
         "x": 2.1,
-        "y": 3.5
+        "y": 3.75
       },
       "prevControl": {
         "x": 3.8615603157132234,
-        "y": 1.7073465485962325
+        "y": 1.9573465485962325
       },
       "nextControl": null,
       "isLocked": false,
@@ -41,7 +41,7 @@
             {
               "type": "named",
               "data": {
-                "name": "AutonWristMid"
+                "name": "AutonWristMiddle"
               }
             },
             {
