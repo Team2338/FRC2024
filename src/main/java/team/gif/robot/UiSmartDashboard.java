@@ -74,6 +74,8 @@ public class UiSmartDashboard {
         shuffleboardTab.add("Delay", delayChooser)
                 .withPosition(7, 0)
                 .withSize(1, 1);
+        
+        shuffleboardTab.addBoolean("Motor Temp", Robot.diagnostics::getAnyMotorTempHot);
 
         shuffleboardTab.addBoolean("Stage Safe", Robot.diagnostics::getSafeToDriveUnderStage);
 
@@ -83,7 +85,6 @@ public class UiSmartDashboard {
 
         shuffleboardTab.addBoolean("Manual", Robot::getManualControlMode);
 
-        shuffleboardTab.addBoolean("Motor Temp", Robot.diagnostics::getAnyMotorTempHot);
     }
 
     public void updateUI() {
