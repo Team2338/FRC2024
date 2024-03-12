@@ -196,9 +196,9 @@ public class OI {
 //        aStart.and(aDPadRight).onTrue(new InstantCommand(Robot.wrist::BumpAngle));
 
         // auto sensor actions
-        collectorGamePieceSensor.debounce(0.050).onTrue(new NoteRumble().andThen(new WaitCommand(0.1).andThen(new NoteRumble())));
-        collectorGamePieceSensor.debounce(0.050).onTrue(new InstantCommand(Robot.wrist::setWristCollectPosition));
-        shooterGamePieceSensor.debounce(0.050).onTrue(new InstantCommand(Robot.shooter::setShooterRPMIdle));
+        collectorGamePieceSensor.debounce(Constants.debounceDefault).onTrue(new NoteRumble().andThen(new WaitCommand(0.1).andThen(new NoteRumble())));
+        collectorGamePieceSensor.debounce(Constants.debounceDefault).onTrue(new InstantCommand(Robot.wrist::setWristCollectPosition));
+        shooterGamePieceSensor.debounce(Constants.debounceDefault).onTrue(new InstantCommand(Robot.shooter::setShooterRPMIdle));
 
         // testing purposes
 //        dY.whileTrue(new RaiseClimber());

@@ -18,6 +18,9 @@ import edu.wpi.first.math.util.Units;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
+
+    public static final double debounceDefault = 0.050;
+
     public static final class Drivetrain { // ToDo tune - remove when done
         //public static final double DRIVE_WHEEL_RADIUS = 0.05; // meters? Must be unit of velocity
 

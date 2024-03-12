@@ -4,6 +4,7 @@ import com.revrobotics.CANSparkBase;
 import com.revrobotics.CANSparkLowLevel;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.SparkPIDController;
+import edu.wpi.first.math.filter.Debouncer;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import team.gif.robot.Constants;
@@ -17,6 +18,9 @@ public class Indexer extends SubsystemBase {
 
     public static DigitalInput midSensor;
     public static DigitalInput shooterSensor;
+
+    Debouncer midSensordebouncer = new Debouncer(Constants.debounceDefault, Debouncer.DebounceType.kBoth);
+    Debouncer shooterSensordebouncer = new Debouncer(Constants.debounceDefault, Debouncer.DebounceType.kBoth);
 
     private boolean isIndexing;
     private boolean notePassedCollector;
@@ -64,11 +68,13 @@ public class Indexer extends SubsystemBase {
     }
 
     public boolean getShooterSensorState() {
-        return shooterSensor.get();
+        return shooterSensordebouncer.calculate(shooterSensor.get());
+//        return shooterSensor.get();
     }
 
     public boolean getStageOneSensorState() {
-        return midSensor.get();
+        return midSensordebouncer.calculate(midSensor.get());
+//        return midSensor.get();
     }
 
     /**
