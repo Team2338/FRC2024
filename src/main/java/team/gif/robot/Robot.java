@@ -18,7 +18,6 @@ import team.gif.lib.logging.TelemetryFileLogger;
 import team.gif.lib.shootParams;
 import team.gif.robot.commands.collector.CollectorDefault;
 import team.gif.robot.commands.drivetrain.DriveSwerve;
-import team.gif.robot.commands.drivetrain.ResetHeadingAfterAuto;
 import team.gif.robot.commands.elevator.ElevatorPIDControl;
 import team.gif.robot.commands.indexer.IndexerDefault;
 import team.gif.robot.commands.led.LEDSubsystemDefault;
@@ -224,7 +223,8 @@ public class Robot extends TimedRobot {
         }
         runningAutonomousMode = false;
 
-        new ResetHeadingAfterAuto().schedule();
+        // Autos may start with a heading other than 0, but bot starts with 0 heading, Need to adjust pigeon.
+        Robot.pigeon.resetPigeonPosition(Robot.pigeon.get360Heading() - robotContainer.getAutonomousInitialHeading());
     }
 
     /** This function is called periodically during operator control. */

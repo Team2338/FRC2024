@@ -8,6 +8,7 @@ import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
 import com.pathplanner.lib.commands.PathPlannerAuto;
 import com.pathplanner.lib.path.PathPlannerPath;
+import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -27,6 +28,8 @@ import java.util.HashMap;
  * subsystems, commands, and trigger mappings) should be declared here.
  */
 public class RobotContainer {
+
+    private double autonomousInitialHeading;
 
     private final HashMap<autoMode, Command> autoCommands = new HashMap<>();
 
@@ -52,6 +55,8 @@ public class RobotContainer {
         // Configure the trigger bindings
         configureBindings();
         buildAutoCommands();
+
+        autonomousInitialHeading = 0;
     }
 
     /**
@@ -90,15 +95,20 @@ public class RobotContainer {
      * @return the command to run in autonomous
      */
     public Command getAutonomousCommand(autoMode chosenAuto) {
+        Pose2d startingPose;
         Command autonomousCommand = autoCommands.get(chosenAuto);
 
         if (chosenAuto == null) {
             System.out.println("Autonomous selection is null. Robot will do nothing in auto :(");
+        } else {
+            startingPose = PathPlannerAuto.getStaringPoseFromAutoFile(autonomousCommand.getName());
+            autonomousInitialHeading = startingPose.getRotation().getDegrees();
         }
 
         return autonomousCommand;
-//        PathPlannerPath path= PathPlannerPath.fromPathFile("Circle Path");
+    }
 
- //       return AutoBuilder.followPath(path);
+    public double getAutonomousInitialHeading(){
+        return  autonomousInitialHeading;
     }
 }
