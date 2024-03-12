@@ -357,7 +357,7 @@ public final class Constants {
 
         // Encoder setpoints and values
         // These are the encoder specific values
-        public static final double ENCODER_OFFSET_ABSOLUTE = -0.1290039;//-0.850439; // this is determined either manually or via the auto-calibration
+        public static final double ENCODER_OFFSET_ABSOLUTE = -0.1285155625;//-0.1290039;//-0.850439; // this is determined either manually or via the auto-calibration
         public static final double ABSOLUTE_PER_DEGREE = 0.008333;
         // These are the values we want the bot to utilize
         public static final double KILL_LIMIT_ABSOLUTE = 0.87;
@@ -403,14 +403,14 @@ public final class Constants {
 
     public static final class Elevator {
         public static final double FF = .00;
-        public static final double kP = 0.03;//1.80;
+        public static final double kP = 0.040;//1.80;
         public static final double kI = 0.0;
         public static final double kD = 0.0;
         public static final double LIMIT_MAX = 57.500;
         public static final double LIMIT_MIN = 0;
 
         public static final double TRAP_UP_POS = 57.5;
-        public static final double TRAP_UP_MIN_POS = 53.0;
+        public static final double TRAP_UP_MIN_POS = 56.5;
 
         public static final double AMP_POS = 20.0;
         public static final double SAFE_STAGE_POS = 0.4;
@@ -427,8 +427,8 @@ public final class Constants {
         public static final double LIMIT_MIN = -210;//-163.35; is min is correct // TODO: needs tuning
 
         public static final double SAFE_STAGE_POS = 1.200;
-        public static final double TRAP_POS = -100;
-        public static final double TRAP_MOVE_ELEVATOR_POS = 100.00;
+        public static final double TRAP_POS = -210;
+        public static final double TRAP_MOVE_ELEVATOR_POS = 0.0;//100.00;
     }
 
     public static final class MotorTemps {

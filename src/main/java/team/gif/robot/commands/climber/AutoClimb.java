@@ -22,7 +22,7 @@ public class AutoClimb extends Command {
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
-        elevatorRaisedToTop = false;
+        elevatorRaisedToTop = true;
         climberLowered = false;
 
         counter = 0;
@@ -49,23 +49,20 @@ public class AutoClimb extends Command {
         // lower the climber and elevator
         if (elevatorRaisedToTop && !climberLowered) {
             if (Robot.climber.getPosition() > Constants.Climber.TRAP_POS) {
-                System.out.println("Climber down: " + counter++ + " " + Robot.climber.getPosition());
+//                System.out.println("Climber down: " + counter++ + " " + Robot.climber.getPosition());
                 Robot.climber.move(-0.8); //-0.8 for climbing
                 if (Robot.climber.getPosition() < Constants.Climber.TRAP_MOVE_ELEVATOR_POS) {
                     Robot.elevator.setTargetPosition(Constants.Elevator.TRAP_POS);
                 }
             } else {
                 climberLowered = true;
-                System.out.println("Climber Down: done");
-                System.out.println("CLimber down: " + counter + " " + Robot.climber.getPosition());
-                Robot.climber.move(0);
-                Robot.climber.setTargetPosition(Robot.climber.getPosition());
-                Robot.climber.setDefaultCommand(new ClimberPIDControl());
+//                System.out.println("Climber Down: done");
+//                System.out.println("CLimber down: " + counter + " " + Robot.climber.getPosition());
             }
         }
 
         if (elevatorRaisedToTop && climberLowered) {
-//            new TrapShoot().schedule();
+            new TrapShoot().schedule();
             System.out.println("We are done!");
         }
     }
@@ -84,6 +81,7 @@ public class AutoClimb extends Command {
         // nothing to do - PID already holding elevator
 
         // hold the climber
+        Robot.climber.move(0);
         Robot.climber.setTargetPosition(Robot.climber.getPosition());
         Robot.climber.setDefaultCommand(new ClimberPIDControl());
         System.out.println("end trap sequence ");

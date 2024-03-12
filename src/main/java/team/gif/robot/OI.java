@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj2.command.PrintCommand;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import team.gif.robot.commands.climber.AutoClimb;
 import team.gif.robot.commands.drivetrain.AutoRotate;
 import team.gif.robot.commands.drivetrain.AutoRotateStage;
 import team.gif.robot.commands.climber.LowerClimberAndElevator;
@@ -186,8 +187,9 @@ public class OI {
 
         aBack.and(aA).onTrue(new RaiseClimberToTop());
         aBack.and(aX).onTrue(new MoveElevatorToTop());
-        aBack.and(aY).onTrue(new LowerClimberAndElevator());
-        aBack.and(aB).onTrue(new TrapShoot().withTimeout(5));
+        aBack.and(aY).whileTrue(new AutoClimb());
+//        aBack.and(aY).onTrue(new LowerClimberAndElevator());
+//        aBack.and(aB).onTrue(new TrapShoot().withTimeout(5));
 
         aStart.and(aDPadUp).whileTrue(new WristAngleUp());
         aStart.and(aDPadDown).whileTrue(new WristAngleDown());
