@@ -74,6 +74,9 @@ public class Robot extends TimedRobot {
 
     public static boolean isCompBot = true; //includes 2023 bot
 
+    public static boolean competitionMode = true;
+    public static boolean minimalDashboard = competitionMode;
+
     public static boolean manualControlMode;
 
     //https://github.com/mjansen4857/pathplanner/tree/main/examples/java/src/main/java/frc/robot
@@ -163,15 +166,18 @@ public class Robot extends TimedRobot {
         CommandScheduler.getInstance().run();
         uiSmartDashboard.updateUI();
 
-        if (diagnostics.getDriveMotorTempHot()) {
-            swerveDrivetrain.stopModules();
-            CommandScheduler.getInstance().disable();
-        }
-        if (diagnostics.getShooterMotorTempHot()) {
-            shooter.stop();
-        }
-        if (diagnostics.getIndexerMotorTempHot()) {
-            indexer.stopIndexerCoast();
+        // only stop the motors during practice
+        if (!competitionMode) {
+            if (diagnostics.getDriveMotorTempHot()) {
+                swerveDrivetrain.stopModules();
+                CommandScheduler.getInstance().disable();
+            }
+            if (diagnostics.getShooterMotorTempHot()) {
+                shooter.stop();
+            }
+            if (diagnostics.getIndexerMotorTempHot()) {
+                indexer.stopIndexerCoast();
+            }
         }
     }
 
