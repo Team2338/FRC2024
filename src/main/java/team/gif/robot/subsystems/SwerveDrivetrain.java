@@ -97,7 +97,9 @@ public class SwerveDrivetrain extends SubsystemBase {
 
         drivePace = drivePace.COAST_FR;
 
-        enableShuffleboardDebug("Swerve");
+        if(!Robot.minimalDashboard) {
+            enableShuffleboardDebug("Swerve");
+        }
 
         //Autos stuff
         AutoBuilder.configureHolonomic(

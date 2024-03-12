@@ -165,8 +165,8 @@
               "Controls/Rotation": "NONE",
               "compression": -1.0,
               "fps": -1,
-              "imageWidth": -1,
-              "imageHeight": -1
+              "imageWidth": 0,
+              "imageHeight": 0
             }
           },
           "5,0": {
@@ -203,19 +203,6 @@
               "_showGlyph": false,
               "Colors/Color when true": "#00FF00FF",
               "Colors/Color when false": "#800000FF"
-            }
-          },
-          "8,3": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///Shuffleboard/FRC2024/Wrist/Degrees",
-              "_title": "Wrist Degrees",
-              "_glyph": 148,
-              "_showGlyph": false
             }
           },
           "5,3": {
@@ -259,21 +246,6 @@
               "Colors/Color when false": "#00FF00FF"
             }
           },
-          "4,3": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Boolean Box",
-              "_source0": "network_table:///Shuffleboard/FRC2024/Stage Safe",
-              "_title": "Stage Safe",
-              "_glyph": 148,
-              "_showGlyph": false,
-              "Colors/Color when true": "#7CFC00FF",
-              "Colors/Color when false": "#FF0000FF"
-            }
-          },
           "4,0": {
             "size": [
               1,
@@ -298,6 +270,34 @@
               "_type": "Boolean Box",
               "_source0": "network_table:///Shuffleboard/SmartDashboard/Aligned",
               "_title": "Aligned",
+              "_glyph": 148,
+              "_showGlyph": false,
+              "Colors/Color when true": "#7CFC00FF",
+              "Colors/Color when false": "#8B0000FF"
+            }
+          },
+          "8,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///Shuffleboard/FRC2024/Positions/Wrist",
+              "_title": "Wrist",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "4,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Boolean Box",
+              "_source0": "network_table:///Shuffleboard/SmartDashboard/Stage Safe",
+              "_title": "Stage Safe",
               "_glyph": 148,
               "_showGlyph": false,
               "Colors/Color when true": "#7CFC00FF",

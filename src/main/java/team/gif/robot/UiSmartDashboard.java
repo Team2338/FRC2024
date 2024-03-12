@@ -50,7 +50,6 @@ public class UiSmartDashboard {
 
         SmartDashboard.putData("Toggle Collector Default", new ToggleCollectorDefault());
 
-
         //Auto Delay
         delayChooser.setDefaultOption("0", delay.DELAY_0);
         delayChooser.addOption("1", delay.DELAY_1);
@@ -76,24 +75,22 @@ public class UiSmartDashboard {
                 .withPosition(7, 0)
                 .withSize(1, 1);
 
-
-        shuffleboardTab.addBoolean("Motor Temp", Robot.diagnostics::getAnyMotorTempHot);
-
         shuffleboardTab.addBoolean("Stage Safe", Robot.diagnostics::getSafeToDriveUnderStage);
 
         shuffleboardTab.addBoolean("Ready", Robot.shooter::getShooterAtMinRPM);
 
         shuffleboardTab.addBoolean("Aligned", Robot.diagnostics::getTargetAligned);
 
-//        shuffleboardTab.addString("Climber", Robot.climber::getPosition_Shuffleboard);
-//        shuffleboardTab.addString("Elevator", Robot.elevator::getPosition_Shuffleboard);
-
         shuffleboardTab.addBoolean("Manual", Robot::getManualControlMode);
+
+        shuffleboardTab.addBoolean("Motor Temp", Robot.diagnostics::getAnyMotorTempHot);
     }
 
     public void updateUI() {
-        // Timers
-        SmartDashboard.putString("Time", String.format("%.4f", Timer.getFPGATimestamp()));
-        SmartDashboard.putString("Timer", String.format("%.2f", Timer.getMatchTime()));
+        if(!Robot.minimalDashboard) {
+            // Timers
+            SmartDashboard.putString("Time", String.format("%.4f", Timer.getFPGATimestamp()));
+            SmartDashboard.putString("Timer", String.format("%.2f", Timer.getMatchTime()));
+        }
     }
 }

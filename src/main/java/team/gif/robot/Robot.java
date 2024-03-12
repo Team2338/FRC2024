@@ -73,6 +73,7 @@ public class Robot extends TimedRobot {
     public static shootParams nextShot;
 
     public static boolean isCompBot = true; //includes 2023 bot
+    public static boolean minimalDashboard = true;
 
     public static boolean manualControlMode;
 
