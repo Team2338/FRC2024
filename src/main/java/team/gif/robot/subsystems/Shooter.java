@@ -16,7 +16,7 @@ public class Shooter extends SubsystemBase {
     public static CANSparkFlex shooter;
     public static SparkPIDController pidShooter;
 
-    private shootParams nextShot;
+    private shootParams currentShot;
 
     public Shooter() {
 //        shooterNeo = new CANSparkMax(RobotMap.SHOOTER_ID, CANSparkLowLevel.MotorType.kBrushless); // Leave for shooter Neo
@@ -127,16 +127,13 @@ public class Shooter extends SubsystemBase {
      * @param
      */
     public void setupNextShot() {
-        pidShooter.setP(Robot.nextShot.getP());
-        pidShooter.setFF(Robot.nextShot.getFF());
-        pidShooter.setI(Robot.nextShot.getI());
-    }
-
-    /**
-     * Returns the current setting for the next shot
-     * @return
-     */
-    public shootParams getNextShot() {
-        return this.nextShot;
+        // setting the gains is very expensive in time causing schedule loop overruns
+        // only change if next shot is different from previous shot
+        if (Robot.nextShot != currentShot) {
+            pidShooter.setP(Robot.nextShot.getP());
+            pidShooter.setFF(Robot.nextShot.getFF());
+            pidShooter.setI(Robot.nextShot.getI());
+            currentShot = Robot.nextShot;
+        }
     }
 }

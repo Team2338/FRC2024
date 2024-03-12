@@ -77,7 +77,7 @@ public class Elevator extends SubsystemBase {
         pidController.setFF(Constants.Elevator.FF);
         pidController.setP(Constants.Elevator.kP);
         pidController.setI(Constants.Elevator.kI);
-        pidController.setFF(Constants.Elevator.kD);
+        pidController.setD(Constants.Elevator.kD);
         pidController.setOutputRange(-0.12,1);
     }
 

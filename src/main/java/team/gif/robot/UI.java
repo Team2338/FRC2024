@@ -89,14 +89,14 @@ public class UI {
         diagnosticsTab.add("Climber", new InstantCommand(climber::resetPosition).ignoringDisable(true));
         diagnosticsTab.add("Elevator", new InstantCommand(elevator::resetPosition).ignoringDisable(true));
 
+        //collector
+        diagnosticsTab.addDouble("Collector Temp", Robot.collector::getMotorTemp).withPosition(8,0);
+        diagnosticsTab.addBoolean("Collector Cool", Robot.collector::isStageOneMotorCool).withPosition(8,1);
+
         // shooterPID
 //        shuffleboardTab.add("kP",0).getEntry();
 //        shuffleboardTab.add("kI",0).getEntry();
 //        shuffleboardTab.add("kD",0).getEntry();
-
-        //collector
-        diagnosticsTab.addDouble("Collector Temp", Robot.collector::getMotorTemp).withPosition(8,0);
-        diagnosticsTab.addBoolean("Collector Cool", Robot.collector::isStageOneMotorCool).withPosition(8,1);
 
         // used for tuning Shooter PID
 //        createSmartDashboardNumber("FF",0.000155);
