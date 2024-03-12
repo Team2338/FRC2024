@@ -89,7 +89,6 @@ public class Diagnostics extends SubsystemBase {
      * @return true if the cross-hair is within the box
      */
     public boolean getTargetAligned() {
-        // update the status of the target alignment
         double xOffset = Robot.limelightShooter.getXOffset();
         double targetWidthPixels = Robot.limelightShooter.getLongLength();
         double pixelsPerDegree = 320/29.8; // 320 horizontal pixels equivalent to 29.8 degrees
