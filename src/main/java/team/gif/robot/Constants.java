@@ -310,12 +310,19 @@ public final class Constants {
         public static final double kP_MID = 0.00030;//0.0100;               // 0.0006;    // 5800 RPM
         public static final double kI_MID = 0.000;//0.001;               // 0.0000015; // 5800 RPM
 
-        //Mid
+        //Middle
         public static final double RPM_MIDDLE = 6200;
         public static final double RPM_MIN_MIDDLE = 5600;
         public static final double FF_MIDDLE = 0.000155; // gets to 6100    // 0.000130;  // 5800 RPM
         public static final double kP_MIDDLE = 0.00030;//0.0100;               // 0.0006;    // 5800 RPM
         public static final double kI_MIDDLE = 0.000;//0.001;               // 0.0000015; // 5800 RPM
+
+        //Midfar
+        public static final double RPM_MIDFAR = 6200;
+        public static final double RPM_MIN_MIDFAR = 5600;
+        public static final double FF_MIDFAR = 0.000155; // gets to 6100    // 0.000130;  // 5800 RPM
+        public static final double kP_MIDFAR = 0.00030;//0.0100;               // 0.0006;    // 5800 RPM
+        public static final double kI_MIDFAR = 0.000;//0.001;               // 0.0000015; // 5800 RPM
 
         //Far
         public static final double RPM_FAR = 6200;
@@ -324,14 +331,14 @@ public final class Constants {
         public static final double kP_FAR = 0.00030;//0.0100;               // 0.0006;    // 5800 RPM
         public static final double kI_FAR = 0.000;//0.001;               // 0.0000015; // 5800 RPM
 
-        //Far
+        //Far2
         public static final double RPM_FAR2 = 6200;
         public static final double RPM_MIN_FAR2 = 6000;
         public static final double FF_FAR2 = 0.000155; // gets to 6100    // 0.000130;  // 5800 RPM
         public static final double kP_FAR2 = 0.00030;//0.0100;               // 0.0006;    // 5800 RPM
         public static final double kI_FAR2 = 0.000;//0.001;               // 0.0000015; // 5800 RPM
 
-        //Far
+        //Far3
         public static final double RPM_FAR3 = 6200;
         public static final double RPM_MIN_FAR3 = 6000;
         public static final double FF_FAR3 = 0.000155; // gets to 6100    // 0.000130;  // 5800 RPM
@@ -373,6 +380,7 @@ public final class Constants {
         public static final double SETPOINT_FAR3_ABSOLUTE = (80.0 - MIN_LIMIT_DEGREES) * ABSOLUTE_PER_DEGREE + MIN_LIMIT_ABSOLUTE;
         public static final double SETPOINT_FAR2_ABSOLUTE = (76.0 - MIN_LIMIT_DEGREES) * ABSOLUTE_PER_DEGREE + MIN_LIMIT_ABSOLUTE;
         public static final double SETPOINT_FAR_ABSOLUTE  = (72.0 - MIN_LIMIT_DEGREES) * ABSOLUTE_PER_DEGREE + MIN_LIMIT_ABSOLUTE; // number in degrees, value in absolute
+        public static final double SETPOINT_MIDFAR_ABSOLUTE  = (70.0 - MIN_LIMIT_DEGREES) * ABSOLUTE_PER_DEGREE + MIN_LIMIT_ABSOLUTE; // number in degrees, value in absolute
         public static final double SETPOINT_MID_ABSOLUTE  = (68.0 - MIN_LIMIT_DEGREES) * ABSOLUTE_PER_DEGREE + MIN_LIMIT_ABSOLUTE; // number in degrees, value in absolute
         public static final double SETPOINT_MIDDLE_ABSOLUTE  = (66.0 - MIN_LIMIT_DEGREES) * ABSOLUTE_PER_DEGREE + MIN_LIMIT_ABSOLUTE; // number in degrees, value in absolute
         public static final double SETPOINT_NEAR_ABSOLUTE = (64.0 - MIN_LIMIT_DEGREES) * ABSOLUTE_PER_DEGREE + MIN_LIMIT_ABSOLUTE; // number in degrees, value in absolute
