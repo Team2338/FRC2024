@@ -73,6 +73,6 @@ public class CollectorDefault extends Command {
     // Called when the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
-        Robot.collector.stop();
+        //Robot.collector.stop(); // I think this is causing the collector to occasionally briefly pause
     }
 }
