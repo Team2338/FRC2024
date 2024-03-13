@@ -37,12 +37,12 @@ public class RobotContainer {
     public RobotContainer() {
         // Used in "Paths"
         NamedCommands.registerCommand("AutonRevFlywheel", new RevFlyWheels(true)); // will move wrist to next target position
-        NamedCommands.registerCommand("AutonWristWall", new InstantCommand(Robot.wrist::setWristWallPosition));
         NamedCommands.registerCommand("AutonWristFar3", new InstantCommand(Robot.wrist::setWristFar3Position));
         NamedCommands.registerCommand("AutonWristFar2", new InstantCommand(Robot.wrist::setWristFar2Position));
-        NamedCommands.registerCommand("AutonWristMiddle", new InstantCommand(Robot.wrist::setWristMiddlePosition));
         NamedCommands.registerCommand("AutonWristFar", new InstantCommand(Robot.wrist::setWristFarPosition));
+        NamedCommands.registerCommand("AutonWristMidFar", new InstantCommand(Robot.wrist::setWristMidFarPosition));
         NamedCommands.registerCommand("AutonWristMid", new InstantCommand(Robot.wrist::setWristMidPosition));
+        NamedCommands.registerCommand("AutonWristMiddle", new InstantCommand(Robot.wrist::setWristMiddlePosition));
         NamedCommands.registerCommand("AutonWristNear", new InstantCommand(Robot.wrist::setWristNearPosition));
         NamedCommands.registerCommand("AutonWristClose", new InstantCommand(Robot.wrist::setWristClosePosition));
         NamedCommands.registerCommand("AutonWristWall", new InstantCommand(Robot.wrist::setWristWallPosition));

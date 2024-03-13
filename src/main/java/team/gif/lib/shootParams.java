@@ -6,6 +6,7 @@ public enum shootParams {
     FAR3(Constants.Wrist.SETPOINT_FAR3_ABSOLUTE, Constants.Shooter.RPM_FAR3, Constants.Shooter.RPM_MIN_FAR3, Constants.Shooter.FF_FAR3, Constants.Shooter.kP_FAR3, Constants.Shooter.kI_FAR3),
     FAR2(Constants.Wrist.SETPOINT_FAR2_ABSOLUTE, Constants.Shooter.RPM_FAR2, Constants.Shooter.RPM_MIN_FAR2, Constants.Shooter.FF_FAR2, Constants.Shooter.kP_FAR2, Constants.Shooter.kI_FAR2),
     FAR(Constants.Wrist.SETPOINT_FAR_ABSOLUTE, Constants.Shooter.RPM_FAR, Constants.Shooter.RPM_MIN_FAR, Constants.Shooter.FF_FAR, Constants.Shooter.kP_FAR, Constants.Shooter.kI_FAR),
+    MIDFAR(Constants.Wrist.SETPOINT_MIDFAR_ABSOLUTE, Constants.Shooter.RPM_MIDFAR, Constants.Shooter.RPM_MIN_MIDFAR, Constants.Shooter.FF_MIDFAR, Constants.Shooter.kP_MIDFAR, Constants.Shooter.kI_MIDFAR),
     MID(Constants.Wrist.SETPOINT_MID_ABSOLUTE, Constants.Shooter.RPM_MID, Constants.Shooter.RPM_MIN_MID, Constants.Shooter.FF_MID, Constants.Shooter.kP_MID, Constants.Shooter.kI_MID),
     MIDDLE(Constants.Wrist.SETPOINT_MIDDLE_ABSOLUTE, Constants.Shooter.RPM_MIDDLE, Constants.Shooter.RPM_MIN_MIDDLE, Constants.Shooter.FF_MIDDLE, Constants.Shooter.kP_MIDDLE, Constants.Shooter.kI_MIDDLE),
     NEAR(Constants.Wrist.SETPOINT_NEAR_ABSOLUTE, Constants.Shooter.RPM_NEAR, Constants.Shooter.RPM_MIN_NEAR, Constants.Shooter.FF_NEAR, Constants.Shooter.kP_NEAR, Constants.Shooter.kI_NEAR),
