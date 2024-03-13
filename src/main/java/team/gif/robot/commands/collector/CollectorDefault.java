@@ -25,7 +25,7 @@ public class CollectorDefault extends Command {
         boolean collect = false;
 
         // for when the note goes undetected under the frame, provide detection extension for a time period
-        if (Robot.limelightCollector.hasTarget()) {
+        if (false) { //Robot.limelightCollector.hasTarget()) {
             limelightDetectedOrExtension = true;
             counter = 0;
         } else {
