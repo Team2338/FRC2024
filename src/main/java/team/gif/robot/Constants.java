@@ -19,7 +19,7 @@ import edu.wpi.first.math.util.Units;
  */
 public final class Constants {
 
-    public static final double debounceDefault = 0.040; // scheduler runs every 20 ms so this is 2 cycles
+    public static final double debounceDefault = 0.030;
 
     public static final class Drivetrain { // ToDo tune - remove when done
         //public static final double DRIVE_WHEEL_RADIUS = 0.05; // meters? Must be unit of velocity
