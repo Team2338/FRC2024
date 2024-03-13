@@ -44,7 +44,8 @@ public class CollectorDefault extends Command {
         }
 
         // a bit of a catch-all, if a note is detected by the indexer sensor, do not collect
-        if (Robot.indexer.getShooterSensorState()) {
+        if (Robot.indexer.getShooterSensorState() ||
+            (Robot.indexer.getStageOneSensorState() && !Robot.collector.getSensorState())) {
             collect = false;
         }
 
@@ -54,7 +55,7 @@ public class CollectorDefault extends Command {
         }
 
         if (Robot.runningAutonomousMode) {
-            collect = !Robot.indexer.getShooterSensorState();
+            collect = !Robot.indexer.getShooterSensorState() && !Robot.indexer.getStageOneSensorState();
         }
 
         if (collect) {
