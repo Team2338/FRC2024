@@ -30,6 +30,7 @@ public class Shoot extends Command {
     public void initialize() {
         isFiring = false;
         counter = 0;
+
         Robot.indexer.stopIndexerCoast();
         //We need to remove the default command if we are in autonomous mode
         //because the default command will fight with this command for control
@@ -43,22 +44,27 @@ public class Shoot extends Command {
     // Called every time the scheduler runs (~20ms) while the command is scheduled
     @Override
     public void execute() {
-        if(Robot.indexer.getShooterSensorState()) {
+        if (Robot.collector.getSensorState() ||
+                (Robot.indexer.getStageOneSensorState() && !Robot.indexer.getShooterSensorState())) {
+            Robot.indexer.setIndexer(Constants.Indexer.INDEXER_ONE_COLLECT_PERC, Constants.Indexer.INDEXER_TWO_COLLECT_PERC);
+        }
+
+        if (Robot.indexer.getShooterSensorState()) {
             Robot.wrist.setTargetPosition(Robot.nextShot.getWristAngle());
+        }
 
+        if ((Robot.shooter.getShooterRPM() >= Robot.nextShot.getMinimumRPM() || isFiring) &&
+                (Robot.wrist.getPosition() >= (Robot.nextShot.getWristAngle() * .95))     &&
+                Robot.indexer.getShooterSensorState()) { //allow tolerance
+            //this may need to move down to line 48
+            Robot.indexer.setIndexer(0, Constants.Indexer.INDEXER_TWO_SHOOT_PERC);
+            isFiring = true;
+        } else {
+            Robot.shooter.setupAndRev(Robot.nextShot.getShooterRPM());
+        }
 
-            if ((Robot.shooter.getShooterRPM() >= Robot.nextShot.getMinimumRPM() || isFiring) &&
-                    (Robot.wrist.getPosition() >= (Robot.nextShot.getWristAngle() * .95))) { //allow tolerance
-                //this may need to move down to line 48
-                Robot.indexer.setIndexer(0, Constants.Indexer.INDEXER_TWO_SHOOT_PERC);
-                isFiring = true;
-            } else {
-                Robot.shooter.setupAndRev(Robot.nextShot.getShooterRPM());
-            }
-
-            if (isFiring) {
-                counter++;
-            }
+        if (isFiring) {
+            counter++;
         }
     }
 

@@ -23,17 +23,16 @@ public class RevFlyWheels extends Command {
     // Called every time the scheduler runs (~20ms) while the command is scheduled
     @Override
     public void execute() {
-        if(Robot.indexer.getShooterSensorState()) {
+        if (Robot.indexer.getShooterSensorState()) {
             Robot.wrist.setTargetPosition(Robot.nextShot.getWristAngle());
+        }
 
+        Robot.shooter.setupAndRev(Robot.nextShot.getShooterRPM());
 
-            Robot.shooter.setupAndRev(Robot.nextShot.getShooterRPM());
-
-            if (Robot.shooter.getShooterRPM() >= Robot.nextShot.getMinimumRPM() && !Robot.runningAutonomousMode) {
-                Robot.oi.setRumble(true);
-            } else {
-                Robot.oi.setRumble(false);
-            }
+        if (Robot.shooter.getShooterRPM() >= Robot.nextShot.getMinimumRPM() && !Robot.runningAutonomousMode) {
+            Robot.oi.setRumble(true);
+        } else {
+            Robot.oi.setRumble(false);
         }
     }
 
