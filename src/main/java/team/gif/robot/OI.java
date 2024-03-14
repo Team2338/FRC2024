@@ -142,6 +142,7 @@ public class OI {
 
         dX.whileTrue(new AutoRotateStage(120).andThen(new AutoStrafeStage()));
         dB.whileTrue(new AutoRotateStage(240).andThen(new AutoStrafeStage()));
+        dY.whileTrue(new AutoRotateStage(0).andThen(new AutoStrafeStage()));
         dA.onTrue(new AutoRotate());
 
         dDPadUp.and(dStart.negate()).whileTrue(new MoveCloserSlow());
@@ -193,6 +194,9 @@ public class OI {
 
         aStart.and(aDPadUp).whileTrue(new WristAngleUp());
         aStart.and(aDPadDown).whileTrue(new WristAngleDown());
+        aStart.and(aDPadLeft).onTrue(new InstantCommand(Robot.shooter::setPipeline1));
+        aStart.and(aDPadRight).onTrue(new InstantCommand(Robot.shooter::setPipeline2));
+        aY.and(aBack.negate()).onTrue(new InstantCommand(Robot.shooter::setPipeline0));
 //        aStart.and(aDPadRight).onTrue(new InstantCommand(Robot.wrist::BumpAngle));
 
         // auto sensor actions

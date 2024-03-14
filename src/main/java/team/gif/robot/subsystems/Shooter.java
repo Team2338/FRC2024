@@ -22,6 +22,7 @@ public class Shooter extends SubsystemBase {
 //        shooterNeo = new CANSparkMax(RobotMap.SHOOTER_ID, CANSparkLowLevel.MotorType.kBrushless); // Leave for shooter Neo
         shooter = new CANSparkFlex(RobotMap.SHOOTER_ID, CANSparkLowLevel.MotorType.kBrushless);
         configShooter();
+        Robot.limelightShooter.setPipeline(0);
     }
 
     public void setVoltagePercent(double percent) {
@@ -135,5 +136,17 @@ public class Shooter extends SubsystemBase {
             pidShooter.setI(Robot.nextShot.getI());
             currentShot = Robot.nextShot;
         }
+    }
+
+    public void setPipeline0() {
+        Robot.limelightShooter.setPipeline(0);
+    }
+
+    public void setPipeline1() {
+        Robot.limelightShooter.setPipeline(1);
+    }
+
+    public void setPipeline2() {
+        Robot.limelightShooter.setPipeline(2);
     }
 }
