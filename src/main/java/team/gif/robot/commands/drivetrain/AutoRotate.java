@@ -24,6 +24,7 @@ public class AutoRotate extends Command {
     @Override
     public void initialize() {
         isComplete = false;
+        Robot.killAutoAlign = false;
         turnLimiter = new SlewRateLimiter(Constants.ModuleConstants.TELE_DRIVE_MAX_ANGULAR_ACCELERATION_UNITS_PER_SECOND);
     }
 
@@ -46,6 +47,10 @@ public class AutoRotate extends Command {
             }
         } else {
             // ToDo need to add time based
+            isComplete = true;
+        }
+
+        if (Robot.killAutoAlign) {
             isComplete = true;
         }
 
@@ -79,5 +84,7 @@ public class AutoRotate extends Command {
 
     // Called when the command ends or is interrupted.
     @Override
-    public void end(boolean interrupted) {}
+    public void end(boolean interrupted) {
+
+    }
 }

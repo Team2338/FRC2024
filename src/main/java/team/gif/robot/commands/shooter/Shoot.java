@@ -59,6 +59,7 @@ public class Shoot extends Command {
             //this may need to move down to line 48
             Robot.indexer.setIndexer(0, Constants.Indexer.INDEXER_TWO_SHOOT_PERC);
             isFiring = true;
+            Robot.killAutoAlign = true;
         } else {
             Robot.shooter.setupAndRev(Robot.nextShot.getShooterRPM());
         }

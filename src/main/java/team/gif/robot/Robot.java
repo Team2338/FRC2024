@@ -79,6 +79,8 @@ public class Robot extends TimedRobot {
 
     public static boolean manualControlMode;
 
+    public static boolean killAutoAlign;
+
     //https://github.com/mjansen4857/pathplanner/tree/main/examples/java/src/main/java/frc/robot
 
     /**
@@ -228,7 +230,14 @@ public class Robot extends TimedRobot {
         runningAutonomousMode = false;
 
         // Autos may start with a heading other than 0, but bot starts with 0 heading, Need to adjust pigeon.
-        Robot.pigeon.resetPigeonPosition(Robot.pigeon.get360Heading() - robotContainer.getAutonomousInitialHeading());
+        var alliance = DriverStation.getAlliance();
+        if( alliance.isPresent() ) {
+            if (alliance.get() == DriverStation.Alliance.Red) {
+                Robot.pigeon.resetPigeonPosition(Robot.pigeon.get360Heading() - robotContainer.getAutonomousInitialHeading());
+            } else {
+                Robot.pigeon.resetPigeonPosition(Robot.pigeon.get360Heading() + robotContainer.getAutonomousInitialHeading());
+            }
+        }
     }
 
     /** This function is called periodically during operator control. */

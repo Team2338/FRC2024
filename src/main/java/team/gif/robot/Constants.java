@@ -389,7 +389,7 @@ public final class Constants {
         public static final double SETPOINT_COLLECT_ABSOLUTE = (48.0 - MIN_LIMIT_DEGREES) * ABSOLUTE_PER_DEGREE + MIN_LIMIT_ABSOLUTE; // number in degrees, value in absolute
         public static final double SETPOINT_TRAP_ABSOLUTE = (92.0 - MIN_LIMIT_DEGREES) * ABSOLUTE_PER_DEGREE + MIN_LIMIT_ABSOLUTE; // number in degrees, value in absolute
         public static final double SETPOINT_TRAP_FINAL_ABSOLUTE = (64.0 - MIN_LIMIT_DEGREES) * ABSOLUTE_PER_DEGREE + MIN_LIMIT_ABSOLUTE; // number in degrees, value in absolute
-        public static final double SETPOINT_AMP_ABSOLUTE = (120.0 - MIN_LIMIT_DEGREES) * ABSOLUTE_PER_DEGREE + MIN_LIMIT_ABSOLUTE; // number in degrees, value in absolute
+        public static final double SETPOINT_AMP_ABSOLUTE = (125.0 - MIN_LIMIT_DEGREES) * ABSOLUTE_PER_DEGREE + MIN_LIMIT_ABSOLUTE; // number in degrees, value in absolute
         public static final double SAFE_STAGE_DEGREES = 50;
     }
 
@@ -423,7 +423,7 @@ public final class Constants {
         public static final double TRAP_UP_POS = 57.5;
         public static final double TRAP_UP_MIN_POS = 56.5;
 
-        public static final double AMP_POS = 20.0;
+        public static final double AMP_POS = 26.0;//20.0;
         public static final double SAFE_STAGE_POS = 0.4;
         public static final double TRAP_POS = 52.500;
         public static final double HOME_POS = 0.0;
