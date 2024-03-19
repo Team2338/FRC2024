@@ -14,6 +14,7 @@ public class AutoRotate extends Command {
     double xOffset;
     boolean isComplete;
     private SlewRateLimiter turnLimiter;
+    double commandCounter;
 
     public AutoRotate() {
         super();
@@ -26,6 +27,7 @@ public class AutoRotate extends Command {
         isComplete = false;
         Robot.killAutoAlign = false;
         turnLimiter = new SlewRateLimiter(Constants.ModuleConstants.TELE_DRIVE_MAX_ANGULAR_ACCELERATION_UNITS_PER_SECOND);
+        commandCounter = 0;
     }
 
     // Called every time the scheduler runs (~20ms) while the command is scheduled
@@ -50,7 +52,7 @@ public class AutoRotate extends Command {
             isComplete = true;
         }
 
-        if (Robot.killAutoAlign) {
+        if (Robot.killAutoAlign || commandCounter++ >= 2.0*50) {
             isComplete = true;
         }
 
@@ -85,6 +87,6 @@ public class AutoRotate extends Command {
     // Called when the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
-
+        Robot.swerveDrivetrain.drive(0,0,0);
     }
 }

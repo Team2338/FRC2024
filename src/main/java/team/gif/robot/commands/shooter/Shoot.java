@@ -8,6 +8,7 @@ import team.gif.robot.commands.indexer.IndexerDefault;
 public class Shoot extends Command {
     boolean isFiring;
     double counter;
+    double commandCounter;
 
     /**
      * Creates a new Shoot command. Pass in true in for auto mode.
@@ -30,6 +31,7 @@ public class Shoot extends Command {
     public void initialize() {
         isFiring = false;
         counter = 0;
+        commandCounter = 0;
 
         Robot.indexer.stopIndexerCoast();
         //We need to remove the default command if we are in autonomous mode
@@ -53,9 +55,10 @@ public class Shoot extends Command {
             Robot.wrist.setTargetPosition(Robot.nextShot.getWristAngle());
         }
 
-        if ((Robot.shooter.getShooterRPM() >= Robot.nextShot.getMinimumRPM() || isFiring) &&
+        if (((Robot.shooter.getShooterRPM() >= Robot.nextShot.getMinimumRPM() || isFiring) &&
                 (Robot.wrist.getPosition() >= (Robot.nextShot.getWristAngle() * .95))     &&
-                Robot.indexer.getShooterSensorState()) { //allow tolerance
+                Robot.indexer.getShooterSensorState()) ||
+                commandCounter++ >= 1.0*50) { //allow tolerance
             //this may need to move down to line 48
             Robot.indexer.setIndexer(0, Constants.Indexer.INDEXER_TWO_SHOOT_PERC);
             isFiring = true;
