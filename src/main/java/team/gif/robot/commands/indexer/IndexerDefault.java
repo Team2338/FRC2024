@@ -41,7 +41,7 @@ public class IndexerDefault extends Command {
 
         // 3
         if (!Robot.collector.getSensorState() && Robot.indexer.getStageOneSensorState() && !Robot.indexer.getShooterSensorState()) {
-           Robot.indexer.setIndexing(false);
+           Robot.indexer.setIndexing(true);
         }
 
         // 4
@@ -57,17 +57,8 @@ public class IndexerDefault extends Command {
         // Bot is indexing. Run the indexers
         if (Robot.indexer.isIndexing()) {
             Robot.indexer.setIndexer(Constants.Indexer.INDEXER_ONE_COLLECT_PERC, Constants.Indexer.INDEXER_TWO_COLLECT_PERC);
-        }
-
-        // Note has reached its destination at the indexer sensor
-        if (Robot.indexer.getShooterSensorState()) {
-            // This means the robot has collected a second note - State 6
-            if (Robot.collector.getSensorState()) {
-                Robot.indexer.setIndexer(-Constants.Indexer.INDEXER_ONE_EJECT_PERC, 0);
-            } else {
-                Robot.indexer.stopIndexerHard();
-            }
-            Robot.indexer.setIndexing(false);
+        } else {
+            Robot.indexer.stopIndexerHard();
         }
     }
 

@@ -32,7 +32,7 @@ public class Collector extends SubsystemBase {
     }
 
     public void reverse() {
-        //TODO: Collecting state?
+        collectingState = false;
         collector.set(ControlMode.PercentOutput, -Constants.Collector.COLLECT_PERCENT);
     }
 

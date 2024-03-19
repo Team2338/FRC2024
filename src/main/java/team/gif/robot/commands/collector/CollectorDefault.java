@@ -26,17 +26,17 @@ public class CollectorDefault extends Command {
         boolean reverse = false;
 
         // for when the note goes undetected under the frame, provide detection extension for a time period
-        if (false) { //Robot.limelightCollector.hasTarget()) {
-            limelightDetectedOrExtension = true;
-            counter = 0;
-        } else {
-            if (limelightDetectedOrExtension) {
-                counter++;
-                if (counter > 0.5 * 50) {
-                    limelightDetectedOrExtension = false;
-                }
-            }
-        }
+//        if (false) { //Robot.limelightCollector.hasTarget()) {
+//            limelightDetectedOrExtension = true;
+//            counter = 0;
+//        } else {
+//            if (limelightDetectedOrExtension) {
+//                counter++;
+//                if (counter > 0.5 * 50) {
+//                    limelightDetectedOrExtension = false;
+//                }
+//            }
+//        }
 
         //-------- Possible States --------
         // 1. Only Collector Sensor - Run Collector and Stage 1 Indexer
@@ -46,10 +46,10 @@ public class CollectorDefault extends Command {
         // 5. Shooter Sensor - Nothing
         // 6. Collector Sensor and Shooter Sensor - Reverse Collector and Stage 1 Indexer (?)
 
-        if (limelightDetectedOrExtension) {
-            collect = true;
-            reverse = false;
-        }
+//        if (limelightDetectedOrExtension) {
+//            collect = true;
+//            reverse = false;
+//        }
 
         // 1
         if (Robot.collector.getSensorState() && !Robot.indexer.getStageOneSensorState() && !Robot.indexer.getShooterSensorState()) {
@@ -76,7 +76,7 @@ public class CollectorDefault extends Command {
         }
 
         //Always run in autonomous mode, unless we have a note
-        if(Robot.runningAutonomousMode ) {
+        if (Robot.runningAutonomousMode) {
             collect = !Robot.indexer.getStageOneSensorState() && !Robot.indexer.getShooterSensorState();
             reverse = false;
         }
