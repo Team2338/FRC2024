@@ -443,6 +443,11 @@ public final class Constants {
         public static final double SAFE_STAGE_POS = 1.200;
         public static final double TRAP_POS = -210;
         public static final double TRAP_MOVE_ELEVATOR_POS = 0.0;//100.00;
+
+        public static final double HOME_POS = 0.0;
+
+        public static final double CLIMBER_UP_SPEED = 1.0;
+        public static final double CLIMBER_DOWN_SPEED = -0.8;
     }
 
     public static final class MotorTemps {

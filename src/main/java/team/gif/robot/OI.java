@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import team.gif.robot.commands.climber.AutoClimb;
+import team.gif.robot.commands.climber.HomeAll;
 import team.gif.robot.commands.drivetrain.AutoRotate;
 import team.gif.robot.commands.drivetrain.AutoRotateStage;
 import team.gif.robot.commands.climber.LowerClimberAndElevator;
@@ -164,7 +165,7 @@ public class OI {
          */
 
         // manual control
-        aA.and(aBack.negate()).whileTrue(new CollectorManualControl());
+        aA.and(aBack.negate().and(aStart.negate())).whileTrue(new CollectorManualControl());
         aB.and(aBack.negate()).whileTrue(new CollectorManualControl().alongWith(new IndexerManualControl())); // used when sensors fail
         aStart.and(aBack).toggleOnTrue(new ToggleManualControl());
 
@@ -204,6 +205,7 @@ public class OI {
         collectorGamePieceSensor.debounce(Constants.debounceDefault).onTrue(new InstantCommand(Robot.wrist::setWristCollectPosition));
         shooterGamePieceSensor.debounce(Constants.debounceDefault).onTrue(new InstantCommand(Robot.shooter::setShooterRPMIdle));
 
+        aA.and(aStart).and(aBack.negate()).onTrue(new HomeAll());
         // testing purposes
 //        dY.whileTrue(new RaiseClimber());
 //        dX.whileTrue(new LowerClimber());

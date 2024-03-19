@@ -50,7 +50,7 @@ public class AutoClimb extends Command {
         if (elevatorRaisedToTop && !climberLowered) {
             if (Robot.climber.getPosition() > Constants.Climber.TRAP_POS) {
 //                System.out.println("Climber down: " + counter++ + " " + Robot.climber.getPosition());
-                Robot.climber.move(-0.8); //-0.8 for climbing
+                Robot.climber.move(Constants.Climber.CLIMBER_DOWN_SPEED); //-0.8 for climbing
                 if (Robot.climber.getPosition() < Constants.Climber.TRAP_MOVE_ELEVATOR_POS) {
                     Robot.elevator.setTargetPosition(Constants.Elevator.TRAP_POS);
                 }
