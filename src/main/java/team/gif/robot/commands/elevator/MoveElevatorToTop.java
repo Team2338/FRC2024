@@ -16,7 +16,9 @@ public class MoveElevatorToTop extends Command {
     // Called every time the scheduler runs (~20ms) while the command is scheduled
     @Override
     public void execute() {
-        Robot.elevator.setTargetPosition(Constants.Elevator.LIMIT_MAX);
+        if (Robot.climber.getPosition() >= Constants.Climber.SAFE_ELEVATOR_TRAP_UP) {
+            Robot.elevator.setTargetPosition(Constants.Elevator.LIMIT_MAX);
+        }
     }
 
     // Return true when the command should end, false if it should continue. Runs every ~20ms.

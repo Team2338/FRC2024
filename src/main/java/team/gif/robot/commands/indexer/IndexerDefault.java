@@ -20,41 +20,50 @@ public class IndexerDefault extends Command {
     // Called every time the scheduler runs (~20ms) while the command is scheduled
     @Override
     public void execute() {
-        // begin the indexing sequence
-        if (Robot.collector.getSensorState() && !Robot.indexer.isIndexing()) {
-            Robot.indexer.setIndexing(true);
-            Robot.indexer.setNotePassedCollector(false);
+
+        //-------- Possible States --------
+        // 1. Only Collector Sensor - Run Collector and Stage 1 Indexer
+        // 2. Collector Sensor and Stage 1 Sensor - Run Collector, Stage 1-2 Indexer
+        // 3. Stage 1 Sensor - Run Stage 1-2 Indexer
+        // 4. Stage 1 Sensor and Shooter Sensor - Nothing
+        // 5. Shooter Sensor - Nothing
+        // 6. Collector Sensor and Shooter Sensor - Reverse Collector and Stage 1 Indexer (?)
+
+        // 0
+        if (!Robot.collector.getSensorState() && !Robot.indexer.getStageOneSensorState() && !Robot.indexer.getShooterSensorState()) {
+            Robot.indexer.setIndexing(false);
         }
 
-        // Note is between collector and shooter sensor
-        // This may occur at the end of auto and start of teleop
-        // It's the "dead zone" and needs to be handled
-        if (!Robot.collector.getSensorState() &&
-            Robot.indexer.getStageOneSensorState() &&
-            !Robot.indexer.getShooterSensorState() &&
-            !Robot.indexer.isIndexing() ) {
+        // 1
+        if (Robot.collector.getSensorState() && !Robot.indexer.getStageOneSensorState() && !Robot.indexer.getShooterSensorState()) {
             Robot.indexer.setIndexing(true);
+        }
+
+        // 2
+        if (Robot.collector.getSensorState() && Robot.indexer.getStageOneSensorState() && !Robot.indexer.getShooterSensorState()) {
+            Robot.indexer.setIndexing(true);
+        }
+
+        // 3
+        if (!Robot.collector.getSensorState() && Robot.indexer.getStageOneSensorState() && !Robot.indexer.getShooterSensorState()) {
+           Robot.indexer.setIndexing(true);
+        }
+
+        // 4
+        if (!Robot.collector.getSensorState() && Robot.indexer.getStageOneSensorState() && Robot.indexer.getShooterSensorState()) {
+            Robot.indexer.setIndexing(false);
+        }
+
+        // 5
+        if (!Robot.collector.getSensorState() && !Robot.indexer.getStageOneSensorState() && Robot.indexer.getShooterSensorState()) {
+            Robot.indexer.setIndexing(false);
         }
 
         // Bot is indexing. Run the indexers
         if (Robot.indexer.isIndexing()) {
             Robot.indexer.setIndexer(Constants.Indexer.INDEXER_ONE_COLLECT_PERC, Constants.Indexer.INDEXER_TWO_COLLECT_PERC);
-
-            // indicate if the note has passed the collector but the bot is still indexing
-            // this is so the collector can decide of it needs to collect or eject
-            if (!Robot.collector.getSensorState() ) {
-                Robot.indexer.setNotePassedCollector(true);
-            }
-        }
-
-        // Note has reached its destination at the indexer sensor
-        if (Robot.indexer.getShooterSensorState()) {
-            if (Robot.collector.getSensorState()) { // this means the robot has collected a second note
-                Robot.indexer.setIndexer(-Constants.Indexer.INDEXER_ONE_EJECT_PERC, 0);
-            } else {
-                Robot.indexer.stopIndexerHard();
-            }
-            Robot.indexer.setIndexing(false);
+        } else {
+            Robot.indexer.stopIndexerHard();
         }
     }
 
