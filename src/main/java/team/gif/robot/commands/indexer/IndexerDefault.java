@@ -29,6 +29,11 @@ public class IndexerDefault extends Command {
         // 5. Shooter Sensor - Nothing
         // 6. Collector Sensor and Shooter Sensor - Reverse Collector and Stage 1 Indexer (?)
 
+        // 0
+        if (!Robot.collector.getSensorState() && !Robot.indexer.getStageOneSensorState() && !Robot.indexer.getShooterSensorState()) {
+            Robot.indexer.setIndexing(false);
+        }
+
         // 1
         if (Robot.collector.getSensorState() && !Robot.indexer.getStageOneSensorState() && !Robot.indexer.getShooterSensorState()) {
             Robot.indexer.setIndexing(true);
