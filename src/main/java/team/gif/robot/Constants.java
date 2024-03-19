@@ -417,7 +417,7 @@ public final class Constants {
         public static final double kP = 0.040;//1.80;
         public static final double kI = 0.0;
         public static final double kD = 0.0;
-        public static final double LIMIT_MAX = 57.500;
+        public static final double LIMIT_MAX = 57.500; //57.5
         public static final double LIMIT_MIN = 0;
 
         public static final double TRAP_UP_POS = 57.5;
@@ -434,7 +434,8 @@ public final class Constants {
         public static final double kP = 0.00000003;
         public static final double kI = 0.0;
         public static final double kD = 0.0;
-        public static final double LIMIT_MAX = 150; //163.35; is max setting 150 letting to over run
+        public static final double TICKS_PER_INCH = 23.3925; // measured at 6 in
+        public static final double LIMIT_MAX = 191; //150 //163.35; is max setting 150 letting to over run
         public static final double LIMIT_MIN = -210;//-163.35; is min is correct // TODO: needs tuning
 
         public static final double SAFE_STAGE_POS = 1.200;

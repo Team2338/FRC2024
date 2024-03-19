@@ -78,7 +78,7 @@ public class Elevator extends SubsystemBase {
         pidController.setP(Constants.Elevator.kP);
         pidController.setI(Constants.Elevator.kI);
         pidController.setD(Constants.Elevator.kD);
-        pidController.setOutputRange(-0.12,1);
+        pidController.setOutputRange(-0.5,1);
     }
 
     public void enableSoftLimits(boolean enable) {

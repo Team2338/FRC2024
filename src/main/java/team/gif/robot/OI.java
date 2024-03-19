@@ -183,7 +183,7 @@ public class OI {
         //aX.and(aBack.negate()).whileTrue(new ForceShoot());
 
         aRTrigger.onTrue(new AmpPosition()); // goes to position and revs flywheel
-        aLTrigger.onTrue(new Shoot().andThen(new WaitCommand(0.5).andThen(new MoveElevatorToBottom()))); // shoots and returns to home
+        aLTrigger.onTrue(new Shoot().andThen(new MoveElevatorToBottom())); // shoots and returns to home
 //        aY.and(aBack.negate()).whileTrue(new LoadFromSource());
 
         aBack.and(aA).onTrue(new RaiseClimberToTop());
