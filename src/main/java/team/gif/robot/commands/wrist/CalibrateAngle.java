@@ -178,7 +178,7 @@ public class CalibrateAngle extends Command {
         // Second test moving to min (not hard min). It should not stall.
         //
         if (testingStage == stage.TEST_MIN_FINAL) {
-            Robot.wrist.moveWristPercentPower(-decreaseAngleSpeed);
+            Robot.wrist.moveWristPercentPower(-decreaseAngleSpeed*1.5);
 
             if (pos <= Constants.Wrist.MIN_LIMIT_ABSOLUTE) {
                 Robot.wrist.moveWristPercentPower(0);
@@ -226,7 +226,7 @@ public class CalibrateAngle extends Command {
             Robot.wrist.holdWrist();
             pauseCounter++;
 
-            if (pauseCounter >= 3 * 50){ // 5 seconds x 50 20ms intervals
+            if (pauseCounter >= 0.5 * 50){ // 5 seconds x 50 20ms intervals
                 printStatus("Pause complete");
                 printStatus("Testing new offset (going to soft limit) ...");
                 testingStage = stage.TEST_MIN_FINAL;
@@ -240,7 +240,7 @@ public class CalibrateAngle extends Command {
         // It should not stall.
         //
         if (testingStage == stage.TEST_90) {
-            Robot.wrist.moveWristPercentPower(increaseAngleSpeed);
+            Robot.wrist.moveWristPercentPower(increaseAngleSpeed*1.5);
 
             // check for stalling motor
             if (Math.abs(pos - prevPos) < (1.0 * 1 / 4096)) { // Allows for range of 3 ticks to check, 4096 is number of ticks in 1 rotation

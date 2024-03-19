@@ -18,7 +18,7 @@ public class LowerClimberAndElevator extends Command {
     // Called every time the scheduler runs (~20ms) while the command is scheduled
     @Override
     public void execute() {
-        Robot.climber.move(-0.8);
+        Robot.climber.move(Constants.Climber.CLIMBER_DOWN_SPEED);
         if (Robot.climber.getPosition() < Constants.Climber.TRAP_MOVE_ELEVATOR_POS) {
             Robot.elevator.setTargetPosition(Constants.Elevator.TRAP_POS);
         }

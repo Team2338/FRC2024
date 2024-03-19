@@ -367,14 +367,14 @@ public final class Constants {
 
         // Encoder setpoints and values
         // These are the encoder specific values
-        public static final double ENCODER_OFFSET_ABSOLUTE = -0.206640625;//-0.1290039;//-0.850439; // this is determined either manually or via the auto-calibration
+        public static final double ENCODER_OFFSET_ABSOLUTE = -0.183203125;//-0.1290039;//-0.850439; // this is determined either manually or via the auto-calibration
         public static final double ABSOLUTE_PER_DEGREE = 0.008333;
         // These are the values we want the bot to utilize
         public static final double KILL_LIMIT_ABSOLUTE = 0.87;
         public static final double MAX_LIMIT_ABSOLUTE = 0.80; // largest value of encoder we want to allow, needs to be < 1.0
-        public static final double MIN_LIMIT_ABSOLUTE = 0.12; // lowest value of encoder we want to allow, needs to be > HARD_STOP
+        public static final double MIN_LIMIT_ABSOLUTE = 0.105; // lowest value of encoder we want to allow, needs to be > HARD_STOP
         public static final double HARD_STOP_ABSOLUTE = 0.10; // value of encoder at lower limit hard stop
-        public static final double MIN_LIMIT_DEGREES = 48.0; // this is calculated during manual calibration from reading the 90 degree value, provides a relationship between Degrees and Absolute
+        public static final double MIN_LIMIT_DEGREES = 46.2; // this is calculated during manual calibration from reading the 90 degree value, provides a relationship between Degrees and Absolute
         public static final double STAGE_SAFE_DEGREES = 46.0; // maximum value to go under stage
         public static final double MAX_LIMIT_DEGREES = (MAX_LIMIT_ABSOLUTE - MIN_LIMIT_ABSOLUTE)/ABSOLUTE_PER_DEGREE+MIN_LIMIT_DEGREES; // Convert MAX_LIMIT
         public static final double SETPOINT_FAR3_ABSOLUTE = (80.0 - MIN_LIMIT_DEGREES) * ABSOLUTE_PER_DEGREE + MIN_LIMIT_ABSOLUTE;
@@ -417,7 +417,7 @@ public final class Constants {
         public static final double kP = 0.040;//1.80;
         public static final double kI = 0.0;
         public static final double kD = 0.0;
-        public static final double LIMIT_MAX = 57.500;
+        public static final double LIMIT_MAX = 57.500; //57.5
         public static final double LIMIT_MIN = 0;
 
         public static final double TRAP_UP_POS = 57.5;
@@ -434,12 +434,20 @@ public final class Constants {
         public static final double kP = 0.00000003;
         public static final double kI = 0.0;
         public static final double kD = 0.0;
-        public static final double LIMIT_MAX = 150; //163.35; is max setting 150 letting to over run
+        public static final double TICKS_PER_INCH = 23.3925; // measured at 6 in
+        public static final double LIMIT_MAX = 191; //150 //163.35; is max setting 150 letting to over run
         public static final double LIMIT_MIN = -210;//-163.35; is min is correct // TODO: needs tuning
+
+        public static final double SAFE_ELEVATOR_TRAP_UP = LIMIT_MAX - (TICKS_PER_INCH * 1.0);
 
         public static final double SAFE_STAGE_POS = 1.200;
         public static final double TRAP_POS = -210;
         public static final double TRAP_MOVE_ELEVATOR_POS = 0.0;//100.00;
+
+        public static final double HOME_POS = 0.0;
+
+        public static final double CLIMBER_UP_SPEED = 1.0;
+        public static final double CLIMBER_DOWN_SPEED = -0.8;
     }
 
     public static final class MotorTemps {
