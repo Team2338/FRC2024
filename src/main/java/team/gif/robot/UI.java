@@ -33,6 +33,8 @@ public class UI {
         shuffleboardTab.addBoolean("Mid Sensor", Robot.indexer::getStageOneSensorState).withPosition(6,1);
         shuffleboardTab.addBoolean("Collector Sensor", Robot.collector::getSensorState).withPosition(6,2);
 
+        shuffleboardTab.addString("Actual", Robot.wrist::getPosition_Shuffleboard);
+
         if (!Robot.minimalDashboard) {
             /**
              * Additional FRC2024 tab items

@@ -50,5 +50,6 @@ public class ForceShoot extends Command {
         if (Robot.indexer.getDefaultCommand() == null) {
             Robot.indexer.setDefaultCommand(new IndexerDefault());
         }
+        Robot.killAutoAlign = true;
     }
 }
