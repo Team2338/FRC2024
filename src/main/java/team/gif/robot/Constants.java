@@ -438,6 +438,8 @@ public final class Constants {
         public static final double LIMIT_MAX = 191; //150 //163.35; is max setting 150 letting to over run
         public static final double LIMIT_MIN = -210;//-163.35; is min is correct // TODO: needs tuning
 
+        public static final double SAFE_ELEVATOR_TRAP_UP = LIMIT_MAX - (TICKS_PER_INCH * 1.0);
+
         public static final double SAFE_STAGE_POS = 1.200;
         public static final double TRAP_POS = -210;
         public static final double TRAP_MOVE_ELEVATOR_POS = 0.0;//100.00;
