@@ -31,6 +31,11 @@ public class Collector extends SubsystemBase {
         collector.set(ControlMode.PercentOutput, Constants.Collector.COLLECT_PERCENT);
     }
 
+    public void reverse() {
+        //TODO: Collecting state?
+        collector.set(ControlMode.PercentOutput, -Constants.Collector.COLLECT_PERCENT);
+    }
+
     public void eject() {
         collectingState = false;
         collector.set(ControlMode.PercentOutput, -Constants.Collector.EJECT_PERCENT);

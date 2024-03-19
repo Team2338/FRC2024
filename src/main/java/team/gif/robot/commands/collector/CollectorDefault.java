@@ -23,6 +23,7 @@ public class CollectorDefault extends Command {
     @Override
     public void execute() {
         boolean collect = false;
+        boolean reverse = false;
 
         // for when the note goes undetected under the frame, provide detection extension for a time period
         if (false) { //Robot.limelightCollector.hasTarget()) {
@@ -37,28 +38,52 @@ public class CollectorDefault extends Command {
             }
         }
 
-        // situations where the collector should run
-        if ( (Robot.collector.getSensorState() && !Robot.indexer.getShooterSensorState() ) ||
-           (!Robot.indexer.getShooterSensorState() && !Robot.indexer.isIndexing() && limelightDetectedOrExtension)) {
+        //-------- Possible States --------
+        // 1. Only Collector Sensor - Run Collector and Stage 1 Indexer
+        // 2. Collector Sensor and Stage 1 Sensor - Run Collector, Stage 1-2 Indexer
+        // 3. Stage 1 Sensor - Run Stage 1-2 Indexer
+        // 4. Stage 1 Sensor and Shooter Sensor - Nothing
+        // 5. Shooter Sensor - Nothing
+        // 6. Collector Sensor and Shooter Sensor - Reverse Collector and Stage 1 Indexer (?)
+
+        if (limelightDetectedOrExtension) {
             collect = true;
+            reverse = false;
         }
 
-        // a bit of a catch-all, if a note is detected by the indexer sensor, do not collect
-        if (Robot.indexer.getShooterSensorState() ||
-            (Robot.indexer.getStageOneSensorState() && !Robot.collector.getSensorState())) {
+        // 1
+        if (Robot.collector.getSensorState() && !Robot.indexer.getStageOneSensorState() && !Robot.indexer.getShooterSensorState()) {
+            collect = true;
+            reverse = false;
+        }
+
+        // 2
+        if (Robot.collector.getSensorState() && Robot.indexer.getStageOneSensorState() && !Robot.indexer.getShooterSensorState()) {
+            collect = true;
+            reverse = false;
+        }
+
+        // 3-5
+        if (!Robot.collector.getSensorState()) {
             collect = false;
+            reverse = false;
         }
 
-        // handle the case where a second note is immediately following
-        if (Robot.indexer.isIndexing() && Robot.indexer.getNotePassedCollector()){
-            collect = false;
+        // 6
+        if (Robot.collector.getSensorState() && !Robot.indexer.getStageOneSensorState() && Robot.indexer.getShooterSensorState()) {
+            collect = true;
+            reverse = true;
         }
 
-        if (Robot.runningAutonomousMode) {
-            collect = !Robot.indexer.getShooterSensorState() && !Robot.indexer.getStageOneSensorState();
+        //Always run in autonomous mode, unless we have a note
+        if(Robot.runningAutonomousMode ) {
+            collect = !Robot.indexer.getStageOneSensorState() && !Robot.indexer.getShooterSensorState();
+            reverse = false;
         }
 
-        if (collect) {
+        if (collect && reverse) {
+            Robot.collector.reverse();
+        } else if (collect) {
             Robot.collector.collect();
         } else {
             Robot.collector.eject();
