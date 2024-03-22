@@ -80,6 +80,30 @@
         {
           "type": "path",
           "data": {
+            "pathName": "4CTR+S+C+A2"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "4CTR+S+C+A-Shoot"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "AutonRotate"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "AutonShoot"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
             "pathName": "4CTR+S+C+A-6"
           }
         }
