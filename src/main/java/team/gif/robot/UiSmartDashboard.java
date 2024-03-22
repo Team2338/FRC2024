@@ -39,6 +39,7 @@ public class UiSmartDashboard {
         autoModeChooser.addOption("3W+8+7", autoMode.THREE_W_8_7);
         autoModeChooser.addOption("5CTR+C+S+A+4", autoMode.FIVE_CTR_C_S_A_4);
         autoModeChooser.addOption("5CTR+C+S+A+5", autoMode.FIVE_CTR_C_S_A_5);
+        autoModeChooser.addOption("4CTR+C+S+A-6", autoMode.FOUR_CTR_C_S_A_6);
 //        autoModeChooser.addOption("2SCSplit+6", autoMode.TWO_SCSPLIT_SIX);
 //        autoModeChooser.addOption("4AMP+A+C+S", autoMode.FOUR_AMP_A_C_S);
 //        autoModeChooser.addOption("Line Test", autoMode.LINE_TEST);
