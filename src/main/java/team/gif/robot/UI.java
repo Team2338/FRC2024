@@ -2,7 +2,6 @@ package team.gif.robot;
 
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInLayouts;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
-import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardContainer;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardLayout;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -35,7 +34,7 @@ public class UI {
 
         shuffleboardTab.addString("Actual", Robot.wrist::getPosition_Shuffleboard);
 
-        if (!Robot.minimalDashboard) {
+        if (Robot.fullDashboard) {
             /**
              * Additional FRC2024 tab items
              */

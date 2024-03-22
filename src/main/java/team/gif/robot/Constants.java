@@ -132,7 +132,7 @@ public final class Constants {
     public static final class DrivetrainAuto {
         public static final double kP_FORWARD = 3.0;
         public static final double kP_ROTATION = 3.0;
-        public static final double MAX_MODULE_SPEED_MPS = 3.5;
+        public static final double MAX_MODULE_SPEED_MPS = 4;
         public static final double DRIVEBASE_RADIUS_METERS = 0.4131;
     }
 
@@ -324,6 +324,13 @@ public final class Constants {
         public static final double kP_MIDFAR = 0.00030;//0.0100;               // 0.0006;    // 5800 RPM
         public static final double kI_MIDFAR = 0.000;//0.001;               // 0.0000015; // 5800 RPM
 
+        //MidMidFar
+        public static final double RPM_MIDMIDFAR = 6200;
+        public static final double RPM_MIN_MIDMIDFAR = 6000;
+        public static final double FF_MIDMIDFAR = 0.000155; // gets to 6100    // 0.000130;  // 5800 RPM
+        public static final double kP_MIDMIDFAR = 0.00030;//0.0100;               // 0.0006;    // 5800 RPM
+        public static final double kI_MIDMIDFAR = 0.000;//0.001;               // 0.0000015; // 5800 RPM
+
         //Far
         public static final double RPM_FAR = 6200;
         public static final double RPM_MIN_FAR = 6000;
@@ -367,7 +374,7 @@ public final class Constants {
 
         // Encoder setpoints and values
         // These are the encoder specific values
-        public static final double ENCODER_OFFSET_ABSOLUTE = -0.2359375;//-0.1290039;//-0.850439; // this is determined either manually or via the auto-calibration
+        public static final double ENCODER_OFFSET_ABSOLUTE = -0.237890625;//-0.1290039;//-0.850439; // this is determined either manually or via the auto-calibration
         public static final double ABSOLUTE_PER_DEGREE = 0.008333;
         // These are the values we want the bot to utilize
         public static final double KILL_LIMIT_ABSOLUTE = 0.87;
@@ -380,6 +387,7 @@ public final class Constants {
         public static final double SETPOINT_FAR3_ABSOLUTE = (80.0 - MIN_LIMIT_DEGREES) * ABSOLUTE_PER_DEGREE + MIN_LIMIT_ABSOLUTE;
         public static final double SETPOINT_FAR2_ABSOLUTE = (76.0 - MIN_LIMIT_DEGREES) * ABSOLUTE_PER_DEGREE + MIN_LIMIT_ABSOLUTE;
         public static final double SETPOINT_FAR_ABSOLUTE  = (72.0 - MIN_LIMIT_DEGREES) * ABSOLUTE_PER_DEGREE + MIN_LIMIT_ABSOLUTE; // number in degrees, value in absolute
+        public static final double SETPOINT_MIDMIDFAR_ABSOLUTE  = (71.0 - MIN_LIMIT_DEGREES) * ABSOLUTE_PER_DEGREE + MIN_LIMIT_ABSOLUTE; // number in degrees, value in absolute
         public static final double SETPOINT_MIDFAR_ABSOLUTE  = (70.0 - MIN_LIMIT_DEGREES) * ABSOLUTE_PER_DEGREE + MIN_LIMIT_ABSOLUTE; // number in degrees, value in absolute
         public static final double SETPOINT_MID_ABSOLUTE  = (68.0 - MIN_LIMIT_DEGREES) * ABSOLUTE_PER_DEGREE + MIN_LIMIT_ABSOLUTE; // number in degrees, value in absolute
         public static final double SETPOINT_MIDDLE_ABSOLUTE  = (66.0 - MIN_LIMIT_DEGREES) * ABSOLUTE_PER_DEGREE + MIN_LIMIT_ABSOLUTE; // number in degrees, value in absolute

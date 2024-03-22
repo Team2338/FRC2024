@@ -32,13 +32,14 @@ public class UiSmartDashboard {
         autoModeChooser.addOption("NONE", autoMode.NONE);
 //        autoModeChooser.addOption("Circle", autoMode.CIRCLE);
         autoModeChooser.setDefaultOption("Mobility", autoMode.MOBILITY);
-        autoModeChooser.addOption("2CTR+C", autoMode.TWO_CTR_C);
-        autoModeChooser.addOption("2SRC+S", autoMode.TWO_SRC_S);
-        autoModeChooser.addOption("2SRC+8", autoMode.TWO_SRC_8);
-        autoModeChooser.addOption("2SRC+7", autoMode.TWO_SRC_7); // TODO: testing need, I'm not sure about this
+//        autoModeChooser.addOption("2CTR+C", autoMode.TWO_CTR_C);
+//        autoModeChooser.addOption("2SRC+S", autoMode.TWO_SRC_S);
+//        autoModeChooser.addOption("2SRC+8", autoMode.TWO_SRC_8);
+//        autoModeChooser.addOption("2SRC+7", autoMode.TWO_SRC_7); // TODO: testing need, I'm not sure about this
         autoModeChooser.addOption("3W+8+7", autoMode.THREE_W_8_7);
-        autoModeChooser.addOption("4CTR+S+C+A-4", autoMode.FOUR_CTR_S_C_A_4);
-        autoModeChooser.addOption("2SCSplit+6", autoMode.TWO_SCSPLIT_SIX);
+        autoModeChooser.addOption("5CTR+C+S+A+4", autoMode.FIVE_CTR_C_S_A_4);
+        autoModeChooser.addOption("5CTR+C+S+A+5", autoMode.FIVE_CTR_C_S_A_5);
+//        autoModeChooser.addOption("2SCSplit+6", autoMode.TWO_SCSPLIT_SIX);
 //        autoModeChooser.addOption("4AMP+A+C+S", autoMode.FOUR_AMP_A_C_S);
 //        autoModeChooser.addOption("Line Test", autoMode.LINE_TEST);
 
@@ -88,7 +89,7 @@ public class UiSmartDashboard {
     }
 
     public void updateUI() {
-        if(!Robot.minimalDashboard) {
+        if(Robot.fullDashboard) {
             // Timers
             SmartDashboard.putString("Time", String.format("%.4f", Timer.getFPGATimestamp()));
             SmartDashboard.putString("Timer", String.format("%.2f", Timer.getMatchTime()));

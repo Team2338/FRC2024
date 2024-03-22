@@ -49,6 +49,8 @@ public class Shoot extends Command {
         if (Robot.collector.getSensorState() ||
                 (Robot.indexer.getStageOneSensorState() && !Robot.indexer.getShooterSensorState())) {
             Robot.indexer.setIndexer(Constants.Indexer.INDEXER_ONE_COLLECT_PERC, Constants.Indexer.INDEXER_TWO_COLLECT_PERC);
+        } else {
+            Robot.indexer.stopIndexerHard();
         }
 
         if (Robot.indexer.getShooterSensorState()) {
