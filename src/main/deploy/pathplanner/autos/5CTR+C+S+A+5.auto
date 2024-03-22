@@ -20,7 +20,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "4CTR+C-Away"
+            "pathName": "5CTR+C-Away"
           }
         },
         {
@@ -42,7 +42,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "4CTR+C+S"
+                  "pathName": "5CTR+C+S"
                 }
               }
             ]
@@ -67,7 +67,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "4CTR+C+S+A"
+                  "pathName": "5CTR+C+S+A"
                 }
               }
             ]
@@ -88,7 +88,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "4CTR+C+S+A+5"
+            "pathName": "5CTR+C+S+A+5"
           }
         },
         {
@@ -102,7 +102,7 @@
                     {
                       "type": "path",
                       "data": {
-                        "pathName": "4CTR+C+S+A+5+Return"
+                        "pathName": "5CTR+C+S+A+5+Return"
                       }
                     },
                     {
