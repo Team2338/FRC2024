@@ -64,6 +64,18 @@
           "data": {
             "pathName": "3W+8+7-Return"
           }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "AutonRotate"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "AutonShoot"
+          }
         }
       ]
     }

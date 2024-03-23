@@ -41,7 +41,7 @@
             {
               "type": "named",
               "data": {
-                "name": "AutonWristFar"
+                "name": "AutonWristMiddle"
               }
             },
             {
@@ -63,7 +63,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -47.77048313658603,
+    "rotation": -48.0,
     "rotateFast": false
   },
   "reversed": false,
