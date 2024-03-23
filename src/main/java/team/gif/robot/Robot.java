@@ -75,7 +75,7 @@ public class Robot extends TimedRobot {
     public static boolean isCompBot = true; //includes 2023 bot
 
     public static boolean competitionMode = true;
-    public static boolean fullDashboard = !competitionMode;
+    public static boolean fullDashboard = true;//!competitionMode;
 
     public static boolean manualControlMode;
 
@@ -181,6 +181,8 @@ public class Robot extends TimedRobot {
                 indexer.stopIndexerCoast();
             }
         }
+
+        System.out.println("climber: "+Robot.climber.getMotorPercent());
 
     }
 

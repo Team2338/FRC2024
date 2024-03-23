@@ -42,6 +42,10 @@ public class Climber extends SubsystemBase {
         motor.set(percent);
     }
 
+    public double getMotorPercent() {
+        return motor.getAppliedOutput();
+    }
+
     public void PIDHold() {
         motor.getPIDController().setReference(targetPosition,CANSparkBase.ControlType.kPosition);
     }

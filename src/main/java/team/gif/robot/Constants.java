@@ -439,24 +439,24 @@ public final class Constants {
     }
 
     public static final class Climber {
-        public static final double FF = 0.0003;
+        public static final double FF = 0.0060;
         public static final double kP = 0.00000003;
         public static final double kI = 0.0;
         public static final double kD = 0.0;
         public static final double TICKS_PER_INCH = 5.848; // 23.3925; // measured at 6 in
         public static final double LIMIT_MAX = 41.157; //48; //150 //163.35; is max setting 150 letting to over run
-        public static final double LIMIT_MIN = -52.5;//-163.35; is min is correct // TODO: needs tuning
+        public static final double LIMIT_MIN = -55.0;//-52.5;//-163.35; is min is correct // TODO: needs tuning
 
         public static final double SAFE_ELEVATOR_TRAP_UP = LIMIT_MAX - (TICKS_PER_INCH * 1.0);
 
         public static final double SAFE_STAGE_POS = 0.375 * TICKS_PER_INCH; // 1.200;
         public static final double TRAP_POS = LIMIT_MIN;
-        public static final double TRAP_MOVE_ELEVATOR_POS = 0.0;//100.00;
+        public static final double TRAP_MOVE_ELEVATOR_POS = -15.0;//0.0;//100.00;
 
         public static final double HOME_POS = 0.0;
 
         public static final double CLIMBER_UP_SPEED = 0.8;
-        public static final double CLIMBER_DOWN_SPEED = -0.3;
+        public static final double CLIMBER_DOWN_SPEED = -0.7;
     }
 
     public static final class MotorTemps {
