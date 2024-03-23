@@ -132,7 +132,7 @@ public class Robot extends TimedRobot {
         elevator = new Elevator();
         climber = new Climber();
         //Prevent the climber from drifting up during the match
-        climber.move(-0.017);
+        climber.PIDHoldZero();
         diagnostics = new Diagnostics();
 
         wrist.setDefaultCommand(new WristAnglePIDControl());
