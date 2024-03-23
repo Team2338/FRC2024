@@ -129,6 +129,13 @@ public class Wrist extends SubsystemBase {
     }
 
     /**
+     * Moves shooter rotation to the MidMidFar setpoint defined in constants.java
+     */
+    public void setWristMidMidFarPosition() {
+        Robot.nextShot = shootParams.MIDMIDFAR;
+    }
+
+    /**
      * Moves shooter rotation to the Far setpoint defined in constants.java
      */
     public void setWristFarPosition() {

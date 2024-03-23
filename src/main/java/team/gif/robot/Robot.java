@@ -75,7 +75,7 @@ public class Robot extends TimedRobot {
     public static boolean isCompBot = true; //includes 2023 bot
 
     public static boolean competitionMode = true;
-    public static boolean minimalDashboard = competitionMode;
+    public static boolean fullDashboard = !competitionMode;
 
     public static boolean manualControlMode;
 
@@ -93,7 +93,7 @@ public class Robot extends TimedRobot {
         eventLogger.init();
 
         telemetryLogger = new TelemetryFileLogger();
-        addMetricsToLogger();
+//        addMetricsToLogger();
 
         // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
         // autonomous chooser on the dashboard.
@@ -204,7 +204,7 @@ public class Robot extends TimedRobot {
         elapsedTime.reset();
         elapsedTime.start();
         runAutoScheduler = true;
-
+        System.out.println("Autonomous Init");
     }
 
     /** This function is called periodically during autonomous. */
@@ -221,6 +221,8 @@ public class Robot extends TimedRobot {
 
     @Override
     public void teleopInit() {
+        System.out.println("Teleop Init");
+
         // This makes sure that the autonomous stops running when
         // teleop starts running. If you want the autonomous to
         // continue until interrupted by another command, remove
