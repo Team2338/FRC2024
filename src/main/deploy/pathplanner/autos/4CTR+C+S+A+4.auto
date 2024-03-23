@@ -14,19 +14,25 @@
         {
           "type": "named",
           "data": {
-            "name": "AutonShootWall"
+            "name": "AutonWristWall"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "AutonShoot"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "4CTR+S-Away"
+            "pathName": "5CTR+C-Away"
           }
         },
         {
-          "type": "path",
+          "type": "named",
           "data": {
-            "pathName": "4CTR+S+C1"
+            "name": "AutonWristMid"
           }
         },
         {
@@ -44,13 +50,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "4CTR+S+C2"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "4CTR+S+C+A1"
+            "pathName": "5CTR+C+S"
           }
         },
         {
@@ -68,13 +68,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "4CTR+S+C+A2"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "4CTR+S+C+A-Shoot"
+            "pathName": "5CTR+C+S+A"
           }
         },
         {
@@ -92,7 +86,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "4CTR+S+C+A-6"
+            "pathName": "5CTR+C+S+A+4"
           }
         }
       ]
