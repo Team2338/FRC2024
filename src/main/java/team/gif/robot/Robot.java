@@ -131,6 +131,8 @@ public class Robot extends TimedRobot {
         collector.setDefaultCommand(new CollectorDefault());
         elevator = new Elevator();
         climber = new Climber();
+        //Prevent the climber from drifting up during the match
+        climber.move(-0.017);
         diagnostics = new Diagnostics();
 
         wrist.setDefaultCommand(new WristAnglePIDControl());
@@ -181,9 +183,6 @@ public class Robot extends TimedRobot {
                 indexer.stopIndexerCoast();
             }
         }
-
-        System.out.println("climber: "+Robot.climber.getMotorPercent());
-
     }
 
     /** This function is called once each time the robot enters Disabled mode. */
