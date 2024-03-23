@@ -35,6 +35,7 @@ public class AutoClimb extends Command {
     public void execute() {
 
         // Raise the elevator
+        // Currently not used during auto climb because aux has to raise the elevator
         if (!elevatorRaisedToTop) {
             if (Robot.elevator.getPosition() < Constants.Elevator.TRAP_UP_MIN_POS ) {
                 System.out.println("Elevator up: " + counter++ + " " + Robot.elevator.getPosition());

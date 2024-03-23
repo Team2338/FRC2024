@@ -28,7 +28,7 @@ public class HomeAll extends Command {
         if (Robot.climber.getPosition() > Constants.Climber.HOME_POS) {
             Robot.climber.move(Constants.Climber.CLIMBER_DOWN_SPEED);
         } else if (Robot.climber.getPosition() < (-0.25*Constants.Climber.TICKS_PER_INCH)) {
-            Robot.climber.move(Constants.Climber.CLIMBER_UP_SPEED);
+            Robot.climber.move(0.8*Constants.Climber.CLIMBER_UP_SPEED); // slow down climber up so it doesn't over shot
         } else {
             commandFinished = true;
         }

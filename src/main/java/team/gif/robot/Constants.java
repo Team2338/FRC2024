@@ -425,11 +425,12 @@ public final class Constants {
         public static final double kP = 0.040;//1.80;
         public static final double kI = 0.0;
         public static final double kD = 0.0;
-        public static final double LIMIT_MAX = 57.500; //57.5
+        public static final double TICKS_PER_INCH = 2.9;
+        public static final double LIMIT_MAX = 59.1; //57.5
         public static final double LIMIT_MIN = 0;
 
-        public static final double TRAP_UP_POS = 57.5;
-        public static final double TRAP_UP_MIN_POS = 56.5;
+        public static final double TRAP_UP_POS = LIMIT_MAX;
+        public static final double TRAP_UP_MIN_POS = LIMIT_MAX - (1.0*TICKS_PER_INCH);
 
         public static final double AMP_POS = 26.0;//20.0;
         public static final double SAFE_STAGE_POS = 0.4;
@@ -443,7 +444,7 @@ public final class Constants {
         public static final double kI = 0.0;
         public static final double kD = 0.0;
         public static final double TICKS_PER_INCH = 5.848; // 23.3925; // measured at 6 in
-        public static final double LIMIT_MAX = 48; //150 //163.35; is max setting 150 letting to over run
+        public static final double LIMIT_MAX = 41.157; //48; //150 //163.35; is max setting 150 letting to over run
         public static final double LIMIT_MIN = -52.5;//-163.35; is min is correct // TODO: needs tuning
 
         public static final double SAFE_ELEVATOR_TRAP_UP = LIMIT_MAX - (TICKS_PER_INCH * 1.0);
