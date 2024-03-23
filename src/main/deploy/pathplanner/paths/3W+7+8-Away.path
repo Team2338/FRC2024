@@ -3,50 +3,53 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 7.9,
-        "y": 7.471512502170485
+        "x": 2.0,
+        "y": 3.47
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.9723252679203105,
-        "y": 7.567790757933211
+        "x": 4.083749250119582,
+        "y": 1.3799102242079133
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 3.554264670323126,
-        "y": 6.214647784168449
+        "x": 8.4,
+        "y": 0.45
       },
       "prevControl": {
-        "x": 4.316733700557794,
-        "y": 7.255730572548713
+        "x": 4.561888309572107,
+        "y": 0.45
       },
       "nextControl": null,
       "isLocked": false,
       "linkedName": null
     }
   ],
-  "rotationTargets": [],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.25,
+      "rotationDegrees": 0.0,
+      "rotateFast": true
+    }
+  ],
   "constraintZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 3.0,
-    "maxAcceleration": 3.0,
-    "maxAngularVelocity": 50.0,
-    "maxAngularAcceleration": 100.0
+    "maxVelocity": 4.0,
+    "maxAcceleration": 3.5,
+    "maxAngularVelocity": 181.0,
+    "maxAngularAcceleration": 180.0
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 4.798957084885812,
+    "rotation": 0.0,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "TBD 5Src+S+C+A+4",
-  "previewStartingState": {
-    "rotation": 0,
-    "velocity": 0
-  },
+  "folder": "3W+8+7",
+  "previewStartingState": null,
   "useDefaultConstraints": false
 }

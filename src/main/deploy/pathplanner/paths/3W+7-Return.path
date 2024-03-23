@@ -3,41 +3,53 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.01,
-        "y": 2.33
+        "x": 8.2,
+        "y": 2.0
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.149728311541216,
-        "y": 1.401284736104216
+        "x": 5.697542563176294,
+        "y": 0.3274363243883181
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 1.9954771027366829,
-        "y": 3.472209965567968
+        "x": 2.1,
+        "y": 3.75
       },
       "prevControl": {
-        "x": 4.091203831954492,
-        "y": 1.7981087321691263
+        "x": 3.9317252423678632,
+        "y": 1.8008997841357512
       },
       "nextControl": null,
       "isLocked": false,
       "linkedName": null
     }
   ],
-  "rotationTargets": [],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.5,
+      "rotationDegrees": -41.045639841791676,
+      "rotateFast": true
+    }
+  ],
   "constraintZones": [],
   "eventMarkers": [
     {
-      "name": "AutonRevFlyWheel",
-      "waypointRelativePos": 0.5,
+      "name": "ShotSetup",
+      "waypointRelativePos": 0.6,
       "command": {
         "type": "parallel",
         "data": {
           "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "AutonWristMiddle"
+              }
+            },
             {
               "type": "named",
               "data": {
