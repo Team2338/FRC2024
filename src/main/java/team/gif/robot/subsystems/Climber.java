@@ -65,6 +65,7 @@ public class Climber extends SubsystemBase {
     public void config() {
         motor.restoreFactoryDefaults();
         motor.setIdleMode(CANSparkBase.IdleMode.kBrake);
+        motor.enableVoltageCompensation(12);
         motor.setSoftLimit(CANSparkBase.SoftLimitDirection.kForward,(float) Constants.Climber.LIMIT_MAX);
         motor.setSoftLimit(CANSparkBase.SoftLimitDirection.kReverse,(float) Constants.Climber.LIMIT_MIN);
         motor.enableSoftLimit(CANSparkBase.SoftLimitDirection.kForward,true);

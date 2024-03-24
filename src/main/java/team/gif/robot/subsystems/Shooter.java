@@ -110,6 +110,8 @@ public class Shooter extends SubsystemBase {
         shooter.restoreFactoryDefaults();
         shooter.setInverted(true);
         shooter.setIdleMode(CANSparkBase.IdleMode.kCoast);
+        shooter.enableVoltageCompensation(12);
+
 
 //        pidShooter = shooterNeo.getPIDController(); // Leave for shooter Neo
         pidShooter = shooter.getPIDController();
