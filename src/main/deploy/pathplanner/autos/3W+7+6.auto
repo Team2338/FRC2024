@@ -32,13 +32,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "3W+8-Away"
+            "pathName": "3W+7-Away"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "3W+8-Return"
+            "pathName": "3W+7-Return"
           }
         },
         {
@@ -56,13 +56,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "3W+8+7"
+            "pathName": "3W+7+6-Away"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "3W+8+7-Return"
+            "pathName": "3W+7+6-Return"
           }
         },
         {

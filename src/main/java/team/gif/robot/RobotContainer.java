@@ -83,6 +83,8 @@ public class RobotContainer {
         autoCommands.put(autoMode.TWO_SRC_7, new PathPlannerAuto("2SRC+7"));
         autoCommands.put(autoMode.THREE_AMP_A_4_5, new PathPlannerAuto("3AMP+A-4+5"));
         autoCommands.put(autoMode.THREE_W_8_7, new PathPlannerAuto("3W+8+7"));
+        autoCommands.put(autoMode.THREE_W_7_8, new PathPlannerAuto("3W+7+8"));
+        autoCommands.put(autoMode.THREE_W_7_6, new PathPlannerAuto("3W+7+6"));
         autoCommands.put(autoMode.FOUR_AMP_A_C_S, new PathPlannerAuto("4AMP+A+C+S"));
         autoCommands.put(autoMode.FIVE_SRC_S_C_A_4, new PathPlannerAuto("5SRC+S+C+A+4"));
         autoCommands.put(autoMode.FIVE_CTR_C_S_A_4, new PathPlannerAuto("5CTR+C+S+A+4"));

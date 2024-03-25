@@ -35,6 +35,7 @@ public class LowerClimberAndElevator extends Command {
     public void end(boolean interrupted) {
         Robot.climber.move(0);
         Robot.climber.setTargetPosition(Robot.climber.getPosition());
+        Robot.climber.removeDefaultCommand();
         Robot.climber.setDefaultCommand(new ClimberPIDControl());
     }
 }

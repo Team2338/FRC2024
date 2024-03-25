@@ -46,6 +46,11 @@ public class Shoot extends Command {
     // Called every time the scheduler runs (~20ms) while the command is scheduled
     @Override
     public void execute() {
+        if (Robot.runningAutonomousMode && !Robot.diagnostics.getRobotHasNote()) {
+            counter = 300;
+            return;
+        }
+
         if (Robot.collector.getSensorState() ||
                 (Robot.indexer.getStageOneSensorState() && !Robot.indexer.getShooterSensorState())) {
             Robot.indexer.setIndexer(Constants.Indexer.INDEXER_ONE_COLLECT_PERC, Constants.Indexer.INDEXER_TWO_COLLECT_PERC);

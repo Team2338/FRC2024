@@ -41,7 +41,7 @@
             {
               "type": "named",
               "data": {
-                "name": "AutonWristFar"
+                "name": "AutonWristMid"
               }
             },
             {
@@ -56,18 +56,18 @@
     }
   ],
   "globalConstraints": {
-    "maxVelocity": 4.0,
-    "maxAcceleration": 4.0,
+    "maxVelocity": 3.0,
+    "maxAcceleration": 2.0,
     "maxAngularVelocity": 181.0,
     "maxAngularAcceleration": 180.0
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -47.77048313658603,
+    "rotation": -48.0,
     "rotateFast": false
   },
   "reversed": false,
   "folder": "3W+8+7",
   "previewStartingState": null,
-  "useDefaultConstraints": true
+  "useDefaultConstraints": false
 }

@@ -36,6 +36,11 @@ public class AutoRotate extends Command {
         double xOffset;
         double rot;
 
+        if (!Robot.indexer.getShooterSensorState()) {
+            isComplete = true;
+            return;
+        }
+
         if (Robot.limelightShooter.hasTarget()) {
             xOffset = Robot.limelightShooter.getXOffset();
             if (xOffset <= -2.0 || xOffset >= 2.0) {

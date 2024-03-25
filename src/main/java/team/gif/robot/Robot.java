@@ -14,6 +14,7 @@ import team.gif.lib.delay;
 import team.gif.lib.logging.EventFileLogger;
 import team.gif.lib.logging.TelemetryFileLogger;
 import team.gif.lib.shootParams;
+import team.gif.robot.commands.climber.ClimberPIDHold;
 import team.gif.robot.commands.collector.CollectorDefault;
 import team.gif.robot.commands.drivetrain.DriveSwerve;
 import team.gif.robot.commands.elevator.ElevatorPIDControl;
@@ -75,7 +76,7 @@ public class Robot extends TimedRobot {
     public static boolean isCompBot = true; //includes 2023 bot
 
     public static boolean competitionMode = true;
-    public static boolean fullDashboard = !competitionMode;
+    public static boolean fullDashboard = true;//!competitionMode;
 
     public static boolean manualControlMode;
 
@@ -137,6 +138,9 @@ public class Robot extends TimedRobot {
 
         elevator.setDefaultCommand(new ElevatorPIDControl());
 
+        climber.setTargetPosition(climber.getPosition());
+        climber.setDefaultCommand(new ClimberPIDHold());
+
         ledSubsystem = new LEDSubsystem();
         ledSubsystem.setDefaultCommand(new LEDSubsystemDefault());
 
@@ -181,7 +185,6 @@ public class Robot extends TimedRobot {
                 indexer.stopIndexerCoast();
             }
         }
-
     }
 
     /** This function is called once each time the robot enters Disabled mode. */

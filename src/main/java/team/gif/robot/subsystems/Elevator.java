@@ -28,6 +28,10 @@ public class Elevator extends SubsystemBase {
         return motor.getEncoder().getPosition();
     }
 
+    public double getMotorPercent() {
+        return motor.getAppliedOutput();
+    }
+
     public void resetPosition() {
         motor.getEncoder().setPosition(0);
         targetPosition = 0;

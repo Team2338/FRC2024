@@ -244,6 +244,8 @@ public class Wrist extends SubsystemBase {
     public void configWrist() {
         wristController.restoreFactoryDefaults();
         wristController.setIdleMode(CANSparkBase.IdleMode.kBrake);
+        wristController.enableVoltageCompensation(12);
+
         wristController.setOpenLoopRampRate(.25);
 
         MagnetSensorConfigs magSensorConfig = new MagnetSensorConfigs()

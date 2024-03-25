@@ -42,8 +42,12 @@ public class Climber extends SubsystemBase {
         motor.set(percent);
     }
 
-    public void PIDHold() {
-        motor.getPIDController().setReference(targetPosition,CANSparkBase.ControlType.kPosition);
+    public double getMotorPercent() {
+        return motor.getAppliedOutput();
+    }
+
+    public void PIDHold(int slotId) {
+        motor.getPIDController().setReference(targetPosition,CANSparkBase.ControlType.kPosition, slotId);
     }
 
     public String getPosition_Shuffleboard() {
@@ -61,6 +65,7 @@ public class Climber extends SubsystemBase {
     public void config() {
         motor.restoreFactoryDefaults();
         motor.setIdleMode(CANSparkBase.IdleMode.kBrake);
+        motor.enableVoltageCompensation(12);
         motor.setSoftLimit(CANSparkBase.SoftLimitDirection.kForward,(float) Constants.Climber.LIMIT_MAX);
         motor.setSoftLimit(CANSparkBase.SoftLimitDirection.kReverse,(float) Constants.Climber.LIMIT_MIN);
         motor.enableSoftLimit(CANSparkBase.SoftLimitDirection.kForward,true);
@@ -68,11 +73,20 @@ public class Climber extends SubsystemBase {
 
         motor.setInverted(true);
 
+        // PID Slots:
+        // 0: Default (prevent moving during match)
+        // 1: Climb Mode
         pidController = motor.getPIDController();
-        pidController.setFF(Constants.Climber.FF);
-        pidController.setP(Constants.Climber.kP);
-        pidController.setD(Constants.Climber.kD);
-        pidController.setI(Constants.Climber.kI);
+
+        pidController.setFF(Constants.Climber.FFHold, 0);
+        pidController.setP(Constants.Climber.kPHold, 0);
+        pidController.setI(Constants.Climber.kIHold, 0);
+        pidController.setD(Constants.Climber.kDHold, 0);
+
+        pidController.setFF(Constants.Climber.FFClimb, 1);
+        pidController.setP(Constants.Climber.kPClimb,1);
+        pidController.setD(Constants.Climber.kDClimb, 1);
+        pidController.setI(Constants.Climber.kIClimb, 1);
     }
 
     public void enableSoftLimits(boolean enable) {

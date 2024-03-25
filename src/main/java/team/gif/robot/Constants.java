@@ -374,7 +374,7 @@ public final class Constants {
 
         // Encoder setpoints and values
         // These are the encoder specific values
-        public static final double ENCODER_OFFSET_ABSOLUTE = -0.237890625;//-0.1290039;//-0.850439; // this is determined either manually or via the auto-calibration
+        public static final double ENCODER_OFFSET_ABSOLUTE = -0.23814765625;//-0.237890625;//-0.1290039;//-0.850439; // this is determined either manually or via the auto-calibration
         public static final double ABSOLUTE_PER_DEGREE = 0.008333;
         // These are the values we want the bot to utilize
         public static final double KILL_LIMIT_ABSOLUTE = 0.87;
@@ -425,11 +425,12 @@ public final class Constants {
         public static final double kP = 0.040;//1.80;
         public static final double kI = 0.0;
         public static final double kD = 0.0;
-        public static final double LIMIT_MAX = 57.500; //57.5
+        public static final double TICKS_PER_INCH = 2.9;
+        public static final double LIMIT_MAX = 59.1; //57.5
         public static final double LIMIT_MIN = 0;
 
-        public static final double TRAP_UP_POS = 57.5;
-        public static final double TRAP_UP_MIN_POS = 56.5;
+        public static final double TRAP_UP_POS = LIMIT_MAX;
+        public static final double TRAP_UP_MIN_POS = LIMIT_MAX - (1.0*TICKS_PER_INCH);
 
         public static final double AMP_POS = 26.0;//20.0;
         public static final double SAFE_STAGE_POS = 0.4;
@@ -438,24 +439,30 @@ public final class Constants {
     }
 
     public static final class Climber {
-        public static final double FF = 0.0003;
-        public static final double kP = 0.00000003;
-        public static final double kI = 0.0;
-        public static final double kD = 0.0;
-        public static final double TICKS_PER_INCH = 23.3925; // measured at 6 in
-        public static final double LIMIT_MAX = 191; //150 //163.35; is max setting 150 letting to over run
-        public static final double LIMIT_MIN = -210;//-163.35; is min is correct // TODO: needs tuning
+        public static final double FFClimb = 0.0060;
+        public static final double kPClimb = 0.00000003;
+        public static final double kIClimb = 0.0;
+        public static final double kDClimb = 0.0;
+
+        public static final double FFHold = 0.0;
+        public static final double kPHold = 0.5;
+        public static final double kIHold = 0.0;
+        public static final double kDHold = 0.0;
+
+        public static final double TICKS_PER_INCH = 5.848; // 23.3925; // measured at 6 in
+        public static final double LIMIT_MAX = 41.157; //48; //150 //163.35; is max setting 150 letting to over run
+        public static final double LIMIT_MIN = -55.0;//-52.5;//-163.35; is min is correct // TODO: needs tuning
 
         public static final double SAFE_ELEVATOR_TRAP_UP = LIMIT_MAX - (TICKS_PER_INCH * 1.0);
 
-        public static final double SAFE_STAGE_POS = 1.200;
-        public static final double TRAP_POS = -210;
-        public static final double TRAP_MOVE_ELEVATOR_POS = 0.0;//100.00;
+        public static final double SAFE_STAGE_POS = 0.375 * TICKS_PER_INCH; // 1.200;
+        public static final double TRAP_POS = LIMIT_MIN;
+        public static final double TRAP_MOVE_ELEVATOR_POS = -15.0;//0.0;//100.00;
 
         public static final double HOME_POS = 0.0;
 
-        public static final double CLIMBER_UP_SPEED = 1.0;
-        public static final double CLIMBER_DOWN_SPEED = -0.8;
+        public static final double CLIMBER_UP_SPEED = 0.8;
+        public static final double CLIMBER_DOWN_SPEED = -0.7;
     }
 
     public static final class MotorTemps {
