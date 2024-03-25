@@ -13,6 +13,7 @@ public enum autoMode {
     THREE_W_7_8(0),
     THREE_W_7_6(0),
     FOUR_AMP_A_C_S(0),
+    FOUR_CTR_C_S_A_4(0),
     FIVE_SRC_S_C_A_4(0),
     FIVE_CTR_C_S_A_4(0),
     FIVE_CTR_C_S_A_5(0),

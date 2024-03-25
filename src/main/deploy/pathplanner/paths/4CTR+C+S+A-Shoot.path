@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.5,
-        "y": 4.08
+        "x": 2.76,
+        "y": 6.74
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.247767002656512,
-        "y": 4.7595208580730555
+        "x": 2.683737527933007,
+        "y": 6.675315880200539
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 2.0,
-        "y": 5.54
+        "x": 2.2,
+        "y": 6.4
       },
       "prevControl": {
-        "x": 2.2009903848867527,
-        "y": 5.028486410249174
+        "x": 2.4465676281779913,
+        "y": 6.630585568863445
       },
       "nextControl": null,
       "isLocked": false,
@@ -32,8 +32,8 @@
   "constraintZones": [],
   "eventMarkers": [
     {
-      "name": "2nd Shot Setup",
-      "waypointRelativePos": 0.1,
+      "name": "4th Shot Setup",
+      "waypointRelativePos": 0.0,
       "command": {
         "type": "parallel",
         "data": {
@@ -41,7 +41,7 @@
             {
               "type": "named",
               "data": {
-                "name": "AutonWristClose"
+                "name": "AutonWristNear"
               }
             },
             {
@@ -56,18 +56,18 @@
     }
   ],
   "globalConstraints": {
-    "maxVelocity": 4.0,
-    "maxAcceleration": 4.0,
+    "maxVelocity": 3.0,
+    "maxAcceleration": 2.0,
     "maxAngularVelocity": 181.0,
     "maxAngularAcceleration": 180.0
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 0,
+    "rotation": 31.827446576673097,
     "rotateFast": false
   },
   "reversed": false,
   "folder": "4CTR+S+C+A-4",
   "previewStartingState": null,
-  "useDefaultConstraints": true
+  "useDefaultConstraints": false
 }

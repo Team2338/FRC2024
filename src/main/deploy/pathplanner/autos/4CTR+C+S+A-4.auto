@@ -2,10 +2,10 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 0.75,
-      "y": 4.38
+      "x": 1.5,
+      "y": 5.54
     },
-    "rotation": -60.0
+    "rotation": 0
   },
   "command": {
     "type": "sequential",
@@ -20,7 +20,31 @@
         {
           "type": "path",
           "data": {
-            "pathName": "4SRC+S-Away"
+            "pathName": "4CTR+C-Away"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "4CTR+C+S1"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "AutonRotate"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "AutonShoot"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "4CTR+C+S2"
           }
         },
         {
@@ -44,25 +68,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "4CTR+S+C2"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "AutonRotate"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "AutonShoot"
+            "pathName": "4CTR+C+S+A2"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "4CTR+C+S1"
+            "pathName": "4CTR+C+S+A-Shoot"
           }
         },
         {
