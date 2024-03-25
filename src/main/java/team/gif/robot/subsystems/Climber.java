@@ -46,12 +46,8 @@ public class Climber extends SubsystemBase {
         return motor.getAppliedOutput();
     }
 
-    public void PIDHold() {
-        motor.getPIDController().setReference(targetPosition,CANSparkBase.ControlType.kPosition, 1);
-    }
-
-    public void PIDHoldZero() {
-        motor.getPIDController().setReference(0,CANSparkBase.ControlType.kPosition, 0);
+    public void PIDHold(int slotId) {
+        motor.getPIDController().setReference(targetPosition,CANSparkBase.ControlType.kPosition, slotId);
     }
 
     public String getPosition_Shuffleboard() {

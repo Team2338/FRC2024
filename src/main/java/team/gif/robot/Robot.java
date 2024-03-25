@@ -14,7 +14,7 @@ import team.gif.lib.delay;
 import team.gif.lib.logging.EventFileLogger;
 import team.gif.lib.logging.TelemetryFileLogger;
 import team.gif.lib.shootParams;
-import team.gif.robot.commands.climber.ClimberPIDHoldZero;
+import team.gif.robot.commands.climber.ClimberPIDHold;
 import team.gif.robot.commands.collector.CollectorDefault;
 import team.gif.robot.commands.drivetrain.DriveSwerve;
 import team.gif.robot.commands.elevator.ElevatorPIDControl;
@@ -138,7 +138,8 @@ public class Robot extends TimedRobot {
 
         elevator.setDefaultCommand(new ElevatorPIDControl());
 
-        climber.setDefaultCommand(new ClimberPIDHoldZero());
+        climber.setTargetPosition(climber.getPosition());
+        climber.setDefaultCommand(new ClimberPIDHold());
 
         ledSubsystem = new LEDSubsystem();
         ledSubsystem.setDefaultCommand(new LEDSubsystemDefault());

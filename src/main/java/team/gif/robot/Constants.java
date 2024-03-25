@@ -443,8 +443,9 @@ public final class Constants {
         public static final double kPClimb = 0.00000003;
         public static final double kIClimb = 0.0;
         public static final double kDClimb = 0.0;
+
         public static final double FFHold = 0.0;
-        public static final double kPHold = 0.0;
+        public static final double kPHold = 0.5;
         public static final double kIHold = 0.0;
         public static final double kDHold = 0.0;
 
