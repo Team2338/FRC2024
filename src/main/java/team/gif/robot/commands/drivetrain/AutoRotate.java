@@ -15,6 +15,7 @@ public class AutoRotate extends Command {
     boolean isComplete;
     private SlewRateLimiter turnLimiter;
     double commandCounter;
+    int targetCounter;
 
     public AutoRotate() {
         super();
@@ -28,6 +29,7 @@ public class AutoRotate extends Command {
         Robot.killAutoAlign = false;
         turnLimiter = new SlewRateLimiter(Constants.ModuleConstants.TELE_DRIVE_MAX_ANGULAR_ACCELERATION_UNITS_PER_SECOND);
         commandCounter = 0;
+        targetCounter = 0; //Prevent the command from stalling if the robot temporarily looses the target
     }
 
     // Called every time the scheduler runs (~20ms) while the command is scheduled
@@ -36,13 +38,15 @@ public class AutoRotate extends Command {
         double xOffset;
         double rot;
 
-        if (!Robot.indexer.getShooterSensorState()) {
+        //If the bot didn't pickup a note in auto it'll skip auto rotate to save time
+        if (Robot.runningAutonomousMode && !Robot.indexer.getShooterSensorState()) {
             isComplete = true;
             return;
         }
 
         if (Robot.limelightShooter.hasTarget()) {
             xOffset = Robot.limelightShooter.getXOffset();
+            targetCounter = 0;
             if (xOffset <= -2.0 || xOffset >= 2.0) {
                 rot = Robot.driveSwerve.limelightRotateMath(xOffset);
                 rot = turnLimiter.calculate(rot) * Constants.ModuleConstants.TELE_DRIVE_MAX_ANGULAR_SPEED_RADIANS_PER_SECOND;
@@ -53,11 +57,10 @@ public class AutoRotate extends Command {
                 Robot.swerveDrivetrain.drive(0,0,0);
             }
         } else {
-            // ToDo need to add time based
-            isComplete = true;
+            targetCounter++;
         }
 
-        if (Robot.killAutoAlign || commandCounter++ >= 2.0*50) {
+        if (Robot.killAutoAlign || commandCounter++ >= 2.0*50 || targetCounter > 5) {
             isComplete = true;
         }
 
