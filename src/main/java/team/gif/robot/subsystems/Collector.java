@@ -53,6 +53,14 @@ public class Collector extends SubsystemBase {
 
     public boolean getCollectingState() { return collectingState;}
 
+    /**
+     * Use the current draw of the collector to determine if there is a note in the collector
+     * @return
+     */
+    public boolean getPreSensorState() {
+        return collector.getStatorCurrent() > Constants.Collector.PRE_SENSOR_AMPS;
+    }
+
     public double getMotorTemp() {
         return collector.getTemperature();
     }

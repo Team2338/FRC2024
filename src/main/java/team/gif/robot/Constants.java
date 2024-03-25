@@ -418,6 +418,7 @@ public final class Constants {
     public static final class Collector { // ToDo tune - remove when done
         public static final double COLLECT_PERCENT = 0.85; // done
         public static final double EJECT_PERCENT = 0.2;
+        public static final double PRE_SENSOR_AMPS = 8; // The current that will trigger the collector pre sensor
     }
 
     public static final class Elevator {

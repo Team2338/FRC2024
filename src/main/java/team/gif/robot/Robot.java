@@ -185,6 +185,8 @@ public class Robot extends TimedRobot {
                 indexer.stopIndexerCoast();
             }
         }
+
+        System.out.println(collector.collector.getStatorCurrent());
     }
 
     /** This function is called once each time the robot enters Disabled mode. */

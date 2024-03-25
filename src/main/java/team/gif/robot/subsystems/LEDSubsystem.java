@@ -33,8 +33,8 @@ public class LEDSubsystem extends SubsystemBase {
 
     public void setNoteCollecting() {
         Note[0] = 0;
-        Note[1] = 255;
-        Note[2] = 120;
+        Note[1] = 0;
+        Note[2] = 255;
     }
 
     public void setNoteCollectingOff() {
@@ -51,8 +51,8 @@ public class LEDSubsystem extends SubsystemBase {
 
     public void setNoteEmpty() {
         Note[0] = 0;
-        Note[1] = 0;
-        Note[2] = 255;
+        Note[1] = 255;
+        Note[2] = 120;
     }
     /**
      * Assigns the color of the LEDs to green to indicate clear to go under stage
