@@ -84,6 +84,7 @@ public class AutoClimb extends Command {
         // hold the climber
         Robot.climber.move(0);
         Robot.climber.setTargetPosition(Robot.climber.getPosition());
+        Robot.climber.removeDefaultCommand();
         Robot.climber.setDefaultCommand(new ClimberPIDControl());
         System.out.println("end trap sequence ");
     }

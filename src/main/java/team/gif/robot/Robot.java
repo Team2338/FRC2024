@@ -14,6 +14,7 @@ import team.gif.lib.delay;
 import team.gif.lib.logging.EventFileLogger;
 import team.gif.lib.logging.TelemetryFileLogger;
 import team.gif.lib.shootParams;
+import team.gif.robot.commands.climber.ClimberPIDHoldZero;
 import team.gif.robot.commands.collector.CollectorDefault;
 import team.gif.robot.commands.drivetrain.DriveSwerve;
 import team.gif.robot.commands.elevator.ElevatorPIDControl;
@@ -131,13 +132,13 @@ public class Robot extends TimedRobot {
         collector.setDefaultCommand(new CollectorDefault());
         elevator = new Elevator();
         climber = new Climber();
-        //Prevent the climber from drifting up during the match
-        climber.PIDHoldZero();
         diagnostics = new Diagnostics();
 
         wrist.setDefaultCommand(new WristAnglePIDControl());
 
         elevator.setDefaultCommand(new ElevatorPIDControl());
+
+        climber.setDefaultCommand(new ClimberPIDHoldZero());
 
         ledSubsystem = new LEDSubsystem();
         ledSubsystem.setDefaultCommand(new LEDSubsystemDefault());
