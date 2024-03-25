@@ -47,8 +47,8 @@ public class Collector extends SubsystemBase {
     }
 
     public boolean getSensorState() {
-        return collectorDebouncer.calculate(sensor.get());
-//        return sensor.get();
+//        return collectorDebouncer.calculate(sensor.get());
+        return sensor.get();
     }
 
     public boolean getCollectingState() { return collectingState;}

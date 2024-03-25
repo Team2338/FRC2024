@@ -19,7 +19,7 @@ import edu.wpi.first.math.util.Units;
  */
 public final class Constants {
 
-    public static final double debounceDefault = 0.030;
+    public static final double debounceDefault = 0.020;
 
     public static final class Drivetrain { // ToDo tune - remove when done
         //public static final double DRIVE_WHEEL_RADIUS = 0.05; // meters? Must be unit of velocity
@@ -418,7 +418,7 @@ public final class Constants {
     public static final class Collector { // ToDo tune - remove when done
         public static final double COLLECT_PERCENT = 0.85; // done
         public static final double EJECT_PERCENT = 0.2;
-        public static final double PRE_SENSOR_AMPS = 10; // The current that will trigger the collector pre sensor
+        public static final double PRE_SENSOR_AMPS = 30; // The current that will trigger the collector pre sensor
     }
 
     public static final class Elevator {

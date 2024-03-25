@@ -17,6 +17,7 @@ public class EnableRobotOrientedMode extends Command {
     // Called every time the scheduler runs (~20ms) while the command is scheduled
     @Override
     public void execute() {
+        System.out.println("Robot Oriented Enabled");
         Robot.swerveDrivetrain.setDrivePace(drivePace.COAST_RR);
     }
 
@@ -29,6 +30,7 @@ public class EnableRobotOrientedMode extends Command {
     // Called when the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
+        System.out.println("Robot Oriented Disabled");
         Robot.swerveDrivetrain.setDrivePace(drivePace.COAST_FR);
     }
 }

@@ -32,7 +32,7 @@ public class NoteRumble extends Command {
     // Return true when the command should end, false if it should continue. Runs every ~20ms.
     @Override
     public boolean isFinished() {
-        return rumbleCounter > 0.1*50;  // 50 cycles in 1 second
+        return rumbleCounter > 0.3*50;  // 50 cycles in 1 second
     }
 
     // Called when the command ends or is interrupted.

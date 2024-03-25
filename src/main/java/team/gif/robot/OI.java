@@ -107,7 +107,7 @@ public class OI {
 
     public final Trigger collectorGamePieceSensor = new Trigger(Robot.collector.sensor::get);
     public final Trigger shooterGamePieceSensor = new Trigger(Robot.indexer.shooterSensor::get);
-    public final Trigger preCollectorGamePieceSensor = new Trigger(Robot.collector::getPreSensorState);
+//    public final Trigger preCollectorGamePieceSensor = new Trigger(Robot.collector::getPreSensorState);
 
 
     public OI() {
@@ -202,7 +202,7 @@ public class OI {
 //        aStart.and(aDPadRight).onTrue(new InstantCommand(Robot.wrist::BumpAngle));
 
         // auto sensor actions
-        preCollectorGamePieceSensor.debounce(Constants.debounceDefault).onTrue(new NoteRumble().andThen(new WaitCommand(0.1).andThen(new NoteRumble())));
+        collectorGamePieceSensor.debounce(Constants.debounceDefault).onTrue(new NoteRumble().andThen(new WaitCommand(0.1).andThen(new NoteRumble())));
         collectorGamePieceSensor.debounce(Constants.debounceDefault).onTrue(new InstantCommand(Robot.wrist::setWristCollectPosition));
         shooterGamePieceSensor.debounce(Constants.debounceDefault).onTrue(new InstantCommand(Robot.shooter::setShooterRPMIdle));
 

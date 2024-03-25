@@ -70,13 +70,13 @@ public class Indexer extends SubsystemBase {
     }
 
     public boolean getShooterSensorState() {
-        return shooterSensordebouncer.calculate(shooterSensor.get());
-//        return shooterSensor.get();
+//        return shooterSensordebouncer.calculate(shooterSensor.get());
+        return shooterSensor.get();
     }
 
     public boolean getStageOneSensorState() {
-        return midSensordebouncer.calculate(midSensor.get());
-//        return midSensor.get();
+//        return midSensordebouncer.calculate(midSensor.get());
+        return midSensor.get();
     }
 
     /**
