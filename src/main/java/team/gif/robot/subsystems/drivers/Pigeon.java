@@ -46,9 +46,7 @@ public class Pigeon {
 
         _pigeon.getYawPitchRoll(ypr);
 
-        System.out.println("Raw " + ypr[0] + " " + ypr[0] / (7216.171875 / 7200));
-
-        return ypr[0] / (7216.171875 / 7200); // added fudge factor, rotated the robot 20 times, yaw read 7223.03, should have read 7200.
+        return ypr[0] / (7216.171875 / 7200); // added fudge factor, rotated the robot 20 times, yaw read 7216, should have read 7200.
     }
 
     /**
