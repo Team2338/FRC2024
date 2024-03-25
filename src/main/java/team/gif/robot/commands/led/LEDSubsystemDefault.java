@@ -25,8 +25,12 @@ public class LEDSubsystemDefault extends Command {
         // set the note colors
         //
 
+        // Solid Blue: Collecting
+        // Flashing Blue: Indexing
+        // Solid Green: Ready to shoot
+
         // if the robot is attempting to collect and does not have a game piece, flash the LEDs
-        if (Robot.collector.getCollectingState() && !Robot.collector.getSensorState()) {
+        if (Robot.collector.getPreSensorState() || Robot.collector.getSensorState() || (Robot.indexer.getStageOneSensorState() && !Robot.indexer.getShooterSensorState())) {
             flashCounter++;
             if ( flashCounter < flashLength/2*50) {
                 Robot.ledSubsystem.setNoteCollecting(); // first half of flash length
@@ -36,6 +40,8 @@ public class LEDSubsystemDefault extends Command {
             if (flashCounter >= flashLength*50){ // need to reset the flash counter at the end of the length
                 flashCounter = 0;
             }
+        } else if (Robot.collector.getCollectingState() && (!Robot.collector.getSensorState() || !Robot.collector.getPreSensorState())) {
+            Robot.ledSubsystem.setNoteCollecting();
         } else {
             if (Robot.indexer.getShooterSensorState()) {
                 Robot.ledSubsystem.setNoteCollected();
