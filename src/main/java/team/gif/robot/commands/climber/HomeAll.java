@@ -44,5 +44,6 @@ public class HomeAll extends Command {
     @Override
     public void end(boolean interrupted) {
         Robot.climber.move(0.0);
+        Robot.climber.setTargetPosition(0);
     }
 }

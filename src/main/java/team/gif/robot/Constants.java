@@ -439,10 +439,16 @@ public final class Constants {
     }
 
     public static final class Climber {
-        public static final double FF = 0.0060;
-        public static final double kP = 0.00000003;
-        public static final double kI = 0.0;
-        public static final double kD = 0.0;
+        public static final double FFClimb = 0.0060;
+        public static final double kPClimb = 0.00000003;
+        public static final double kIClimb = 0.0;
+        public static final double kDClimb = 0.0;
+
+        public static final double FFHold = 0.0;
+        public static final double kPHold = 0.5;
+        public static final double kIHold = 0.0;
+        public static final double kDHold = 0.0;
+
         public static final double TICKS_PER_INCH = 5.848; // 23.3925; // measured at 6 in
         public static final double LIMIT_MAX = 41.157; //48; //150 //163.35; is max setting 150 letting to over run
         public static final double LIMIT_MIN = -55.0;//-52.5;//-163.35; is min is correct // TODO: needs tuning
