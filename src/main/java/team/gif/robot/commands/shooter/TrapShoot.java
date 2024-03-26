@@ -49,7 +49,7 @@ public class TrapShoot extends Command {
         }
 
         // once the robot no longer has the game piece, rotate the wrist to "trap"
-        if (!Robot.indexer.getShooterSensorState() && !wristEngaged) {
+        if (!Robot.sensorMonitor.getShooterSensorState() && !wristEngaged) {
             // rotate until desired position
             if (Robot.wrist.getPosition() < Constants.Wrist.SETPOINT_TRAP_ABSOLUTE) {
                 Robot.wrist.moveWristPercentPower(.3);//0.3);

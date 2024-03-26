@@ -22,15 +22,16 @@ import team.gif.robot.commands.indexer.IndexerDefault;
 import team.gif.robot.commands.led.LEDSubsystemDefault;
 import team.gif.robot.commands.wrist.WristAnglePIDControl;
 import team.gif.robot.subsystems.Climber;
-import team.gif.robot.subsystems.Elevator;
-import team.gif.robot.subsystems.Diagnostics;
-import team.gif.robot.subsystems.LEDSubsystem;
-import team.gif.robot.subsystems.SwerveDrivetrain;
 import team.gif.robot.subsystems.Collector;
+import team.gif.robot.subsystems.Diagnostics;
+import team.gif.robot.subsystems.Elevator;
 import team.gif.robot.subsystems.Indexer;
+import team.gif.robot.subsystems.LEDSubsystem;
+import team.gif.robot.subsystems.SensorMonitor;
 import team.gif.robot.subsystems.Shooter;
-import team.gif.robot.subsystems.SwerveDrivetrainMK3;
 import team.gif.robot.subsystems.Wrist;
+import team.gif.robot.subsystems.SwerveDrivetrain;
+import team.gif.robot.subsystems.SwerveDrivetrainMK3;
 import team.gif.robot.subsystems.drivers.Limelight;
 import team.gif.robot.subsystems.drivers.Pigeon;
 import team.gif.robot.commands.drivetrainPbot.DrivePracticeSwerve;
@@ -62,6 +63,7 @@ public class Robot extends TimedRobot {
     public static DriveSwerve driveSwerve;
     private static TelemetryFileLogger telemetryLogger;
     public static EventFileLogger eventLogger;
+    public static SensorMonitor sensorMonitor;
     public static Shooter shooter;
     public static Wrist wrist;
     public static Indexer indexer;
@@ -84,6 +86,7 @@ public class Robot extends TimedRobot {
 
     //https://github.com/mjansen4857/pathplanner/tree/main/examples/java/src/main/java/frc/robot
 
+
     /**
      * This function is run when the robot is first started up and should be used for any
      * initialization code.
@@ -102,6 +105,8 @@ public class Robot extends TimedRobot {
 
         limelightShooter = new Limelight("limelight-shooter");
         limelightCollector = new Limelight("limelight-collect");
+
+        sensorMonitor = new SensorMonitor();
 
         if (isCompBot) {
             pigeon = new Pigeon(RobotMap.PIGEON_ID);
@@ -124,23 +129,18 @@ public class Robot extends TimedRobot {
         try {
             wrist = new Wrist();
         } catch (Exception e) { throw new RuntimeException(e); }
+        wrist.setDefaultCommand(new WristAnglePIDControl());
 
-        //        shooter.setDefaultCommand(new ShooterAngle());
         indexer = new Indexer();
         indexer.setDefaultCommand(new IndexerDefault());
         collector = new Collector();
         collector.setDefaultCommand(new CollectorDefault());
         elevator = new Elevator();
-        climber = new Climber();
-        diagnostics = new Diagnostics();
-
-        wrist.setDefaultCommand(new WristAnglePIDControl());
-
         elevator.setDefaultCommand(new ElevatorPIDControl());
-
+        climber = new Climber();
         climber.setTargetPosition(climber.getPosition());
         climber.setDefaultCommand(new ClimberPIDHold());
-
+        diagnostics = new Diagnostics();
         ledSubsystem = new LEDSubsystem();
         ledSubsystem.setDefaultCommand(new LEDSubsystemDefault());
 
@@ -154,6 +154,8 @@ public class Robot extends TimedRobot {
         manualControlMode = false;
         runningAutonomousMode = false;
 
+        //Increase the speed the sensors update at to 10ms, with offset of 5 ms from teleopPeriodic to avoid conflicts
+        addPeriodic(() -> sensorMonitor.updateSensors(), 0.01, 0.005);
     }
 
     /**

@@ -35,7 +35,7 @@ public abstract class RobotMap {
     public static final int PIGEON_PBOT_ID = 61;
 
     //shooter
-    public static final int SHOOTER_ID = 29; //pbot 34
+    public static final int SHOOTER_ID = 29;
 
     // wrist
     public static final int WRIST_ID = 50;

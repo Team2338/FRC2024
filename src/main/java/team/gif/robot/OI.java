@@ -105,9 +105,8 @@ public class OI {
 //    public final Trigger tDPadDown = test.povDown();
 //    public final Trigger tDPadLeft = test.povLeft();
 
-    public final Trigger collectorGamePieceSensor = new Trigger(Robot.collector.sensor::get);
-    public final Trigger shooterGamePieceSensor = new Trigger(Robot.indexer.shooterSensor::get);
-//    public final Trigger preCollectorGamePieceSensor = new Trigger(Robot.collector::getPreSensorState);
+    public final Trigger collectorGamePieceSensor = new Trigger(Robot.sensorMonitor::getCollectorSensorState);
+    public final Trigger shooterGamePieceSensor = new Trigger(Robot.sensorMonitor::getShooterSensorState);
 
 
     public OI() {

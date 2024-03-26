@@ -4,79 +4,64 @@ import com.revrobotics.CANSparkBase;
 import com.revrobotics.CANSparkLowLevel;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.SparkPIDController;
-import edu.wpi.first.math.filter.Debouncer;
-import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import team.gif.robot.Constants;
 import team.gif.robot.RobotMap;
 
 public class Indexer extends SubsystemBase {
 //    public static TalonSRX stageOne;
-    public static CANSparkMax stageOne;
-    public static CANSparkMax stageTwo;
+    public static CANSparkMax stageOneMotor;
+    public static CANSparkMax stageTwoMotor;
     public static SparkPIDController pidControllerStage2;
-
-    public static DigitalInput midSensor;
-    public static DigitalInput shooterSensor;
-
-    Debouncer midSensordebouncer = new Debouncer(Constants.debounceDefault, Debouncer.DebounceType.kBoth);
-    Debouncer shooterSensordebouncer = new Debouncer(Constants.debounceDefault, Debouncer.DebounceType.kBoth);
 
     private boolean isIndexing;
     private boolean notePassedCollector;
 
     public Indexer() {
-        // 2023 bot
-//        stageOne = new TalonSRX(RobotMap.STAGE_ONE_ID);
-//        stageOne.configFactoryDefault();
-//        stageOne.setNeutralMode(NeutralMode.Brake);
+        stageOneMotor = new CANSparkMax(RobotMap.STAGE_ONE_ID, CANSparkLowLevel.MotorType.kBrushless);
+        stageOneMotor.restoreFactoryDefaults();
+        stageOneMotor.setIdleMode(CANSparkBase.IdleMode.kBrake);
+        stageOneMotor.enableVoltageCompensation(12);
 
-        // 2024 bot
-        stageOne = new CANSparkMax(RobotMap.STAGE_ONE_ID, CANSparkLowLevel.MotorType.kBrushless);
-        stageOne.restoreFactoryDefaults();
-        stageOne.setIdleMode(CANSparkBase.IdleMode.kBrake);
-        stageOne.enableVoltageCompensation(12);
+        stageTwoMotor = new CANSparkMax(RobotMap.STAGE_TWO_ID, CANSparkLowLevel.MotorType.kBrushless);
+        stageTwoMotor.restoreFactoryDefaults();
+        stageTwoMotor.setIdleMode(CANSparkBase.IdleMode.kBrake);
+        stageTwoMotor.enableVoltageCompensation(12);
+        stageTwoMotor.setInverted(true);
 
-        stageTwo = new CANSparkMax(RobotMap.STAGE_TWO_ID, CANSparkLowLevel.MotorType.kBrushless);
-        stageTwo.restoreFactoryDefaults();
-        stageTwo.setIdleMode(CANSparkBase.IdleMode.kBrake);
-        stageTwo.enableVoltageCompensation(12);
-        stageTwo.setInverted(true);
-
-        pidControllerStage2 = stageTwo.getPIDController();
+        pidControllerStage2 = stageTwoMotor.getPIDController();
         pidControllerStage2.setFF(Constants.Indexer.INDEXER_TWO_FF);
         pidControllerStage2.setP(Constants.Indexer.INDEXER_TWO_kP);
 
-        midSensor = new DigitalInput(RobotMap.MIDDLE_SENSOR_PORT);
-        shooterSensor = new DigitalInput(RobotMap.SHOOTER_SENSOR_PORT);
         notePassedCollector = true;
         isIndexing = false;
     }
 
     public void setIndexer(double stageOnePercent, double stageTwoPercent) {
-//        stageOne.set(ControlMode.PercentOutput, stageOnePercent); // 2023 bot
-        stageOne.set(stageOnePercent); // 2024 bot
-        stageTwo.set(stageTwoPercent);
+        stageOneMotor.set(stageOnePercent); // 2024 bot
+        stageTwoMotor.set(stageTwoPercent);
     }
 
     public void stopIndexerHard() {
-        stageTwo.setIdleMode(CANSparkBase.IdleMode.kBrake);
+        setIndexerBrake();
         setIndexer(0,0);
     }
 
     public void stopIndexerCoast() {
-        stageTwo.setIdleMode(CANSparkBase.IdleMode.kCoast);
+        setIndexerCoast();
         setIndexer(0,0);
     }
 
-    public boolean getShooterSensorState() {
-//        return shooterSensordebouncer.calculate(shooterSensor.get());
-        return shooterSensor.get();
+    public void setIndexerCoast() {
+        if (stageTwoMotor.getIdleMode() != CANSparkBase.IdleMode.kCoast) {
+            stageTwoMotor.setIdleMode(CANSparkBase.IdleMode.kCoast);
+        }
     }
 
-    public boolean getStageOneSensorState() {
-//        return midSensordebouncer.calculate(midSensor.get());
-        return midSensor.get();
+    public void setIndexerBrake() {
+        if (stageTwoMotor.getIdleMode() != CANSparkBase.IdleMode.kBrake) {
+            stageTwoMotor.setIdleMode(CANSparkBase.IdleMode.kBrake);
+        }
     }
 
     /**
@@ -125,24 +110,18 @@ public class Indexer extends SubsystemBase {
     }
 
     public double getIndexerOneMotorTemp() {
-        return stageOne.getMotorTemperature();
+        return stageOneMotor.getMotorTemperature();
     }
 
     public double getIndexerTwoMotorTemp() {
-        return stageTwo.getMotorTemperature();
+        return stageTwoMotor.getMotorTemperature();
     }
 
     public boolean isIndexerOneCool() {
-        if (getIndexerOneMotorTemp() > Constants.MotorTemps.INDEXER_MOTOR_TEMP) {
-            return false;
-        }
-        return true;
+        return getIndexerOneMotorTemp() < Constants.MotorTemps.INDEXER_MOTOR_TEMP;
     }
 
     public boolean isIndexerTwoCool() {
-        if (getIndexerTwoMotorTemp() > Constants.MotorTemps.INDEXER_MOTOR_TEMP) {
-            return false;
-        }
-        return true;
+        return getIndexerTwoMotorTemp() < Constants.MotorTemps.INDEXER_MOTOR_TEMP;
     }
 }
