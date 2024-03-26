@@ -69,16 +69,6 @@ public class Indexer extends SubsystemBase {
         setIndexer(0,0);
     }
 
-    public boolean getShooterSensorState() {
-        return shooterSensordebouncer.calculate(shooterSensor.get());
-//        return shooterSensor.get();
-    }
-
-    public boolean getStageOneSensorState() {
-        return midSensordebouncer.calculate(midSensor.get());
-//        return midSensor.get();
-    }
-
     /**
      * Sets if the bot is currently indexing a note.
      * There is a gap in the path where the note is not detected by

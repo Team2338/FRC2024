@@ -46,11 +46,6 @@ public class Collector extends SubsystemBase {
         collector.set(ControlMode.PercentOutput, 0);
     }
 
-    public boolean getSensorState() {
-        return collectorDebouncer.calculate(sensor.get());
-//        return sensor.get();
-    }
-
     public boolean getCollectingState() { return collectingState;}
 
     /**

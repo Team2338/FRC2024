@@ -30,32 +30,32 @@ public class IndexerDefault extends Command {
         // 6. Collector Sensor and Shooter Sensor - Reverse Collector and Stage 1 Indexer (?)
 
         // 0
-        if (!Robot.collector.getSensorState() && !Robot.indexer.getStageOneSensorState() && !Robot.indexer.getShooterSensorState()) {
+        if (!Robot.sensorMonitor.getCollectorSensorState() && !Robot.sensorMonitor.getIndexerSensorState() && !Robot.sensorMonitor.getShooterSensorState()) {
             Robot.indexer.setIndexing(false);
         }
 
         // 1
-        if (Robot.collector.getSensorState() && !Robot.indexer.getStageOneSensorState() && !Robot.indexer.getShooterSensorState()) {
+        if (Robot.sensorMonitor.getCollectorSensorState() && !Robot.sensorMonitor.getIndexerSensorState() && !Robot.sensorMonitor.getShooterSensorState()) {
             Robot.indexer.setIndexing(true);
         }
 
         // 2
-        if (Robot.collector.getSensorState() && Robot.indexer.getStageOneSensorState() && !Robot.indexer.getShooterSensorState()) {
+        if (Robot.sensorMonitor.getCollectorSensorState() && Robot.sensorMonitor.getIndexerSensorState() && !Robot.sensorMonitor.getShooterSensorState()) {
             Robot.indexer.setIndexing(true);
         }
 
         // 3
-        if (!Robot.collector.getSensorState() && Robot.indexer.getStageOneSensorState() && !Robot.indexer.getShooterSensorState()) {
+        if (!Robot.sensorMonitor.getCollectorSensorState() && Robot.sensorMonitor.getIndexerSensorState() && !Robot.sensorMonitor.getShooterSensorState()) {
            Robot.indexer.setIndexing(true);
         }
 
         // 4
-        if (!Robot.collector.getSensorState() && Robot.indexer.getStageOneSensorState() && Robot.indexer.getShooterSensorState()) {
+        if (!Robot.sensorMonitor.getCollectorSensorState() && Robot.sensorMonitor.getIndexerSensorState() && Robot.sensorMonitor.getShooterSensorState()) {
             Robot.indexer.setIndexing(false);
         }
 
         // 5
-        if (!Robot.collector.getSensorState() && !Robot.indexer.getStageOneSensorState() && Robot.indexer.getShooterSensorState()) {
+        if (!Robot.sensorMonitor.getCollectorSensorState() && !Robot.sensorMonitor.getIndexerSensorState() && Robot.sensorMonitor.getShooterSensorState()) {
             Robot.indexer.setIndexing(false);
         }
 

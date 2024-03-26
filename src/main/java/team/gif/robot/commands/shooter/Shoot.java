@@ -51,20 +51,20 @@ public class Shoot extends Command {
             return;
         }
 
-        if (Robot.collector.getSensorState() ||
-                (Robot.indexer.getStageOneSensorState() && !Robot.indexer.getShooterSensorState())) {
+        if (Robot.sensorMonitor.getCollectorSensorState() ||
+                (Robot.sensorMonitor.getIndexerSensorState() && !Robot.sensorMonitor.getShooterSensorState())) {
             Robot.indexer.setIndexer(Constants.Indexer.INDEXER_ONE_COLLECT_PERC, Constants.Indexer.INDEXER_TWO_COLLECT_PERC);
         } else {
             Robot.indexer.stopIndexerHard();
         }
 
-        if (Robot.indexer.getShooterSensorState()) {
+        if (Robot.sensorMonitor.getShooterSensorState()) {
             Robot.wrist.setTargetPosition(Robot.nextShot.getWristAngle());
         }
 
         if (((Robot.shooter.getShooterRPM() >= Robot.nextShot.getMinimumRPM() || isFiring) &&
                 (Robot.wrist.getPosition() >= (Robot.nextShot.getWristAngle() * .95))     &&
-                Robot.indexer.getShooterSensorState()) ||
+                Robot.sensorMonitor.getShooterSensorState()) ||
                 commandCounter++ >= 1.0*50) { //allow tolerance
             //this may need to move down to line 48
             Robot.indexer.setIndexer(0, Constants.Indexer.INDEXER_TWO_SHOOT_PERC);
