@@ -43,13 +43,25 @@ public class Indexer extends SubsystemBase {
     }
 
     public void stopIndexerHard() {
-        stageTwoMotor.setIdleMode(CANSparkBase.IdleMode.kBrake);
+        setIndexerBrake();
         setIndexer(0,0);
     }
 
     public void stopIndexerCoast() {
-        stageTwoMotor.setIdleMode(CANSparkBase.IdleMode.kCoast);
+        setIndexerCoast();
         setIndexer(0,0);
+    }
+
+    public void setIndexerCoast() {
+        if( stageTwoMotor.getIdleMode() != CANSparkBase.IdleMode.kCoast) {
+            stageTwoMotor.setIdleMode(CANSparkBase.IdleMode.kCoast);
+        }
+    }
+
+    public void setIndexerBrake() {
+        if( stageTwoMotor.getIdleMode() != CANSparkBase.IdleMode.kBrake) {
+            stageTwoMotor.setIdleMode(CANSparkBase.IdleMode.kBrake);
+        }
     }
 
     /**
