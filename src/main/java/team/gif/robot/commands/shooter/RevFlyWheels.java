@@ -5,7 +5,7 @@ import team.gif.robot.Robot;
 
 public class RevFlyWheels extends Command {
 
-    public int counter;
+    public int commandCounter;
 
     public RevFlyWheels() {
         super();
@@ -19,7 +19,7 @@ public class RevFlyWheels extends Command {
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
-        counter = 0;
+        commandCounter = 0;
         Robot.shooter.resetKI();
     }
 
@@ -42,10 +42,7 @@ public class RevFlyWheels extends Command {
     // Return true when the command should end, false if it should continue. Runs every ~20ms.
     @Override
     public boolean isFinished() {
-        if (Robot.runningAutonomousMode && counter++ > 1.0*50) {
-            return true;
-        }
-        return false;
+        return Robot.runningAutonomousMode && (commandCounter++ > (1.0 * 50));
     }
 
     // Called when the command ends or is interrupted.

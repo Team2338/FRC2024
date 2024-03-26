@@ -16,14 +16,14 @@ import team.gif.robot.Robot;
 import team.gif.robot.RobotMap;
 
 public class Wrist extends SubsystemBase {
-    public static CANSparkMax wristController;
-    public static PIDController pidWrist;
-    public static CANcoder wristEncoder;
+    public static CANSparkMax motor;
+    public static PIDController pidController;
+    public static CANcoder wristEncoder; // The wrist uses an external CANcoder for its encoder
 
     private double targetPosition; // Rotation
 
     public Wrist() throws Exception {
-        wristController = new CANSparkMax(RobotMap.WRIST_ID, CANSparkLowLevel.MotorType.kBrushless);
+        motor = new CANSparkMax(RobotMap.WRIST_ID, CANSparkLowLevel.MotorType.kBrushless);
 
         wristEncoder = new CANcoder(RobotMap.WRIST_ENCODER_ID);
         configWrist();
@@ -51,9 +51,9 @@ public class Wrist extends SubsystemBase {
      */
     public void moveWristPercentPower(double percent) {
         if(getPosition() < Constants.Wrist.KILL_LIMIT_ABSOLUTE) {
-            wristController.set(percent);
+            motor.set(percent);
         } else {
-            wristController.set(0);
+            motor.set(0);
         }
     }
 
@@ -61,15 +61,15 @@ public class Wrist extends SubsystemBase {
      * Holds thr shooter rotation using FF <br
      */
     public void holdWrist() {
-        wristController.set(Constants.Wrist.FF);
+        motor.set(Constants.Wrist.FF);
     }
 
     /**
      * Use PID to move the shooter angle to absolute position between 0 and 1
      */
     public void PIDWristMove() {
-        double pidOutput = pidWrist.calculate(wristEncoder.getAbsolutePosition().getValueAsDouble(), targetPosition);
-        wristController.set(pidOutput + Constants.Wrist.FF);
+        double pidOutput = pidController.calculate(wristEncoder.getAbsolutePosition().getValueAsDouble(), targetPosition);
+        motor.set(pidOutput + Constants.Wrist.FF);
     }
 
     /**
@@ -216,37 +216,34 @@ public class Wrist extends SubsystemBase {
     }
 
     public void PIDKill() {
-        pidWrist.setP(0.0);
-        pidWrist.setI(0.0);
-        pidWrist.setD(0.0);
+        pidController.setP(0.0);
+        pidController.setI(0.0);
+        pidController.setD(0.0);
     }
 
     public void PIDEnable() {
-        pidWrist.setP(Constants.Wrist.kP);
-        pidWrist.setI(Constants.Wrist.kI);
-        pidWrist.setD(Constants.Wrist.kD);
+        pidController.setP(Constants.Wrist.kP);
+        pidController.setI(Constants.Wrist.kI);
+        pidController.setD(Constants.Wrist.kD);
     }
 
     public double getWristMotorTemp() {
-        return wristController.getMotorTemperature();
+        return motor.getMotorTemperature();
     }
 
     public boolean isWristCool() {
-        if (getWristMotorTemp() >= Constants.MotorTemps.SHOOTER_MOTOR_TEMP) {
-            return false;
-        }
-        return true;
+        return getWristMotorTemp() < Constants.MotorTemps.SHOOTER_MOTOR_TEMP;
     }
 
     /**
      *  All the config setting for Rotation (controller, sensor, rotation pid)
      */
     public void configWrist() {
-        wristController.restoreFactoryDefaults();
-        wristController.setIdleMode(CANSparkBase.IdleMode.kBrake);
-        wristController.enableVoltageCompensation(12);
+        motor.restoreFactoryDefaults();
+        motor.setIdleMode(CANSparkBase.IdleMode.kBrake);
+        motor.enableVoltageCompensation(12);
 
-        wristController.setOpenLoopRampRate(.25);
+        motor.setOpenLoopRampRate(.25);
 
         MagnetSensorConfigs magSensorConfig = new MagnetSensorConfigs()
                 .withAbsoluteSensorRange(AbsoluteSensorRangeValue.Unsigned_0To1)
@@ -254,6 +251,6 @@ public class Wrist extends SubsystemBase {
                 .withSensorDirection(SensorDirectionValue.Clockwise_Positive);
         wristEncoder.getConfigurator().apply(new CANcoderConfiguration().withMagnetSensor(magSensorConfig));
 
-        pidWrist = new PIDController(Constants.Wrist.kP, Constants.Wrist.kI, Constants.Wrist.kD);
+        pidController = new PIDController(Constants.Wrist.kP, Constants.Wrist.kI, Constants.Wrist.kD);
     }
 }

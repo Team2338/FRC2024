@@ -17,8 +17,6 @@ public class SensorMonitor extends SubsystemBase {
     private DigitalInput indexerSensorPhysical;
     private DigitalInput shooterSensorPhysical;
 
-
-    /** Creates a new ExampleSubsystem. */
     // The subsystem decreases the number of times the sensor is read every period to 1
     // Hopefully this will prevent overruns
     public SensorMonitor() {
@@ -36,6 +34,7 @@ public class SensorMonitor extends SubsystemBase {
     public boolean getCollectorSensorState() {
         return collectorSensor;
     }
+
     public boolean getIndexerSensorState() {
         return indexerSensor;
     }

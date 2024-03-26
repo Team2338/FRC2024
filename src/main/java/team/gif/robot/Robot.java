@@ -129,23 +129,18 @@ public class Robot extends TimedRobot {
         try {
             wrist = new Wrist();
         } catch (Exception e) { throw new RuntimeException(e); }
+        wrist.setDefaultCommand(new WristAnglePIDControl());
 
-        //        shooter.setDefaultCommand(new ShooterAngle());
         indexer = new Indexer();
         indexer.setDefaultCommand(new IndexerDefault());
         collector = new Collector();
         collector.setDefaultCommand(new CollectorDefault());
         elevator = new Elevator();
-        climber = new Climber();
-        diagnostics = new Diagnostics();
-
-        wrist.setDefaultCommand(new WristAnglePIDControl());
-
         elevator.setDefaultCommand(new ElevatorPIDControl());
-
+        climber = new Climber();
         climber.setTargetPosition(climber.getPosition());
         climber.setDefaultCommand(new ClimberPIDHold());
-
+        diagnostics = new Diagnostics();
         ledSubsystem = new LEDSubsystem();
         ledSubsystem.setDefaultCommand(new LEDSubsystemDefault());
 
@@ -159,7 +154,7 @@ public class Robot extends TimedRobot {
         manualControlMode = false;
         runningAutonomousMode = false;
 
-        //Increase the speed the sensors update at to 10ms
+        //Increase the speed the sensors update at to 10ms, with offset of 5 ms from teleopPeriodic to avoid conflicts
         addPeriodic(() -> sensorMonitor.updateSensors(), 0.01, 0.005);
     }
 
