@@ -21,7 +21,17 @@ import team.gif.robot.commands.elevator.ElevatorPIDControl;
 import team.gif.robot.commands.indexer.IndexerDefault;
 import team.gif.robot.commands.led.LEDSubsystemDefault;
 import team.gif.robot.commands.wrist.WristAnglePIDControl;
-import team.gif.robot.subsystems.*;
+import team.gif.robot.subsystems.Climber;
+import team.gif.robot.subsystems.Collector;
+import team.gif.robot.subsystems.Diagnostics;
+import team.gif.robot.subsystems.Elevator;
+import team.gif.robot.subsystems.Indexer;
+import team.gif.robot.subsystems.LEDSubsystem;
+import team.gif.robot.subsystems.SensorMonitor;
+import team.gif.robot.subsystems.Shooter;
+import team.gif.robot.subsystems.Wrist;
+import team.gif.robot.subsystems.SwerveDrivetrain;
+import team.gif.robot.subsystems.SwerveDrivetrainMK3;
 import team.gif.robot.subsystems.drivers.Limelight;
 import team.gif.robot.subsystems.drivers.Pigeon;
 import team.gif.robot.commands.drivetrainPbot.DrivePracticeSwerve;
@@ -77,8 +87,8 @@ public class Robot extends TimedRobot {
     //https://github.com/mjansen4857/pathplanner/tree/main/examples/java/src/main/java/frc/robot
 
     public Robot() {
-        //Changes the Timed robot period to 10ms
-        super(0.01);
+        //Increase the speed the sensors update at to 10ms
+        addPeriodic(() -> sensorMonitor.updateSensors(), 0.01, 0.05);
     }
 
     /**
@@ -169,7 +179,6 @@ public class Robot extends TimedRobot {
         // and running subsystem periodic() methods.  This must be called from the robot's periodic
         // block in order for anything in the Command-based framework to work.
         CommandScheduler.getInstance().run();
-        CommandScheduler.getInstance().setPeriod(0.1); //Ensures that the overrun time is accurate (overruns at 10ms not 20ms)
         uiSmartDashboard.updateUI();
 
         // only stop the motors during practice
