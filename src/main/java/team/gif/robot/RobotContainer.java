@@ -74,24 +74,25 @@ public class RobotContainer {
 
     private void buildAutoCommands(){
         autoCommands.put(autoMode.NONE, new NoAuto());
-        autoCommands.put(autoMode.CIRCLE, AutoBuilder.followPath(PathPlannerPath.fromPathFile("Circle Path")));
+//        autoCommands.put(autoMode.CIRCLE, AutoBuilder.followPath(PathPlannerPath.fromPathFile("Circle Path")));
 //        autoCommands.put(autoMode.MOBILITY, AutoBuilder.followPath(PathPlannerPath.fromPathFile("Mobility")));
         autoCommands.put(autoMode.MOBILITY, new PathPlannerAuto("Mobility"));
-        autoCommands.put(autoMode.TWO_CTR_C, new PathPlannerAuto("2CTR+C"));
-        autoCommands.put(autoMode.TWO_SRC_S, new PathPlannerAuto("2SRC+S"));
-        autoCommands.put(autoMode.TWO_SRC_8, new PathPlannerAuto("2SRC+8"));
-        autoCommands.put(autoMode.TWO_SRC_7, new PathPlannerAuto("2SRC+7"));
-        autoCommands.put(autoMode.THREE_AMP_A_4_5, new PathPlannerAuto("3AMP+A-4+5"));
+//        autoCommands.put(autoMode.TWO_CTR_C, new PathPlannerAuto("2CTR+C"));
+//        autoCommands.put(autoMode.TWO_SRC_S, new PathPlannerAuto("2SRC+S"));
+//        autoCommands.put(autoMode.TWO_SRC_8, new PathPlannerAuto("2SRC+8"));
+//        autoCommands.put(autoMode.TWO_SRC_7, new PathPlannerAuto("2SRC+7"));
+//        autoCommands.put(autoMode.THREE_AMP_A_4_5, new PathPlannerAuto("3AMP+A-4+5"));
         autoCommands.put(autoMode.THREE_W_8_7, new PathPlannerAuto("3W+8+7"));
         autoCommands.put(autoMode.THREE_W_7_8, new PathPlannerAuto("3W+7+8"));
         autoCommands.put(autoMode.THREE_W_7_6, new PathPlannerAuto("3W+7+6"));
-        autoCommands.put(autoMode.FOUR_AMP_A_C_S, new PathPlannerAuto("4AMP+A+C+S"));
+        autoCommands.put(autoMode.THREE_W_6_7, new PathPlannerAuto("3W+6+7"));
+//        autoCommands.put(autoMode.FOUR_AMP_A_C_S, new PathPlannerAuto("4AMP+A+C+S"));
         autoCommands.put(autoMode.FOUR_CTR_C_S_A_4, new PathPlannerAuto("4CTR+C+S+A-4"));
-        autoCommands.put(autoMode.FIVE_SRC_S_C_A_4, new PathPlannerAuto("5SRC+S+C+A+4"));
+//        autoCommands.put(autoMode.FIVE_SRC_S_C_A_4, new PathPlannerAuto("5SRC+S+C+A+4"));
         autoCommands.put(autoMode.FIVE_CTR_C_S_A_4, new PathPlannerAuto("5CTR+C+S+A+4"));
         autoCommands.put(autoMode.FIVE_CTR_C_S_A_5, new PathPlannerAuto("5CTR+C+S+A+5"));
-        autoCommands.put(autoMode.TWO_SCSPLIT_SIX, new PathPlannerAuto("2SCSplit+6"));
-        autoCommands.put(autoMode.LINE_TEST, new PathPlannerAuto("Straight Line Test"));
+//        autoCommands.put(autoMode.TWO_SCSPLIT_SIX, new PathPlannerAuto("2SCSplit+6"));
+//        autoCommands.put(autoMode.LINE_TEST, new PathPlannerAuto("Straight Line Test"));
     }
 
     /**
