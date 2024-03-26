@@ -160,7 +160,7 @@ public class Robot extends TimedRobot {
         runningAutonomousMode = false;
 
         //Increase the speed the sensors update at to 10ms
-        addPeriodic(() -> sensorMonitor.updateSensors(), 0.01, 0.05);
+        addPeriodic(() -> sensorMonitor.updateSensors(), 0.01, 0.005);
     }
 
     /**
