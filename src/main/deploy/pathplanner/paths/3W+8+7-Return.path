@@ -4,12 +4,12 @@
     {
       "anchor": {
         "x": 8.2,
-        "y": 2.0
+        "y": 1.9
       },
       "prevControl": null,
       "nextControl": {
         "x": 5.137752377726976,
-        "y": 0.40607202325515923
+        "y": 0.30607202325515914
       },
       "isLocked": false,
       "linkedName": null
@@ -36,7 +36,31 @@
     }
   ],
   "constraintZones": [],
-  "eventMarkers": [],
+  "eventMarkers": [
+    {
+      "name": "New Event Marker",
+      "waypointRelativePos": 0.6,
+      "command": {
+        "type": "parallel",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "AutonWristMiddle"
+              }
+            },
+            {
+              "type": "named",
+              "data": {
+                "name": "AutonRevFlywheel"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
   "globalConstraints": {
     "maxVelocity": 4.0,
     "maxAcceleration": 3.5,

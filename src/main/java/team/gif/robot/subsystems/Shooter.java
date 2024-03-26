@@ -112,6 +112,8 @@ public class Shooter extends SubsystemBase {
         shooterMotor.setIdleMode(CANSparkBase.IdleMode.kCoast);
         shooterMotor.enableVoltageCompensation(12);
 
+        shooterMotor.burnFlash();
+
 //        pidShooter = shooterNeo.getPIDController(); // Leave for shooter Neo
         pidShooter = shooterMotor.getPIDController();
 
