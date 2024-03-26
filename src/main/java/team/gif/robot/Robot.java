@@ -86,10 +86,6 @@ public class Robot extends TimedRobot {
 
     //https://github.com/mjansen4857/pathplanner/tree/main/examples/java/src/main/java/frc/robot
 
-    public Robot() {
-        //Increase the speed the sensors update at to 10ms
-        addPeriodic(() -> sensorMonitor.updateSensors(), 0.01, 0.05);
-    }
 
     /**
      * This function is run when the robot is first started up and should be used for any
@@ -163,6 +159,8 @@ public class Robot extends TimedRobot {
         manualControlMode = false;
         runningAutonomousMode = false;
 
+        //Increase the speed the sensors update at to 10ms
+        addPeriodic(() -> sensorMonitor.updateSensors(), 0.01, 0.05);
     }
 
     /**
