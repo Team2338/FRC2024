@@ -53,13 +53,13 @@ public class Indexer extends SubsystemBase {
     }
 
     public void setIndexerCoast() {
-        if( stageTwoMotor.getIdleMode() != CANSparkBase.IdleMode.kCoast) {
+        if (stageTwoMotor.getIdleMode() != CANSparkBase.IdleMode.kCoast) {
             stageTwoMotor.setIdleMode(CANSparkBase.IdleMode.kCoast);
         }
     }
 
     public void setIndexerBrake() {
-        if( stageTwoMotor.getIdleMode() != CANSparkBase.IdleMode.kBrake) {
+        if (stageTwoMotor.getIdleMode() != CANSparkBase.IdleMode.kBrake) {
             stageTwoMotor.setIdleMode(CANSparkBase.IdleMode.kBrake);
         }
     }
