@@ -25,10 +25,6 @@ public class IndexerDefault extends Command {
     @Override
     public void execute() {
 
-        collectorState = Robot.collector.getSensorState();
-        stageOneState  = Robot.indexer.getStageOneSensorState();
-        shooterState   = Robot.indexer.getShooterSensorState();
-
         //-------- Possible States --------
         // 1. Only Collector Sensor - Run Collector and Stage 1 Indexer
         // 2. Collector Sensor and Stage 1 Sensor - Run Collector, Stage 1-2 Indexer
