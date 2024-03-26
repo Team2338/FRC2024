@@ -252,5 +252,6 @@ public class Wrist extends SubsystemBase {
         wristEncoder.getConfigurator().apply(new CANcoderConfiguration().withMagnetSensor(magSensorConfig));
 
         pidController = new PIDController(Constants.Wrist.kP, Constants.Wrist.kI, Constants.Wrist.kD);
+        
     }
 }
