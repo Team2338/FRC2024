@@ -7,7 +7,7 @@ import team.gif.robot.commands.indexer.IndexerDefault;
 
 public class Shoot extends Command {
     boolean isFiring;
-    double counter;
+    double fireCounter;
     double commandCounter;
 
     /**
@@ -30,7 +30,7 @@ public class Shoot extends Command {
     @Override
     public void initialize() {
         isFiring = false;
-        counter = 0;
+        fireCounter = 0;
         commandCounter = 0;
 
         Robot.indexer.stopIndexerCoast();
@@ -47,7 +47,7 @@ public class Shoot extends Command {
     @Override
     public void execute() {
         if (Robot.runningAutonomousMode && !Robot.diagnostics.getRobotHasNote()) {
-            counter = 300;
+            fireCounter = 300; // if the robot doesn't have a note, abort immediately
             return;
         }
 
@@ -75,14 +75,14 @@ public class Shoot extends Command {
         }
 
         if (isFiring) {
-            counter++;
+            fireCounter++;
         }
     }
 
     // Return true when the command should end, false if it should continue. Runs every ~20ms.
     @Override
     public boolean isFinished() {
-        return counter > (0.25*50); // need to run the indexer for 0.25 seconds to push note through
+        return fireCounter > (0.25*50); // need to run the indexer for 0.25 seconds to push note through
     }
 
     // Called when the command ends or is interrupted.
