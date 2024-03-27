@@ -86,7 +86,12 @@ public class Elevator extends SubsystemBase {
     }
 
     public void enableSoftLimits(boolean enable) {
-        motor.enableSoftLimit(CANSparkBase.SoftLimitDirection.kForward,enable);
-        motor.enableSoftLimit(CANSparkBase.SoftLimitDirection.kReverse,enable);
+        // changing the soft limit is time expensive
+        // checking current state is not, so this saves time when it is typically
+        // called every 20ms
+        if (enable != motor.isSoftLimitEnabled(CANSparkBase.SoftLimitDirection.kForward)) {
+            motor.enableSoftLimit(CANSparkBase.SoftLimitDirection.kForward, enable);
+            motor.enableSoftLimit(CANSparkBase.SoftLimitDirection.kReverse, enable);
+        }
     }
 }

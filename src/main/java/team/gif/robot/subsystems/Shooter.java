@@ -73,8 +73,10 @@ public class Shooter extends SubsystemBase {
     }
 
     public void resetKI() {
-        pidShooter.setIAccum(0.0);
-        pidShooter.setIZone(1000);
+        if (pidShooter.getI() != 0 ) {
+            pidShooter.setIAccum(0.0);
+            pidShooter.setIZone(1000);
+        }
     }
 
     /** used for tuning shooter PID on the dashboard

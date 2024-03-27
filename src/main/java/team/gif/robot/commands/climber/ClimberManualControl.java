@@ -27,7 +27,6 @@ public class ClimberManualControl extends Command {
 
         if (percent > -0.15 && percent < 0.15) { // creates a dead band around the joystick
             Robot.climber.move(0);
-
         } else {
             Robot.climber.move(0.5*percent); // climber moves much faster now, slow down the manual control
         }
