@@ -18,17 +18,21 @@ public class Shooter extends SubsystemBase {
 
     private shootParams currentShot;
 
+    private double currentRPM;
+
     public Shooter() {
 //        shooterNeo = new CANSparkMax(RobotMap.SHOOTER_ID, CANSparkLowLevel.MotorType.kBrushless); // Leave for shooter Neo
         shooterMotor = new CANSparkFlex(RobotMap.SHOOTER_ID, CANSparkLowLevel.MotorType.kBrushless);
         configShooter();
         Robot.limelightShooter.setPipeline(0);
+        currentRPM = 0;
     }
 
-    public void setVoltagePercent(double percent) {
+//    public void setVoltagePercent(double percent) {
 //        shooterNeo.set(percent); // Leave for shooter Neo
-        shooterMotor.set(percent);
-    }
+//        shooterMotor.set(percent);
+//        currentRPM = 0;
+//    }
 
     /**
      * Sets the shooter RPM
@@ -36,8 +40,11 @@ public class Shooter extends SubsystemBase {
      * @param rpm Desired velocity of shooter in RPM
      */
     public void setShooterRPM(double rpm) {
+        if (rpm != currentRPM ) {
 //        pidShooter.setReference(rpm, CANSparkBase.ControlType.kVelocity); // Leave for shooter Neo
-        pidShooter.setReference(rpm, CANSparkFlex.ControlType.kVelocity);
+            pidShooter.setReference(rpm, CANSparkFlex.ControlType.kVelocity);
+            currentRPM = rpm;
+        }
     }
 
     /**
@@ -49,7 +56,6 @@ public class Shooter extends SubsystemBase {
         setupNextShot();
         setShooterRPM(rpm);
     }
-
 
     public void setShooterRPMIdle() {
         setShooterRPM(Constants.Shooter.IDLE_RPM);
@@ -66,6 +72,7 @@ public class Shooter extends SubsystemBase {
 
     public void stop() {
         shooterMotor.setVoltage(0);
+        currentRPM = 0;
     }
 
     public String getShooterRPM_Shuffleboard() {

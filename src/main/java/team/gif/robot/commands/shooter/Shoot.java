@@ -89,7 +89,7 @@ public class Shoot extends Command {
     @Override
     public void end(boolean interrupted) {
         Robot.indexer.stopIndexerCoast();
-        Robot.shooter.setVoltagePercent(0);
+        Robot.shooter.stop();
         if (Robot.indexer.getDefaultCommand() == null) {
             Robot.indexer.setDefaultCommand(new IndexerDefault());
         }

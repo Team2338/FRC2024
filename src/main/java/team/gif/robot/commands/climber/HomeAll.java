@@ -15,7 +15,7 @@ public class HomeAll extends Command {
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
-        Robot.shooter.setVoltagePercent(0);
+        Robot.shooter.stop();
         Robot.elevator.setTargetPosition(Constants.Elevator.HOME_POS);
         Robot.wrist.setTargetPosition(Constants.Wrist.MIN_LIMIT_ABSOLUTE);
         Robot.wrist.setWristWallPosition();

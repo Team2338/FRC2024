@@ -15,7 +15,7 @@ public class ToggleCollectorDefault extends Command {
     @Override
     public void initialize() {
         Robot.collector.removeDefaultCommand();
-        Robot.shooter.setVoltagePercent(0);
+        Robot.shooter.stop();
     }
 
     // Called every time the scheduler runs (~20ms) while the command is scheduled

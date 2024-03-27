@@ -74,7 +74,7 @@ public class TrapShoot extends Command {
     @Override
     public void end(boolean interrupted) {
         Robot.wrist.setTargetPosition(Robot.wrist.getPosition());
-        Robot.shooter.setVoltagePercent(0);
+        Robot.shooter.stop();
         System.out.println("Game over! You did GREAT!!!");
     }
 }
