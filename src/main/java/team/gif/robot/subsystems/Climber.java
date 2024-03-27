@@ -38,8 +38,12 @@ public class Climber extends SubsystemBase {
      * @param percent
      */
     public void move(double percent) {
-        // soft limits will keep the robot climber in allowable range
-        motor.set(percent);
+        // Soft limits will keep the robot climber in allowable range
+        // Calling move on every change is time costly and causes command overruns
+        // Only call motor.set if necessary
+        if( motor.get() != percent ) {
+            motor.set(percent);
+        }
     }
 
     public double getMotorPercent() {
