@@ -13,21 +13,21 @@ import team.gif.lib.shootParams;
 
 public class Shooter extends SubsystemBase {
 //    public static CANSparkMax shooterNeo; //Leave for shooter Neo
-    public static CANSparkFlex shooter;
+    public static CANSparkFlex shooterMotor;
     public static SparkPIDController pidShooter;
 
     private shootParams currentShot;
 
     public Shooter() {
 //        shooterNeo = new CANSparkMax(RobotMap.SHOOTER_ID, CANSparkLowLevel.MotorType.kBrushless); // Leave for shooter Neo
-        shooter = new CANSparkFlex(RobotMap.SHOOTER_ID, CANSparkLowLevel.MotorType.kBrushless);
+        shooterMotor = new CANSparkFlex(RobotMap.SHOOTER_ID, CANSparkLowLevel.MotorType.kBrushless);
         configShooter();
         Robot.limelightShooter.setPipeline(0);
     }
 
     public void setVoltagePercent(double percent) {
 //        shooterNeo.set(percent); // Leave for shooter Neo
-        shooter.set(percent);
+        shooterMotor.set(percent);
     }
 
     /**
@@ -57,7 +57,7 @@ public class Shooter extends SubsystemBase {
 
     public double getShooterRPM() {
 //        return shooterNeo.getEncoder().getVelocity(); // Leave for shooter Neo
-        return shooter.getEncoder().getVelocity();
+        return shooterMotor.getEncoder().getVelocity();
     }
 
     public boolean getShooterAtMinRPM() {
@@ -65,7 +65,7 @@ public class Shooter extends SubsystemBase {
     }
 
     public void stop() {
-        shooter.setVoltage(0);
+        shooterMotor.setVoltage(0);
     }
 
     public String getShooterRPM_Shuffleboard() {
@@ -73,8 +73,10 @@ public class Shooter extends SubsystemBase {
     }
 
     public void resetKI() {
-        pidShooter.setIAccum(0.0);
-        pidShooter.setIZone(1000);
+        if (pidShooter.getI() != 0 ) {
+            pidShooter.setIAccum(0.0);
+            pidShooter.setIZone(1000);
+        }
     }
 
     /** used for tuning shooter PID on the dashboard
@@ -92,11 +94,11 @@ public class Shooter extends SubsystemBase {
     }
 
     public double getShooterMotorTemp() {
-        return shooter.getMotorTemperature();
+        return shooterMotor.getMotorTemperature();
     }
 
     public boolean isShooterCool() {
-        return !(getShooterMotorTemp() >= Constants.MotorTemps.SHOOTER_MOTOR_TEMP);
+        return getShooterMotorTemp() < Constants.MotorTemps.SHOOTER_MOTOR_TEMP;
     }
 
     /**
@@ -107,14 +109,15 @@ public class Shooter extends SubsystemBase {
 //        shooterNeo.setInverted(true); // Leave for shooter Neo
 //        shooterNeo.setIdleMode(CANSparkBase.IdleMode.kCoast); // Leave for shooter Neo
 
-        shooter.restoreFactoryDefaults();
-        shooter.setInverted(true);
-        shooter.setIdleMode(CANSparkBase.IdleMode.kCoast);
-        shooter.enableVoltageCompensation(12);
+        shooterMotor.restoreFactoryDefaults();
+        shooterMotor.setInverted(true);
+        shooterMotor.setIdleMode(CANSparkBase.IdleMode.kCoast);
+        shooterMotor.enableVoltageCompensation(12);
 
+        shooterMotor.burnFlash();
 
 //        pidShooter = shooterNeo.getPIDController(); // Leave for shooter Neo
-        pidShooter = shooter.getPIDController();
+        pidShooter = shooterMotor.getPIDController();
 
         pidShooter.setFF(Robot.nextShot.getFF());
         pidShooter.setP(Robot.nextShot.getP());

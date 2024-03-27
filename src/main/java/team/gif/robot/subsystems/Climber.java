@@ -90,8 +90,13 @@ public class Climber extends SubsystemBase {
     }
 
     public void enableSoftLimits(boolean enable) {
-        motor.enableSoftLimit(CANSparkBase.SoftLimitDirection.kForward,enable);
-        motor.enableSoftLimit(CANSparkBase.SoftLimitDirection.kReverse,enable);
+        // changing the soft limit is time expensive
+        // checking current state is not, so this saves time since it is called every 20ms
+        // during manual control
+        if (enable != motor.isSoftLimitEnabled(CANSparkBase.SoftLimitDirection.kForward)) {
+            motor.enableSoftLimit(CANSparkBase.SoftLimitDirection.kForward,enable);
+            motor.enableSoftLimit(CANSparkBase.SoftLimitDirection.kReverse,enable);
+        }
     }
 }
 

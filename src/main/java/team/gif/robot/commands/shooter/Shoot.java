@@ -7,7 +7,7 @@ import team.gif.robot.commands.indexer.IndexerDefault;
 
 public class Shoot extends Command {
     boolean isFiring;
-    double counter;
+    double fireCounter;
     double commandCounter;
 
     /**
@@ -30,7 +30,7 @@ public class Shoot extends Command {
     @Override
     public void initialize() {
         isFiring = false;
-        counter = 0;
+        fireCounter = 0;
         commandCounter = 0;
 
         Robot.indexer.stopIndexerCoast();
@@ -47,24 +47,24 @@ public class Shoot extends Command {
     @Override
     public void execute() {
         if (Robot.runningAutonomousMode && !Robot.diagnostics.getRobotHasNote()) {
-            counter = 300;
+            fireCounter = 300; // if the robot doesn't have a note, abort immediately
             return;
         }
 
-        if (Robot.collector.getSensorState() ||
-                (Robot.indexer.getStageOneSensorState() && !Robot.indexer.getShooterSensorState())) {
+        if (Robot.sensorMonitor.getCollectorSensorState() ||
+                (Robot.sensorMonitor.getIndexerSensorState() && !Robot.sensorMonitor.getShooterSensorState())) {
             Robot.indexer.setIndexer(Constants.Indexer.INDEXER_ONE_COLLECT_PERC, Constants.Indexer.INDEXER_TWO_COLLECT_PERC);
         } else {
             Robot.indexer.stopIndexerHard();
         }
 
-        if (Robot.indexer.getShooterSensorState()) {
+        if (Robot.sensorMonitor.getShooterSensorState()) {
             Robot.wrist.setTargetPosition(Robot.nextShot.getWristAngle());
         }
 
         if (((Robot.shooter.getShooterRPM() >= Robot.nextShot.getMinimumRPM() || isFiring) &&
                 (Robot.wrist.getPosition() >= (Robot.nextShot.getWristAngle() * .95))     &&
-                Robot.indexer.getShooterSensorState()) ||
+                Robot.sensorMonitor.getShooterSensorState()) ||
                 commandCounter++ >= 1.0*50) { //allow tolerance
             //this may need to move down to line 48
             Robot.indexer.setIndexer(0, Constants.Indexer.INDEXER_TWO_SHOOT_PERC);
@@ -75,14 +75,14 @@ public class Shoot extends Command {
         }
 
         if (isFiring) {
-            counter++;
+            fireCounter++;
         }
     }
 
     // Return true when the command should end, false if it should continue. Runs every ~20ms.
     @Override
     public boolean isFinished() {
-        return counter > (0.25*50); // need to run the indexer for 0.25 seconds to push note through
+        return fireCounter > (0.25*50); // need to run the indexer for 0.25 seconds to push note through
     }
 
     // Called when the command ends or is interrupted.

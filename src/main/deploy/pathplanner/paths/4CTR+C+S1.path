@@ -16,11 +16,11 @@
     },
     {
       "anchor": {
-        "x": 2.0,
+        "x": 1.9,
         "y": 5.54
       },
       "prevControl": {
-        "x": 2.8537172486176487,
+        "x": 2.7537172486176487,
         "y": 5.54
       },
       "nextControl": null,
@@ -69,8 +69,8 @@
     }
   ],
   "globalConstraints": {
-    "maxVelocity": 4.0,
-    "maxAcceleration": 4.0,
+    "maxVelocity": 3.0,
+    "maxAcceleration": 2.0,
     "maxAngularVelocity": 181.0,
     "maxAngularAcceleration": 180.0
   },
@@ -82,5 +82,5 @@
   "reversed": false,
   "folder": "4CTR+S+C+A-4",
   "previewStartingState": null,
-  "useDefaultConstraints": true
+  "useDefaultConstraints": false
 }

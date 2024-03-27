@@ -19,7 +19,7 @@ import edu.wpi.first.math.util.Units;
  */
 public final class Constants {
 
-    public static final double debounceDefault = 0.030;
+    public static final double debounceDefault = 0.020;
 
     public static final class Drivetrain { // ToDo tune - remove when done
         //public static final double DRIVE_WHEEL_RADIUS = 0.05; // meters? Must be unit of velocity
@@ -274,13 +274,8 @@ public final class Constants {
     }
 
     public static final class Shooter { // ToDo tune - remove when done (tuned for 5800RPM)
-        public static final double REV = 1.0;
-        public static final int REV_RPM = 6200;//4800; //5100; // need to tune for comp, Neo Max at 5000
         public static final int TRAP_RPM = 1000;
         public static final int IDLE_RPM = 1000;
-        public static final double FF = 0.000155;//0.000130; //0.000155; // gets to 6100    // 0.000130;  // 5800 RPM
-        public static final double kP = 0.00030;//0.00055;//0.0100;               // 0.0006;    // 5800 RPM
-        public static final double kI = 0.000;//0.001;               // 0.0000015; // 5800 RPM
 
         //Wall
         public static final double RPM_WALL = 6200;
@@ -365,8 +360,6 @@ public final class Constants {
         public static final double INCREASE_ANGLE_PWR_PERC_CALIBRATION = 0.1;
         public static final double DECREASE_ANGLE_PWR_PERC = 0.1;
         public static final double DECREASE_ANGLE_PWR_PERC_CALIBRATION = 0.015;
-        public static final double STARTING_LINE_POS = 0.215;
-        public static final double STAGE_LINE_POS = 0.284;
         public static final double FF = 0.0157; // 0.020 too much; // 0.007 too little;
         public static final double kP = 1.0; // 0.9 works pretty well; // 0.5; //1.0
         public static final double kI = 0.0000;
@@ -374,7 +367,7 @@ public final class Constants {
 
         // Encoder setpoints and values
         // These are the encoder specific values
-        public static final double ENCODER_OFFSET_ABSOLUTE = -0.23814765625;//-0.237890625;//-0.1290039;//-0.850439; // this is determined either manually or via the auto-calibration
+        public static final double ENCODER_OFFSET_ABSOLUTE = -0.237890625;//-0.237890625;//-0.1290039;//-0.850439; // this is determined either manually or via the auto-calibration
         public static final double ABSOLUTE_PER_DEGREE = 0.008333;
         // These are the values we want the bot to utilize
         public static final double KILL_LIMIT_ABSOLUTE = 0.87;
@@ -382,8 +375,7 @@ public final class Constants {
         public static final double MIN_LIMIT_ABSOLUTE = 0.105; // lowest value of encoder we want to allow, needs to be > HARD_STOP
         public static final double HARD_STOP_ABSOLUTE = 0.10; // value of encoder at lower limit hard stop
         public static final double MIN_LIMIT_DEGREES = 46.2; // this is calculated during manual calibration from reading the 90 degree value, provides a relationship between Degrees and Absolute
-        public static final double STAGE_SAFE_DEGREES = 46.0; // maximum value to go under stage
-        public static final double MAX_LIMIT_DEGREES = (MAX_LIMIT_ABSOLUTE - MIN_LIMIT_ABSOLUTE)/ABSOLUTE_PER_DEGREE+MIN_LIMIT_DEGREES; // Convert MAX_LIMIT
+        public static final double MAX_LIMIT_DEGREES = (MAX_LIMIT_ABSOLUTE - MIN_LIMIT_ABSOLUTE)/ABSOLUTE_PER_DEGREE+MIN_LIMIT_DEGREES; // Convert MAX_LIMIT, for reference only
         public static final double SETPOINT_FAR3_ABSOLUTE = (80.0 - MIN_LIMIT_DEGREES) * ABSOLUTE_PER_DEGREE + MIN_LIMIT_ABSOLUTE;
         public static final double SETPOINT_FAR2_ABSOLUTE = (76.0 - MIN_LIMIT_DEGREES) * ABSOLUTE_PER_DEGREE + MIN_LIMIT_ABSOLUTE;
         public static final double SETPOINT_FAR_ABSOLUTE  = (72.0 - MIN_LIMIT_DEGREES) * ABSOLUTE_PER_DEGREE + MIN_LIMIT_ABSOLUTE; // number in degrees, value in absolute
@@ -418,22 +410,22 @@ public final class Constants {
     public static final class Collector { // ToDo tune - remove when done
         public static final double COLLECT_PERCENT = 0.85; // done
         public static final double EJECT_PERCENT = 0.2;
-        public static final double PRE_SENSOR_AMPS = 8; // The current that will trigger the collector pre sensor
+        public static final double PRE_SENSOR_AMPS = 30; // The current that will trigger the collector pre sensor
     }
 
     public static final class Elevator {
         public static final double FF = 0.0;
-        public static final double kP = 0.040;//1.80;
+        public static final double kP = 0.040;
         public static final double kI = 0.0;
         public static final double kD = 0.0;
         public static final double TICKS_PER_INCH = 2.9;
-        public static final double LIMIT_MAX = 59.1; //57.5
-        public static final double LIMIT_MIN = 0;
+        public static final double LIMIT_MAX = 59.1;
+        public static final double LIMIT_MIN = 0.0;
 
         public static final double TRAP_UP_POS = LIMIT_MAX;
         public static final double TRAP_UP_MIN_POS = LIMIT_MAX - (1.0*TICKS_PER_INCH);
 
-        public static final double AMP_POS = 26.0;//20.0;
+        public static final double AMP_POS = 26.0;
         public static final double SAFE_STAGE_POS = 0.4;
         public static final double TRAP_POS = 52.500;
         public static final double HOME_POS = 0.0;
@@ -456,9 +448,9 @@ public final class Constants {
 
         public static final double SAFE_ELEVATOR_TRAP_UP = LIMIT_MAX - (TICKS_PER_INCH * 1.0);
 
-        public static final double SAFE_STAGE_POS = 0.375 * TICKS_PER_INCH; // 1.200;
+        public static final double SAFE_STAGE_POS = 0.375 * TICKS_PER_INCH;
         public static final double TRAP_POS = LIMIT_MIN;
-        public static final double TRAP_MOVE_ELEVATOR_POS = -15.0;//0.0;//100.00;
+        public static final double TRAP_MOVE_ELEVATOR_POS = -15.0;
 
         public static final double HOME_POS = 0.0;
 
@@ -468,7 +460,6 @@ public final class Constants {
 
     public static final class MotorTemps {
         public static final double SHOOTER_MOTOR_TEMP = 70;
-        public static final double SHOOTER_ROTATION_MOTOR_TEMP = 70;
         public static final double INDEXER_MOTOR_TEMP = 70;
         public static final double DRIVETRAIN_MOTOR_TEMP = 85;
         public static final double COLLECTOR_MOTOR_TEMP = 70;

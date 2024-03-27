@@ -79,7 +79,7 @@ public class Diagnostics extends SubsystemBase {
      * @return true if the robot has a note, false of not
      */
     public boolean getRobotHasNote() {
-        return Robot.collector.getSensorState() || Robot.indexer.getStageOneSensorState() || Robot.indexer.getShooterSensorState();
+        return Robot.sensorMonitor.getCollectorSensorState() || Robot.sensorMonitor.getIndexerSensorState() || Robot.sensorMonitor.getShooterSensorState();
     }
 
     /**

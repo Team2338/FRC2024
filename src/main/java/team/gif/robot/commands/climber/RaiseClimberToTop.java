@@ -17,6 +17,7 @@ public class RaiseClimberToTop extends Command {
         // starts the full trap sequence but doesn't end the climber pid
 //        Robot.climber.setDefaultCommand(new ClimberPIDControl());
         new ToggleCollectorDefault().schedule();
+        Robot.climber.removeDefaultCommand();
     }
 
     // Called every time the scheduler runs (~20ms) while the command is scheduled

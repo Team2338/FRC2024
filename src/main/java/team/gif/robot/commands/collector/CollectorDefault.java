@@ -52,32 +52,32 @@ public class CollectorDefault extends Command {
 //        }
 
         // 1
-        if (Robot.collector.getSensorState() && !Robot.indexer.getStageOneSensorState() && !Robot.indexer.getShooterSensorState()) {
+        if (Robot.sensorMonitor.getCollectorSensorState() && !Robot.sensorMonitor.getIndexerSensorState() && !Robot.sensorMonitor.getShooterSensorState()) {
             collect = true;
             reverse = false;
         }
 
         // 2
-        if (Robot.collector.getSensorState() && Robot.indexer.getStageOneSensorState() && !Robot.indexer.getShooterSensorState()) {
+        if (Robot.sensorMonitor.getCollectorSensorState() && Robot.sensorMonitor.getIndexerSensorState() && !Robot.sensorMonitor.getShooterSensorState()) {
             collect = true;
             reverse = false;
         }
 
         // 3-5
-        if (!Robot.collector.getSensorState()) {
+        if (!Robot.sensorMonitor.getCollectorSensorState()) {
             collect = false;
             reverse = false;
         }
 
         // 6
-        if (Robot.collector.getSensorState() && !Robot.indexer.getStageOneSensorState() && Robot.indexer.getShooterSensorState()) {
+        if (Robot.sensorMonitor.getCollectorSensorState() && !Robot.sensorMonitor.getIndexerSensorState() && Robot.sensorMonitor.getShooterSensorState()) {
             collect = true;
             reverse = true;
         }
 
         //Always run in autonomous mode, unless we have a note
         if (Robot.runningAutonomousMode) {
-            collect = !Robot.indexer.getStageOneSensorState() && !Robot.indexer.getShooterSensorState();
+            collect = !Robot.sensorMonitor.getIndexerSensorState() && !Robot.sensorMonitor.getShooterSensorState();
             reverse = false;
         }
 

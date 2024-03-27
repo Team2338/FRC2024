@@ -9,7 +9,7 @@ public class Reset0 extends Command {
     @Override
     public void initialize() {
         Robot.pigeon.resetPigeonPosition(0);
-        System.out.println("RESET!!@!!!!!!!!!!!!!!!!!!");
+        System.out.println("RESET HEADING!!!!!");
     }
 
     // Called every time the scheduler runs (~20ms) while the command is scheduled

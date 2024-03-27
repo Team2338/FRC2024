@@ -2,31 +2,19 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 0.75,
-      "y": 4.38
+      "x": 1.48,
+      "y": 3.0
     },
-    "rotation": -60.0
+    "rotation": -90.0
   },
   "command": {
     "type": "sequential",
     "data": {
       "commands": [
         {
-          "type": "named",
-          "data": {
-            "name": "AutonShootWall"
-          }
-        },
-        {
           "type": "path",
           "data": {
-            "pathName": "4SRC+S-Away"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "4CTR+C+S+A1"
+            "pathName": "3W+8-PreAway"
           }
         },
         {
@@ -44,7 +32,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "4CTR+S+C2"
+            "pathName": "3W+6-Away"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "3W+6-Return"
           }
         },
         {
@@ -62,7 +56,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "4CTR+C+S1"
+            "pathName": "3W+6+7-Away"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "3W+6+7-Return"
           }
         },
         {
@@ -75,12 +75,6 @@
           "type": "named",
           "data": {
             "name": "AutonShoot"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "4CTR+C+S+A-4"
           }
         }
       ]

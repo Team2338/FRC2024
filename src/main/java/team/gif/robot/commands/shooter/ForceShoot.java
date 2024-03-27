@@ -6,7 +6,7 @@ import team.gif.robot.Robot;
 import team.gif.robot.commands.indexer.IndexerDefault;
 
 public class ForceShoot extends Command {
-    double counter;
+    double commandCounter;
 
     public ForceShoot() {
         super();
@@ -27,7 +27,7 @@ public class ForceShoot extends Command {
             Robot.indexer.removeDefaultCommand();
             Robot.indexer.getCurrentCommand().cancel();
         }
-        counter = 0;
+        commandCounter = 0;
     }
 
     // Called every time the scheduler runs (~20ms) while the command is scheduled
@@ -39,7 +39,9 @@ public class ForceShoot extends Command {
     // Return true when the command should end, false if it should continue. Runs every ~20ms.
     @Override
     public boolean isFinished() {
-        return Robot.runningAutonomousMode && counter++ > 2.5*50;
+        // in standard mode, run until operator releases button
+        // in autonomous mode, utilize a timeout (currently 2.5 seconds)
+        return Robot.runningAutonomousMode && commandCounter++ > 2.5*50;
     }
 
     // Called when the command ends or is interrupted.

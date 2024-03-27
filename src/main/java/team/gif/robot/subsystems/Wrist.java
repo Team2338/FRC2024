@@ -16,14 +16,17 @@ import team.gif.robot.Robot;
 import team.gif.robot.RobotMap;
 
 public class Wrist extends SubsystemBase {
-    public static CANSparkMax wristController;
-    public static PIDController pidWrist;
-    public static CANcoder wristEncoder;
+    public static CANSparkMax motor;
+    public static PIDController pidController;
+    public static CANcoder wristEncoder; // The wrist uses an external CANcoder for its encoder
 
-    private double targetPosition; // Rotation
+    // Value of the wrist encoder from 0 to 1. Given the gear setup, the
+    // encoder wraps around 3 times in a full circle
+    // i.e. when turning the wrist, it goes from 0->1,0->1,0->1 in a full rotation
+    private double targetPosition;
 
     public Wrist() throws Exception {
-        wristController = new CANSparkMax(RobotMap.WRIST_ID, CANSparkLowLevel.MotorType.kBrushless);
+        motor = new CANSparkMax(RobotMap.WRIST_ID, CANSparkLowLevel.MotorType.kBrushless);
 
         wristEncoder = new CANcoder(RobotMap.WRIST_ENCODER_ID);
         configWrist();
@@ -33,7 +36,7 @@ public class Wrist extends SubsystemBase {
             throw new Exception("Shooter MIN_LIMIT_ABSOLUTE needs to be greater than HARD_STOP_ABSOLUTE");
         }
 
-        // set the initial shooter rotation position so PID can hold the current position when first enabled
+        // set the initial wrist position so PID can hold the current position when first enabled
         targetPosition = getPosition();
     }
 
@@ -51,30 +54,30 @@ public class Wrist extends SubsystemBase {
      */
     public void moveWristPercentPower(double percent) {
         if(getPosition() < Constants.Wrist.KILL_LIMIT_ABSOLUTE) {
-            wristController.set(percent);
+            motor.set(percent);
         } else {
-            wristController.set(0);
+            motor.set(0);
         }
     }
 
     /**
-     * Holds thr shooter rotation using FF <br
+     * Holds the wrist using FF <br
      */
     public void holdWrist() {
-        wristController.set(Constants.Wrist.FF);
+        motor.set(Constants.Wrist.FF);
     }
 
     /**
-     * Use PID to move the shooter angle to absolute position between 0 and 1
+     * Use PID to move the wrist to an absolute position between 0 and 1
      */
     public void PIDWristMove() {
-        double pidOutput = pidWrist.calculate(wristEncoder.getAbsolutePosition().getValueAsDouble(), targetPosition);
-        wristController.set(pidOutput + Constants.Wrist.FF);
+        double pidOutput = pidController.calculate(wristEncoder.getAbsolutePosition().getValueAsDouble(), targetPosition);
+        motor.set(pidOutput + Constants.Wrist.FF);
     }
 
     /**
-     * Get the current position of the arm in absolute between 0 and 1
-     * @return arm position in ticks
+     * Get the current position of the wrist in absolute between 0 and 1
+     * @return wrist position in ticks
      */
     public double getPosition(){
         return wristEncoder.getAbsolutePosition().getValueAsDouble();
@@ -98,16 +101,34 @@ public class Wrist extends SubsystemBase {
         wristEncoder.getConfigurator().apply(new CANcoderConfiguration().withMagnetSensor(magSensorConfig));
     }
 
+    /**
+     * Converts from degrees to wrist encoder absolute ticks <br>
+     * 0 is wrist pointing straight up<br>
+     * 90 is wrist pointing straight out of the bot <br>
+     *
+     * @param degrees desired degree
+     * @return absolute ticks from 0 to 1
+     */
     public double degreesToAbsolute(double degrees){
         return (degrees - Constants.Wrist.MIN_LIMIT_DEGREES) * Constants.Wrist.ABSOLUTE_PER_DEGREE + Constants.Wrist.MIN_LIMIT_ABSOLUTE;
     }
-    
+
+    /**
+     * Converts from wrist encoder absolute ticks to degrees <br>
+     * 0 is wrist pointing straight up <br>
+     * 90 is wrist pointing straight out of the bot <br>
+     *
+     * @param absolute ticks from 0 to 1
+     * @return degrees desired degree
+     */
     public double absoluteToDegrees(double absolute){
         return ( (absolute - Constants.Wrist.MIN_LIMIT_ABSOLUTE)/ Constants.Wrist.ABSOLUTE_PER_DEGREE +  Constants.Wrist.MIN_LIMIT_DEGREES);
     }
 
     /**
-     * Set the target position of the arm in absolute from 0 to 1
+     * Set the target position of the wrist in absolute from 0 to 1 <br>
+     * With PID running, this sets the new position and PID will make the
+     * wrist move
      * @param pos target position in ticks
      */
     public void setTargetPosition(double pos) {
@@ -115,138 +136,134 @@ public class Wrist extends SubsystemBase {
     }
 
     /**
-     * Moves shooter rotation to the Far3 setpoint defined in constants.java
+     * Moves wrist to the Far3 setpoint defined in constants.java
      */
     public void setWristFar3Position() {
         Robot.nextShot = shootParams.FAR3;
     }
 
     /**
-     * Moves shooter rotation to the Far2 setpoint defined in constants.java
+     * Moves wrist to the Far2 setpoint defined in constants.java
      */
     public void setWristFar2Position() {
         Robot.nextShot = shootParams.FAR2;
     }
 
     /**
-     * Moves shooter rotation to the MidMidFar setpoint defined in constants.java
+     * Moves wrist to the MidMidFar setpoint defined in constants.java
      */
     public void setWristMidMidFarPosition() {
         Robot.nextShot = shootParams.MIDMIDFAR;
     }
 
     /**
-     * Moves shooter rotation to the Far setpoint defined in constants.java
+     * Moves wrist to the Far setpoint defined in constants.java
      */
     public void setWristFarPosition() {
         Robot.nextShot = shootParams.FAR;
     }
 
     /**
-     * Moves shooter rotation to the Near setpoint defined in constants.java
+     * Moves wrist to the MidFar setpoint defined in constants.java
      */
     public void setWristMidFarPosition() {
         Robot.nextShot = shootParams.MIDFAR;
     }
 
     /**
-     * Moves shooter rotation to the Middle setpoint defined in constants.java
+     * Moves wrist to the Middle setpoint defined in constants.java
      */
     public void setWristMiddlePosition() {
         Robot.nextShot = shootParams.MIDDLE;
     }
 
     /**
-     * Moves shooter rotation to the Mid setpoint defined in constants.java
+     * Moves wrist to the Mid setpoint defined in constants.java
      */
     public void setWristMidPosition() {
         Robot.nextShot = shootParams.MID;
     }
 
     /**
-     * Moves shooter rotation to the Near setpoint defined in constants.java
+     * Moves wrist to the Near setpoint defined in constants.java
      */
     public void setWristNearPosition() {
         Robot.nextShot = shootParams.NEAR;
     }
 
     /**
-     * Moves shooter rotation to the Near setpoint defined in constants.java
+     * Moves wrist to the Close setpoint defined in constants.java
      */
     public void setWristClosePosition() {
         Robot.nextShot = shootParams.CLOSE;
     }
 
     /**
-     * Moves shooter rotation to the Wall setpoint defined in constants.java
+     * Moves wrist to the Wall setpoint defined in constants.java
      */
     public void setWristWallPosition() {
         Robot.nextShot = shootParams.WALL;
     }
 
     /**
-     * Moves shooter rotation to the Wall setpoint defined in constants.java
+     * Moves wrist to the Amp setpoint defined in constants.java
      */
     public void setWristAmpPosition() {
         Robot.nextShot = shootParams.AMP;
     }
 
+    /**
+     * Moves wrist to the Collect setpoint defined in constants.java
+     */
     public void setWristCollectPosition() {
         targetPosition = Constants.Wrist.SETPOINT_COLLECT_ABSOLUTE;
     }
 
     /**
-     * Get the target position of the arm in absolute from 0 to 1
+     * Get the target position of the wrist in absolute from 0 to 1
      * @return target position in ticks
      */
     public double getTargetPosition() {
         return targetPosition;
     }
 
+    /**
+     * Formats the target position for teh shuffleboard for easier ability to read
+     * @return target position in ticks
+     */
     public String getTargetPosition_Shuffleboard() {
         return String.format("%3.3f", targetPosition);
     }
 
-    /**
-     * Get the current error of the arm PID
-     * @return the current error of the arm PID
-     */
-    public double getPIDWristError() {
-        return getPosition() - targetPosition;
-    }
-
     public void PIDKill() {
-        pidWrist.setP(0.0);
-        pidWrist.setI(0.0);
-        pidWrist.setD(0.0);
+        pidController.setP(0.0);
+        pidController.setI(0.0);
+        pidController.setD(0.0);
     }
 
     public void PIDEnable() {
-        pidWrist.setP(Constants.Wrist.kP);
-        pidWrist.setI(Constants.Wrist.kI);
-        pidWrist.setD(Constants.Wrist.kD);
+        pidController.setP(Constants.Wrist.kP);
+        pidController.setI(Constants.Wrist.kI);
+        pidController.setD(Constants.Wrist.kD);
     }
 
     public double getWristMotorTemp() {
-        return wristController.getMotorTemperature();
+        return motor.getMotorTemperature();
     }
 
     public boolean isWristCool() {
-        if (getWristMotorTemp() >= Constants.MotorTemps.SHOOTER_MOTOR_TEMP) {
-            return false;
-        }
-        return true;
+        return getWristMotorTemp() < Constants.MotorTemps.SHOOTER_MOTOR_TEMP;
     }
 
     /**
      *  All the config setting for Rotation (controller, sensor, rotation pid)
      */
     public void configWrist() {
-        wristController.restoreFactoryDefaults();
-        wristController.setIdleMode(CANSparkBase.IdleMode.kBrake);
-        wristController.enableVoltageCompensation(12);
+        motor.restoreFactoryDefaults();
+        motor.setIdleMode(CANSparkBase.IdleMode.kBrake);
+        motor.enableVoltageCompensation(12);
 
-        wristController.setOpenLoopRampRate(.25);
+        motor.setOpenLoopRampRate(.25);
 
         MagnetSensorConfigs magSensorConfig = new MagnetSensorConfigs()
                 .withAbsoluteSensorRange(AbsoluteSensorRangeValue.Unsigned_0To1)
@@ -254,6 +271,6 @@ public class Wrist extends SubsystemBase {
                 .withSensorDirection(SensorDirectionValue.Clockwise_Positive);
         wristEncoder.getConfigurator().apply(new CANcoderConfiguration().withMagnetSensor(magSensorConfig));
 
-        pidWrist = new PIDController(Constants.Wrist.kP, Constants.Wrist.kI, Constants.Wrist.kD);
+        pidController = new PIDController(Constants.Wrist.kP, Constants.Wrist.kI, Constants.Wrist.kD);
     }
 }
