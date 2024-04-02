@@ -26,7 +26,7 @@
         {
           "type": "named",
           "data": {
-            "name": "AutonWristMid"
+            "name": "AutonWristMiddle"
           }
         },
         {
@@ -40,9 +40,22 @@
                 }
               },
               {
-                "type": "path",
+                "type": "sequential",
                 "data": {
-                  "pathName": "5CTR+C+S"
+                  "commands": [
+                    {
+                      "type": "wait",
+                      "data": {
+                        "waitTime": 1.0
+                      }
+                    },
+                    {
+                      "type": "path",
+                      "data": {
+                        "pathName": "5CTR+C+S"
+                      }
+                    }
+                  ]
                 }
               }
             ]
