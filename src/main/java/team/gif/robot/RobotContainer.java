@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import team.gif.lib.autoMode;
+import team.gif.robot.commands.autos.FIVE_CTR_C_S_A_4;
 import team.gif.robot.commands.drivetrain.AutoRotate;
 import team.gif.robot.commands.autos.NoAuto;
 import team.gif.robot.commands.shooter.RevFlyWheels;
@@ -93,6 +94,7 @@ public class RobotContainer {
         autoCommands.put(autoMode.FIVE_CTR_C_S_A_5, new PathPlannerAuto("5CTR+C+S+A+5"));
 //        autoCommands.put(autoMode.TWO_SCSPLIT_SIX, new PathPlannerAuto("2SCSplit+6"));
 //        autoCommands.put(autoMode.LINE_TEST, new PathPlannerAuto("Straight Line Test"));
+        autoCommands.put(autoMode.FIVE_CTR_C_S_A_4_CUSTOM, new FIVE_CTR_C_S_A_4());
     }
 
     /**
