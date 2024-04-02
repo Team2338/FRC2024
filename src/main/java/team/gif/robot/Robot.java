@@ -187,6 +187,8 @@ public class Robot extends TimedRobot {
                 indexer.stopIndexerCoast();
             }
         }
+
+        System.out.println(limelightShooter.DistanceEstimator(35,20,82));
     }
 
     /** This function is called once each time the robot enters Disabled mode. */
