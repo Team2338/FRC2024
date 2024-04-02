@@ -3,12 +3,12 @@ package team.gif.robot.commands.autos.lib;
 import edu.wpi.first.wpilibj2.command.Command;
 import team.gif.robot.Robot;
 
-public class AutoCollect extends Command {
+public class AutonCollect extends Command {
 
     double counter;
     boolean limelightDetectedOrExtension;
 
-    public AutoCollect() {
+    public AutonCollect() {
         super();
         addRequirements(Robot.collector);
     }
