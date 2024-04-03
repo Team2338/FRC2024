@@ -98,6 +98,10 @@ abstract class FileLogger implements Closeable, Flushable {
         return String.format("%.2f", number);
     }
 
+    protected String formatBoolean(boolean var) {
+        return var ? "1" : "0";
+    }
+
     public void init() {
         initTime = Timer.getFPGATimestamp();
     }

@@ -59,11 +59,13 @@ public class Shoot extends Command {
         }
 
         if (Robot.sensorMonitor.getShooterSensorState()) {
-            Robot.wrist.setTargetPosition(Robot.nextShot.getWristAngle());
+//            Robot.wrist.setTargetPosition(Robot.nextShot.getWristAngle());
+//            Robot.wrist.setTargetPosition(Robot.wrist.degreesToAbsolute(Robot.wrist.wristEstimatorDegrees()));
+            Robot.wrist.setWristAuto();
         }
 
         if (((Robot.shooter.getShooterRPM() >= Robot.nextShot.getMinimumRPM() || isFiring) &&
-                (Robot.wrist.getPosition() >= (Robot.nextShot.getWristAngle() * .95))     &&
+                (Robot.wrist.getPosition() >= (Robot.wrist.getTargetPosition()))     &&
                 Robot.sensorMonitor.getShooterSensorState()) ||
                 commandCounter++ >= 1.0*50) { //allow tolerance
             //this may need to move down to line 48

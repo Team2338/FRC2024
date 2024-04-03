@@ -367,30 +367,30 @@ public final class Constants {
 
         // Encoder setpoints and values
         // These are the encoder specific values
-        public static final double ENCODER_OFFSET_ABSOLUTE = -0.458349609375;//-0.237890625;//-0.1290039;//-0.850439; // this is determined either manually or via the auto-calibration
-        public static final double ABSOLUTE_PER_DEGREE = 0.008333;
+        public static final double ENCODER_OFFSET_ABSOLUTE = -0.685400390625;//-0.237890625;//-0.1290039;//-0.850439; // this is determined either manually or via the auto-calibration
+        public static final double ABSOLUTE_PER_DEGREE = 0.00647249; // 0.008333;
         // These are the values we want the bot to utilize
         public static final double KILL_LIMIT_ABSOLUTE = 0.87;
         public static final double MAX_LIMIT_ABSOLUTE = 0.80; // largest value of encoder we want to allow, needs to be < 1.0
         public static final double MIN_LIMIT_ABSOLUTE = 0.105; // lowest value of encoder we want to allow, needs to be > HARD_STOP
         public static final double HARD_STOP_ABSOLUTE = 0.10; // value of encoder at lower limit hard stop
-        public static final double MIN_LIMIT_DEGREES = 46.2; // this is calculated during manual calibration from reading the 90 degree value, provides a relationship between Degrees and Absolute
+        public static final double MIN_LIMIT_DEGREES = 28.2; // 46.2; // this is calculated during manual calibration from reading the 90 degree value, provides a relationship between Degrees and Absolute
         public static final double MAX_LIMIT_DEGREES = (MAX_LIMIT_ABSOLUTE - MIN_LIMIT_ABSOLUTE)/ABSOLUTE_PER_DEGREE+MIN_LIMIT_DEGREES; // Convert MAX_LIMIT, for reference only
-        public static final double SETPOINT_FAR3_ABSOLUTE = (80.0 - MIN_LIMIT_DEGREES) * ABSOLUTE_PER_DEGREE + MIN_LIMIT_ABSOLUTE;
-        public static final double SETPOINT_FAR2_ABSOLUTE = (76.0 - MIN_LIMIT_DEGREES) * ABSOLUTE_PER_DEGREE + MIN_LIMIT_ABSOLUTE;
-        public static final double SETPOINT_FAR_ABSOLUTE  = (72.0 - MIN_LIMIT_DEGREES) * ABSOLUTE_PER_DEGREE + MIN_LIMIT_ABSOLUTE; // number in degrees, value in absolute
-        public static final double SETPOINT_MIDMIDFAR_ABSOLUTE  = (71.0 - MIN_LIMIT_DEGREES) * ABSOLUTE_PER_DEGREE + MIN_LIMIT_ABSOLUTE; // number in degrees, value in absolute
-        public static final double SETPOINT_MIDFAR_ABSOLUTE  = (70.0 - MIN_LIMIT_DEGREES) * ABSOLUTE_PER_DEGREE + MIN_LIMIT_ABSOLUTE; // number in degrees, value in absolute
-        public static final double SETPOINT_MID_ABSOLUTE  = (68.0 - MIN_LIMIT_DEGREES) * ABSOLUTE_PER_DEGREE + MIN_LIMIT_ABSOLUTE; // number in degrees, value in absolute
-        public static final double SETPOINT_MIDDLE_ABSOLUTE  = (66.0 - MIN_LIMIT_DEGREES) * ABSOLUTE_PER_DEGREE + MIN_LIMIT_ABSOLUTE; // number in degrees, value in absolute
-        public static final double SETPOINT_NEAR_ABSOLUTE = (64.0 - MIN_LIMIT_DEGREES) * ABSOLUTE_PER_DEGREE + MIN_LIMIT_ABSOLUTE; // number in degrees, value in absolute
-        public static final double SETPOINT_CLOSE_ABSOLUTE = (55.0 - MIN_LIMIT_DEGREES) * ABSOLUTE_PER_DEGREE + MIN_LIMIT_ABSOLUTE; // number in degrees, value in absolute
-        public static final double SETPOINT_WALL_ABSOLUTE = (49.0 - MIN_LIMIT_DEGREES) * ABSOLUTE_PER_DEGREE + MIN_LIMIT_ABSOLUTE; // number in degrees, value in absolute
-        public static final double SETPOINT_COLLECT_ABSOLUTE = (48.0 - MIN_LIMIT_DEGREES) * ABSOLUTE_PER_DEGREE + MIN_LIMIT_ABSOLUTE; // number in degrees, value in absolute
-        public static final double SETPOINT_TRAP_ABSOLUTE = (92.0 - MIN_LIMIT_DEGREES) * ABSOLUTE_PER_DEGREE + MIN_LIMIT_ABSOLUTE; // number in degrees, value in absolute
-        public static final double SETPOINT_TRAP_FINAL_ABSOLUTE = (64.0 - MIN_LIMIT_DEGREES) * ABSOLUTE_PER_DEGREE + MIN_LIMIT_ABSOLUTE; // number in degrees, value in absolute
-        public static final double SETPOINT_AMP_ABSOLUTE = (125.0 - MIN_LIMIT_DEGREES) * ABSOLUTE_PER_DEGREE + MIN_LIMIT_ABSOLUTE; // number in degrees, value in absolute
-        public static final double SAFE_STAGE_DEGREES = 50;
+        public static final double SETPOINT_FAR3_ABSOLUTE = (71.71 - MIN_LIMIT_DEGREES) * ABSOLUTE_PER_DEGREE + MIN_LIMIT_ABSOLUTE;
+        public static final double SETPOINT_FAR2_ABSOLUTE = (66.57 - MIN_LIMIT_DEGREES) * ABSOLUTE_PER_DEGREE + MIN_LIMIT_ABSOLUTE;
+        public static final double SETPOINT_FAR_ABSOLUTE  = (61.41 - MIN_LIMIT_DEGREES) * ABSOLUTE_PER_DEGREE + MIN_LIMIT_ABSOLUTE; // number in degrees, value in absolute
+        public static final double SETPOINT_MIDMIDFAR_ABSOLUTE  = (60.12 - MIN_LIMIT_DEGREES) * ABSOLUTE_PER_DEGREE + MIN_LIMIT_ABSOLUTE; // number in degrees, value in absolute
+        public static final double SETPOINT_MIDFAR_ABSOLUTE  = (58.84 - MIN_LIMIT_DEGREES) * ABSOLUTE_PER_DEGREE + MIN_LIMIT_ABSOLUTE; // number in degrees, value in absolute
+        public static final double SETPOINT_MID_ABSOLUTE  = (56.27 - MIN_LIMIT_DEGREES) * ABSOLUTE_PER_DEGREE + MIN_LIMIT_ABSOLUTE; // number in degrees, value in absolute
+        public static final double SETPOINT_MIDDLE_ABSOLUTE  = (53.69 - MIN_LIMIT_DEGREES) * ABSOLUTE_PER_DEGREE + MIN_LIMIT_ABSOLUTE; // number in degrees, value in absolute
+        public static final double SETPOINT_NEAR_ABSOLUTE = (51.12 - MIN_LIMIT_DEGREES) * ABSOLUTE_PER_DEGREE + MIN_LIMIT_ABSOLUTE; // number in degrees, value in absolute
+        public static final double SETPOINT_CLOSE_ABSOLUTE = (39.53 - MIN_LIMIT_DEGREES) * ABSOLUTE_PER_DEGREE + MIN_LIMIT_ABSOLUTE; // number in degrees, value in absolute
+        public static final double SETPOINT_WALL_ABSOLUTE = (31.80 - MIN_LIMIT_DEGREES) * ABSOLUTE_PER_DEGREE + MIN_LIMIT_ABSOLUTE; // number in degrees, value in absolute
+        public static final double SETPOINT_COLLECT_ABSOLUTE = (30.51 - MIN_LIMIT_DEGREES) * ABSOLUTE_PER_DEGREE + MIN_LIMIT_ABSOLUTE; // number in degrees, value in absolute
+        public static final double SETPOINT_TRAP_ABSOLUTE = (87.16 - MIN_LIMIT_DEGREES) * ABSOLUTE_PER_DEGREE + MIN_LIMIT_ABSOLUTE; // number in degrees, value in absolute
+        public static final double SETPOINT_TRAP_FINAL_ABSOLUTE = (51.12 - MIN_LIMIT_DEGREES) * ABSOLUTE_PER_DEGREE + MIN_LIMIT_ABSOLUTE; // number in degrees, value in absolute
+        public static final double SETPOINT_AMP_ABSOLUTE = (129.65 - MIN_LIMIT_DEGREES) * ABSOLUTE_PER_DEGREE + MIN_LIMIT_ABSOLUTE; // number in degrees, value in absolute
+        public static final double SAFE_STAGE_DEGREES = 33;
     }
 
     public static final class Indexer { // ToDo tune - remove when done

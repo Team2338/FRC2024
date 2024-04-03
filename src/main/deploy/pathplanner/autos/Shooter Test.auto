@@ -1,0 +1,163 @@
+{
+  "version": 1.0,
+  "startingPose": {
+    "position": {
+      "x": 1.9671072960379539,
+      "y": 5.601499977928731
+    },
+    "rotation": 0
+  },
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 3.0
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "AutonWristMiddle"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "AutonShoot"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 3.0
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "AutonWristMiddle"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "AutonShoot"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 3.0
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "AutonWristMiddle"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "AutonShoot"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 3.0
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "AutonWristMiddle"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "AutonShoot"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 3.0
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "AutonWristMiddle"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "AutonShoot"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 3.0
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "AutonWristMiddle"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "AutonShoot"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 3.0
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "AutonWristMiddle"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "AutonShoot"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 3.0
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "AutonWristMiddle"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "AutonShoot"
+          }
+        }
+      ]
+    }
+  },
+  "folder": null,
+  "choreoAuto": false
+}

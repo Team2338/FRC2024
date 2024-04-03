@@ -97,7 +97,7 @@ public class Robot extends TimedRobot {
         eventLogger.init();
 
         telemetryLogger = new TelemetryFileLogger();
-//        addMetricsToLogger();
+        addMetricsToLogger();
 
         // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
         // autonomous chooser on the dashboard.
@@ -188,7 +188,13 @@ public class Robot extends TimedRobot {
             }
         }
 
-        System.out.println(limelightShooter.DistanceEstimator(35,20,82));
+//        double distance = limelightShooter.DistanceEstimator(35,16.50,57); //15.75
+//        double distanceFeet = Math.floor(distance/12);
+//        double distanceInches = distance % 12;
+//        System.out.println("distance: " + distanceFeet + " ft " + distanceInches + " in");
+//        System.out.println("angle: " + wrist.wristEstimatorDegrees());
+
+        telemetryLogger.run();
     }
 
     /** This function is called once each time the robot enters Disabled mode. */
@@ -259,6 +265,8 @@ public class Robot extends TimedRobot {
                 (timeLeft <= 5.0 && timeLeft >= 3.0));
 
 //        shooter.updateShooterPID(); // used for tuning shooter PID using the dashboard
+//        double distance = Robot.limelightShooter.DistanceEstimator(35,16.50,57);
+//        System.out.println("distance: " + distance + " target: " + wrist.wristEstimatorDegrees() + " " + "actual: " + wrist.degreesToAbsolute(wrist.wristEstimatorDegrees()));
     }
 
     @Override
@@ -281,10 +289,12 @@ public class Robot extends TimedRobot {
 
     private void addMetricsToLogger() {
         telemetryLogger.addMetric("TimeStamp", Timer::getFPGATimestamp);
-        telemetryLogger.addMetric("Driver_Left_Y", () -> -Robot.oi.driver.getLeftY());
-        telemetryLogger.addMetric("Driver_Left_X", () -> Robot.oi.driver.getLeftX());
-        telemetryLogger.addMetric("Driver_Angle", () -> Math.atan(-Robot.oi.driver.getLeftY() / Robot.oi.driver.getLeftX()));
-        telemetryLogger.addMetric("Driver_Right_X", () -> Robot.oi.driver.getRightX());
+        telemetryLogger.addMetric("Target_RPM", () -> shooter.getTargetRPM());
+        telemetryLogger.addMetric("RPM_Actual", () -> shooter.getShooterRPM());
+        telemetryLogger.addMetric("Target_Wrist", () -> wrist.absoluteToDegrees(wrist.getTargetPosition()));
+        telemetryLogger.addMetric("Wrist_Actual", () -> wrist.absoluteToDegrees(wrist.getPosition()));
+        telemetryLogger.addMetric("Shooter_Sensor", () -> sensorMonitor.getShooterSensorState());
+        telemetryLogger.init();
     }
 
     public static void cancelAuto() {

@@ -18,6 +18,8 @@ public class Shooter extends SubsystemBase {
 
     private shootParams currentShot;
 
+    private double targetRPM = 0;
+
     public Shooter() {
 //        shooterNeo = new CANSparkMax(RobotMap.SHOOTER_ID, CANSparkLowLevel.MotorType.kBrushless); // Leave for shooter Neo
         shooterMotor = new CANSparkFlex(RobotMap.SHOOTER_ID, CANSparkLowLevel.MotorType.kBrushless);
@@ -37,7 +39,12 @@ public class Shooter extends SubsystemBase {
      */
     public void setShooterRPM(double rpm) {
 //        pidShooter.setReference(rpm, CANSparkBase.ControlType.kVelocity); // Leave for shooter Neo
+        targetRPM = rpm;
         pidShooter.setReference(rpm, CANSparkFlex.ControlType.kVelocity);
+    }
+
+    public double getTargetRPM() {
+        return targetRPM;
     }
 
     /**

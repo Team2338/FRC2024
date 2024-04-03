@@ -220,6 +220,23 @@ public class Wrist extends SubsystemBase {
     }
 
     /**
+     * Sets the new target position of the wrist in ticks based on the wrist angle estimator method
+     */
+    public void setWristAuto() {
+        targetPosition = degreesToAbsolute(wristEstimatorDegrees());
+    }
+
+    /**
+     * Estimate the wrist angle in degrees based on the distance to the target
+     * @return wrist angle in degrees
+     */
+    public double wristEstimatorDegrees() {
+        double distance = Robot.limelightShooter.DistanceEstimator(35,16.50,57);
+        distance = (distance - 43.38)*.8 + 43.38;; // the farther away the robot gets the lower the angle due to gravity
+        return 90 - ((Math.atan(58/distance))*(180 / 3.14159));
+    }
+
+    /**
      * Get the target position of the wrist in absolute from 0 to 1
      * @return target position in ticks
      */

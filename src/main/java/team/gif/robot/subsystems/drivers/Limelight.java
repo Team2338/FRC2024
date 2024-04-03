@@ -1,9 +1,7 @@
 package team.gif.robot.subsystems.drivers;
 
 import edu.wpi.first.networktables.NetworkTable;
-import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
-//import team.gif.robot.Globals;
 
 
 public class Limelight {
@@ -259,27 +257,18 @@ public class Limelight {
     }
 
     /**
-     * distance between the robot and the target or goal.
+     * distance between the robot and the target/AprilTag.
+     * @param mountingAngleLLDegrees degrees back the limelight is rotated from perfectly vertical
+     * @param lensHeightInches distance in inches from the center of the Limelight lens to the floor
+     * @param goalHeightInches  distance from the target/AprilTag to the floor
      * @return the distance in inches
      */
-    public double DistanceEstimator(double mountAngleLL, double heighFromLenToLL, double goalHeight) {
+    public double DistanceEstimator(double mountingAngleLLDegrees, double lensHeightInches, double goalHeightInches) {
         double targetOffsetAngle_Vertical = getYOffset();
-
-        // how many degrees back is your limelight rotated from perfectly vertical?
-        double limelightMountAngleDegrees = mountAngleLL;
-
-        // distance from the center of the Limelight lens to the floor
-        double limelightLensHeightInches = heighFromLenToLL; // TODO: measure the height of the limelight lens to the floor.
-
-        // distance from the target to the floor
-        double goalHeightInches = goalHeight; // speaker highest edge of the opening height from above the floor
-
-        double angleToGoalDegrees = limelightMountAngleDegrees + targetOffsetAngle_Vertical;
+        double angleToGoalDegrees = mountingAngleLLDegrees + targetOffsetAngle_Vertical;
         double angleToGoalRadians = angleToGoalDegrees * (3.14159 / 180.0);
 
-        //calculate distance
-        double distanceFromLimelightToGoalInches = (goalHeightInches - limelightLensHeightInches) / Math.tan(angleToGoalRadians);
-
-        return distanceFromLimelightToGoalInches;
+        //calculate distance (shooter is 4 inches behind limelight)
+        return 4.0 + (goalHeightInches - lensHeightInches) / Math.tan(angleToGoalRadians);
     }
 }
