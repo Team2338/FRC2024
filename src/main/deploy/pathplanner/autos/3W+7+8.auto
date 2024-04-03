@@ -60,21 +60,41 @@
           }
         },
         {
-          "type": "path",
+          "type": "sequential",
           "data": {
-            "pathName": "3W+7+8-Return"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "AutonRotate"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "AutonShoot"
+            "commands": [
+              {
+                "type": "race",
+                "data": {
+                  "commands": [
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "AutonHasNote"
+                      }
+                    },
+                    {
+                      "type": "path",
+                      "data": {
+                        "pathName": "3W+7+8-Return"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "AutonRotate"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "AutonShoot"
+                }
+              }
+            ]
           }
         }
       ]

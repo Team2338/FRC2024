@@ -92,7 +92,7 @@
           }
         },
         {
-          "type": "parallel",
+          "type": "race",
           "data": {
             "commands": [
               {
@@ -125,6 +125,12 @@
                       }
                     }
                   ]
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "AutonHasNote"
                 }
               }
             ]
