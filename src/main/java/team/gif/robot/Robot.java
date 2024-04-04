@@ -267,6 +267,9 @@ public class Robot extends TimedRobot {
 //        shooter.updateShooterPID(); // used for tuning shooter PID using the dashboard
 //        double distance = Robot.limelightShooter.DistanceEstimator(35,16.50,57);
 //        System.out.println("distance: " + distance + " target: " + wrist.wristEstimatorDegrees() + " " + "actual: " + wrist.degreesToAbsolute(wrist.wristEstimatorDegrees()));
+
+//        System.out.println("Target: " + wrist.getTargetPosition() + " Actual: " + wrist.getPosition());
+
     }
 
     @Override

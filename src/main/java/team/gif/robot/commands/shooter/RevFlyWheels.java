@@ -27,7 +27,8 @@ public class RevFlyWheels extends Command {
     @Override
     public void execute() {
         if (Robot.sensorMonitor.getShooterSensorState()) {
-            Robot.wrist.setTargetPosition(Robot.nextShot.getWristAngle());
+//            Robot.wrist.setTargetPosition(Robot.nextShot.getWristAngle());
+            Robot.wrist.setWristAuto();
         }
 
         Robot.shooter.setupAndRev(Robot.nextShot.getShooterRPM());

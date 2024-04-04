@@ -72,7 +72,28 @@ public class Wrist extends SubsystemBase {
      */
     public void PIDWristMove() {
         double pidOutput = pidController.calculate(wristEncoder.getAbsolutePosition().getValueAsDouble(), targetPosition);
-        motor.set(pidOutput + Constants.Wrist.FF);
+        double percent = pidOutput + Constants.Wrist.FF;
+
+        // The kP ws tuned high to get to the position quickly, but need to set a max and min
+        // so the wrist doesn't go too quickly and overshoot the target by a lot
+        percent = Math.min(percent,0.13); // this MAXIMIZES percent to 0.13 sp we don't move too fast
+        percent = Math.max(percent,-0.04); // this MINIMIZES percent to -0.04 so we don't move too fast
+
+        // formulas get the wrist to within 5 degrees but the wrist needs a little more power to get to the setpoint
+        // only adjust for shots other than the Amp (and Trap doesn't use pid)
+        if (getTargetPosition() < Constants.Wrist.SETPOINT_AMP_ABSOLUTE ) {
+            if (Math.abs(pidController.getPositionError()) < (Constants.Wrist.ABSOLUTE_PER_DEGREE*5)) {
+                if (Math.abs(pidController.getPositionError()) > (Constants.Wrist.ABSOLUTE_PER_DEGREE * 0.6)) {
+                    if (percent > 0) {
+                        percent += (1.3*Constants.Wrist.FF); // 1.0 and 1.3  works pretty well, 1.7 shakes
+                    }
+                }
+            }
+        }
+
+        percent = Math.min(percent,0.13);
+        percent = Math.max(percent,-0.04);
+        motor.set(percent);
     }
 
     /**
@@ -280,7 +301,7 @@ public class Wrist extends SubsystemBase {
         motor.setIdleMode(CANSparkBase.IdleMode.kBrake);
         motor.enableVoltageCompensation(12);
 
-        motor.setOpenLoopRampRate(.25);
+//        motor.setOpenLoopRampRate(.25);
 
         MagnetSensorConfigs magSensorConfig = new MagnetSensorConfigs()
                 .withAbsoluteSensorRange(AbsoluteSensorRangeValue.Unsigned_0To1)
@@ -289,5 +310,6 @@ public class Wrist extends SubsystemBase {
         wristEncoder.getConfigurator().apply(new CANcoderConfiguration().withMagnetSensor(magSensorConfig));
 
         pidController = new PIDController(Constants.Wrist.kP, Constants.Wrist.kI, Constants.Wrist.kD);
+        pidController.setTolerance(Constants.Wrist.ABSOLUTE_PER_DEGREE*5);
     }
 }

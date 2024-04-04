@@ -348,7 +348,7 @@ public final class Constants {
         public static final double kI_FAR3 = 0.000;//0.001;               // 0.0000015; // 5800 RPM
 
         //Amp
-        public static final double RPM_AMP = 2000;
+        public static final double RPM_AMP = 0;//2000;
         public static final double RPM_MIN_AMP = 1900;
         public static final double FF_AMP = 0.000145; // gets to 1800
         public static final double kP_AMP = 0.00030;
@@ -356,18 +356,18 @@ public final class Constants {
     }
 
     public static final class Wrist { // tuned 02/22
-        public static final double INCREASE_ANGLE_PWR_PERC = 0.1;
-        public static final double INCREASE_ANGLE_PWR_PERC_CALIBRATION = 0.1;
-        public static final double DECREASE_ANGLE_PWR_PERC = 0.1;
-        public static final double DECREASE_ANGLE_PWR_PERC_CALIBRATION = 0.015;
-        public static final double FF = 0.0157; // 0.020 too much; // 0.007 too little;
-        public static final double kP = 1.0; // 0.9 works pretty well; // 0.5; //1.0
-        public static final double kI = 0.0000;
+        public static final double INCREASE_ANGLE_PWR_PERC = 0.05;
+        public static final double INCREASE_ANGLE_PWR_PERC_CALIBRATION = 0.05;//0.1;
+        public static final double DECREASE_ANGLE_PWR_PERC = 0.05;
+        public static final double DECREASE_ANGLE_PWR_PERC_CALIBRATION = 0.005;//0.015;
+        public static final double FF = 0.0157; // 0.0157; // 0.020 too much; // 0.007 too little;
+        public static final double kP = 2.0;// 1.5, 2.0 works pretty well, although it bounces a little, but we want to get the wrist there fast
+        public static final double kI = 0.000;
         public static final double kD = 0.0000;
 
         // Encoder setpoints and values
         // These are the encoder specific values
-        public static final double ENCODER_OFFSET_ABSOLUTE = -0.685400390625;//-0.237890625;//-0.1290039;//-0.850439; // this is determined either manually or via the auto-calibration
+        public static final double ENCODER_OFFSET_ABSOLUTE = -0.627294921875;//-0.237890625;//-0.1290039;//-0.850439; // this is determined either manually or via the auto-calibration
         public static final double ABSOLUTE_PER_DEGREE = 0.00647249; // 0.008333;
         // These are the values we want the bot to utilize
         public static final double KILL_LIMIT_ABSOLUTE = 0.87;
@@ -378,7 +378,8 @@ public final class Constants {
         public static final double MAX_LIMIT_DEGREES = (MAX_LIMIT_ABSOLUTE - MIN_LIMIT_ABSOLUTE)/ABSOLUTE_PER_DEGREE+MIN_LIMIT_DEGREES; // Convert MAX_LIMIT, for reference only
         public static final double SETPOINT_FAR3_ABSOLUTE = (71.71 - MIN_LIMIT_DEGREES) * ABSOLUTE_PER_DEGREE + MIN_LIMIT_ABSOLUTE;
         public static final double SETPOINT_FAR2_ABSOLUTE = (66.57 - MIN_LIMIT_DEGREES) * ABSOLUTE_PER_DEGREE + MIN_LIMIT_ABSOLUTE;
-        public static final double SETPOINT_FAR_ABSOLUTE  = (61.41 - MIN_LIMIT_DEGREES) * ABSOLUTE_PER_DEGREE + MIN_LIMIT_ABSOLUTE; // number in degrees, value in absolute
+//        public static final double SETPOINT_FAR_ABSOLUTE  = (61.41 - MIN_LIMIT_DEGREES) * ABSOLUTE_PER_DEGREE + MIN_LIMIT_ABSOLUTE; // number in degrees, value in absolute
+        public static final double SETPOINT_FAR_ABSOLUTE  = (62.5 - MIN_LIMIT_DEGREES) * ABSOLUTE_PER_DEGREE + MIN_LIMIT_ABSOLUTE; // number in degrees, value in absolute
         public static final double SETPOINT_MIDMIDFAR_ABSOLUTE  = (60.12 - MIN_LIMIT_DEGREES) * ABSOLUTE_PER_DEGREE + MIN_LIMIT_ABSOLUTE; // number in degrees, value in absolute
         public static final double SETPOINT_MIDFAR_ABSOLUTE  = (58.84 - MIN_LIMIT_DEGREES) * ABSOLUTE_PER_DEGREE + MIN_LIMIT_ABSOLUTE; // number in degrees, value in absolute
         public static final double SETPOINT_MID_ABSOLUTE  = (56.27 - MIN_LIMIT_DEGREES) * ABSOLUTE_PER_DEGREE + MIN_LIMIT_ABSOLUTE; // number in degrees, value in absolute
@@ -409,7 +410,7 @@ public final class Constants {
 
     public static final class Collector { // ToDo tune - remove when done
         public static final double COLLECT_PERCENT = 0.85; // done
-        public static final double EJECT_PERCENT = 0.2;
+        public static final double EJECT_PERCENT = 0.0;//0.2;
         public static final double PRE_SENSOR_AMPS = 30; // The current that will trigger the collector pre sensor
     }
 

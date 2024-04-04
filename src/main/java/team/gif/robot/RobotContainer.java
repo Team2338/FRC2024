@@ -43,7 +43,7 @@ public class RobotContainer {
         NamedCommands.registerCommand("AutonWristMidMidFar", new InstantCommand(Robot.wrist::setWristAuto));
         NamedCommands.registerCommand("AutonWristMidFar", new InstantCommand(Robot.wrist::setWristAuto));
         NamedCommands.registerCommand("AutonWristMid", new InstantCommand(Robot.wrist::setWristAuto));
-        NamedCommands.registerCommand("AutonWristMiddle", new InstantCommand(Robot.wrist::setWristAuto));
+        NamedCommands.registerCommand("AutonWristMiddle", new InstantCommand(Robot.wrist::setWristMiddlePosition));
         NamedCommands.registerCommand("AutonWristNear", new InstantCommand(Robot.wrist::setWristAuto));
         NamedCommands.registerCommand("AutonWristClose", new InstantCommand(Robot.wrist::setWristAuto));
         NamedCommands.registerCommand("AutonWristWall", new InstantCommand(Robot.wrist::setWristAuto));

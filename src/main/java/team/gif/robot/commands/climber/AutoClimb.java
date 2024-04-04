@@ -64,7 +64,7 @@ public class AutoClimb extends Command {
 
         if (elevatorRaisedToTop && climberLowered) {
             new TrapShoot().schedule();
-            System.out.println("We are done!");
+            System.out.println("Calling wrist trap ...");
         }
     }
 

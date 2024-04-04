@@ -55,12 +55,11 @@ public class Shoot extends Command {
                 (Robot.sensorMonitor.getIndexerSensorState() && !Robot.sensorMonitor.getShooterSensorState())) {
             Robot.indexer.setIndexer(Constants.Indexer.INDEXER_ONE_COLLECT_PERC, Constants.Indexer.INDEXER_TWO_COLLECT_PERC);
         } else {
-            Robot.indexer.stopIndexerHard();
+//-            Robot.indexer.stopIndexerHard(); // ToDo this was causing the indexer to stop briefly during the index, need to fix
         }
 
         if (Robot.sensorMonitor.getShooterSensorState()) {
 //            Robot.wrist.setTargetPosition(Robot.nextShot.getWristAngle());
-//            Robot.wrist.setTargetPosition(Robot.wrist.degreesToAbsolute(Robot.wrist.wristEstimatorDegrees()));
             Robot.wrist.setWristAuto();
         }
 
