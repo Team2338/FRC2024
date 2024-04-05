@@ -54,8 +54,8 @@ public class Shoot extends Command {
         }
 
         // mini indexer if note is in the bot but not in shooter
-        if (Robot.sensorMonitor.getCollectorSensorState() ||
-                (Robot.sensorMonitor.getIndexerSensorState() && !Robot.sensorMonitor.getShooterSensorState())) {
+        if (Robot.sensors.collector() ||
+                (Robot.sensors.indexer() && !Robot.sensors.shooter())) {
             Robot.indexer.setIndexer(Constants.Indexer.INDEXER_ONE_COLLECT_PERC, Constants.Indexer.INDEXER_TWO_COLLECT_PERC);
             indexingRequired = true;
         } else {
@@ -64,7 +64,7 @@ public class Shoot extends Command {
             }
         }
 
-        if (Robot.sensorMonitor.getShooterSensorState()) {
+        if (Robot.sensors.shooter()) {
             if (Robot.wrist.isAutoAngleEnabled()) {
                 Robot.wrist.setWristAuto();
             } else {
@@ -74,7 +74,7 @@ public class Shoot extends Command {
 
         if (((Robot.shooter.getShooterRPM() >= Robot.nextShot.getMinimumRPM() || isFiring) &&
                     Robot.wrist.isWristWithinTolerance() &&
-                    Robot.sensorMonitor.getShooterSensorState()) ||
+                    Robot.sensors.shooter()) ||
                 commandCounter++ >= 1.0*50) { // force shot after designated time
             //this may need to move down to line 48
             Robot.indexer.setIndexer(0, Constants.Indexer.INDEXER_TWO_SHOOT_PERC);

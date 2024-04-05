@@ -63,7 +63,7 @@ public class Robot extends TimedRobot {
     public static DriveSwerve driveSwerve;
     private static TelemetryFileLogger telemetryLogger;
     public static EventFileLogger eventLogger;
-    public static SensorMonitor sensorMonitor;
+    public static SensorMonitor sensors;
     public static Shooter shooter;
     public static Wrist wrist;
     public static Indexer indexer;
@@ -107,7 +107,7 @@ public class Robot extends TimedRobot {
         limelightShooter = new Limelight("limelight-shooter");
         limelightShooter.setDistanceEstimatorParams(35,16.50,57,4);
 
-        sensorMonitor = new SensorMonitor();
+        sensors = new SensorMonitor();
 
         if (isCompBot) {
             pigeon = new Pigeon(RobotMap.PIGEON_ID);
@@ -156,7 +156,7 @@ public class Robot extends TimedRobot {
         runningAutonomousMode = false;
 
         //Increase the speed the sensors update at to 10ms, with offset of 5 ms from teleopPeriodic to avoid conflicts
-        addPeriodic(() -> sensorMonitor.updateSensors(), 0.01, 0.005);
+        addPeriodic(() -> sensors.updateSensors(), 0.01, 0.005);
     }
 
     /**
@@ -284,7 +284,7 @@ public class Robot extends TimedRobot {
         telemetryLogger.addMetric("RPM_Actual", () -> shooter.getShooterRPM());
         telemetryLogger.addMetric("Target_Wrist", () -> wrist.absoluteToDegrees(wrist.getTargetPosition()));
         telemetryLogger.addMetric("Wrist_Actual", () -> wrist.absoluteToDegrees(wrist.getPosition()));
-        telemetryLogger.addMetric("Shooter_Sensor", () -> sensorMonitor.getShooterSensorState());
+        telemetryLogger.addMetric("Shooter_Sensor", () -> sensors.shooter());
         telemetryLogger.addMetric("Distance", () -> limelightShooter.getDistance());
         telemetryLogger.addMetric("YOffset", () -> limelightShooter.getYOffset());
         telemetryLogger.init();

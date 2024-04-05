@@ -24,7 +24,7 @@ public class AmpPosition extends Command {
     // Called every time the scheduler runs (~20ms) while the command is scheduled
     @Override
     public void execute() {
-        if (Robot.sensorMonitor.getShooterSensorState()) {
+        if (Robot.sensors.shooter()) {
             Robot.elevator.setTargetPosition(Constants.Elevator.AMP_POS);
 
             Robot.wrist.setTargetPosition(Robot.nextShot.getWristAngle());

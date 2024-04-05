@@ -31,15 +31,15 @@ public class SensorMonitor extends SubsystemBase {
         setShooterSensorState(shooterSensorPhysical.get());
     }
 
-    public boolean getCollectorSensorState() {
+    public boolean collector() {
         return collectorSensor;
     }
 
-    public boolean getIndexerSensorState() {
+    public boolean indexer() {
         return indexerSensor;
     }
 
-    public boolean getShooterSensorState() {
+    public boolean shooter() {
         return shooterSensor;
     }
 

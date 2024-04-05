@@ -31,7 +31,7 @@ public class RevFlyWheels extends Command {
     // Called every time the scheduler runs (~20ms) while the command is scheduled
     @Override
     public void execute() {
-        if (Robot.sensorMonitor.getShooterSensorState()) {
+        if (Robot.sensors.shooter()) {
             if (Robot.wrist.isAutoAngleEnabled()) {
                 Robot.wrist.setWristAuto();
             } else {

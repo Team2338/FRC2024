@@ -11,7 +11,6 @@ import team.gif.robot.commands.climber.AutoClimb;
 import team.gif.robot.commands.climber.HomeAll;
 import team.gif.robot.commands.drivetrain.AutoRotate;
 import team.gif.robot.commands.drivetrain.AutoRotateStage;
-import team.gif.robot.commands.climber.LowerClimberAndElevator;
 import team.gif.robot.commands.climber.RaiseClimberToTop;
 import team.gif.robot.commands.collector.NoteRumble;
 import team.gif.robot.commands.collector.ToggleCollectorDefault;
@@ -37,7 +36,6 @@ import team.gif.robot.commands.wrist.SetWristPos;
 import team.gif.robot.commands.wrist.SetWristPosAuto;
 import team.gif.robot.commands.wrist.WristAngleUp;
 import team.gif.robot.commands.wrist.WristAngleDown;
-import team.gif.robot.commands.shooter.TrapShoot;
 
 public class OI {
     /*
@@ -106,8 +104,8 @@ public class OI {
 //    public final Trigger tDPadDown = test.povDown();
 //    public final Trigger tDPadLeft = test.povLeft();
 
-    public final Trigger collectorGamePieceSensor = new Trigger(Robot.sensorMonitor::getCollectorSensorState);
-    public final Trigger shooterGamePieceSensor = new Trigger(Robot.sensorMonitor::getShooterSensorState);
+    public final Trigger collectorGamePieceSensor = new Trigger(Robot.sensors::collector);
+    public final Trigger shooterGamePieceSensor = new Trigger(Robot.sensors::shooter);
 
 
     public OI() {
