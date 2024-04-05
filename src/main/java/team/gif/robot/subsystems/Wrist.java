@@ -83,7 +83,7 @@ public class Wrist extends SubsystemBase {
     }
 
     /**
-     * Use PID to move the wrist to an absolute position between 0 and 1
+     * Use PID to move the wrist to the target position between 0 and 1
      */
     public void PIDWristMove() {
         double currentAngle = getPosition();
@@ -124,6 +124,9 @@ public class Wrist extends SubsystemBase {
         return feedForward;
     }
 
+    public boolean isWristWithinTolerance() {
+        return pidController.atSetpoint();
+    }
     /**
      * Get the current position of the wrist in absolute between 0 and 1
      * @return wrist position in ticks
@@ -383,5 +386,6 @@ public class Wrist extends SubsystemBase {
         wristEncoder.getConfigurator().apply(new CANcoderConfiguration().withMagnetSensor(magSensorConfig));
 
         pidController = new PIDController(Constants.Wrist.kP, Constants.Wrist.kI, Constants.Wrist.kD);
+        pidController.setTolerance(1.5* Constants.Wrist.ABSOLUTE_PER_DEGREE);
     }
 }

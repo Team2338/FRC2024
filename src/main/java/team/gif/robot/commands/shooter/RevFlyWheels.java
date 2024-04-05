@@ -7,6 +7,11 @@ public class RevFlyWheels extends Command {
 
     public int commandCounter;
 
+    /**
+     * Revs the flywheel according to the next target <br>
+     * Also sets the wrist target according to next target (or auto) <br>
+     * At conclusion of command (e.g. user releases button or shoot command interrupts), wrist will move due to wrist default command using PID <br>
+     */
     public RevFlyWheels() {
         super();
         addRequirements(Robot.shooter); // uncomment

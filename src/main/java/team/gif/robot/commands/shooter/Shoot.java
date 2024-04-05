@@ -67,9 +67,9 @@ public class Shoot extends Command {
         }
 
         if (((Robot.shooter.getShooterRPM() >= Robot.nextShot.getMinimumRPM() || isFiring) &&
-                (Robot.wrist.getPosition() >= (Robot.wrist.getTargetPosition()))     &&
-                Robot.sensorMonitor.getShooterSensorState()) ||
-                commandCounter++ >= 1.0*50) { //allow tolerance
+                    Robot.wrist.isWristWithinTolerance() &&
+                    Robot.sensorMonitor.getShooterSensorState()) ||
+                commandCounter++ >= 1.0*50) { // force shot after designated time
             //this may need to move down to line 48
             Robot.indexer.setIndexer(0, Constants.Indexer.INDEXER_TWO_SHOOT_PERC);
             isFiring = true;

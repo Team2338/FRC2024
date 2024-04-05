@@ -7,6 +7,10 @@ public class SetWristPos extends Command {
 
     double pressedCounter;
 
+    /**
+     * Press: Sets the wrist target position, does not move wrist <br>
+     * Hold: Sets the wrist target position, moves wrist <br>
+     */
     public SetWristPos() {
         super();
         addRequirements(Robot.wrist);

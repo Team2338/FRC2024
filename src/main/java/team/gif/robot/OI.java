@@ -152,7 +152,10 @@ public class OI {
         dDPadLeft.and(dStart.negate()).whileTrue(new MoveRightSlow());
         dDPadRight.and(dStart.negate()).whileTrue(new MoveLeftSlow());
 
-        dLTrigger.and(dRTrigger).whileTrue(new AutoClimb());
+//        dLTrigger.and(dRTrigger).whileTrue(new AutoClimb());
+        dRTrigger.whileTrue(new RevFlyWheels());
+        dRTrigger.onFalse(new InstantCommand(Robot.shooter::stop));
+        dLTrigger.onTrue(new Shoot().andThen(new WaitCommand(0.25).andThen(new MoveElevatorToBottom()))); //.andThen(new InstantCommand(Robot.wrist::setWristCollectPosition)));
 
         // calibrations
         dStart.and(dDPadUp).onTrue(new InstantCommand(Robot.pigeon::resetPigeonPosition).ignoringDisable(true));
