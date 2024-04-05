@@ -59,8 +59,11 @@ public class Shoot extends Command {
         }
 
         if (Robot.sensorMonitor.getShooterSensorState()) {
-//            Robot.wrist.setTargetPosition(Robot.nextShot.getWristAngle());
-            Robot.wrist.setWristAuto();
+            if (true) { // ToDo need to be able to use direct buttons
+                Robot.wrist.setWristAuto();
+            } else {
+                Robot.wrist.setTargetPosition(Robot.nextShot.getWristAngle());
+            }
         }
 
         if (((Robot.shooter.getShooterRPM() >= Robot.nextShot.getMinimumRPM() || isFiring) &&

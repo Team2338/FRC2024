@@ -7,7 +7,7 @@ import team.gif.robot.Robot;
 public class WristAngleUp extends Command {
     public WristAngleUp() {
         super();
-        addRequirements(Robot.shooter); // uncomment
+        addRequirements(Robot.wrist); // uncomment
     }
 
     // Called when the command is initially scheduled.

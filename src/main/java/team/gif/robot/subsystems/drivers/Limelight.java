@@ -17,6 +17,10 @@ public class Limelight {
     public static final int MODE_CAMERA    = 1;
     public static int test = 0;
 
+    public double _mountingAngleLLDegrees = -1;
+    public double _lensHeightInches = -1;
+    public double _goalHeightInches = -1;
+
     /**
      * Create a new limelight object.
      *
@@ -257,13 +261,45 @@ public class Limelight {
     }
 
     /**
-     * distance between the robot and the target/AprilTag.
+     * Stores the distance parameters for the getDistance method to be called
      * @param mountingAngleLLDegrees degrees back the limelight is rotated from perfectly vertical
      * @param lensHeightInches distance in inches from the center of the Limelight lens to the floor
      * @param goalHeightInches  distance from the target/AprilTag to the floor
-     * @return the distance in inches
+     */
+    public void setDistanceEstimatorParams(double mountingAngleLLDegrees, double lensHeightInches, double goalHeightInches) {
+        _mountingAngleLLDegrees = mountingAngleLLDegrees;
+        _lensHeightInches = lensHeightInches;
+        _goalHeightInches = goalHeightInches;
+    }
+
+    /**
+     * Distance between the robot and the target/AprilTag in inches.
+     * Distance parameters must be set using setDistanceEstimatorParams prior to calling this method <br>
+     * @return distance in inches <br>
+     *       returns -1 if the limelight does not have a target  <br>
+     *       returns -2 if the parameters were not set <br>
+     */
+    public double getDistance() {
+        if (_mountingAngleLLDegrees == -1 ||
+            _lensHeightInches == -1 ||
+            _goalHeightInches == -1 ){
+            return -2;
+        }
+        return DistanceEstimator(_mountingAngleLLDegrees,_lensHeightInches,_goalHeightInches);
+    }
+
+    /**
+     * distance between the robot and the target/AprilTag in inches
+     * @param mountingAngleLLDegrees degrees back the limelight is rotated from perfectly vertical
+     * @param lensHeightInches distance in inches from the center of the Limelight lens to the floor
+     * @param goalHeightInches  distance from the target/AprilTag to the floor
+     * @return the distance in inches, returns -1 if the limelight does not have a target
      */
     public double DistanceEstimator(double mountingAngleLLDegrees, double lensHeightInches, double goalHeightInches) {
+        if (!hasTarget()) {
+            return -1;
+        }
+
         double targetOffsetAngle_Vertical = getYOffset();
         double angleToGoalDegrees = mountingAngleLLDegrees + targetOffsetAngle_Vertical;
         double angleToGoalRadians = angleToGoalDegrees * (3.14159 / 180.0);

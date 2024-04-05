@@ -103,8 +103,9 @@ public class Robot extends TimedRobot {
         // autonomous chooser on the dashboard.
         elapsedTime = new Timer();
 
-        limelightShooter = new Limelight("limelight-shooter");
         limelightCollector = new Limelight("limelight-collect");
+        limelightShooter = new Limelight("limelight-shooter");
+        limelightShooter.setDistanceEstimatorParams(35,16.50,57);
 
         sensorMonitor = new SensorMonitor();
 
@@ -194,7 +195,6 @@ public class Robot extends TimedRobot {
 //        System.out.println("distance: " + distanceFeet + " ft " + distanceInches + " in");
 //        System.out.println("angle: " + wrist.wristEstimatorDegrees());
 
-        telemetryLogger.run();
     }
 
     /** This function is called once each time the robot enters Disabled mode. */
@@ -264,6 +264,8 @@ public class Robot extends TimedRobot {
                 (timeLeft <= 25.0 && timeLeft >= 21.0) ||
                 (timeLeft <= 5.0 && timeLeft >= 3.0));
 
+        telemetryLogger.run();
+
 //        shooter.updateShooterPID(); // used for tuning shooter PID using the dashboard
 //        double distance = Robot.limelightShooter.DistanceEstimator(35,16.50,57);
 //        System.out.println("distance: " + distance + " target: " + wrist.wristEstimatorDegrees() + " " + "actual: " + wrist.degreesToAbsolute(wrist.wristEstimatorDegrees()));
@@ -297,6 +299,8 @@ public class Robot extends TimedRobot {
         telemetryLogger.addMetric("Target_Wrist", () -> wrist.absoluteToDegrees(wrist.getTargetPosition()));
         telemetryLogger.addMetric("Wrist_Actual", () -> wrist.absoluteToDegrees(wrist.getPosition()));
         telemetryLogger.addMetric("Shooter_Sensor", () -> sensorMonitor.getShooterSensorState());
+        telemetryLogger.addMetric("Distance", () -> limelightShooter.getDistance());
+        telemetryLogger.addMetric("YOffset", () -> limelightShooter.getYOffset());
         telemetryLogger.init();
     }
 

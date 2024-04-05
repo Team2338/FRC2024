@@ -353,15 +353,24 @@ public final class Constants {
         public static final double FF_AMP = 0.000145; // gets to 1800
         public static final double kP_AMP = 0.00030;
         public static final double kI_AMP = 0.00000;
+
+        //Trap - only used for testing purposes. Trap shot is handled manually through % power, not PID
+        public static final double RPM_TRAP = 0;
+        public static final double RPM_MIN_TRAP = 0;
+        public static final double FF_TRAP = 0.00;
+        public static final double kP_TRAP = 0.00;
+        public static final double kI_TRAP = 0.00;
     }
 
     public static final class Wrist { // tuned 02/22
-        public static final double INCREASE_ANGLE_PWR_PERC = 0.05;
+        public static final double INCREASE_ANGLE_PWR_PERC = 0.1;
         public static final double INCREASE_ANGLE_PWR_PERC_CALIBRATION = 0.05;//0.1;
-        public static final double DECREASE_ANGLE_PWR_PERC = 0.05;
+        public static final double DECREASE_ANGLE_PWR_PERC = 0.04;
         public static final double DECREASE_ANGLE_PWR_PERC_CALIBRATION = 0.005;//0.015;
-        public static final double FF = 0.0157; // 0.0157; // 0.020 too much; // 0.007 too little;
-        public static final double kP = 2.0;// 1.5, 2.0 works pretty well, although it bounces a little, but we want to get the wrist there fast
+        // FF determined by removing PID and recording needed % power to hold at 90 degrees
+        // 0.05 moves the wrist, 0.04 held pretty well, .043 also works
+        public static final double FF = 0.043;
+        public static final double kP = 2.0; // we want to get the wrist to the desired position quickly
         public static final double kI = 0.000;
         public static final double kD = 0.0000;
 
