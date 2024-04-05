@@ -9,6 +9,7 @@ public class Shoot extends Command {
     boolean isFiring;
     double fireCounter;
     double commandCounter;
+    boolean indexingRequired;
 
     /**
      * Creates a new Shoot command. Pass in true in for auto mode.
@@ -32,6 +33,7 @@ public class Shoot extends Command {
         isFiring = false;
         fireCounter = 0;
         commandCounter = 0;
+        indexingRequired = false;
 
         Robot.indexer.stopIndexerCoast();
         //We need to remove the default command if we are in autonomous mode
@@ -51,11 +53,15 @@ public class Shoot extends Command {
             return;
         }
 
+        // mini indexer if note is in the bot but not in shooter
         if (Robot.sensorMonitor.getCollectorSensorState() ||
                 (Robot.sensorMonitor.getIndexerSensorState() && !Robot.sensorMonitor.getShooterSensorState())) {
             Robot.indexer.setIndexer(Constants.Indexer.INDEXER_ONE_COLLECT_PERC, Constants.Indexer.INDEXER_TWO_COLLECT_PERC);
+            indexingRequired = true;
         } else {
-//-            Robot.indexer.stopIndexerHard(); // ToDo this was causing the indexer to stop briefly during the index, need to fix
+            if (indexingRequired) {
+                Robot.indexer.stopIndexerHard(); // ToDo this was causing the indexer to stop briefly during the index, need to test
+            }
         }
 
         if (Robot.sensorMonitor.getShooterSensorState()) {
