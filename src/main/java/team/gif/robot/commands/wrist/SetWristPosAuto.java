@@ -20,8 +20,10 @@ public class SetWristPosAuto extends Command {
     // Called every time the scheduler runs (~20ms) while the command is scheduled
     @Override
     public void execute() {
-        Robot.wrist.setWristAuto();
-        Robot.wrist.PIDWristMove();
+        if (Robot.sensorMonitor.getShooterSensorState()) {
+            Robot.wrist.setWristAuto();
+            Robot.wrist.PIDWristMove();
+        }
     }
 
     // Return true when the command should end, false if it should continue. Runs every ~20ms.
