@@ -18,13 +18,14 @@ public class Shooter extends SubsystemBase {
 
     private shootParams currentShot;
 
-    private double targetRPM = 0;
+    private double targetRPM;
 
     public Shooter() {
 //        shooterNeo = new CANSparkMax(RobotMap.SHOOTER_ID, CANSparkLowLevel.MotorType.kBrushless); // Leave for shooter Neo
         shooterMotor = new CANSparkFlex(RobotMap.SHOOTER_ID, CANSparkLowLevel.MotorType.kBrushless);
         configShooter();
         Robot.limelightShooter.setPipeline(0);
+        targetRPM = 0;
     }
 
     public void setVoltagePercent(double percent) {
@@ -33,7 +34,7 @@ public class Shooter extends SubsystemBase {
     }
 
     /**
-     * Sets the shooter RPM
+     * Sets the shooter velocity (RPM)
      *
      * @param rpm Desired velocity of shooter in RPM
      */
@@ -43,18 +44,27 @@ public class Shooter extends SubsystemBase {
         pidShooter.setReference(rpm, CANSparkFlex.ControlType.kVelocity);
     }
 
+    /**
+     * Gets the shooter target velocity (RPM)
+     *
+     * @return  rpm Target velocity of shooter in RPM
+     */
     public double getTargetRPM() {
         return targetRPM;
     }
 
     /**
-     * Sets up the shooter RPM and revs the flywheel
+     * Loads the "next shot" shooter PID values into the motor controllers <br>
+     * Updates current_shot with next_shot values (wrist angle, RPM, PID values) <br>
+     * Sets the target RPM via calling the setShooterRPM method<br>
+     * Revs the flywheel <br>
+     * Does not move wrist <br>
+     * <br>
      *
-     * @param rpm Desired velocity of shooter in RPM
      */
-    public void setupAndRev(double rpm) {
+    public void setupAndRev() {
         setupNextShot();
-        setShooterRPM(rpm);
+        setShooterRPM(Robot.nextShot.getShooterRPM());
     }
 
 
@@ -62,6 +72,11 @@ public class Shooter extends SubsystemBase {
         setShooterRPM(Constants.Shooter.IDLE_RPM);
     }
 
+    /**
+     * Gets the shooter current velocity (RPM)
+     *
+     * @return velocity of shooter in RPM
+     */
     public double getShooterRPM() {
 //        return shooterNeo.getEncoder().getVelocity(); // Leave for shooter Neo
         return shooterMotor.getEncoder().getVelocity();
@@ -71,6 +86,11 @@ public class Shooter extends SubsystemBase {
         return getShooterRPM() > Robot.nextShot.getMinimumRPM();
     }
 
+    /**
+     * Stops the shooter motor by setting voltage to 0 <br>
+     * Coats the shooter down to 0 velocity rather than PID hard stop
+     *
+     */
     public void stop() {
         shooterMotor.setVoltage(0);
     }

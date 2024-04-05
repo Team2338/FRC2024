@@ -359,8 +359,6 @@ public class Wrist extends SubsystemBase {
         motor.setIdleMode(CANSparkBase.IdleMode.kBrake);
         motor.enableVoltageCompensation(12);
 
-//        motor.setOpenLoopRampRate(.25);
-
         MagnetSensorConfigs magSensorConfig = new MagnetSensorConfigs()
                 .withAbsoluteSensorRange(AbsoluteSensorRangeValue.Unsigned_0To1)
                 .withMagnetOffset(Constants.Wrist.ENCODER_OFFSET_ABSOLUTE)
@@ -368,6 +366,5 @@ public class Wrist extends SubsystemBase {
         wristEncoder.getConfigurator().apply(new CANcoderConfiguration().withMagnetSensor(magSensorConfig));
 
         pidController = new PIDController(Constants.Wrist.kP, Constants.Wrist.kI, Constants.Wrist.kD);
-        pidController.setTolerance(Constants.Wrist.ABSOLUTE_PER_DEGREE*5);
     }
 }

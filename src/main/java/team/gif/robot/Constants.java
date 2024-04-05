@@ -364,8 +364,8 @@ public final class Constants {
 
     public static final class Wrist { // tuned 02/22
         public static final double INCREASE_ANGLE_PWR_PERC = 0.1;
-        public static final double INCREASE_ANGLE_PWR_PERC_CALIBRATION = 0.05;//0.1;
-        public static final double DECREASE_ANGLE_PWR_PERC = 0.04;
+        public static final double INCREASE_ANGLE_PWR_PERC_CALIBRATION = 0.07;//0.1;
+        public static final double DECREASE_ANGLE_PWR_PERC = 0.015; // shooter falls on own now
         public static final double DECREASE_ANGLE_PWR_PERC_CALIBRATION = 0.005;//0.015;
         // FF determined by removing PID and recording needed % power to hold at 90 degrees
         // 0.05 moves the wrist, 0.04 held pretty well, .043 also works
@@ -376,7 +376,7 @@ public final class Constants {
 
         // Encoder setpoints and values
         // These are the encoder specific values
-        public static final double ENCODER_OFFSET_ABSOLUTE = -0.627294921875;//-0.237890625;//-0.1290039;//-0.850439; // this is determined either manually or via the auto-calibration
+        public static final double ENCODER_OFFSET_ABSOLUTE = -0.627294921875;// this is determined either manually or via the auto-calibration
         public static final double ABSOLUTE_PER_DEGREE = 0.00647249; // 0.008333;
         // These are the values we want the bot to utilize
         public static final double KILL_LIMIT_ABSOLUTE = 0.87;
@@ -387,7 +387,6 @@ public final class Constants {
         public static final double MAX_LIMIT_DEGREES = (MAX_LIMIT_ABSOLUTE - MIN_LIMIT_ABSOLUTE)/ABSOLUTE_PER_DEGREE+MIN_LIMIT_DEGREES; // Convert MAX_LIMIT, for reference only
         public static final double SETPOINT_FAR3_ABSOLUTE = (71.71 - MIN_LIMIT_DEGREES) * ABSOLUTE_PER_DEGREE + MIN_LIMIT_ABSOLUTE;
         public static final double SETPOINT_FAR2_ABSOLUTE = (66.57 - MIN_LIMIT_DEGREES) * ABSOLUTE_PER_DEGREE + MIN_LIMIT_ABSOLUTE;
-//        public static final double SETPOINT_FAR_ABSOLUTE  = (61.41 - MIN_LIMIT_DEGREES) * ABSOLUTE_PER_DEGREE + MIN_LIMIT_ABSOLUTE; // number in degrees, value in absolute
         public static final double SETPOINT_FAR_ABSOLUTE  = (62.5 - MIN_LIMIT_DEGREES) * ABSOLUTE_PER_DEGREE + MIN_LIMIT_ABSOLUTE; // number in degrees, value in absolute
         public static final double SETPOINT_MIDMIDFAR_ABSOLUTE  = (60.12 - MIN_LIMIT_DEGREES) * ABSOLUTE_PER_DEGREE + MIN_LIMIT_ABSOLUTE; // number in degrees, value in absolute
         public static final double SETPOINT_MIDFAR_ABSOLUTE  = (58.84 - MIN_LIMIT_DEGREES) * ABSOLUTE_PER_DEGREE + MIN_LIMIT_ABSOLUTE; // number in degrees, value in absolute

@@ -75,7 +75,7 @@ public class Shoot extends Command {
             isFiring = true;
             Robot.killAutoAlign = true;
         } else {
-            Robot.shooter.setupAndRev(Robot.nextShot.getShooterRPM());
+            Robot.shooter.setupAndRev();
         }
 
         if (isFiring) {

@@ -21,7 +21,7 @@ public class AutonRevFlywheel extends Command {
     // Called every time the scheduler runs (~20ms) while the command is scheduled
     @Override
     public void execute() {
-        Robot.shooter.setupAndRev(Robot.nextShot.getShooterRPM());
+        Robot.shooter.setupAndRev();
     }
 
     // Return true when the command should end, false if it should continue. Runs every ~20ms.

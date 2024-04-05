@@ -28,7 +28,7 @@ public class AmpPosition extends Command {
             Robot.elevator.setTargetPosition(Constants.Elevator.AMP_POS);
 
             Robot.wrist.setTargetPosition(Robot.nextShot.getWristAngle());
-            Robot.shooter.setupAndRev(Robot.nextShot.getShooterRPM());
+            Robot.shooter.setupAndRev();
             isComplete = true;
         }
     }

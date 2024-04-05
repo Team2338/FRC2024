@@ -27,11 +27,14 @@ public class RevFlyWheels extends Command {
     @Override
     public void execute() {
         if (Robot.sensorMonitor.getShooterSensorState()) {
-//            Robot.wrist.setTargetPosition(Robot.nextShot.getWristAngle());
-            Robot.wrist.setWristAuto();
+            if (true) { // ToDo need to be able to use direct buttons
+                Robot.wrist.setWristAuto();
+            } else {
+                Robot.wrist.setTargetPosition(Robot.nextShot.getWristAngle());
+            }
         }
 
-        Robot.shooter.setupAndRev(Robot.nextShot.getShooterRPM());
+        Robot.shooter.setupAndRev();
 
         if (Robot.shooter.getShooterRPM() >= Robot.nextShot.getMinimumRPM() && !Robot.runningAutonomousMode) {
             Robot.oi.setRumble(true);

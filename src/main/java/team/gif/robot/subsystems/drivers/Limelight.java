@@ -20,6 +20,7 @@ public class Limelight {
     public double _mountingAngleLLDegrees = -1;
     public double _lensHeightInches = -1;
     public double _goalHeightInches = -1;
+    public double _offsetInches = 0; // offset to be added to the calculated distance. Useful if, for example, shooter is in center of bot and limelight is on edge
 
     /**
      * Create a new limelight object.
@@ -266,10 +267,14 @@ public class Limelight {
      * @param lensHeightInches distance in inches from the center of the Limelight lens to the floor
      * @param goalHeightInches  distance from the target/AprilTag to the floor
      */
-    public void setDistanceEstimatorParams(double mountingAngleLLDegrees, double lensHeightInches, double goalHeightInches) {
+    public void setDistanceEstimatorParams(double mountingAngleLLDegrees,
+                                           double lensHeightInches,
+                                           double goalHeightInches,
+                                           double offsetInches) {
         _mountingAngleLLDegrees = mountingAngleLLDegrees;
         _lensHeightInches = lensHeightInches;
         _goalHeightInches = goalHeightInches;
+        _offsetInches = offsetInches;
     }
 
     /**
@@ -285,7 +290,7 @@ public class Limelight {
             _goalHeightInches == -1 ){
             return -2;
         }
-        return DistanceEstimator(_mountingAngleLLDegrees,_lensHeightInches,_goalHeightInches);
+        return DistanceEstimator(_mountingAngleLLDegrees,_lensHeightInches,_goalHeightInches,_offsetInches);
     }
 
     /**
@@ -295,7 +300,7 @@ public class Limelight {
      * @param goalHeightInches  distance from the target/AprilTag to the floor
      * @return the distance in inches, returns -1 if the limelight does not have a target
      */
-    public double DistanceEstimator(double mountingAngleLLDegrees, double lensHeightInches, double goalHeightInches) {
+    public double DistanceEstimator(double mountingAngleLLDegrees, double lensHeightInches, double goalHeightInches, double offsetInches) {
         if (!hasTarget()) {
             return -1;
         }
@@ -305,6 +310,6 @@ public class Limelight {
         double angleToGoalRadians = angleToGoalDegrees * (3.14159 / 180.0);
 
         //calculate distance (shooter is 4 inches behind limelight)
-        return 4.0 + (goalHeightInches - lensHeightInches) / Math.tan(angleToGoalRadians);
+        return offsetInches + (goalHeightInches - lensHeightInches) / Math.tan(angleToGoalRadians);
     }
 }
