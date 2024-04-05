@@ -29,8 +29,11 @@ public class Wrist extends SubsystemBase {
     // Stores the last good value of the wrist estimator. This is retained
     // in case the limelight loses the target. The value is retained for a
     // specified amount of time
-    double lastWristEstimateDegrees = Constants.Wrist.MIN_LIMIT_DEGREES;
-    double lastWristEstimateTimestamp = 0;
+    private double lastWristEstimateDegrees = Constants.Wrist.MIN_LIMIT_DEGREES;
+    private double lastWristEstimateTimestamp = 0;
+
+    // Other subsystems need to know if the bot is using limelight or user selected wrist angle
+    private boolean autoAngleEnabled;
 
     public Wrist() throws Exception {
         motor = new CANSparkMax(RobotMap.WRIST_ID, CANSparkLowLevel.MotorType.kBrushless);
@@ -45,6 +48,8 @@ public class Wrist extends SubsystemBase {
 
         // set the initial wrist position so PID can hold the current position when first enabled
         targetPosition = getPosition();
+
+        autoAngleEnabled = false;
     }
 
     public String getWristDegrees_Shuffleboard() {
@@ -276,6 +281,18 @@ public class Wrist extends SubsystemBase {
      */
     public void setWristAuto() {
         targetPosition = degreesToAbsolute(wristEstimatorDegrees());
+    }
+
+    public void enableAutoAngle() {
+        autoAngleEnabled = true;
+    }
+
+    public void disableAutoAngle() {
+        autoAngleEnabled = false;
+    }
+
+    public boolean isAutoAngleEnabled() {
+        return autoAngleEnabled;
     }
 
     /**
