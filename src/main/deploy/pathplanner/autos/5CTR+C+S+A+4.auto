@@ -18,15 +18,22 @@
           }
         },
         {
-          "type": "path",
+          "type": "parallel",
           "data": {
-            "pathName": "5CTR+C-Away"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "AutonWristMiddle"
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "AutonRevFlywheel"
+                }
+              },
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "5CTR+C-Away"
+                }
+              }
+            ]
           }
         },
         {
@@ -36,15 +43,22 @@
           }
         },
         {
-          "type": "path",
+          "type": "parallel",
           "data": {
-            "pathName": "5CTR+C+S"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "AutonWristMiddle"
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "AutonRevFlywheel"
+                }
+              },
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "5CTR+C+S"
+                }
+              }
+            ]
           }
         },
         {
@@ -57,12 +71,6 @@
           "type": "path",
           "data": {
             "pathName": "5CTR+C+S+A"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "AutonWristMidMidFar"
           }
         },
         {
@@ -98,12 +106,6 @@
                           {
                             "type": "named",
                             "data": {
-                              "name": "AutonWristMiddle"
-                            }
-                          },
-                          {
-                            "type": "named",
-                            "data": {
                               "name": "AutonRevFlywheel"
                             }
                           }
@@ -124,12 +126,6 @@
                 "type": "named",
                 "data": {
                   "name": "AutonRotate"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "AutonWristMid"
                 }
               }
             ]

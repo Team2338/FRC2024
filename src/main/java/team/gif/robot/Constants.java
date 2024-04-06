@@ -361,9 +361,9 @@ public final class Constants {
         public static final double kP_TRAP = 0.00;
         public static final double kI_TRAP = 0.00;
 
-        //Amp
+        //Auto
         public static final double RPM_AUTOSHOT = 6200;
-        public static final double RPM_MIN_AUTOSHOT = 6000;
+        public static final double RPM_MIN_AUTOSHOT = 4200;
         public static final double FF_AUTOSHOT = 0.000155; // gets to 1800
         public static final double kP_AUTOSHOT = 0.00030;
         public static final double kI_AUTOSHOT = 0.00000;

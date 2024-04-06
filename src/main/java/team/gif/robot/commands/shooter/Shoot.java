@@ -48,7 +48,7 @@ public class Shoot extends Command {
     // Called every time the scheduler runs (~20ms) while the command is scheduled
     @Override
     public void execute() {
-        if (Robot.runningAutonomousMode && !Robot.diagnostics.getRobotHasNote()) {
+        if (Robot.runningAutonomousMode && !Robot.diagnostics.getRobotHasNote() && !isFiring) {
             fireCounter = 300; // if the robot doesn't have a note, abort immediately
             return;
         }
@@ -71,15 +71,17 @@ public class Shoot extends Command {
                 Robot.wrist.setTargetPosition(Robot.nextShot.getWristAngle());
             }
         }
-
+//        System.out.println(Robot.shooter.getShooterRPM() + " " + Robot.nextShot.getMinimumRPM() + " " + isFiring +" " + Robot.wrist.isWristWithinTolerance() + " " + Robot.sensors.shooter());
         if (((Robot.shooter.getShooterRPM() >= Robot.nextShot.getMinimumRPM() || isFiring) &&
                     Robot.wrist.isWristWithinTolerance() &&
                     Robot.sensors.shooter()) ||
-                commandCounter++ >= 1.0*50) { // force shot after designated time
+                commandCounter++ >= 1.0*50   ||
+                isFiring) { // force shot after designated time
             //this may need to move down to line 48
             Robot.indexer.setIndexer(0, Constants.Indexer.INDEXER_TWO_SHOOT_PERC);
             isFiring = true;
             Robot.killAutoAlign = true;
+//            System.out.println("fired");
         } else {
             Robot.shooter.setupAndRev();
         }
@@ -92,13 +94,13 @@ public class Shoot extends Command {
     // Return true when the command should end, false if it should continue. Runs every ~20ms.
     @Override
     public boolean isFinished() {
-        return fireCounter > (0.25*50); // need to run the indexer for 0.25 seconds to push note through
+        return fireCounter > (3.0*50); // need to run the indexer for 0.25 seconds to push note through
     }
 
     // Called when the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
-        System.out.println("Shoot seconds: " + (commandCounter * 0.02));
+        System.out.println("Shoot seconds: " + (commandCounter) + " fire counter: " + fireCounter );
         Robot.indexer.stopIndexerCoast();
         Robot.shooter.setVoltagePercent(0);
         if (Robot.indexer.getDefaultCommand() == null) {

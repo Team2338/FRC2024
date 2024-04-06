@@ -60,5 +60,6 @@ public class RevFlyWheels extends Command {
         // don't want to set shooter RPM to 0 because the shoot command is taking over
         // instead, use onFalse in OI and call shooter.stop()
         Robot.oi.setRumble(false);
+        System.out.println("REvFlyWheel ended");
     }
 }
