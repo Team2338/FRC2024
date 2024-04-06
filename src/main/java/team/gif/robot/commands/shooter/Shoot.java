@@ -64,7 +64,7 @@ public class Shoot extends Command {
             }
         }
 
-        if (Robot.sensors.shooter()) {
+        if (!isFiring && Robot.sensors.shooter()) {
             if (Robot.wrist.isAutoAngleEnabled()) {
                 Robot.wrist.setWristAuto();
             } else {
