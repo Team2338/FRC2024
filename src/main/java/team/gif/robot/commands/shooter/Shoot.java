@@ -60,7 +60,7 @@ public class Shoot extends Command {
             indexingRequired = true;
         } else {
             if (indexingRequired) {
-                Robot.indexer.stopIndexerHard(); // ToDo this was causing the indexer to stop briefly during the index, need to test
+                Robot.indexer.stopIndexerHard();
             }
         }
 
