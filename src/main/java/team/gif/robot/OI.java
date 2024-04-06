@@ -138,11 +138,11 @@ public class OI {
 //        dB.whileTrue(new RotateClockwise());
 //        dX.whileTrue(new RotateCounterClockwise());
         dRBump.whileTrue(new EnableRobotOrientedMode());
-        dY.whileTrue(new FullIndexerReverse());
+        dY.whileTrue(new CollectorManualControl());
 
         dX.whileTrue(new AutoRotateStage(120).andThen(new AutoStrafeStage()));
         dB.whileTrue(new AutoRotateStage(240).andThen(new AutoStrafeStage()));
-        dY.whileTrue(new AutoRotateStage(0).andThen(new AutoStrafeStage()));
+//        dY.whileTrue(new AutoRotateStage(0).andThen(new AutoStrafeStage()));
         dA.onTrue(new AutoRotate());
 
         dDPadUp.and(dStart.negate()).whileTrue(new MoveCloserSlow());
