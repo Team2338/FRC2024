@@ -19,7 +19,7 @@ import edu.wpi.first.math.util.Units;
  */
 public final class Constants {
 
-    public static final double debounceDefault = 0.020;
+    public static final double debounceDefault = 0.040;
 
     public static final class Drivetrain { // ToDo tune - remove when done
         //public static final double DRIVE_WHEEL_RADIUS = 0.05; // meters? Must be unit of velocity
@@ -348,7 +348,7 @@ public final class Constants {
         public static final double kI_FAR3 = 0.000;//0.001;               // 0.0000015; // 5800 RPM
 
         //Amp
-        public static final double RPM_AMP = 0;//2000;
+        public static final double RPM_AMP = 2000;
         public static final double RPM_MIN_AMP = 1900;
         public static final double FF_AMP = 0.000145; // gets to 1800
         public static final double kP_AMP = 0.00030;
@@ -360,6 +360,13 @@ public final class Constants {
         public static final double FF_TRAP = 0.00;
         public static final double kP_TRAP = 0.00;
         public static final double kI_TRAP = 0.00;
+
+        //Amp
+        public static final double RPM_AUTOSHOT = 6200;
+        public static final double RPM_MIN_AUTOSHOT = 6000;
+        public static final double FF_AUTOSHOT = 0.000155; // gets to 1800
+        public static final double kP_AUTOSHOT = 0.00030;
+        public static final double kI_AUTOSHOT = 0.00000;
     }
 
     public static final class Wrist { // tuned 02/22
@@ -399,6 +406,7 @@ public final class Constants {
         public static final double SETPOINT_TRAP_ABSOLUTE = (87.16 - MIN_LIMIT_DEGREES) * ABSOLUTE_PER_DEGREE + MIN_LIMIT_ABSOLUTE; // number in degrees, value in absolute
         public static final double SETPOINT_TRAP_FINAL_ABSOLUTE = (51.12 - MIN_LIMIT_DEGREES) * ABSOLUTE_PER_DEGREE + MIN_LIMIT_ABSOLUTE; // number in degrees, value in absolute
         public static final double SETPOINT_AMP_ABSOLUTE = (129.65 - MIN_LIMIT_DEGREES) * ABSOLUTE_PER_DEGREE + MIN_LIMIT_ABSOLUTE; // number in degrees, value in absolute
+        public static final double SETPOINT_AUTOSHOT_ABSOLUTE = SETPOINT_WALL_ABSOLUTE;
         public static final double SAFE_STAGE_DEGREES = 33;
     }
 

@@ -1,11 +1,10 @@
 package team.gif.robot.commands.wrist;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import team.gif.lib.shootParams;
 import team.gif.robot.Robot;
 
 public class SetWristPosAuto extends Command {
-
-    double pressedCounter;
 
     public SetWristPosAuto() {
         super();
@@ -15,6 +14,7 @@ public class SetWristPosAuto extends Command {
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
+        Robot.nextShot = shootParams.AUTOSHOT;
     }
 
     // Called every time the scheduler runs (~20ms) while the command is scheduled

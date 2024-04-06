@@ -225,8 +225,6 @@ public class Robot extends TimedRobot {
             runAutoScheduler = false;
             elapsedTime.stop();
         }
-
-        System.out.println(diagnostics.getRobotHasNote());
     }
 
     @Override

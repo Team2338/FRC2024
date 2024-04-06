@@ -49,7 +49,6 @@ public class Shoot extends Command {
     @Override
     public void execute() {
         if (Robot.runningAutonomousMode && !Robot.diagnostics.getRobotHasNote()) {
-            System.out.println("Aborting Shot");
             fireCounter = 300; // if the robot doesn't have a note, abort immediately
             return;
         }
@@ -99,6 +98,7 @@ public class Shoot extends Command {
     // Called when the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
+        System.out.println("Shoot seconds: " + (commandCounter * 0.02));
         Robot.indexer.stopIndexerCoast();
         Robot.shooter.setVoltagePercent(0);
         if (Robot.indexer.getDefaultCommand() == null) {

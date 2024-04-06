@@ -265,14 +265,14 @@ public class Wrist extends SubsystemBase {
     }
 
     /**
-     * Sets the target position to the Amp setpoint defined in constants.java. Does noy move wrist.
+     * Sets the target position to the Amp setpoint defined in constants.java. Does not move wrist.
      */
     public void setWristTrapPosition() {
         Robot.nextShot = shootParams.TRAP;
     }
 
     /**
-     * Sets the target position to the Collect setpoint defined in constants.java. Does not move wrist.
+     * Sets the target position to the Collect setpoint defined in constants.java. This method moves the wrist (indirectly).
      */
     public void setWristCollectPosition() {
         targetPosition = Constants.Wrist.SETPOINT_COLLECT_ABSOLUTE;
@@ -280,9 +280,10 @@ public class Wrist extends SubsystemBase {
 
     /**
      * Sets the target position of the wrist in ticks based on the Limelight
-     * wrist angle estimator method. Does not move wrist.
+     * wrist angle estimator method. This method moves the wrist (indirectly).
      */
     public void setWristAuto() {
+        Robot.nextShot = shootParams.AUTOSHOT;
         targetPosition = degreesToAbsolute(wristEstimatorDegrees());
     }
 
