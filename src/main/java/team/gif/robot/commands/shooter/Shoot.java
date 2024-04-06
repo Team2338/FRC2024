@@ -49,6 +49,7 @@ public class Shoot extends Command {
     @Override
     public void execute() {
         if (Robot.runningAutonomousMode && !Robot.diagnostics.getRobotHasNote()) {
+            System.out.println("Aborting Shot");
             fireCounter = 300; // if the robot doesn't have a note, abort immediately
             return;
         }

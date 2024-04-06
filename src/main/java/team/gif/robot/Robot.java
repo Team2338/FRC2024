@@ -207,6 +207,8 @@ public class Robot extends TimedRobot {
 
         autonomousCommand = robotContainer.getAutonomousCommand(chosenAuto);
 
+        wrist.enableAutoAngle();
+
         elapsedTime.reset();
         elapsedTime.start();
         runAutoScheduler = true;
@@ -223,6 +225,8 @@ public class Robot extends TimedRobot {
             runAutoScheduler = false;
             elapsedTime.stop();
         }
+
+        System.out.println(diagnostics.getRobotHasNote());
     }
 
     @Override

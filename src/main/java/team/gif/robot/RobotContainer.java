@@ -43,14 +43,14 @@ public class RobotContainer {
         NamedCommands.registerCommand("AutonWristMidMidFar", new InstantCommand(Robot.wrist::setWristAuto));
         NamedCommands.registerCommand("AutonWristMidFar", new InstantCommand(Robot.wrist::setWristAuto));
         NamedCommands.registerCommand("AutonWristMid", new InstantCommand(Robot.wrist::setWristAuto));
-        NamedCommands.registerCommand("AutonWristMiddle", new InstantCommand(Robot.wrist::setWristMiddlePosition));
+        NamedCommands.registerCommand("AutonWristMiddle", new InstantCommand(Robot.wrist::setWristAuto));
         NamedCommands.registerCommand("AutonWristNear", new InstantCommand(Robot.wrist::setWristAuto));
         NamedCommands.registerCommand("AutonWristClose", new InstantCommand(Robot.wrist::setWristAuto));
         NamedCommands.registerCommand("AutonWristWall", new InstantCommand(Robot.wrist::setWristAuto));
 
         // Used in "Autos" - shoots (and may set wrist first0
         NamedCommands.registerCommand("AutonShoot", new Shoot(true));
-        NamedCommands.registerCommand("AutonShootWall", new InstantCommand(Robot.wrist::setWristAuto).andThen(new Shoot(true))); // used for first shot
+        NamedCommands.registerCommand("AutonShootWall", new InstantCommand(Robot.wrist::setWristWallPosition).andThen(new Shoot(true))); // used for first shot
         NamedCommands.registerCommand("AutonRotate", new AutoRotate());
 
         // Configure the trigger bindings
