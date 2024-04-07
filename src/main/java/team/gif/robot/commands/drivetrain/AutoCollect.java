@@ -7,9 +7,8 @@ import team.gif.robot.Robot;
 import team.gif.robot.commands.led.FlashLEDTargetAlign;
 
 public class AutoCollect extends Command {
-    double xOffset;
     boolean isComplete;
-    private SlewRateLimiter turnLimiter;
+    //private SlewRateLimiter turnLimiter;
     private SlewRateLimiter forwardLimiter;
     private SlewRateLimiter strafeLimiter;
     double commandCounter;
@@ -25,7 +24,7 @@ public class AutoCollect extends Command {
     public void initialize() {
         isComplete = false;
         Robot.killAutoAlign = false;
-        turnLimiter = new SlewRateLimiter(Constants.ModuleConstants.TELE_DRIVE_MAX_ANGULAR_ACCELERATION_UNITS_PER_SECOND);
+        //turnLimiter = new SlewRateLimiter(Constants.ModuleConstants.TELE_DRIVE_MAX_ANGULAR_ACCELERATION_UNITS_PER_SECOND);
         strafeLimiter = new SlewRateLimiter(Constants.ModuleConstants.TELE_DRIVE_MAX_ACCELERATION_UNITS_PER_SECOND);
         forwardLimiter = new SlewRateLimiter(Constants.ModuleConstants.TELE_DRIVE_MAX_ACCELERATION_UNITS_PER_SECOND);
         commandCounter = 0;
@@ -53,14 +52,14 @@ public class AutoCollect extends Command {
             yOffset = Robot.limelightCollector.getYOffset();
             targetCounter = 0;
 
-            if (xOffset <= -2.0 || xOffset >= 2.0) {
+            if (xOffset <= -2.0 || xOffset >= 2.0 && yOffset <= -2.0 || yOffset >= 2.0) {
                 if (Robot.collector.getPreSensorState()) {
                     isComplete = true;
                     return;
                 }
                 //rotation (I'm not sure if we need to rotate)
-                rot = Robot.driveSwerve.limelightRotateMath(xOffset);
-                rot = turnLimiter.calculate(rot) * Constants.ModuleConstants.TELE_DRIVE_MAX_ANGULAR_SPEED_RADIANS_PER_SECOND;
+                //rot = Robot.driveSwerve.limelightRotateMath(xOffset);
+                //rot = turnLimiter.calculate(rot) * Constants.ModuleConstants.TELE_DRIVE_MAX_ANGULAR_SPEED_RADIANS_PER_SECOND;
 
                 //forward
                 forward = Robot.driveSwerve.limelightRotateMath(yOffset);
@@ -70,7 +69,7 @@ public class AutoCollect extends Command {
                 strafe = Robot.driveSwerve.limelightRotateMath(xOffset);
                 strafe = strafeLimiter.calculate(strafe) * Constants.ModuleConstants.TELE_DRIVE_MAX_ACCELERATION_UNITS_PER_SECOND;
 
-                Robot.swerveDrivetrain.drive(forward,strafe,rot);
+                Robot.swerveDrivetrain.drive(forward,strafe,0);
             } else {
                 isComplete = true;
                 new FlashLEDTargetAlign().schedule();
