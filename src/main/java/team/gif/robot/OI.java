@@ -24,7 +24,6 @@ import team.gif.robot.commands.drivetrain.MoveLeftSlow;
 import team.gif.robot.commands.drivetrain.MoveRightSlow;
 import team.gif.robot.commands.elevator.MoveElevatorToBottom;
 import team.gif.robot.commands.elevator.MoveElevatorToTop;
-import team.gif.robot.commands.indexer.FullIndexerReverse;
 import team.gif.robot.commands.indexer.IndexerManualControl;
 import team.gif.robot.commands.toggleManualControl.ToggleManualControl;
 import team.gif.robot.commands.wrist.CalibrateAngle;
@@ -173,11 +172,11 @@ public class OI {
 
         //wrist
         // Single press will set the next shoot position, holding will move wrist
-        aDPadUp.and(aStart.negate()).whileTrue(new InstantCommand(Robot.wrist::setWristMidPosition).andThen(new InstantCommand(Robot.wrist::disableAutoAngle)).andThen(new SetWristPos()));
+        aDPadUp.and(aStart.negate()).whileTrue(new InstantCommand(Robot.wrist::setNextShotMid).andThen(new InstantCommand(Robot.wrist::disableAutoAngle)).andThen(new SetWristPos()));
 //        aDPadRight.and(aStart.negate()).whileTrue(new InstantCommand(Robot.wrist::setWristFarPosition).andThen(new SetWristPos()));
-        aDPadRight.and(aStart.negate()).whileTrue(new InstantCommand(Robot.wrist::setWristNearPosition).andThen(new InstantCommand(Robot.wrist::disableAutoAngle)).andThen(new SetWristPos()));
+        aDPadRight.and(aStart.negate()).whileTrue(new InstantCommand(Robot.wrist::setNextShotNear).andThen(new InstantCommand(Robot.wrist::disableAutoAngle)).andThen(new SetWristPos()));
         aDPadLeft.and(aStart.negate()).whileTrue(new InstantCommand(Robot.wrist::enableAutoAngle).andThen(new SetWristPosAuto()));
-        aDPadDown.and(aStart.negate()).whileTrue(new InstantCommand(Robot.wrist::setWristWallPosition).andThen(new InstantCommand(Robot.wrist::disableAutoAngle)).andThen(new SetWristPos()));
+        aDPadDown.and(aStart.negate()).whileTrue(new InstantCommand(Robot.wrist::setNextShotWall).andThen(new InstantCommand(Robot.wrist::disableAutoAngle)).andThen(new SetWristPos()));
 
         // For testing purposes only - testing the proper angle for Amp and Trap
 //        aStart.and(aDPadLeft).whileTrue(new InstantCommand(Robot.wrist::setWristAmpPosition).andThen(new SetWristPos()));

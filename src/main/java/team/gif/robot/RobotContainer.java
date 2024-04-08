@@ -4,10 +4,8 @@
 
 package team.gif.robot;
 
-import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
 import com.pathplanner.lib.commands.PathPlannerAuto;
-import com.pathplanner.lib.path.PathPlannerPath;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
@@ -50,7 +48,7 @@ public class RobotContainer {
 
         // Used in "Autos" - shoots (and may set wrist first0
         NamedCommands.registerCommand("AutonShoot", new Shoot(true));
-        NamedCommands.registerCommand("AutonShootWall", new InstantCommand(Robot.wrist::setWristWallPosition).andThen(new Shoot(true))); // used for first shot
+        NamedCommands.registerCommand("AutonShootWall", new InstantCommand(Robot.wrist::setNextShotWall).andThen(new Shoot(true))); // used for first shot
         NamedCommands.registerCommand("AutonRotate", new AutoRotate());
 
         // Configure the trigger bindings

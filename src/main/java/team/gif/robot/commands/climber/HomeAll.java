@@ -27,7 +27,7 @@ public class HomeAll extends Command {
         Robot.shooter.setVoltagePercent(0);
         Robot.elevator.setTargetPosition(Constants.Elevator.HOME_POS);
         Robot.wrist.setTargetPosition(Constants.Wrist.MIN_LIMIT_ABSOLUTE);
-        Robot.wrist.setWristWallPosition();
+        Robot.wrist.setNextShotWall();
         commandFinished = false;
     }
 

@@ -8,13 +8,13 @@ public class SetWristPosAuto extends Command {
 
     public SetWristPosAuto() {
         super();
-        addRequirements(Robot.wrist);
+//        addRequirements(Robot.wrist);
     }
 
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
-        Robot.nextShot = shootParams.AUTOSHOT;
+//        Robot.nextShot = shootParams.AUTOSHOT;
     }
 
     // Called every time the scheduler runs (~20ms) while the command is scheduled
@@ -22,7 +22,7 @@ public class SetWristPosAuto extends Command {
     public void execute() {
         if (Robot.sensors.shooter()) {
             Robot.wrist.setWristAuto();
-            Robot.wrist.PIDWristMove();
+//            Robot.wrist.PIDWristMove();
         }
     }
 

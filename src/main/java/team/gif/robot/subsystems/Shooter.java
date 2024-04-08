@@ -16,8 +16,13 @@ public class Shooter extends SubsystemBase {
     public static CANSparkFlex shooterMotor;
     public static SparkPIDController pidShooter;
 
+    // Shooter use only. Purpose is to avoid repeated calls with the same
+    // parameters to the motor controller, reducing CAN utilization
     private shootParams currentShot;
 
+    /**
+     * Used with PID to set the desired RPM of the shooter
+     */
     private double targetRPM;
 
     public Shooter() {
@@ -34,7 +39,7 @@ public class Shooter extends SubsystemBase {
     }
 
     /**
-     * Sets the shooter velocity (RPM)
+     * Sets the shooter velocity (RPM) (i.e. runs the shooter)
      *
      * @param rpm Desired velocity of shooter in RPM
      */
@@ -54,15 +59,14 @@ public class Shooter extends SubsystemBase {
     }
 
     /**
-     * Loads the "next shot" shooter PID values into the motor controllers <br>
-     * Updates current_shot with next_shot values (wrist angle, RPM, PID values) <br>
-     * Sets the target RPM via calling the setShooterRPM method<br>
+     * Loads the "next shot" shooter PID values into the shooter motor controllers <br>
+     * Sets the target shooter RPM from next shot <br>
      * Revs the flywheel <br>
      * Does not move wrist <br>
      * <br>
      *
      */
-    public void setupAndRev() {
+    public void configMotorControllerAndRev() {
         setupNextShot();
         setShooterRPM(Robot.nextShot.getShooterRPM());
     }
@@ -88,7 +92,7 @@ public class Shooter extends SubsystemBase {
 
     /**
      * Stops the shooter motor by setting voltage to 0 <br>
-     * Coats the shooter down to 0 velocity rather than PID hard stop
+     * Coasts the shooter down to 0 velocity rather than PID hard stop
      *
      */
     public void stop() {
@@ -106,8 +110,8 @@ public class Shooter extends SubsystemBase {
         }
     }
 
-    /** used for tuning shooter PID on the dashboard
-     *
+    /**
+     * used for tuning shooter PID on the dashboard
      */
     public void updateShooterPID() {
         double shooterFF = SmartDashboard.getNumber("FF",0);
@@ -155,7 +159,7 @@ public class Shooter extends SubsystemBase {
     }
 
     /**
-     * Sets up the parameters for the next shot the robot will take
+     * Configures the motor controller with the PID parameters for the next shot
      *
      * @param
      */
@@ -163,9 +167,12 @@ public class Shooter extends SubsystemBase {
         // setting the gains is very expensive in time causing schedule loop overruns
         // only change if next shot is different from previous shot
         if (Robot.nextShot != currentShot) {
-            pidShooter.setP(Robot.nextShot.getP());
             pidShooter.setFF(Robot.nextShot.getFF());
+            pidShooter.setP(Robot.nextShot.getP());
             pidShooter.setI(Robot.nextShot.getI());
+
+            // Local use only. Only purpose is to store the shot to compare next to current to
+            // know if new PID values need to be sent to motor controller
             currentShot = Robot.nextShot;
         }
     }

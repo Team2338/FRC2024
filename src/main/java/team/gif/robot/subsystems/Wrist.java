@@ -35,6 +35,9 @@ public class Wrist extends SubsystemBase {
     // Other subsystems need to know if the bot is using limelight or user selected wrist angle
     private boolean autoAngleEnabled;
 
+    private boolean autoParamsDirtyFlag;
+    shootParams lastAutoParams;
+
     public Wrist() throws Exception {
         motor = new CANSparkMax(RobotMap.WRIST_ID, CANSparkLowLevel.MotorType.kBrushless);
 
@@ -50,6 +53,8 @@ public class Wrist extends SubsystemBase {
         targetPosition = getPosition();
 
         autoAngleEnabled = false;
+        autoParamsDirtyFlag = true;
+        lastAutoParams = shootParams.AUTOSHOT;
     }
 
     public String getWristDegrees_Shuffleboard() {
@@ -124,6 +129,11 @@ public class Wrist extends SubsystemBase {
         return feedForward;
     }
 
+    /**
+     * Currently set to 1.5 degrees of tolerance (set by the pidController setTolerance method)
+     *
+     * @return true if wrist is within tolerance
+     */
     public boolean isWristWithinTolerance() {
         return pidController.atSetpoint();
     }
@@ -188,86 +198,86 @@ public class Wrist extends SubsystemBase {
     }
 
     /**
-     * Sets the target position to the Far3 setpoint defined in constants.java. Does not move wrist.
+     * Sets the next shot parameters for the Far3 setpoint defined in constants.java. Does not move wrist.
      */
     public void setWristFar3Position() {
         Robot.nextShot = shootParams.FAR3;
     }
 
     /**
-     * Sets the target position to the Far2 setpoint defined in constants.java. Does not move wrist.
+     * Sets the next shot parameters for the Far2 setpoint defined in constants.java. Does not move wrist.
      */
     public void setWristFar2Position() {
         Robot.nextShot = shootParams.FAR2;
     }
 
     /**
-     * Sets the target position to the MidMidFar setpoint defined in constants.java. Does not move wrist.
+     * Sets the next shot parameters for the MidMidFar setpoint defined in constants.java. Does not move wrist.
      */
     public void setWristMidMidFarPosition() {
         Robot.nextShot = shootParams.MIDMIDFAR;
     }
 
     /**
-     * Sets the target position to the Far setpoint defined in constants.java. Does not move wrist.
+     * Sets the next shot parameters for the Far setpoint defined in constants.java. Does not move wrist.
      */
     public void setWristFarPosition() {
         Robot.nextShot = shootParams.FAR;
     }
 
     /**
-     * Sets the target position to the MidFar setpoint defined in constants.java. Does not move wrist.
+     * Sets the next shot parameters for the MidFar setpoint defined in constants.java. Does not move wrist.
      */
     public void setWristMidFarPosition() {
         Robot.nextShot = shootParams.MIDFAR;
     }
 
     /**
-     * Sets the target position to the Middle setpoint defined in constants.java. Does not move wrist.
+     * Sets the next shot parameters for the Middle setpoint defined in constants.java. Does not move wrist.
      */
     public void setWristMiddlePosition() {
         Robot.nextShot = shootParams.MIDDLE;
     }
 
     /**
-     * Sets the target position to the Mid setpoint defined in constants.java. Does not move wrist.
+     * Sets the next shot parameters for the Mid setpoint defined in constants.java. Does not move wrist.
      */
-    public void setWristMidPosition() {
+    public void setNextShotMid() {
         Robot.nextShot = shootParams.MID;
     }
 
     /**
-     * Sets the target position to the Near setpoint defined in constants.java. Does not move wrist.
+     * Sets the next shot parameters for the Near setpoint defined in constants.java. Does not move wrist.
      */
-    public void setWristNearPosition() {
+    public void setNextShotNear() {
         Robot.nextShot = shootParams.NEAR;
     }
 
     /**
-     * Sets the target position to the Close setpoint defined in constants.java. Does not move wrist.
+     * Sets the next shot parameters for the Close setpoint defined in constants.java. Does not move wrist.
      */
-    public void setWristClosePosition() {
+    public void setNextShotClose() {
         Robot.nextShot = shootParams.CLOSE;
     }
 
     /**
-     * Sets the target position to the Wall setpoint defined in constants.java. Does not move wrist.
+     * Sets the next shot parameters for the Wall setpoint defined in constants.java. Does not move wrist.
      */
-    public void setWristWallPosition() {
+    public void setNextShotWall() {
         Robot.nextShot = shootParams.WALL;
     }
 
     /**
-     * Sets the target position to the Amp setpoint defined in constants.java. Does not ove wrist.
+     * Sets the next shot parameters for the Amp setpoint defined in constants.java. Does not move wrist.
      */
-    public void setWristAmpPosition() {
+    public void setNextShotAmp() {
         Robot.nextShot = shootParams.AMP;
     }
 
     /**
-     * Sets the target position to the Amp setpoint defined in constants.java. Does not move wrist.
+     * Sets the next shot parameters for the Trap setpoint defined in constants.java. Does not move wrist.
      */
-    public void setWristTrapPosition() {
+    public void setNextShotTrap() {
         Robot.nextShot = shootParams.TRAP;
     }
 
@@ -279,12 +289,48 @@ public class Wrist extends SubsystemBase {
     }
 
     /**
-     * Sets the target position of the wrist in ticks based on the Limelight
+     * Sets the next shot parameters to Auto and updates the next shot wrist angle position
+     * in ticks, along with the associated RPM and PID values, based on the Limelight
+     * wrist angle estimator method. Does not move the wrist.
+     */
+    public void setNextShotAuto() {
+        Robot.nextShot = shootParams.AUTOSHOT;
+
+        double rpm = Constants.Shooter.RPM_FAR3;
+        double min = Constants.Shooter.RPM_MIN_FAR3;
+        double FF = Constants.Shooter.FF_FAR3;
+
+        double distance = Robot.limelightShooter.getDistance();
+        double angle = degreesToAbsolute(wristEstimatorDegrees(distance));
+
+        if (distance < 0) { // there was an error getting the distance, set it to the farthest shot
+            rpm = Constants.Shooter.RPM_FAR3;
+            min = Constants.Shooter.RPM_MIN_FAR3;
+            FF = Constants.Shooter.FF_FAR3;
+        } else if (distance < 4*12) { // roughly wall (4')
+            rpm = Constants.Shooter.RPM_WALL;
+            min = Constants.Shooter.RPM_MIN_WALL;
+            FF = Constants.Shooter.FF_WALL;
+        } else if (distance < 6*12) { // roughly near (6')
+            rpm = Constants.Shooter.RPM_NEAR;
+            min = Constants.Shooter.RPM_MIN_NEAR;
+            FF = Constants.Shooter.FF_NEAR;
+        } else if (distance < 8*12) { // roughly mid (8')
+            rpm = Constants.Shooter.RPM_MID;
+            min = Constants.Shooter.RPM_MIN_MID;
+            FF = Constants.Shooter.FF_MID;
+        }
+        Robot.nextShot.setShootParams(angle,rpm,min,FF,0,0);
+    }
+
+    /**
+     * Sets the next shot parameters to Auto and updates the next shot wrist angle position
+     * in ticks, along with the associated RPM and PID values, based on the Limelight
      * wrist angle estimator method. This method moves the wrist (indirectly).
      */
     public void setWristAuto() {
-        Robot.nextShot = shootParams.AUTOSHOT;
-        targetPosition = degreesToAbsolute(wristEstimatorDegrees());
+        setNextShotAuto();
+        targetPosition = Robot.nextShot.getWristAngle();
     }
 
     public void enableAutoAngle() {
@@ -301,15 +347,26 @@ public class Wrist extends SubsystemBase {
 
     /**
      * Estimate the wrist angle in degrees based on the distance to the target
+     * calculated by the Limelight
      * @return wrist angle in degrees <br>
      *          returns wrist minimum if limelight lock is too stale (1 second)
      */
     public double wristEstimatorDegrees() {
-        double timestamp = Timer.getFPGATimestamp();
-        double distance = Robot.limelightShooter.getDistance();
-        double angle;
+        return wristEstimatorDegrees(Robot.limelightShooter.getDistance());
+    }
 
-        //If the limelight has no target
+    /**
+     * Estimate the wrist angle in degrees based on the provided distance to the target
+     * @param distanceInches distance to the target in inches
+     * @return wrist angle in degrees <br>
+     *          returns wrist minimum if limelight lock is too stale (1 second)
+     */
+    public double wristEstimatorDegrees(double distanceInches) {
+        double timestamp = Timer.getFPGATimestamp();
+        double angle;
+        double distance = distanceInches;
+
+        // If the limelight doesn't have a target
         if (distance == -1) {
             //The last wrist estimate is expired. Set to wrist minimum.
             if (timestamp - lastWristEstimateTimestamp > 1.0) { // allow keep previous value for 1 second
@@ -335,6 +392,7 @@ public class Wrist extends SubsystemBase {
 
         return angle;
     }
+
 
     /**
      * Get the target position of the wrist in absolute from 0 to 1

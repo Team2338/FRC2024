@@ -52,4 +52,18 @@ public enum shootParams {
     public double getI() {
         return this.kI;
     }
+
+    /**
+     * Sets the parameters other than the standard shot locations. Necessary for the auto wrist
+     * to set the dynamic angle
+     * @param wristAngle wrist angle in absolute ticks
+     */
+    public void setShootParams(double wristAngle, double shooterRPM, double minimumRPM, double FF, double kP, double kI) {
+        this.wristAngle = wristAngle;
+        this.shooterRPM = shooterRPM;
+        this.minimumRPM = minimumRPM;
+        this.FF = FF;
+        this.kP = kP;
+        this.kI = kI;
+    }
 }
