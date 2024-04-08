@@ -48,32 +48,37 @@ public class Shoot extends Command {
         if (Robot.wrist.isAutoAngleEnabled()) {
             Robot.wrist.setNextShotAuto();
         }
+        System.out.println("AutoShot? " + Robot.wrist.isAutoAngleEnabled() + " nextShot " + Robot.nextShot + " autoType " + Robot.autoType);
+        System.out.println("calculated autoAngleDegrees " + Robot.wrist.absoluteToDegrees(Robot.autoWristAngleAbs));
     }
 
     // Called every time the scheduler runs (~20ms) while the command is scheduled
     @Override
     public void execute() {
+        double minRPM;
+
         commandCounter++;
 
-        // In autonomous, allow robot to grab note within a specified time period, if not successful abort
-        if (Robot.runningAutonomousMode && !Robot.diagnostics.getRobotHasNote() && !isFiring) {
-            if (commandCounter > 0.2 * 50) {
-                fireCounter = 300;
-            }
-            return;
-        }
-
-        // mini indexer if note is in the bot but not in shooter
-        if (Robot.sensors.collector() ||
-                (Robot.sensors.indexer() && !Robot.sensors.shooter())) {
-            Robot.indexer.setIndexer(Constants.Indexer.INDEXER_ONE_COLLECT_PERC, Constants.Indexer.INDEXER_TWO_COLLECT_PERC);
-            indexingRequired = true;
-            return;
-        } else {
-            if (indexingRequired) {
-                Robot.indexer.stopIndexerHard();
-                indexingRequired = false;
+        if (!isFiring) {
+            // In autonomous, allow robot to grab note within a specified time period, if not successful abort
+            if (Robot.runningAutonomousMode && !Robot.diagnostics.getRobotHasNote()) {
+                if (commandCounter > 0.2 * 50) {
+                    fireCounter = 300;
+                }
                 return;
+            }
+            // mini indexer if note is in the bot but not in shooter
+            if (Robot.sensors.collector() ||
+                (Robot.sensors.indexer() && !Robot.sensors.shooter())) {
+                Robot.indexer.setIndexer(Constants.Indexer.INDEXER_ONE_COLLECT_PERC, Constants.Indexer.INDEXER_TWO_COLLECT_PERC);
+                indexingRequired = true;
+                return;
+            } else {
+                if (indexingRequired) {
+                    Robot.indexer.stopIndexerHard();
+                    indexingRequired = false;
+                    return;
+                }
             }
         }
 
@@ -86,19 +91,32 @@ public class Shoot extends Command {
                 Robot.wrist.setTargetPosition(Robot.nextShot.getWristAngle());
             }
         }
-//        System.out.println(Robot.shooter.getShooterRPM() + " " + Robot.nextShot.getMinimumRPM() + " " + isFiring +" " + Robot.wrist.isWristWithinTolerance() + " " + Robot.sensors.shooter());
-        if ( ((Robot.shooter.getShooterRPM() >= Robot.nextShot.getMinimumRPM()) &&
+
+        minRPM = Robot.wrist.isAutoAngleEnabled() ? Robot.autoShooterMinRPM : Robot.nextShot.getMinimumRPM();
+        System.out.println(minRPM + " " + Robot.shooter.getShooterRPM() + " " + isFiring +" " + Robot.wrist.isWristWithinTolerance() + " " + Robot.sensors.shooter());
+
+        if ( ((Robot.shooter.getShooterRPM() >= minRPM) &&
                     Robot.wrist.isWristWithinTolerance() &&
                     Robot.sensors.shooter()) ||  // RPM and wrist within tolerance and has note in shooter
                 commandCounter >= 1.0*50     ||  // force shot after designated time
-                isFiring) {                      // once the robot begins to fire, continue to fire
+                isFiring) {                      // once the robot begins to fire, continue to fire and don't change angle
             Robot.indexer.setIndexer(0, Constants.Indexer.INDEXER_TWO_SHOOT_PERC);
             isFiring = true;
             Robot.killAutoAlign = true;
             fireCounter++;
+            System.out.println("Firing  " + minRPM + " " +
+                                            Robot.shooter.getShooterRPM() + " " +
+                                            Robot.wrist.absoluteToDegrees(Robot.autoWristAngleAbs) + " " +
+                                            Robot.wrist.isWristWithinTolerance() + " " +
+                                            Robot.sensors.shooter());
 //            System.out.println("fired");
         } else {
             // not ready to fire, continue to rev the flywheel
+            System.out.println("Revving " + minRPM + " " +
+                                            Robot.shooter.getShooterRPM() + " " +
+                                            Robot.wrist.absoluteToDegrees(Robot.autoWristAngleAbs) + " " +
+                                            Robot.wrist.isWristWithinTolerance() + " " +
+                                            Robot.sensors.shooter());
             Robot.shooter.configMotorControllerAndRev();
         }
     }
@@ -112,7 +130,7 @@ public class Shoot extends Command {
     // Called when the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
-        System.out.println("Shoot seconds: " + (commandCounter) + " fire counter: " + fireCounter );
+        System.out.println("Total shoot counter: " + (commandCounter) + " fire only counter: " + (fireCounter) );
         Robot.indexer.stopIndexerCoast();
         Robot.shooter.setVoltagePercent(0);
         if (Robot.indexer.getDefaultCommand() == null) {

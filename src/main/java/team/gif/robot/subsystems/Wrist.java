@@ -35,9 +35,6 @@ public class Wrist extends SubsystemBase {
     // Other subsystems need to know if the bot is using limelight or user selected wrist angle
     private boolean autoAngleEnabled;
 
-    private boolean autoParamsDirtyFlag;
-    shootParams lastAutoParams;
-
     public Wrist() throws Exception {
         motor = new CANSparkMax(RobotMap.WRIST_ID, CANSparkLowLevel.MotorType.kBrushless);
 
@@ -53,8 +50,6 @@ public class Wrist extends SubsystemBase {
         targetPosition = getPosition();
 
         autoAngleEnabled = false;
-        autoParamsDirtyFlag = true;
-        lastAutoParams = shootParams.AUTOSHOT;
     }
 
     public String getWristDegrees_Shuffleboard() {
@@ -289,48 +284,70 @@ public class Wrist extends SubsystemBase {
     }
 
     /**
-     * Sets the next shot parameters to Auto and updates the next shot wrist angle position
-     * in ticks, along with the associated RPM and PID values, based on the Limelight
-     * wrist angle estimator method. Does not move the wrist.
+     * Sets the next shot parameter to Auto and updates the Robot auto params (wrist angle
+     * position in ticks, RPM and PID values) based on the Limelight wrist angle estimator
+     * method. Sets auto params dirty flag if params (RPM,PID) changed from last call. Does not move the wrist.
      */
     public void setNextShotAuto() {
-        Robot.nextShot = shootParams.AUTOSHOT;
-
-        double rpm = Constants.Shooter.RPM_FAR3;
-        double min = Constants.Shooter.RPM_MIN_FAR3;
-        double FF = Constants.Shooter.FF_FAR3;
+        Robot.nextShot = shootParams.AUTO;
 
         double distance = Robot.limelightShooter.getDistance();
-        double angle = degreesToAbsolute(wristEstimatorDegrees(distance));
+        Robot.autoWristAngleAbs = degreesToAbsolute(wristEstimatorDegrees(distance));
+
+        Robot.autoParamsDirtyFlag = false;
 
         if (distance < 0) { // there was an error getting the distance, set it to the farthest shot
-            rpm = Constants.Shooter.RPM_FAR3;
-            min = Constants.Shooter.RPM_MIN_FAR3;
-            FF = Constants.Shooter.FF_FAR3;
+            if (Robot.autoType != shootParams.FAR3) {
+                Robot.autoParamsDirtyFlag = true;
+                Robot.autoType = shootParams.FAR3;
+                Robot.autoShooterRPM = Constants.Shooter.RPM_FAR3;
+                Robot.autoShooterMinRPM = Constants.Shooter.RPM_MIN_FAR3;
+                Robot.autoShooterFF = Constants.Shooter.FF_FAR3;
+            }
         } else if (distance < 4*12) { // roughly wall (4')
-            rpm = Constants.Shooter.RPM_WALL;
-            min = Constants.Shooter.RPM_MIN_WALL;
-            FF = Constants.Shooter.FF_WALL;
+            if (Robot.autoType != shootParams.WALL) {
+                Robot.autoParamsDirtyFlag = true;
+                Robot.autoType = shootParams.WALL;
+                Robot.autoShooterRPM = Constants.Shooter.RPM_WALL;
+                Robot.autoShooterMinRPM = Constants.Shooter.RPM_MIN_WALL;
+                Robot.autoShooterFF = Constants.Shooter.FF_WALL;
+            }
         } else if (distance < 6*12) { // roughly near (6')
-            rpm = Constants.Shooter.RPM_NEAR;
-            min = Constants.Shooter.RPM_MIN_NEAR;
-            FF = Constants.Shooter.FF_NEAR;
+            if (Robot.autoType != shootParams.NEAR) {
+                Robot.autoParamsDirtyFlag = true;
+                Robot.autoType = shootParams.NEAR;
+                Robot.autoShooterRPM = Constants.Shooter.RPM_NEAR;
+                Robot.autoShooterMinRPM = Constants.Shooter.RPM_MIN_NEAR;
+                Robot.autoShooterFF = Constants.Shooter.FF_NEAR;
+            }
         } else if (distance < 8*12) { // roughly mid (8')
-            rpm = Constants.Shooter.RPM_MID;
-            min = Constants.Shooter.RPM_MIN_MID;
-            FF = Constants.Shooter.FF_MID;
+            if (Robot.autoType != shootParams.MID) {
+                Robot.autoParamsDirtyFlag = true;
+                Robot.autoType = shootParams.MID;
+                Robot.autoShooterRPM = Constants.Shooter.RPM_MID;
+                Robot.autoShooterMinRPM = Constants.Shooter.RPM_MIN_MID;
+                Robot.autoShooterFF = Constants.Shooter.FF_MID;
+            }
+        } else {
+            if (Robot.autoType != shootParams.FAR3) {
+                Robot.autoParamsDirtyFlag = true;
+                Robot.autoType = shootParams.FAR3;
+                Robot.autoShooterRPM = Constants.Shooter.RPM_FAR3;
+                Robot.autoShooterMinRPM = Constants.Shooter.RPM_MIN_FAR3;
+                Robot.autoShooterFF = Constants.Shooter.FF_FAR3;
+            }
         }
-        Robot.nextShot.setShootParams(angle,rpm,min,FF,0,0);
     }
 
     /**
-     * Sets the next shot parameters to Auto and updates the next shot wrist angle position
-     * in ticks, along with the associated RPM and PID values, based on the Limelight
-     * wrist angle estimator method. This method moves the wrist (indirectly).
+     * Sets the next shot parameter to Auto and updates the Robot auto params (wrist angle
+     * position in ticks, RPM and PID values) based on the Limelight wrist angle estimator
+     * method. Sets auto params dirty flag if params (RPM,PID) changed from last call. This
+     * method moves the wrist (indirectly).
      */
     public void setWristAuto() {
         setNextShotAuto();
-        targetPosition = Robot.nextShot.getWristAngle();
+        targetPosition = Robot.autoWristAngleAbs;
     }
 
     public void enableAutoAngle() {
@@ -371,6 +388,7 @@ public class Wrist extends SubsystemBase {
             //The last wrist estimate is expired. Set to wrist minimum.
             if (timestamp - lastWristEstimateTimestamp > 1.0) { // allow keep previous value for 1 second
                 lastWristEstimateDegrees = Constants.Wrist.MIN_LIMIT_DEGREES;
+                System.out.println("Wrist degree estimator too stale");
             }
 
             // use the angle from the last good value

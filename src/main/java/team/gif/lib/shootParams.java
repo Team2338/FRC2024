@@ -16,7 +16,7 @@ public enum shootParams {
 
     TRAP(Constants.Wrist.SETPOINT_TRAP_ABSOLUTE, Constants.Shooter.RPM_TRAP, Constants.Shooter.RPM_MIN_TRAP, Constants.Shooter.FF_TRAP, Constants.Shooter.kP_TRAP, Constants.Shooter.kI_TRAP),
     AMP(Constants.Wrist.SETPOINT_AMP_ABSOLUTE, Constants.Shooter.RPM_AMP, Constants.Shooter.RPM_MIN_AMP, Constants.Shooter.FF_AMP, Constants.Shooter.kP_AMP, Constants.Shooter.kI_AMP),
-    AUTOSHOT(Constants.Wrist.SETPOINT_AUTOSHOT_ABSOLUTE, Constants.Shooter.RPM_AUTOSHOT, Constants.Shooter.RPM_MIN_AUTOSHOT, Constants.Shooter.FF_AUTOSHOT, Constants.Shooter.kP_AUTOSHOT, Constants.Shooter.kI_AUTOSHOT);
+    AUTO(0,0,0,0,0,0);
 
     private double wristAngle;
     private double shooterRPM;
@@ -51,19 +51,5 @@ public enum shootParams {
     }
     public double getI() {
         return this.kI;
-    }
-
-    /**
-     * Sets the parameters other than the standard shot locations. Necessary for the auto wrist
-     * to set the dynamic angle
-     * @param wristAngle wrist angle in absolute ticks
-     */
-    public void setShootParams(double wristAngle, double shooterRPM, double minimumRPM, double FF, double kP, double kI) {
-        this.wristAngle = wristAngle;
-        this.shooterRPM = shooterRPM;
-        this.minimumRPM = minimumRPM;
-        this.FF = FF;
-        this.kP = kP;
-        this.kI = kI;
     }
 }

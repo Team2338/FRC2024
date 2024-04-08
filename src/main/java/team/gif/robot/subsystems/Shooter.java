@@ -59,8 +59,9 @@ public class Shooter extends SubsystemBase {
     }
 
     /**
-     * Loads the "next shot" shooter PID values into the shooter motor controllers <br>
-     * Sets the target shooter RPM from next shot <br>
+     * Loads the "next shot" or auto shooter PID values into the shooter motor
+     * controllers (if different from last call) <br>
+     * Sets the target shooter RPM from next shot or auto shooter <br>
      * Revs the flywheel <br>
      * Does not move wrist <br>
      * <br>
@@ -68,7 +69,11 @@ public class Shooter extends SubsystemBase {
      */
     public void configMotorControllerAndRev() {
         setupNextShot();
-        setShooterRPM(Robot.nextShot.getShooterRPM());
+        if (Robot.wrist.isAutoAngleEnabled()) {
+            setShooterRPM(Robot.autoShooterRPM);
+        } else {
+            setShooterRPM(Robot.nextShot.getShooterRPM());
+        }
     }
 
 
@@ -159,14 +164,21 @@ public class Shooter extends SubsystemBase {
     }
 
     /**
-     * Configures the motor controller with the PID parameters for the next shot
+     * Configures the motor controller with the PID parameters for the
+     * next shot (taken from nextShot or autoShooter). Only loads if shot is different
+     * from last shot.
      *
-     * @param
      */
     public void setupNextShot() {
         // setting the gains is very expensive in time causing schedule loop overruns
         // only change if next shot is different from previous shot
-        if (Robot.nextShot != currentShot) {
+        if (Robot.nextShot == shootParams.AUTO && Robot.autoParamsDirtyFlag) {
+            pidShooter.setFF(Robot.autoShooterFF);
+            pidShooter.setP(Robot.autoShooterkP);
+            pidShooter.setI(Robot.autoShooterkI);
+
+            currentShot = shootParams.AUTO;
+        } else if (Robot.nextShot != currentShot) {
             pidShooter.setFF(Robot.nextShot.getFF());
             pidShooter.setP(Robot.nextShot.getP());
             pidShooter.setI(Robot.nextShot.getI());
