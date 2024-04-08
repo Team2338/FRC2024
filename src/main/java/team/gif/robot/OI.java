@@ -11,7 +11,6 @@ import team.gif.robot.commands.climber.AutoClimb;
 import team.gif.robot.commands.climber.HomeAll;
 import team.gif.robot.commands.drivetrain.AutoRotate;
 import team.gif.robot.commands.drivetrain.AutoRotateStage;
-import team.gif.robot.commands.climber.LowerClimberAndElevator;
 import team.gif.robot.commands.climber.RaiseClimberToTop;
 import team.gif.robot.commands.collector.NoteRumble;
 import team.gif.robot.commands.collector.ToggleCollectorDefault;
@@ -34,9 +33,9 @@ import team.gif.robot.commands.shooter.Shoot;
 import team.gif.robot.commands.shooter.ForceShoot;
 import team.gif.robot.commands.shooter.AmpPosition;
 import team.gif.robot.commands.wrist.SetWristPos;
+import team.gif.robot.commands.wrist.SetWristPosAuto;
 import team.gif.robot.commands.wrist.WristAngleUp;
 import team.gif.robot.commands.wrist.WristAngleDown;
-import team.gif.robot.commands.shooter.TrapShoot;
 
 public class OI {
     /*
@@ -105,8 +104,8 @@ public class OI {
 //    public final Trigger tDPadDown = test.povDown();
 //    public final Trigger tDPadLeft = test.povLeft();
 
-    public final Trigger collectorGamePieceSensor = new Trigger(Robot.sensorMonitor::getCollectorSensorState);
-    public final Trigger shooterGamePieceSensor = new Trigger(Robot.sensorMonitor::getShooterSensorState);
+    public final Trigger collectorGamePieceSensor = new Trigger(Robot.sensors::collector);
+    public final Trigger shooterGamePieceSensor = new Trigger(Robot.sensors::shooter);
 
 
     public OI() {
@@ -139,11 +138,11 @@ public class OI {
 //        dB.whileTrue(new RotateClockwise());
 //        dX.whileTrue(new RotateCounterClockwise());
         dRBump.whileTrue(new EnableRobotOrientedMode());
-        dY.whileTrue(new FullIndexerReverse());
+        dY.whileTrue(new CollectorManualControl());
 
         dX.whileTrue(new AutoRotateStage(120).andThen(new AutoStrafeStage()));
         dB.whileTrue(new AutoRotateStage(240).andThen(new AutoStrafeStage()));
-        dY.whileTrue(new AutoRotateStage(0).andThen(new AutoStrafeStage()));
+//        dY.whileTrue(new AutoRotateStage(0).andThen(new AutoStrafeStage()));
         dA.onTrue(new AutoRotate());
 
         dDPadUp.and(dStart.negate()).whileTrue(new MoveCloserSlow());
@@ -151,7 +150,10 @@ public class OI {
         dDPadLeft.and(dStart.negate()).whileTrue(new MoveRightSlow());
         dDPadRight.and(dStart.negate()).whileTrue(new MoveLeftSlow());
 
-        dLTrigger.and(dRTrigger).whileTrue(new AutoClimb());
+//        dLTrigger.and(dRTrigger).whileTrue(new AutoClimb());
+        dRTrigger.whileTrue(new RevFlyWheels());
+        dRTrigger.onFalse(new InstantCommand(Robot.shooter::stop));
+        dLTrigger.onTrue(new Shoot().andThen(new WaitCommand(0.25).andThen(new MoveElevatorToBottom()))); //.andThen(new InstantCommand(Robot.wrist::setWristCollectPosition)));
 
         // calibrations
         dStart.and(dDPadUp).onTrue(new InstantCommand(Robot.pigeon::resetPigeonPosition).ignoringDisable(true));
@@ -171,10 +173,15 @@ public class OI {
 
         //wrist
         // Single press will set the next shoot position, holding will move wrist
-        aDPadUp.and(aStart.negate()).whileTrue(new InstantCommand(Robot.wrist::setWristMidPosition).andThen(new SetWristPos()));
-        aDPadRight.and(aStart.negate()).whileTrue(new InstantCommand(Robot.wrist::setWristFarPosition).andThen(new SetWristPos()));
-        aDPadLeft.and(aStart.negate()).whileTrue(new InstantCommand(Robot.wrist::setWristNearPosition).andThen(new SetWristPos()));
-        aDPadDown.and(aStart.negate()).whileTrue(new InstantCommand(Robot.wrist::setWristWallPosition).andThen(new SetWristPos()));
+        aDPadUp.and(aStart.negate()).whileTrue(new InstantCommand(Robot.wrist::setWristMidPosition).andThen(new InstantCommand(Robot.wrist::disableAutoAngle)).andThen(new SetWristPos()));
+//        aDPadRight.and(aStart.negate()).whileTrue(new InstantCommand(Robot.wrist::setWristFarPosition).andThen(new SetWristPos()));
+        aDPadRight.and(aStart.negate()).whileTrue(new InstantCommand(Robot.wrist::setWristNearPosition).andThen(new InstantCommand(Robot.wrist::disableAutoAngle)).andThen(new SetWristPos()));
+        aDPadLeft.and(aStart.negate()).whileTrue(new InstantCommand(Robot.wrist::enableAutoAngle).andThen(new SetWristPosAuto()));
+        aDPadDown.and(aStart.negate()).whileTrue(new InstantCommand(Robot.wrist::setWristWallPosition).andThen(new InstantCommand(Robot.wrist::disableAutoAngle)).andThen(new SetWristPos()));
+
+        // For testing purposes only - testing the proper angle for Amp and Trap
+//        aStart.and(aDPadLeft).whileTrue(new InstantCommand(Robot.wrist::setWristAmpPosition).andThen(new SetWristPos()));
+//        aStart.and(aDPadRight).whileTrue(new InstantCommand(Robot.wrist::setWristTrapPosition).andThen(new SetWristPos()));
 
         //shooter
         aRBump.whileTrue(new RevFlyWheels());

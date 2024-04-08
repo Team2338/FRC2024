@@ -7,6 +7,15 @@ import team.gif.robot.Robot;
 public class HomeAll extends Command {
     boolean commandFinished;
 
+    /**
+     * Moves Climber, Wrist, and Elevator to starting position <br>
+     * Sets Shooter RPM to 0 (does not change target) <br>
+     * <br>
+     * Elevator moves via PID (therefore may continue to move after command ends) <br>
+     * Wrist moves via PID (therefore may continue to move after command ends) <br>
+     * Climber moves via voltage control (Command ends when Climber is in position) <br>
+     *
+     */
     public HomeAll() {
         super();
         addRequirements(Robot.climber);

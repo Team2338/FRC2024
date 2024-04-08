@@ -18,69 +18,19 @@
           }
         },
         {
-          "type": "path",
-          "data": {
-            "pathName": "5CTR+C-Away"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "AutonWristMiddle"
-          }
-        },
-        {
           "type": "parallel",
           "data": {
             "commands": [
               {
                 "type": "named",
                 "data": {
-                  "name": "AutonShoot"
-                }
-              },
-              {
-                "type": "sequential",
-                "data": {
-                  "commands": [
-                    {
-                      "type": "wait",
-                      "data": {
-                        "waitTime": 1.0
-                      }
-                    },
-                    {
-                      "type": "path",
-                      "data": {
-                        "pathName": "5CTR+C+S"
-                      }
-                    }
-                  ]
-                }
-              }
-            ]
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "AutonWristMiddle"
-          }
-        },
-        {
-          "type": "parallel",
-          "data": {
-            "commands": [
-              {
-                "type": "named",
-                "data": {
-                  "name": "AutonShoot"
+                  "name": "AutonRevFlywheel"
                 }
               },
               {
                 "type": "path",
                 "data": {
-                  "pathName": "5CTR+C+S+A"
+                  "pathName": "5CTR+C-Away"
                 }
               }
             ]
@@ -89,7 +39,38 @@
         {
           "type": "named",
           "data": {
-            "name": "AutonWristMidMidFar"
+            "name": "AutonShoot"
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "AutonRevFlywheel"
+                }
+              },
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "5CTR+C+S"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "AutonShoot"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "5CTR+C+S+A"
           }
         },
         {
@@ -125,12 +106,6 @@
                           {
                             "type": "named",
                             "data": {
-                              "name": "AutonWristMiddle"
-                            }
-                          },
-                          {
-                            "type": "named",
-                            "data": {
                               "name": "AutonRevFlywheel"
                             }
                           }
@@ -144,9 +119,16 @@
           }
         },
         {
-          "type": "named",
+          "type": "parallel",
           "data": {
-            "name": "AutonRotate"
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "AutonRotate"
+                }
+              }
+            ]
           }
         },
         {

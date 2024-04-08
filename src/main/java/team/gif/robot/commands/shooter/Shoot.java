@@ -9,6 +9,7 @@ public class Shoot extends Command {
     boolean isFiring;
     double fireCounter;
     double commandCounter;
+    boolean indexingRequired;
 
     /**
      * Creates a new Shoot command. Pass in true in for auto mode.
@@ -32,6 +33,7 @@ public class Shoot extends Command {
         isFiring = false;
         fireCounter = 0;
         commandCounter = 0;
+        indexingRequired = false;
 
         Robot.indexer.stopIndexerCoast();
         //We need to remove the default command if we are in autonomous mode
@@ -46,32 +48,42 @@ public class Shoot extends Command {
     // Called every time the scheduler runs (~20ms) while the command is scheduled
     @Override
     public void execute() {
-        if (Robot.runningAutonomousMode && !Robot.diagnostics.getRobotHasNote()) {
+        if (Robot.runningAutonomousMode && !Robot.diagnostics.getRobotHasNote() && !isFiring) {
             fireCounter = 300; // if the robot doesn't have a note, abort immediately
             return;
         }
 
-        if (Robot.sensorMonitor.getCollectorSensorState() ||
-                (Robot.sensorMonitor.getIndexerSensorState() && !Robot.sensorMonitor.getShooterSensorState())) {
+        // mini indexer if note is in the bot but not in shooter
+        if (Robot.sensors.collector() ||
+                (Robot.sensors.indexer() && !Robot.sensors.shooter())) {
             Robot.indexer.setIndexer(Constants.Indexer.INDEXER_ONE_COLLECT_PERC, Constants.Indexer.INDEXER_TWO_COLLECT_PERC);
+            indexingRequired = true;
         } else {
-            Robot.indexer.stopIndexerHard();
+            if (indexingRequired) {
+                Robot.indexer.stopIndexerHard();
+            }
         }
 
-        if (Robot.sensorMonitor.getShooterSensorState()) {
-            Robot.wrist.setTargetPosition(Robot.nextShot.getWristAngle());
+        if (!isFiring && Robot.sensors.shooter()) {
+            if (Robot.wrist.isAutoAngleEnabled()) {
+                Robot.wrist.setWristAuto();
+            } else {
+                Robot.wrist.setTargetPosition(Robot.nextShot.getWristAngle());
+            }
         }
-
+//        System.out.println(Robot.shooter.getShooterRPM() + " " + Robot.nextShot.getMinimumRPM() + " " + isFiring +" " + Robot.wrist.isWristWithinTolerance() + " " + Robot.sensors.shooter());
         if (((Robot.shooter.getShooterRPM() >= Robot.nextShot.getMinimumRPM() || isFiring) &&
-                (Robot.wrist.getPosition() >= (Robot.nextShot.getWristAngle() * .95))     &&
-                Robot.sensorMonitor.getShooterSensorState()) ||
-                commandCounter++ >= 1.0*50) { //allow tolerance
+                    Robot.wrist.isWristWithinTolerance() &&
+                    Robot.sensors.shooter()) ||
+                commandCounter++ >= 1.0*50   ||
+                isFiring) { // force shot after designated time
             //this may need to move down to line 48
             Robot.indexer.setIndexer(0, Constants.Indexer.INDEXER_TWO_SHOOT_PERC);
             isFiring = true;
             Robot.killAutoAlign = true;
+//            System.out.println("fired");
         } else {
-            Robot.shooter.setupAndRev(Robot.nextShot.getShooterRPM());
+            Robot.shooter.setupAndRev();
         }
 
         if (isFiring) {
@@ -82,12 +94,13 @@ public class Shoot extends Command {
     // Return true when the command should end, false if it should continue. Runs every ~20ms.
     @Override
     public boolean isFinished() {
-        return fireCounter > (0.25*50); // need to run the indexer for 0.25 seconds to push note through
+        return fireCounter > (3.0*50); // need to run the indexer for 0.25 seconds to push note through
     }
 
     // Called when the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
+        System.out.println("Shoot seconds: " + (commandCounter) + " fire counter: " + fireCounter );
         Robot.indexer.stopIndexerCoast();
         Robot.shooter.setVoltagePercent(0);
         if (Robot.indexer.getDefaultCommand() == null) {

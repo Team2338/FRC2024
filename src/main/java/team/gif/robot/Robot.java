@@ -63,7 +63,7 @@ public class Robot extends TimedRobot {
     public static DriveSwerve driveSwerve;
     private static TelemetryFileLogger telemetryLogger;
     public static EventFileLogger eventLogger;
-    public static SensorMonitor sensorMonitor;
+    public static SensorMonitor sensors;
     public static Shooter shooter;
     public static Wrist wrist;
     public static Indexer indexer;
@@ -97,16 +97,17 @@ public class Robot extends TimedRobot {
         eventLogger.init();
 
         telemetryLogger = new TelemetryFileLogger();
-//        addMetricsToLogger();
+        addMetricsToLogger();
 
         // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
         // autonomous chooser on the dashboard.
         elapsedTime = new Timer();
 
-        limelightShooter = new Limelight("limelight-shooter");
         limelightCollector = new Limelight("limelight-collect");
+        limelightShooter = new Limelight("limelight-shooter");
+        limelightShooter.setDistanceEstimatorParams(35,16.50,57,4);
 
-        sensorMonitor = new SensorMonitor();
+        sensors = new SensorMonitor();
 
         if (isCompBot) {
             pigeon = new Pigeon(RobotMap.PIGEON_ID);
@@ -155,7 +156,7 @@ public class Robot extends TimedRobot {
         runningAutonomousMode = false;
 
         //Increase the speed the sensors update at to 10ms, with offset of 5 ms from teleopPeriodic to avoid conflicts
-        addPeriodic(() -> sensorMonitor.updateSensors(), 0.01, 0.005);
+        addPeriodic(() -> sensors.updateSensors(), 0.01, 0.005);
     }
 
     /**
@@ -206,6 +207,8 @@ public class Robot extends TimedRobot {
 
         autonomousCommand = robotContainer.getAutonomousCommand(chosenAuto);
 
+        wrist.enableAutoAngle();
+
         elapsedTime.reset();
         elapsedTime.start();
         runAutoScheduler = true;
@@ -222,6 +225,8 @@ public class Robot extends TimedRobot {
             runAutoScheduler = false;
             elapsedTime.stop();
         }
+
+        System.out.println(nextShot);
     }
 
     @Override
@@ -256,7 +261,7 @@ public class Robot extends TimedRobot {
                 (timeLeft <= 25.0 && timeLeft >= 21.0) ||
                 (timeLeft <= 5.0 && timeLeft >= 3.0));
 
-//        shooter.updateShooterPID(); // used for tuning shooter PID using the dashboard
+        telemetryLogger.run();
     }
 
     @Override
@@ -279,10 +284,14 @@ public class Robot extends TimedRobot {
 
     private void addMetricsToLogger() {
         telemetryLogger.addMetric("TimeStamp", Timer::getFPGATimestamp);
-        telemetryLogger.addMetric("Driver_Left_Y", () -> -Robot.oi.driver.getLeftY());
-        telemetryLogger.addMetric("Driver_Left_X", () -> Robot.oi.driver.getLeftX());
-        telemetryLogger.addMetric("Driver_Angle", () -> Math.atan(-Robot.oi.driver.getLeftY() / Robot.oi.driver.getLeftX()));
-        telemetryLogger.addMetric("Driver_Right_X", () -> Robot.oi.driver.getRightX());
+        telemetryLogger.addMetric("Target_RPM", () -> shooter.getTargetRPM());
+        telemetryLogger.addMetric("RPM_Actual", () -> shooter.getShooterRPM());
+        telemetryLogger.addMetric("Target_Wrist", () -> wrist.absoluteToDegrees(wrist.getTargetPosition()));
+        telemetryLogger.addMetric("Wrist_Actual", () -> wrist.absoluteToDegrees(wrist.getPosition()));
+        telemetryLogger.addMetric("Shooter_Sensor", () -> sensors.shooter());
+        telemetryLogger.addMetric("Distance", () -> limelightShooter.getDistance());
+        telemetryLogger.addMetric("YOffset", () -> limelightShooter.getYOffset());
+        telemetryLogger.init();
     }
 
     public static void cancelAuto() {

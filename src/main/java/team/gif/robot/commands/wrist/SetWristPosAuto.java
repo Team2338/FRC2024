@@ -1,17 +1,12 @@
 package team.gif.robot.commands.wrist;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import team.gif.lib.shootParams;
 import team.gif.robot.Robot;
 
-public class SetWristPos extends Command {
+public class SetWristPosAuto extends Command {
 
-    double pressedCounter;
-
-    /**
-     * Press: Sets the wrist target position, does not move wrist <br>
-     * Hold: Sets the wrist target position, moves wrist <br>
-     */
-    public SetWristPos() {
+    public SetWristPosAuto() {
         super();
         addRequirements(Robot.wrist);
     }
@@ -19,21 +14,21 @@ public class SetWristPos extends Command {
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
-        pressedCounter = 0;
+        Robot.nextShot = shootParams.AUTOSHOT;
     }
 
     // Called every time the scheduler runs (~20ms) while the command is scheduled
     @Override
-    public void execute() {}
+    public void execute() {
+        if (Robot.sensors.shooter()) {
+            Robot.wrist.setWristAuto();
+            Robot.wrist.PIDWristMove();
+        }
+    }
 
     // Return true when the command should end, false if it should continue. Runs every ~20ms.
     @Override
     public boolean isFinished() {
-        // user has held button down for N seconds, move the wrist
-        if (pressedCounter++ > 1.5 * 50) {
-            Robot.wrist.setTargetPosition(Robot.nextShot.getWristAngle());
-            return true;
-        }
         return false;
     }
 

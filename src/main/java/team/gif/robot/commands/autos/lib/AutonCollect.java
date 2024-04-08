@@ -39,13 +39,13 @@ public class AutonCollect extends Command {
         }
 
         // situations where the collector should run
-        if ( (Robot.sensorMonitor.getCollectorSensorState() && !Robot.sensorMonitor.getShooterSensorState() ) ||
-                (!Robot.sensorMonitor.getShooterSensorState() && !Robot.indexer.isIndexing() && limelightDetectedOrExtension)) {
+        if ( (Robot.sensors.collector() && !Robot.sensors.shooter() ) ||
+                (!Robot.sensors.shooter() && !Robot.indexer.isIndexing() && limelightDetectedOrExtension)) {
             collect = true;
         }
 
         // a bit of a catch-all, if a note is detected by the indexer sensor, do not collect
-        if (Robot.sensorMonitor.getShooterSensorState()) {
+        if (Robot.sensors.shooter()) {
             collect = false;
         }
 

@@ -28,9 +28,9 @@ public class UI {
 
         //shuffleboardTab.addBoolean("Stage Safe", Robot.diagnostics::getSafeToDriveUnderStage).withPosition(5,0);
 
-        shuffleboardTab.addBoolean("Shooter Sensor", Robot.sensorMonitor::getShooterSensorState).withPosition(6,0);
-        shuffleboardTab.addBoolean("Mid Sensor", Robot.sensorMonitor::getIndexerSensorState).withPosition(6,1);
-        shuffleboardTab.addBoolean("Collector Sensor", Robot.sensorMonitor::getCollectorSensorState).withPosition(6,2);
+        shuffleboardTab.addBoolean("Shooter Sensor", Robot.sensors::shooter).withPosition(6,0);
+        shuffleboardTab.addBoolean("Mid Sensor", Robot.sensors::indexer).withPosition(6,1);
+        shuffleboardTab.addBoolean("Collector Sensor", Robot.sensors::collector).withPosition(6,2);
 
         shuffleboardTab.addString("Actual", Robot.wrist::getPosition_Shuffleboard);
 

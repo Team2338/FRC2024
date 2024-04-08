@@ -14,7 +14,9 @@ public enum shootParams {
     CLOSE(Constants.Wrist.SETPOINT_CLOSE_ABSOLUTE, Constants.Shooter.RPM_CLOSE, Constants.Shooter.RPM_MIN_CLOSE, Constants.Shooter.FF_CLOSE, Constants.Shooter.kP_CLOSE, Constants.Shooter.kI_CLOSE),
     WALL(Constants.Wrist.SETPOINT_WALL_ABSOLUTE, Constants.Shooter.RPM_WALL, Constants.Shooter.RPM_MIN_WALL, Constants.Shooter.FF_WALL, Constants.Shooter.kP_WALL, Constants.Shooter.kI_WALL),
 
-    AMP(Constants.Wrist.SETPOINT_AMP_ABSOLUTE, Constants.Shooter.RPM_AMP, Constants.Shooter.RPM_MIN_AMP, Constants.Shooter.FF_AMP, Constants.Shooter.kP_AMP, Constants.Shooter.kI_AMP);
+    TRAP(Constants.Wrist.SETPOINT_TRAP_ABSOLUTE, Constants.Shooter.RPM_TRAP, Constants.Shooter.RPM_MIN_TRAP, Constants.Shooter.FF_TRAP, Constants.Shooter.kP_TRAP, Constants.Shooter.kI_TRAP),
+    AMP(Constants.Wrist.SETPOINT_AMP_ABSOLUTE, Constants.Shooter.RPM_AMP, Constants.Shooter.RPM_MIN_AMP, Constants.Shooter.FF_AMP, Constants.Shooter.kP_AMP, Constants.Shooter.kI_AMP),
+    AUTOSHOT(Constants.Wrist.SETPOINT_AUTOSHOT_ABSOLUTE, Constants.Shooter.RPM_AUTOSHOT, Constants.Shooter.RPM_MIN_AUTOSHOT, Constants.Shooter.FF_AUTOSHOT, Constants.Shooter.kP_AUTOSHOT, Constants.Shooter.kI_AUTOSHOT);
 
     private double wristAngle;
     private double shooterRPM;

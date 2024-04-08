@@ -39,7 +39,7 @@ public class AutoRotate extends Command {
         double rot;
 
         //If the bot didn't pickup a note in auto it'll skip auto rotate to save time
-        if (Robot.runningAutonomousMode && !Robot.sensorMonitor.getShooterSensorState()) {
+        if (Robot.runningAutonomousMode && !Robot.sensors.shooter()) {
             isComplete = true;
             return;
         }

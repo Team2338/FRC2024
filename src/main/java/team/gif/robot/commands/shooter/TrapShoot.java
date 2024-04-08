@@ -27,34 +27,41 @@ public class TrapShoot extends Command {
     public void execute() {
         // run the flywheel from start to 0.25 seconds after game piece leaves shooter
         if (counter <= (0.25 * 50)) {
+            System.out.println("Trap Shooting");
             Robot.shooter.setShooterRPM(Constants.Shooter.TRAP_RPM);
         } else {
+            System.out.println("Trap Shooting Stop");
             Robot.shooter.stop();
         }
 
         // after being held for N seconds, rotate the wrist back to a safer position
         if (wristEngaged && counter++ >= 1*50) {
             if (Robot.wrist.getPosition() > Constants.Wrist.SETPOINT_TRAP_FINAL_ABSOLUTE) {
+                System.out.println("Moving wrist back");
                 Robot.wrist.moveWristPercentPower(-0.10);
             } else {
                 // wrist is at desired position, set power to zero and end
                 Robot.wrist.moveWristPercentPower(0);
                 finished = true;
+                System.out.println("Wrist done moving back");
             }
         }
 
         // once shooterRPM gets to target, run the indexer
         if (Robot.shooter.getShooterRPM() >= (Constants.Shooter.TRAP_RPM * 0.9)) { // 0.9 provides tolerance
             Robot.indexer.setIndexer(0,Constants.Indexer.INDEXER_TWO_TRAP_PERC);
+            System.out.println("Minimum RPM met. Indexing/shooting note");
         }
 
         // once the robot no longer has the game piece, rotate the wrist to "trap"
-        if (!Robot.sensorMonitor.getShooterSensorState() && !wristEngaged) {
+        if (!Robot.sensors.shooter() && !wristEngaged) {
             // rotate until desired position
             if (Robot.wrist.getPosition() < Constants.Wrist.SETPOINT_TRAP_ABSOLUTE) {
+                System.out.println("Rotate wrist to trap");
                 Robot.wrist.moveWristPercentPower(.3);//0.3);
             } else {
                 // reached desired position
+                System.out.println("Wrist finished trap");
                 Robot.wrist.moveWristPercentPower(0);
                 wristEngaged = true;
                 Robot.wrist.setTargetPosition(Robot.wrist.getPosition());
