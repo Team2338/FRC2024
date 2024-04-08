@@ -19,7 +19,7 @@ import edu.wpi.first.math.util.Units;
  */
 public final class Constants {
 
-    public static final double debounceDefault = 0.040;
+    public static final double DEBOUNCE_DEFAULT = 0.020;
 
     public static final class Drivetrain { // ToDo tune - remove when done
         //public static final double DRIVE_WHEEL_RADIUS = 0.05; // meters? Must be unit of velocity
@@ -377,7 +377,7 @@ public final class Constants {
         // FF determined by removing PID and recording needed % power to hold at 90 degrees
         // 0.05 moves the wrist, 0.04 held pretty well, .043 also works
         public static final double FF = 0.043;
-        public static final double kP = 2.0; // we want to get the wrist to the desired position quickly
+        public static final double kP = 2.0; // we want to get the wrist to the desired position quickly ToDo needs to move faster to avoid note going under indexer
         public static final double kI = 0.000;
         public static final double kD = 0.0000;
 
@@ -422,6 +422,8 @@ public final class Constants {
 
         public static final double INDEXER_TWO_FF = 0.0000; //remove?
         public static final double INDEXER_TWO_kP = 0.0000; //remove?
+
+        public static final double INDEXER_ONE_DEBOUNCE = 0.040;
     }
 
     public static final class Collector { // ToDo tune - remove when done

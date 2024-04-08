@@ -27,8 +27,7 @@ public class SensorMonitor extends SubsystemBase {
         indexerSensorPhysical = new DigitalInput(RobotMap.MIDDLE_SENSOR_PORT);
         shooterSensorPhysical = new DigitalInput(RobotMap.SHOOTER_SENSOR_PORT);
 
-        indexerSensorDebouncer = new Debouncer(Constants.debounceDefault, Debouncer.DebounceType.kFalling);
-
+        indexerSensorDebouncer = new Debouncer(Constants.Indexer.INDEXER_ONE_DEBOUNCE, Debouncer.DebounceType.kFalling);
     }
 
     public void updateSensors() {
