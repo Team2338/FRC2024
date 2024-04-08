@@ -289,13 +289,14 @@ public class Wrist extends SubsystemBase {
      * method. Sets auto params dirty flag if params (RPM,PID) changed from last call. Does not move the wrist.
      */
     public void setNextShotAuto() {
+//        shootParams priorAuto; // used for debugging
         Robot.nextShot = shootParams.AUTO;
 
         double distance = Robot.limelightShooter.getDistance();
         Robot.autoWristAngleAbs = degreesToAbsolute(wristEstimatorDegrees(distance));
 
-        Robot.autoParamsDirtyFlag = false;
-
+//        priorAuto = Robot.autoType;
+        // setting up next shot
         if (distance < 0) { // there was an error getting the distance, set it to the farthest shot
             if (Robot.autoType != shootParams.FAR3) {
                 Robot.autoParamsDirtyFlag = true;
@@ -337,6 +338,7 @@ public class Wrist extends SubsystemBase {
                 Robot.autoShooterFF = Constants.Shooter.FF_FAR3;
             }
         }
+//        System.out.println("Prior " + priorAuto + " new " + Robot.autoType + " dirty? " + Robot.autoParamsDirtyFlag);
     }
 
     /**

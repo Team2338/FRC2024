@@ -19,6 +19,7 @@ public class SetWristPos extends Command {
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
+        Robot.autoParamsDirtyFlag = true;
         pressedCounter = 0;
     }
 

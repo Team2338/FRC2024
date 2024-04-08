@@ -20,7 +20,7 @@ public class RevFlyWheels extends Command {
      */
     public RevFlyWheels() {
         super();
-        addRequirements(Robot.shooter); // uncomment
+//        addRequirements(Robot.shooter); // uncomment
     }
 
     public RevFlyWheels(boolean isAuto) {
@@ -31,12 +31,14 @@ public class RevFlyWheels extends Command {
     @Override
     public void initialize() {
 //        commandCounter = 0;
-        Robot.shooter.resetKI();
+//        Robot.shooter.resetKI(); // this was causing command overruns
     }
 
     // Called every time the scheduler runs (~20ms) while the command is scheduled
     @Override
     public void execute() {
+        double minRPM = 0;
+
         // In teleop, move the wrist according to LL distance or next shot
         // In autonomous, do not move wrist and just rev flywheel
         if (!Robot.runningAutonomousMode) {
@@ -49,11 +51,13 @@ public class RevFlyWheels extends Command {
             }
         }
 
+        minRPM = Robot.wrist.isAutoAngleEnabled() ? Robot.autoShooterMinRPM : Robot.nextShot.getMinimumRPM();
+
         Robot.shooter.configMotorControllerAndRev();
 
         // rumble when the shooter gets to the minimum RPM
         // (do not rumble during auto to prevent controller from falling off ledge)
-        if (Robot.shooter.getShooterRPM() >= Robot.nextShot.getMinimumRPM() && !Robot.runningAutonomousMode) {
+        if (Robot.shooter.getShooterRPM() >= minRPM && !Robot.runningAutonomousMode) {
             Robot.oi.setRumble(true);
         } else {
             Robot.oi.setRumble(false);
@@ -72,6 +76,5 @@ public class RevFlyWheels extends Command {
         // don't want to set shooter RPM to 0 because the shoot command is taking over
         // instead, use onFalse in OI and call shooter.stop()
         Robot.oi.setRumble(false);
-        System.out.println("RevFlyWheel ended");
     }
 }

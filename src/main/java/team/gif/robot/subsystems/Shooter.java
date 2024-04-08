@@ -121,12 +121,12 @@ public class Shooter extends SubsystemBase {
     public void updateShooterPID() {
         double shooterFF = SmartDashboard.getNumber("FF",0);
         double shooterKP = SmartDashboard.getNumber("kP",0);
-        double shooterKI = SmartDashboard.getNumber("kI",0);
+//        double shooterKI = SmartDashboard.getNumber("kI",0);
 
-        System.out.println(shooterFF*1000 + "    " + shooterKP*1000 + "    " + shooterKI*1000);
+//        System.out.println(shooterFF*1000 + "    " + shooterKP*1000 + "    " + shooterKI*1000);
         pidShooter.setFF(shooterFF);
         pidShooter.setP(shooterKP);
-        pidShooter.setI(shooterKI);
+//        pidShooter.setI(shooterKI);
     }
 
     public double getShooterMotorTemp() {
@@ -157,7 +157,7 @@ public class Shooter extends SubsystemBase {
 
         pidShooter.setFF(Robot.nextShot.getFF());
         pidShooter.setP(Robot.nextShot.getP());
-        pidShooter.setI(Robot.nextShot.getI());
+//        pidShooter.setI(Robot.nextShot.getI());
         pidShooter.setOutputRange(0,1);
         pidShooter.setIAccum(0.0);
         pidShooter.setIZone(1000);
@@ -172,16 +172,20 @@ public class Shooter extends SubsystemBase {
     public void setupNextShot() {
         // setting the gains is very expensive in time causing schedule loop overruns
         // only change if next shot is different from previous shot
+//        System.out.println(Robot.nextShot + " " + Robot.autoParamsDirtyFlag);
         if (Robot.nextShot == shootParams.AUTO && Robot.autoParamsDirtyFlag) {
+            System.out.println("setting pidShooter auto");
             pidShooter.setFF(Robot.autoShooterFF);
             pidShooter.setP(Robot.autoShooterkP);
-            pidShooter.setI(Robot.autoShooterkI);
+//            pidShooter.setI(Robot.autoShooterkI);
 
             currentShot = shootParams.AUTO;
+            Robot.autoParamsDirtyFlag = false;
         } else if (Robot.nextShot != currentShot) {
+            System.out.println("setting pidShooter nextShot");
             pidShooter.setFF(Robot.nextShot.getFF());
             pidShooter.setP(Robot.nextShot.getP());
-            pidShooter.setI(Robot.nextShot.getI());
+//            pidShooter.setI(Robot.nextShot.getI());
 
             // Local use only. Only purpose is to store the shot to compare next to current to
             // know if new PID values need to be sent to motor controller

@@ -104,19 +104,19 @@ public class Shoot extends Command {
             isFiring = true;
             Robot.killAutoAlign = true;
             fireCounter++;
-            System.out.println("Firing  " + minRPM + " " +
-                                            Robot.shooter.getShooterRPM() + " " +
-                                            Robot.wrist.absoluteToDegrees(Robot.autoWristAngleAbs) + " " +
-                                            Robot.wrist.isWristWithinTolerance() + " " +
-                                            Robot.sensors.shooter());
+//            System.out.println("Firing  " + minRPM + " " +
+//                                            Robot.shooter.getShooterRPM() + " " +
+//                                            Robot.wrist.absoluteToDegrees(Robot.autoWristAngleAbs) + " " +
+//                                            Robot.wrist.isWristWithinTolerance() + " " +
+//                                            Robot.sensors.shooter());
 //            System.out.println("fired");
         } else {
             // not ready to fire, continue to rev the flywheel
-            System.out.println("Revving " + minRPM + " " +
-                                            Robot.shooter.getShooterRPM() + " " +
-                                            Robot.wrist.absoluteToDegrees(Robot.autoWristAngleAbs) + " " +
-                                            Robot.wrist.isWristWithinTolerance() + " " +
-                                            Robot.sensors.shooter());
+//            System.out.println("Revving " + minRPM + " " +
+//                                            Robot.shooter.getShooterRPM() + " " +
+//                                            Robot.wrist.absoluteToDegrees(Robot.autoWristAngleAbs) + " " +
+//                                            Robot.wrist.isWristWithinTolerance() + " " +
+//                                            Robot.sensors.shooter());
             Robot.shooter.configMotorControllerAndRev();
         }
     }

@@ -82,7 +82,7 @@ public class Robot extends TimedRobot {
     public static double autoShooterMinRPM;
     public static double autoShooterFF;
     public static double autoShooterkP;
-    public static double autoShooterkI;
+//    public static double autoShooterkI;
 
     public static boolean isCompBot = true; //includes 2023 bot
 
@@ -140,7 +140,7 @@ public class Robot extends TimedRobot {
         autoShooterMinRPM = 0;
         autoShooterFF = 0;
         autoShooterkP = 0;
-        autoShooterkI = 0;
+//        autoShooterkI = 0;
 
         shooter = new Shooter();
 
