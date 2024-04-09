@@ -124,7 +124,7 @@ public class Shoot extends Command {
     // Return true when the command should end, false if it should continue. Runs every ~20ms.
     @Override
     public boolean isFinished() {
-        return fireCounter > (0.25*50); // need to run the indexer for 0.25 seconds to push note through
+        return fireCounter > (0.10*50); // need to run the indexer for 0.25 seconds to push note through
     }
 
     // Called when the command ends or is interrupted.

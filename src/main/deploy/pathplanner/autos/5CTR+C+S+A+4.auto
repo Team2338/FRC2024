@@ -18,7 +18,7 @@
           }
         },
         {
-          "type": "parallel",
+          "type": "race",
           "data": {
             "commands": [
               {
@@ -26,24 +26,11 @@
                 "data": {
                   "pathName": "5CTR+C-Away"
                 }
-              }
-            ]
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "AutonShoot"
-          }
-        },
-        {
-          "type": "parallel",
-          "data": {
-            "commands": [
+              },
               {
-                "type": "path",
+                "type": "named",
                 "data": {
-                  "pathName": "5CTR+C+S"
+                  "name": "AutonRevFlywheel"
                 }
               }
             ]
@@ -56,9 +43,47 @@
           }
         },
         {
-          "type": "path",
+          "type": "race",
           "data": {
-            "pathName": "5CTR+C+S+A"
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "5CTR+C+S"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "AutonRevFlywheel"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "AutonShoot"
+          }
+        },
+        {
+          "type": "race",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "5CTR+C+S+A"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "AutonRevFlywheel"
+                }
+              }
+            ]
           }
         },
         {
@@ -78,26 +103,13 @@
           "data": {
             "commands": [
               {
-                "type": "parallel",
+                "type": "race",
                 "data": {
                   "commands": [
                     {
                       "type": "path",
                       "data": {
                         "pathName": "5CTR+C+S+A+4+Return"
-                      }
-                    },
-                    {
-                      "type": "sequential",
-                      "data": {
-                        "commands": [
-                          {
-                            "type": "named",
-                            "data": {
-                              "name": "AutonRevFlywheel"
-                            }
-                          }
-                        ]
                       }
                     }
                   ]

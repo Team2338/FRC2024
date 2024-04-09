@@ -53,7 +53,11 @@ public class RevFlyWheels extends Command {
 
         minRPM = Robot.wrist.isAutoAngleEnabled() ? Robot.autoShooterMinRPM : Robot.nextShot.getMinimumRPM();
 
-        Robot.shooter.configMotorControllerAndRev();
+        if (Robot.runningAutonomousMode) {
+            Robot.shooter.setShooterRPM(3000);
+        } else {
+            Robot.shooter.configMotorControllerAndRev();
+        }
 
         // rumble when the shooter gets to the minimum RPM
         // (do not rumble during auto to prevent controller from falling off ledge)

@@ -313,7 +313,7 @@ public class Wrist extends SubsystemBase {
                 Robot.autoShooterMinRPM = Constants.Shooter.RPM_MIN_WALL;
                 Robot.autoShooterFF = Constants.Shooter.FF_WALL;
             }
-        } else if (distance < 6*12) { // roughly near (6')
+        } else if (distance < 12*12) { // roughly near (8')
             if (Robot.autoType != shootParams.NEAR) {
                 Robot.autoParamsDirtyFlag = true;
                 Robot.autoType = shootParams.NEAR;
@@ -321,7 +321,7 @@ public class Wrist extends SubsystemBase {
                 Robot.autoShooterMinRPM = Constants.Shooter.RPM_MIN_NEAR;
                 Robot.autoShooterFF = Constants.Shooter.FF_NEAR;
             }
-        } else if (distance < 8*12) { // roughly mid (8')
+        } else if (distance < 15*12) { // roughly mid (10')
             if (Robot.autoType != shootParams.MID) {
                 Robot.autoParamsDirtyFlag = true;
                 Robot.autoType = shootParams.MID;
@@ -399,7 +399,7 @@ public class Wrist extends SubsystemBase {
             // limelight has a target
             // 43.38 is the closest the robot can get to the target
             // the farther away the robot gets the lower the angle due to gravity (use distance ratio)
-            distance = 0.80*(distance - 43.38) + 43.38;
+            distance = 0.78*(distance - 43.38) + 43.38;
 
             // 58 is the height between the limelight lens and target in inches
             // atan is in radians, convert to degrees using 180/pi
