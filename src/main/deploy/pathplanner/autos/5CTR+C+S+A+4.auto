@@ -18,15 +18,9 @@
           }
         },
         {
-          "type": "race",
+          "type": "parallel",
           "data": {
             "commands": [
-              {
-                "type": "named",
-                "data": {
-                  "name": "AutonRevFlywheel"
-                }
-              },
               {
                 "type": "path",
                 "data": {
@@ -43,15 +37,9 @@
           }
         },
         {
-          "type": "race",
+          "type": "parallel",
           "data": {
             "commands": [
-              {
-                "type": "named",
-                "data": {
-                  "name": "AutonRevFlywheel"
-                }
-              },
               {
                 "type": "path",
                 "data": {

@@ -278,7 +278,7 @@ public final class Constants {
         public static final int IDLE_RPM = 1000;
 
         //Wall
-        public static final double RPM_WALL = 6200;
+        public static final double RPM_WALL = 6200;//6200;
         public static final double RPM_MIN_WALL = 4200;
         public static final double FF_WALL = 0.000155; // gets to 6100    // 0.000130;  // 5800 RPM
         public static final double kP_WALL = 0.00030;//0.0100;               // 0.0006;    // 5800 RPM
@@ -292,14 +292,14 @@ public final class Constants {
         public static final double kI_CLOSE = 0.000;//0.001;               // 0.0000015; // 5800 RPM
 
         //Near
-        public static final double RPM_NEAR = 6200;
+        public static final double RPM_NEAR = 6200;//6200;
         public static final double RPM_MIN_NEAR = 4500;
         public static final double FF_NEAR = 0.000155; // gets to 6100    // 0.000130;  // 5800 RPM
         public static final double kP_NEAR = 0.00030;//0.0100;               // 0.0006;    // 5800 RPM
         public static final double kI_NEAR = 0.000;//0.001;               // 0.0000015; // 5800 RPM
 
         //Mid
-        public static final double RPM_MID = 6200;
+        public static final double RPM_MID = 6200;//6200;
         public static final double RPM_MIN_MID = 5600;
         public static final double FF_MID = 0.000155; // gets to 6100    // 0.000130;  // 5800 RPM
         public static final double kP_MID = 0.00030;//0.0100;               // 0.0006;    // 5800 RPM
