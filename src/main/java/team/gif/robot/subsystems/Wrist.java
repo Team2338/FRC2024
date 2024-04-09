@@ -384,6 +384,7 @@ public class Wrist extends SubsystemBase {
         double timestamp = Timer.getFPGATimestamp();
         double angle;
         double distance = distanceInches;
+        double robotAngle = Math.abs(Robot.pigeon.get180Heading());
 
         // If the limelight doesn't have a target
         if (distance == -1) {
@@ -399,7 +400,12 @@ public class Wrist extends SubsystemBase {
             // limelight has a target
             // 43.38 is the closest the robot can get to the target
             // the farther away the robot gets the lower the angle due to gravity (use distance ratio)
-            distance = 0.78*(distance - 43.38) + 43.38;
+            if(robotAngle < 10) {
+                distance = 0.78 * (distance - 43.38) + 43.38;
+            } else {
+                distance = (0.78 + robotAngle/100 )* (distance - 43.38) + 43.38;
+
+            }
 
             // 58 is the height between the limelight lens and target in inches
             // atan is in radians, convert to degrees using 180/pi
