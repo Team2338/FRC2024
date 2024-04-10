@@ -72,7 +72,6 @@ public class Shoot extends Command {
                 (Robot.sensors.indexer() && !Robot.sensors.shooter())) {
                 Robot.indexer.setIndexer(Constants.Indexer.INDEXER_ONE_COLLECT_PERC, Constants.Indexer.INDEXER_TWO_COLLECT_PERC);
                 indexingRequired = true;
-                Robot.indexer.setNotePassedCollector(true);
                 return;
             } else {
                 if (indexingRequired) {
@@ -138,6 +137,5 @@ public class Shoot extends Command {
             Robot.indexer.setDefaultCommand(new IndexerDefault());
         }
         Robot.wrist.setWristCollectPosition();
-        Robot.indexer.setNotePassedCollector(false);
     }
 }
