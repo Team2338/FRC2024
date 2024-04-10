@@ -276,6 +276,7 @@ public final class Constants {
     public static final class Shooter { // ToDo tune - remove when done (tuned for 5800RPM)
         public static final int TRAP_RPM = 1000;
         public static final int IDLE_RPM = 1000;
+        public static final int MIN_SAFEGUARD_RPM = 500;
 
         //Wall
         public static final double RPM_WALL = 6200;//6200;

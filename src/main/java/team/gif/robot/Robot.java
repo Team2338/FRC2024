@@ -224,7 +224,7 @@ public class Robot extends TimedRobot {
 
         autonomousCommand = robotContainer.getAutonomousCommand(chosenAuto);
 
-        wrist.enableAutoAngle();
+        wrist.disableAutoAngle();
 
         elapsedTime.reset();
         elapsedTime.start();

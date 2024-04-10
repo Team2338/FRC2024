@@ -48,6 +48,7 @@ public class RobotContainer {
         NamedCommands.registerCommand("AutonWristWall", new InstantCommand(Robot.wrist::setWristAuto));
 
         // Used in "Autos" - shoots (and may set wrist first0
+        NamedCommands.registerCommand("AutonEnableAutoAngle", new InstantCommand(Robot.wrist::enableAutoAngle));
         NamedCommands.registerCommand("AutonShoot", new Shoot(true));
         NamedCommands.registerCommand("AutonShootWall", new InstantCommand(Robot.wrist::setNextShotWall).andThen(new Shoot(true))); // used for first shot
         NamedCommands.registerCommand("AutonRotate", new AutoRotate());

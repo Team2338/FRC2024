@@ -130,7 +130,11 @@ public class Wrist extends SubsystemBase {
      * @return true if wrist is within tolerance
      */
     public boolean isWristWithinTolerance() {
-        return pidController.atSetpoint();
+//        return pidController.atSetpoint();
+        double tolerance = 1.5*Constants.Wrist.ABSOLUTE_PER_DEGREE;
+        double delta = Math.abs(getPosition() - targetPosition);
+//        System.out.println("wrist delta: " + delta + "tolerance " + tolerance);
+        return delta < tolerance;
     }
     /**
      * Get the current position of the wrist in absolute between 0 and 1
@@ -338,7 +342,6 @@ public class Wrist extends SubsystemBase {
                 Robot.autoShooterFF = Constants.Shooter.FF_FAR3;
             }
         }
-        System.out.println(" new " + Robot.autoType);
     }
 
     /**
@@ -402,10 +405,10 @@ public class Wrist extends SubsystemBase {
             // the farther away the robot gets the lower the angle due to gravity (use distance ratio)
             if (robotAngle < 10) {
                 distance = 0.8 * (distance - 43.38) + 43.38;
-                System.out.println("angle " + robotAngle + " gain 0.8");
+//                System.out.println("angle " + robotAngle + " gain 0.8");
             } else {
                 distance = (0.8 - robotAngle * 0.0006600 )* (distance - 43.38) + 43.38;
-                System.out.println("angle " + robotAngle + " gain " + (0.8 - robotAngle * 0.0006600 ));
+//                System.out.println("angle " + robotAngle + " gain " + (0.8 - robotAngle * 0.0006600 ));
             }
 
             // 58 is the height between the limelight lens and target in inches

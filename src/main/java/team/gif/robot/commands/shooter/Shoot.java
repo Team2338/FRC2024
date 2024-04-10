@@ -94,29 +94,40 @@ public class Shoot extends Command {
 
         minRPM = Robot.wrist.isAutoAngleEnabled() ? Robot.autoShooterMinRPM : Robot.nextShot.getMinimumRPM();
 //        System.out.println(minRPM + " " + Robot.shooter.getShooterRPM() + " " + isFiring +" " + Robot.wrist.isWristWithinTolerance() + " " + Robot.sensors.shooter());
+        double tolerance = 1.5*Constants.Wrist.ABSOLUTE_PER_DEGREE;
+        double wristCurrent = Robot.wrist.getPosition();
+        double delta = Math.abs(wristCurrent - Robot.wrist.getTargetPosition());
 
         if ( ((Robot.shooter.getShooterRPM() >= minRPM) &&
                     Robot.wrist.isWristWithinTolerance() &&
                     Robot.sensors.shooter()) ||  // RPM and wrist within tolerance and has note in shooter
                 commandCounter >= 1.0*50     ||  // force shot after designated time
                 isFiring) {                      // once the robot begins to fire, continue to fire and don't change angle
-            Robot.indexer.setIndexer(0, Constants.Indexer.INDEXER_TWO_SHOOT_PERC);
+            if (Robot.shooter.getShooterRPM() > Constants.Shooter.MIN_SAFEGUARD_RPM) { // Safeguard ... On occasion, shooter does not rotate, don't want indexer jamming note through
+                Robot.indexer.setIndexer(0, Constants.Indexer.INDEXER_TWO_SHOOT_PERC);
+                System.out.println("Firing  " + minRPM + " " +
+                                                Robot.shooter.getShooterRPM() + " " +
+                                                Robot.wrist.absoluteToDegrees(Robot.autoWristAngleAbs) + " " +
+                                                Robot.wrist.absoluteToDegrees(wristCurrent) + " " +
+                                                Robot.wrist.isWristWithinTolerance() + " " +
+                                                Robot.sensors.shooter() + " " +
+                                                delta);
+            } else {
+                System.out.println("SHOOTING ABORTED. SHOOTER NOT AT BARE MINIMUM RPM OF " + Constants.Shooter.MIN_SAFEGUARD_RPM);
+            }
             isFiring = true;
             Robot.killAutoAlign = true;
             fireCounter++;
-//            System.out.println("Firing  " + minRPM + " " +
-//                                            Robot.shooter.getShooterRPM() + " " +
-//                                            Robot.wrist.absoluteToDegrees(Robot.autoWristAngleAbs) + " " +
-//                                            Robot.wrist.isWristWithinTolerance() + " " +
-//                                            Robot.sensors.shooter());
 //            System.out.println("fired");
         } else {
             // not ready to fire, continue to rev the flywheel
-//            System.out.println("Revving " + minRPM + " " +
-//                                            Robot.shooter.getShooterRPM() + " " +
-//                                            Robot.wrist.absoluteToDegrees(Robot.autoWristAngleAbs) + " " +
-//                                            Robot.wrist.isWristWithinTolerance() + " " +
-//                                            Robot.sensors.shooter());
+            System.out.println("Revving " + minRPM + " " +
+                                            Robot.shooter.getShooterRPM() + " " +
+                                            Robot.wrist.absoluteToDegrees(Robot.autoWristAngleAbs) + " " +
+                    Robot.wrist.absoluteToDegrees(wristCurrent) + " " +
+                                            Robot.wrist.isWristWithinTolerance() + " " +
+                                            Robot.sensors.shooter() + " " +
+                                            delta);
             Robot.shooter.configMotorControllerAndRev();
         }
     }
@@ -130,7 +141,7 @@ public class Shoot extends Command {
     // Called when the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
-        System.out.println("Total shoot counter: " + (commandCounter) + " fire only counter: " + (fireCounter) );
+        System.out.println("Total shoot counter: " + commandCounter);
         Robot.indexer.stopIndexerCoast();
         Robot.shooter.setVoltagePercent(0);
         if (Robot.indexer.getDefaultCommand() == null) {
