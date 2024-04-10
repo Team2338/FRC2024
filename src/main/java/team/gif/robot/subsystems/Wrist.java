@@ -387,7 +387,14 @@ public class Wrist extends SubsystemBase {
         double timestamp = Timer.getFPGATimestamp();
         double angle;
         double distance = distanceInches;
-        double robotAngle = Math.abs(Robot.pigeon.get180Heading());
+        double robotAngle = Robot.pigeon.get180Heading();
+
+        // need to adjust angle if we are running in autonomous
+        if (Robot.runningAutonomousMode) {
+            robotAngle = -1 * (robotAngle + Robot.initialAutonomousAngleAdjust); // -1 is unnecessary since what is ultimately needed is absolute value, but adding it for accuracy
+        }
+
+        robotAngle = Math.abs(robotAngle);
 
         // If the limelight doesn't have a target
         if (distance == -1) {
@@ -407,7 +414,7 @@ public class Wrist extends SubsystemBase {
                 distance = 0.8 * (distance - 43.38) + 43.38;
 //                System.out.println("angle " + robotAngle + " gain 0.8");
             } else {
-                distance = (0.8 - robotAngle * 0.0006600 )* (distance - 43.38) + 43.38;
+                distance = (0.8 - robotAngle * 0.0006600) * (distance - 43.38) + 43.38;
 //                System.out.println("angle " + robotAngle + " gain " + (0.8 - robotAngle * 0.0006600 ));
             }
 

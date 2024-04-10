@@ -87,11 +87,12 @@ public class Robot extends TimedRobot {
     public static boolean isCompBot = true; //includes 2023 bot
 
     public static boolean competitionMode = true;
-    public static boolean fullDashboard = false;//!competitionMode;
+    public static boolean fullDashboard = true;//!competitionMode;
 
     public static boolean manualControlMode;
 
     public static boolean killAutoAlign;
+    public static double initialAutonomousAngleAdjust;
 
     //https://github.com/mjansen4857/pathplanner/tree/main/examples/java/src/main/java/frc/robot
 
@@ -171,6 +172,7 @@ public class Robot extends TimedRobot {
 
         manualControlMode = false;
         runningAutonomousMode = false;
+        initialAutonomousAngleAdjust = 0;
 
         //Increase the speed the sensors update at to 10ms, with offset of 5 ms from teleopPeriodic to avoid conflicts
         addPeriodic(() -> sensors.updateSensors(), 0.01, 0.005);
@@ -231,15 +233,17 @@ public class Robot extends TimedRobot {
         runAutoScheduler = true;
 
         // Autos may start with a heading other than 0, but bot starts with 0 heading, Need to adjust pigeon.
+        // Can't adjust pigeon heading here because it causes a problem with PathPlanner initial pose
+        // Store the value to be used during wristAutoAngle
         var alliance = DriverStation.getAlliance();
-        if( alliance.isPresent() ) {
+        if (alliance.isPresent()) {
             if (alliance.get() == DriverStation.Alliance.Red) {
-                Robot.pigeon.resetPigeonPosition(-1 * robotContainer.getAutonomousInitialHeading());
+                initialAutonomousAngleAdjust =  -1 * robotContainer.getAutonomousInitialHeading();
             } else {
-                Robot.pigeon.resetPigeonPosition(robotContainer.getAutonomousInitialHeading());
+                initialAutonomousAngleAdjust = robotContainer.getAutonomousInitialHeading();
             }
         }
-        System.out.println("Autonomous Init");
+        System.out.println("Autonomous Init heading " + initialAutonomousAngleAdjust);
     }
 
     /** This function is called periodically during autonomous. */
@@ -268,14 +272,7 @@ public class Robot extends TimedRobot {
         runningAutonomousMode = false;
 
         // Autos may start with a heading other than 0, but bot starts with 0 heading, Need to adjust pigeon.
-        var alliance = DriverStation.getAlliance();
-        if( alliance.isPresent() ) {
-            if (alliance.get() == DriverStation.Alliance.Red) {
-                Robot.pigeon.resetPigeonPosition(Robot.pigeon.get360Heading() - robotContainer.getAutonomousInitialHeading());
-            } else {
-                Robot.pigeon.resetPigeonPosition(Robot.pigeon.get360Heading() + robotContainer.getAutonomousInitialHeading());
-            }
-        }
+        Robot.pigeon.resetPigeonPosition(Robot.pigeon.get360Heading() + initialAutonomousAngleAdjust);
     }
 
     /** This function is called periodically during operator control. */

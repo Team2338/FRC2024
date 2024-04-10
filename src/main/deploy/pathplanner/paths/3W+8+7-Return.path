@@ -47,12 +47,6 @@
             {
               "type": "named",
               "data": {
-                "name": "AutonWristMiddle"
-              }
-            },
-            {
-              "type": "named",
-              "data": {
                 "name": "AutonRevFlywheel"
               }
             }
