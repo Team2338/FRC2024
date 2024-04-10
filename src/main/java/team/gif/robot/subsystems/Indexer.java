@@ -33,7 +33,7 @@ public class Indexer extends SubsystemBase {
         pidControllerStage2.setFF(Constants.Indexer.INDEXER_TWO_FF);
         pidControllerStage2.setP(Constants.Indexer.INDEXER_TWO_kP);
 
-        notePassedCollector = true;
+        notePassedCollector = false;
         isIndexing = false;
     }
 

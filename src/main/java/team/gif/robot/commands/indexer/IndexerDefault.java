@@ -41,26 +41,31 @@ public class IndexerDefault extends Command {
         // 1
         if (Robot.sensors.collector() && !Robot.sensors.indexer() && !Robot.sensors.shooter()) {
             Robot.indexer.setIndexing(true);
+            Robot.indexer.setNotePassedCollector(true);
         }
 
         // 2
         if (Robot.sensors.collector() && Robot.sensors.indexer() && !Robot.sensors.shooter()) {
             Robot.indexer.setIndexing(true);
+            Robot.indexer.setNotePassedCollector(true);
         }
 
         // 3
         if (!Robot.sensors.collector() && Robot.sensors.indexer() && !Robot.sensors.shooter()) {
            Robot.indexer.setIndexing(true);
+            Robot.indexer.setNotePassedCollector(true);
         }
 
         // 4
         if (!Robot.sensors.collector() && Robot.sensors.indexer() && Robot.sensors.shooter()) {
             Robot.indexer.setIndexing(false);
+            Robot.indexer.setNotePassedCollector(true);
         }
 
         // 5
         if (!Robot.sensors.collector() && !Robot.sensors.indexer() && Robot.sensors.shooter()) {
             Robot.indexer.setIndexing(false);
+            Robot.indexer.setNotePassedCollector(true);
         }
 
         // Bot is indexing. Run the indexers
