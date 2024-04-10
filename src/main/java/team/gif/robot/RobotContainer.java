@@ -92,6 +92,7 @@ public class RobotContainer {
 //        autoCommands.put(autoMode.FIVE_SRC_S_C_A_4, new PathPlannerAuto("5SRC+S+C+A+4"));
         autoCommands.put(autoMode.FIVE_CTR_C_S_A_4, new PathPlannerAuto("5CTR+C+S+A+4"));
         autoCommands.put(autoMode.FIVE_CTR_C_S_A_5, new PathPlannerAuto("5CTR+C+S+A+5"));
+        autoCommands.put(autoMode.FIVE_CTR_C_S_A_6, new PathPlannerAuto("5CTR+C+S+A+6"));
         autoCommands.put(autoMode.SHOOTER_TEST, new PathPlannerAuto("Shooter Test"));
 
 //        autoCommands.put(autoMode.TWO_SCSPLIT_SIX, new PathPlannerAuto("2SCSplit+6"));
