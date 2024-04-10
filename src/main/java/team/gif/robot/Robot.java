@@ -229,6 +229,16 @@ public class Robot extends TimedRobot {
         elapsedTime.reset();
         elapsedTime.start();
         runAutoScheduler = true;
+
+        // Autos may start with a heading other than 0, but bot starts with 0 heading, Need to adjust pigeon.
+        var alliance = DriverStation.getAlliance();
+        if( alliance.isPresent() ) {
+            if (alliance.get() == DriverStation.Alliance.Red) {
+                Robot.pigeon.resetPigeonPosition(-1 * robotContainer.getAutonomousInitialHeading());
+            } else {
+                Robot.pigeon.resetPigeonPosition(robotContainer.getAutonomousInitialHeading());
+            }
+        }
         System.out.println("Autonomous Init");
     }
 

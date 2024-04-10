@@ -16,12 +16,12 @@
     },
     {
       "anchor": {
-        "x": 2.06,
-        "y": 6.27
+        "x": 2.52,
+        "y": 6.14
       },
       "prevControl": {
-        "x": 3.9083369334829836,
-        "y": 6.747527113287845
+        "x": 4.368336933482984,
+        "y": 6.617527113287845
       },
       "nextControl": null,
       "isLocked": false,
@@ -36,7 +36,25 @@
     }
   ],
   "constraintZones": [],
-  "eventMarkers": [],
+  "eventMarkers": [
+    {
+      "name": "RevFlyWheel",
+      "waypointRelativePos": 0.6,
+      "command": {
+        "type": "parallel",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "AutonRevFlywheel"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
   "globalConstraints": {
     "maxVelocity": 4.0,
     "maxAcceleration": 3.0,

@@ -93,7 +93,7 @@ public class Shoot extends Command {
         }
 
         minRPM = Robot.wrist.isAutoAngleEnabled() ? Robot.autoShooterMinRPM : Robot.nextShot.getMinimumRPM();
-        System.out.println(minRPM + " " + Robot.shooter.getShooterRPM() + " " + isFiring +" " + Robot.wrist.isWristWithinTolerance() + " " + Robot.sensors.shooter());
+//        System.out.println(minRPM + " " + Robot.shooter.getShooterRPM() + " " + isFiring +" " + Robot.wrist.isWristWithinTolerance() + " " + Robot.sensors.shooter());
 
         if ( ((Robot.shooter.getShooterRPM() >= minRPM) &&
                     Robot.wrist.isWristWithinTolerance() &&

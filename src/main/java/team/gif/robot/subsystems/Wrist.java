@@ -338,7 +338,7 @@ public class Wrist extends SubsystemBase {
                 Robot.autoShooterFF = Constants.Shooter.FF_FAR3;
             }
         }
-//        System.out.println("Prior " + priorAuto + " new " + Robot.autoType + " dirty? " + Robot.autoParamsDirtyFlag);
+        System.out.println(" new " + Robot.autoType);
     }
 
     /**
@@ -401,9 +401,11 @@ public class Wrist extends SubsystemBase {
             // 43.38 is the closest the robot can get to the target
             // the farther away the robot gets the lower the angle due to gravity (use distance ratio)
             if (robotAngle < 10) {
-                distance = 0.78 * (distance - 43.38) + 43.38;
+                distance = 0.8 * (distance - 43.38) + 43.38;
+                System.out.println("angle " + robotAngle + " gain 0.8");
             } else {
-                distance = (0.8 - robotAngle * 0.0004444444 )* (distance - 43.38) + 43.38;
+                distance = (0.8 - robotAngle * 0.0006600 )* (distance - 43.38) + 43.38;
+                System.out.println("angle " + robotAngle + " gain " + (0.8 - robotAngle * 0.0006600 ));
             }
 
             // 58 is the height between the limelight lens and target in inches

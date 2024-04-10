@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import team.gif.lib.autoMode;
-import team.gif.robot.commands.autos.lib.AutonHasNote;
+import team.gif.robot.commands.autos.lib.AutonNoNote;
 import team.gif.robot.commands.drivetrain.AutoRotate;
 import team.gif.robot.commands.autos.NoAuto;
 import team.gif.robot.commands.shooter.RevFlyWheels;
@@ -52,7 +52,7 @@ public class RobotContainer {
         NamedCommands.registerCommand("AutonShootWall", new InstantCommand(Robot.wrist::setNextShotWall).andThen(new Shoot(true))); // used for first shot
         NamedCommands.registerCommand("AutonRotate", new AutoRotate());
 
-        NamedCommands.registerCommand("AutonHasNote", new AutonHasNote());
+        NamedCommands.registerCommand("AutonNoNote", new AutonNoNote());
 
         // Configure the trigger bindings
         configureBindings();
