@@ -1,6 +1,7 @@
 package team.gif.robot.commands.collector;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import team.gif.robot.Constants;
 import team.gif.robot.Robot;
 
 public class CollectorManualControl extends Command {
@@ -16,7 +17,9 @@ public class CollectorManualControl extends Command {
     // Called every time the scheduler runs (~20ms) while the command is scheduled
     @Override
     public void execute() {
-        if (!Robot.sensors.shooter()) {
+        if (!Robot.sensors.shooter() &&
+                Robot.wrist.getPosition() < Constants.Wrist.MIN_COLLECT) {
+                //Robot.elevator.getPosition() < Constants.Elevator.MIN_COLLECT) {
             Robot.collector.collect();
         } else {
             Robot.collector.eject();

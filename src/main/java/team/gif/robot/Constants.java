@@ -409,6 +409,8 @@ public final class Constants {
         public static final double SETPOINT_AMP_ABSOLUTE = (129.65 - MIN_LIMIT_DEGREES) * ABSOLUTE_PER_DEGREE + MIN_LIMIT_ABSOLUTE; // number in degrees, value in absolute
         public static final double SETPOINT_AUTOSHOT_ABSOLUTE = SETPOINT_WALL_ABSOLUTE;
         public static final double SAFE_STAGE_DEGREES = 33;
+
+        public static final double MIN_COLLECT = (90.0 - MIN_LIMIT_DEGREES) * ABSOLUTE_PER_DEGREE + MIN_LIMIT_ABSOLUTE;
     }
 
     public static final class Indexer { // ToDo tune - remove when done
@@ -449,6 +451,7 @@ public final class Constants {
         public static final double SAFE_STAGE_POS = 0.4;
         public static final double TRAP_POS = 52.500;
         public static final double HOME_POS = 0.0;
+        //public static final double MIN_COLLECT = (12.0 * TICKS_PER_INCH) + LIMIT_MIN;
     }
 
     public static final class Climber {

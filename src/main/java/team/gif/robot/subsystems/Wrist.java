@@ -93,8 +93,8 @@ public class Wrist extends SubsystemBase {
 
         // The kP is tuned high to get to the position quickly, but need to set a max and min
         // so the wrist doesn't go too quickly and overshoot the target by a lot
-        percent = Math.min(percent,0.13); // this MAXIMIZES percent to 0.13 sp we don't move too fast
-        percent = Math.max(percent,-0.04); // this MINIMIZES percent to -0.04 so we don't move too fast
+        percent = Math.min(percent,0.15); // this MAXIMIZES percent to 0.13 sp we don't move too fast
+        percent = Math.max(percent,-0.06); // this MINIMIZES percent to -0.04 so we don't move too fast
 
         motor.set(percent);
     }
