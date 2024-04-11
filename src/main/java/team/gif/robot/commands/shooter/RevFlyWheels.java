@@ -55,6 +55,7 @@ public class RevFlyWheels extends Command {
 
         if (Robot.runningAutonomousMode) {
             Robot.shooter.setShooterRPM(3000);
+            System.out.println("revving to target: 3000 actual: " + Robot.shooter.getShooterRPM());
         } else {
             Robot.shooter.configMotorControllerAndRev();
         }

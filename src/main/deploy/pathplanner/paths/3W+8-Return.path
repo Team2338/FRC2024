@@ -4,24 +4,24 @@
     {
       "anchor": {
         "x": 8.4,
-        "y": 0.75
+        "y": 0.42
       },
       "prevControl": null,
       "nextControl": {
         "x": 6.284390701511031,
-        "y": 0.7499999999999998
+        "y": 0.41999999999999976
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 2.1,
-        "y": 3.75
+        "x": 3.0,
+        "y": 3.0
       },
       "prevControl": {
-        "x": 3.8615603157132234,
-        "y": 1.9573465485962325
+        "x": 4.761560315713217,
+        "y": 1.2073465485962327
       },
       "nextControl": null,
       "isLocked": false,
@@ -38,7 +38,7 @@
   "constraintZones": [],
   "eventMarkers": [
     {
-      "name": "ShotSetup",
+      "name": "RevFlywheel",
       "waypointRelativePos": 0.6,
       "command": {
         "type": "parallel",

@@ -16,12 +16,12 @@
     },
     {
       "anchor": {
-        "x": 2.1,
-        "y": 3.75
+        "x": 3.0,
+        "y": 3.0
       },
       "prevControl": {
-        "x": 3.9785018601376234,
-        "y": 2.0932536451967496
+        "x": 4.878501860137623,
+        "y": 1.3432536451967496
       },
       "nextControl": null,
       "isLocked": false,
@@ -38,7 +38,7 @@
   "constraintZones": [],
   "eventMarkers": [
     {
-      "name": "New Event Marker",
+      "name": "RevFlywheel",
       "waypointRelativePos": 0.6,
       "command": {
         "type": "parallel",
