@@ -9,6 +9,7 @@ public enum autoMode {
     TWO_SRC_8(0),
     TWO_SRC_S(0),
     THREE_AMP_A_4_5(0),
+    TWO_W_8_7(0),
     THREE_W_8_7(0),
     THREE_W_7_8(0),
     THREE_W_7_6(0),

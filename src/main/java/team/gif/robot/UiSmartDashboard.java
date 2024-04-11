@@ -39,6 +39,8 @@ public class UiSmartDashboard {
 //        autoModeChooser.addOption("2SRC+S", autoMode.TWO_SRC_S);
 //        autoModeChooser.addOption("2SRC+8", autoMode.TWO_SRC_8);
 //        autoModeChooser.addOption("2SRC+7", autoMode.TWO_SRC_7); // TODO: testing need, I'm not sure about this
+        autoModeChooser.addOption("2W+8+7", autoMode.TWO_W_8_7);
+
         autoModeChooser.addOption("3W+8+7", autoMode.THREE_W_8_7);
         autoModeChooser.addOption("3W+7+8", autoMode.THREE_W_7_8);
         autoModeChooser.addOption("3W+7+6", autoMode.THREE_W_7_6);
