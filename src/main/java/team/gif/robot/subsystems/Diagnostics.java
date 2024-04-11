@@ -4,6 +4,8 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import team.gif.robot.Constants;
 import team.gif.robot.Robot;
 
+import java.util.function.BooleanSupplier;
+
 public class Diagnostics extends SubsystemBase {
 
     public Diagnostics(){}
@@ -80,6 +82,10 @@ public class Diagnostics extends SubsystemBase {
      */
     public boolean getRobotHasNote() {
         return Robot.sensors.collector() || Robot.sensors.indexer() || Robot.sensors.shooter();
+    }
+
+    public BooleanSupplier getRobotHasNoteSupplier() {
+        return this::getRobotHasNote;
     }
 
     /**
