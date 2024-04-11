@@ -298,7 +298,7 @@ public class Wrist extends SubsystemBase {
 
         double distance = Robot.limelightShooter.getDistance();
         Robot.autoWristAngleAbs = degreesToAbsolute(wristEstimatorDegrees(distance));
-        
+
 //        priorAuto = Robot.autoType;
         // setting up next shot
         if (distance < 0) { // there was an error getting the distance, set it to the farthest shot
