@@ -20,12 +20,6 @@
         {
           "type": "named",
           "data": {
-            "name": "AutonRotate"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
             "name": "AutonShoot"
           }
         },
