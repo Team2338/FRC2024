@@ -58,7 +58,7 @@ public class TrapShoot extends Command {
             // rotate until desired position
             if (Robot.wrist.getPosition() < Constants.Wrist.SETPOINT_TRAP_ABSOLUTE) {
                 System.out.println("Rotate wrist to trap");
-                Robot.wrist.moveWristPercentPower(.3);//0.3);
+                Robot.wrist.moveWristPercentPower(.25);//0.3);
             } else {
                 // reached desired position
                 System.out.println("Wrist finished trap");
