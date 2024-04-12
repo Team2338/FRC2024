@@ -3,56 +3,45 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.4782254470169316,
-        "y": 3.0
+        "x": 8.18,
+        "y": 4.07
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.107437149347233,
-        "y": 3.0045730584338672
+        "x": 6.59088598416513,
+        "y": 7.090705607622041
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 2.34,
-        "y": 3.0
+        "x": 2.52,
+        "y": 6.14
       },
       "prevControl": {
-        "x": 1.6349468865995893,
-        "y": 3.0
+        "x": 4.368336933482984,
+        "y": 6.617527113287845
       },
       "nextControl": null,
       "isLocked": false,
       "linkedName": null
     }
   ],
-  "rotationTargets": [],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.3,
+      "rotationDegrees": 18.900348594994618,
+      "rotateFast": true
+    }
+  ],
   "constraintZones": [],
   "eventMarkers": [
     {
-      "name": "AutonEnableAutoWrist",
-      "waypointRelativePos": 0,
+      "name": "RevFlyWheel",
+      "waypointRelativePos": 0.6,
       "command": {
-        "type": "sequential",
-        "data": {
-          "commands": [
-            {
-              "type": "named",
-              "data": {
-                "name": "AutonEnableAutoAngle"
-              }
-            }
-          ]
-        }
-      }
-    },
-    {
-      "name": "AutonRevFlyWheel",
-      "waypointRelativePos": 0.05,
-      "command": {
-        "type": "sequential",
+        "type": "parallel",
         "data": {
           "commands": [
             {
@@ -67,18 +56,21 @@
     }
   ],
   "globalConstraints": {
-    "maxVelocity": 3.0,
-    "maxAcceleration": 2.0,
+    "maxVelocity": 4.0,
+    "maxAcceleration": 3.0,
     "maxAngularVelocity": 181.0,
     "maxAngularAcceleration": 180.0
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -48.55,
+    "rotation": 12.03568290080254,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "3W+8+7",
-  "previewStartingState": null,
+  "folder": "5CTR+C+S+A+54",
+  "previewStartingState": {
+    "rotation": -27.149999999999977,
+    "velocity": 0
+  },
   "useDefaultConstraints": false
 }

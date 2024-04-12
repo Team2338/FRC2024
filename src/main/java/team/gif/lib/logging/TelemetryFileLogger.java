@@ -3,6 +3,7 @@ package team.gif.lib.logging;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.function.BooleanSupplier;
 import java.util.function.DoubleSupplier;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
@@ -41,6 +42,16 @@ public class TelemetryFileLogger extends FileLogger {
      */
     public void addMetric(String name, DoubleSupplier supplier) {
         addMetric(name, () -> this.formatDouble(supplier.getAsDouble()));
+    }
+
+    /**
+     * Adds a metric to the list of values to be logged. Booleans are formatted to strings, either "1", or "0".
+     *
+     * @param name     The name of the metric
+     * @param supplier A function to retrieve the metric value
+     */
+    public void addMetric(String name, BooleanSupplier supplier) {
+        addMetric(name, () -> this.formatBoolean(supplier.getAsBoolean()));
     }
 
     /**

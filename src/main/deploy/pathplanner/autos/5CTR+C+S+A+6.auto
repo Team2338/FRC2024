@@ -2,19 +2,88 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 1.48,
-      "y": 3.0
+      "x": 1.5,
+      "y": 5.54
     },
-    "rotation": -90.0
+    "rotation": 0
   },
   "command": {
     "type": "sequential",
     "data": {
       "commands": [
         {
-          "type": "path",
+          "type": "named",
           "data": {
-            "pathName": "3W+8-PreAway"
+            "name": "AutonShootWall"
+          }
+        },
+        {
+          "type": "race",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "5CTR+C-Away"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "AutonRevFlywheel"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "AutonShoot"
+          }
+        },
+        {
+          "type": "race",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "5CTR+C+S"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "AutonRevFlywheel"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "AutonShoot"
+          }
+        },
+        {
+          "type": "race",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "5CTR+C+S+A"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "AutonRevFlywheel"
+                }
+              }
+            ]
           }
         },
         {
@@ -26,31 +95,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "3W+6-Away"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "3W+6-Return"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "AutonRotate"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "AutonShoot"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "3W+6+7-Away"
+            "pathName": "5CTR+C+S+A+6"
           }
         },
         {
@@ -64,7 +109,7 @@
                     {
                       "type": "path",
                       "data": {
-                        "pathName": "3W+6+7-Return"
+                        "pathName": "5CTR+C+S+A+6+Return"
                       }
                     },
                     {

@@ -38,18 +38,12 @@
   "constraintZones": [],
   "eventMarkers": [
     {
-      "name": "New Event Marker",
+      "name": "RevFlywheel",
       "waypointRelativePos": 0.6,
       "command": {
         "type": "parallel",
         "data": {
           "commands": [
-            {
-              "type": "named",
-              "data": {
-                "name": "AutonWristMiddle"
-              }
-            },
             {
               "type": "named",
               "data": {

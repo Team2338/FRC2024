@@ -4,16 +4,15 @@
 
 package team.gif.robot;
 
-import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
 import com.pathplanner.lib.commands.PathPlannerAuto;
-import com.pathplanner.lib.path.PathPlannerPath;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import team.gif.lib.autoMode;
+import team.gif.robot.commands.autos.lib.AutonNoNote;
 import team.gif.robot.commands.drivetrain.AutoRotate;
 import team.gif.robot.commands.autos.NoAuto;
 import team.gif.robot.commands.shooter.RevFlyWheels;
@@ -37,21 +36,24 @@ public class RobotContainer {
     public RobotContainer() {
         // Used in "Paths"
         NamedCommands.registerCommand("AutonRevFlywheel", new RevFlyWheels(true)); // will move wrist to next target position
-        NamedCommands.registerCommand("AutonWristFar3", new InstantCommand(Robot.wrist::setWristFar3Position));
-        NamedCommands.registerCommand("AutonWristFar2", new InstantCommand(Robot.wrist::setWristFar2Position));
-        NamedCommands.registerCommand("AutonWristFar", new InstantCommand(Robot.wrist::setWristFarPosition));
-        NamedCommands.registerCommand("AutonWristMidMidFar", new InstantCommand(Robot.wrist::setWristMidMidFarPosition));
-        NamedCommands.registerCommand("AutonWristMidFar", new InstantCommand(Robot.wrist::setWristMidFarPosition));
-        NamedCommands.registerCommand("AutonWristMid", new InstantCommand(Robot.wrist::setWristMidPosition));
-        NamedCommands.registerCommand("AutonWristMiddle", new InstantCommand(Robot.wrist::setWristMiddlePosition));
-        NamedCommands.registerCommand("AutonWristNear", new InstantCommand(Robot.wrist::setWristNearPosition));
-        NamedCommands.registerCommand("AutonWristClose", new InstantCommand(Robot.wrist::setWristClosePosition));
-        NamedCommands.registerCommand("AutonWristWall", new InstantCommand(Robot.wrist::setWristWallPosition));
+        NamedCommands.registerCommand("AutonWristFar3", new InstantCommand(Robot.wrist::setWristAuto));
+        NamedCommands.registerCommand("AutonWristFar2", new InstantCommand(Robot.wrist::setWristAuto));
+        NamedCommands.registerCommand("AutonWristFar", new InstantCommand(Robot.wrist::setWristAuto));
+        NamedCommands.registerCommand("AutonWristMidMidFar", new InstantCommand(Robot.wrist::setWristAuto));
+        NamedCommands.registerCommand("AutonWristMidFar", new InstantCommand(Robot.wrist::setWristAuto));
+        NamedCommands.registerCommand("AutonWristMid", new InstantCommand(Robot.wrist::setWristAuto));
+        NamedCommands.registerCommand("AutonWristMiddle", new InstantCommand(Robot.wrist::setWristAuto));
+        NamedCommands.registerCommand("AutonWristNear", new InstantCommand(Robot.wrist::setWristAuto));
+        NamedCommands.registerCommand("AutonWristClose", new InstantCommand(Robot.wrist::setWristAuto));
+        NamedCommands.registerCommand("AutonWristWall", new InstantCommand(Robot.wrist::setWristAuto));
 
         // Used in "Autos" - shoots (and may set wrist first0
+        NamedCommands.registerCommand("AutonEnableAutoAngle", new InstantCommand(Robot.wrist::enableAutoAngle));
         NamedCommands.registerCommand("AutonShoot", new Shoot(true));
-        NamedCommands.registerCommand("AutonShootWall", new InstantCommand(Robot.wrist::setWristWallPosition).andThen(new Shoot(true))); // used for first shot
+        NamedCommands.registerCommand("AutonShootWall", new InstantCommand(Robot.wrist::setNextShotWall).andThen(new Shoot(true))); // used for first shot
         NamedCommands.registerCommand("AutonRotate", new AutoRotate());
+
+        NamedCommands.registerCommand("AutonNoNote", new AutonNoNote());
 
         // Configure the trigger bindings
         configureBindings();
@@ -91,6 +93,10 @@ public class RobotContainer {
 //        autoCommands.put(autoMode.FIVE_SRC_S_C_A_4, new PathPlannerAuto("5SRC+S+C+A+4"));
         autoCommands.put(autoMode.FIVE_CTR_C_S_A_4, new PathPlannerAuto("5CTR+C+S+A+4"));
         autoCommands.put(autoMode.FIVE_CTR_C_S_A_5, new PathPlannerAuto("5CTR+C+S+A+5"));
+        autoCommands.put(autoMode.FIVE_CTR_C_S_A_6, new PathPlannerAuto("5CTR+C+S+A+6"));
+        autoCommands.put(autoMode.TWO_W_8_7, new PathPlannerAuto("2W+8+7"));
+        autoCommands.put(autoMode.SHOOTER_TEST, new PathPlannerAuto("Shooter Test"));
+
 //        autoCommands.put(autoMode.TWO_SCSPLIT_SIX, new PathPlannerAuto("2SCSplit+6"));
 //        autoCommands.put(autoMode.LINE_TEST, new PathPlannerAuto("Straight Line Test"));
     }

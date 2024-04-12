@@ -5,11 +5,22 @@ import team.gif.robot.Robot;
 
 public class RevFlyWheels extends Command {
 
-    public int commandCounter;
+//    public int commandCounter;
 
+    /**
+     * Revs the flywheel according to the next target <br>
+     * In teleop:
+     *    Sets the wrist target according to next target (or auto) <br>
+     *    Wrist will move due to wrist default command using PID <br>
+     *    Rumble when shooter reaches minimum RPM <br>
+     * In Auto: <br>
+     *    Does not move wrist <br>
+     *    Does not rumble (to avoid controller from falling off driver station <br>
+     *    Can only be used in a parallel race where the other command will end, otherwise will never end
+     */
     public RevFlyWheels() {
         super();
-        addRequirements(Robot.shooter); // uncomment
+//        addRequirements(Robot.shooter); // uncomment
     }
 
     public RevFlyWheels(boolean isAuto) {
@@ -19,20 +30,39 @@ public class RevFlyWheels extends Command {
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
-        commandCounter = 0;
-        Robot.shooter.resetKI();
+//        commandCounter = 0;
+//        Robot.shooter.resetKI(); // this was causing command overruns
     }
 
     // Called every time the scheduler runs (~20ms) while the command is scheduled
     @Override
     public void execute() {
-        if (Robot.sensorMonitor.getShooterSensorState()) {
-            Robot.wrist.setTargetPosition(Robot.nextShot.getWristAngle());
+        double minRPM = 0;
+
+        // In teleop, move the wrist according to LL distance or next shot
+        // In autonomous, do not move wrist and just rev flywheel
+        if (!Robot.runningAutonomousMode) {
+            if (Robot.sensors.shooter()) {
+                if (Robot.wrist.isAutoAngleEnabled()) {
+                    Robot.wrist.setWristAuto();
+                } else {
+                    Robot.wrist.setTargetPosition(Robot.nextShot.getWristAngle());
+                }
+            }
         }
 
-        Robot.shooter.setupAndRev(Robot.nextShot.getShooterRPM());
+        minRPM = Robot.wrist.isAutoAngleEnabled() ? Robot.autoShooterMinRPM : Robot.nextShot.getMinimumRPM();
 
-        if (Robot.shooter.getShooterRPM() >= Robot.nextShot.getMinimumRPM() && !Robot.runningAutonomousMode) {
+        if (Robot.runningAutonomousMode) {
+            Robot.shooter.setShooterRPM(3000);
+            System.out.println("Rev to targ 3000 actual: " + Robot.shooter.getShooterRPM() + "Shoot PID" + Robot.autoShooterFF + " " + Robot.autoShooterkP);
+        } else {
+            Robot.shooter.configMotorControllerAndRev();
+        }
+
+        // rumble when the shooter gets to the minimum RPM
+        // (do not rumble during auto to prevent controller from falling off ledge)
+        if (Robot.shooter.getShooterRPM() >= minRPM && !Robot.runningAutonomousMode) {
             Robot.oi.setRumble(true);
         } else {
             Robot.oi.setRumble(false);
@@ -42,7 +72,7 @@ public class RevFlyWheels extends Command {
     // Return true when the command should end, false if it should continue. Runs every ~20ms.
     @Override
     public boolean isFinished() {
-        return Robot.runningAutonomousMode && (commandCounter++ > (1.0 * 50));
+        return false; // Robot.runningAutonomousMode && (commandCounter++ > (1.0 * 50));
     }
 
     // Called when the command ends or is interrupted.

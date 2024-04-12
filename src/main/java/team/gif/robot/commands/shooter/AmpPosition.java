@@ -19,16 +19,17 @@ public class AmpPosition extends Command {
     public void initialize() {
         Robot.nextShot = shootParams.AMP;
         isComplete = false;
+        Robot.wrist.disableAutoAngle();
     }
 
     // Called every time the scheduler runs (~20ms) while the command is scheduled
     @Override
     public void execute() {
-        if (Robot.sensorMonitor.getShooterSensorState()) {
+        if (Robot.sensors.shooter()) {
             Robot.elevator.setTargetPosition(Constants.Elevator.AMP_POS);
 
             Robot.wrist.setTargetPosition(Robot.nextShot.getWristAngle());
-            Robot.shooter.setupAndRev(Robot.nextShot.getShooterRPM());
+            Robot.shooter.configMotorControllerAndRev();
             isComplete = true;
         }
     }

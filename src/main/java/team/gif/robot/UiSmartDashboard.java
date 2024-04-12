@@ -21,14 +21,17 @@ public class UiSmartDashboard {
     public UiSmartDashboard() {
         ShuffleboardTab shuffleboardTab = Shuffleboard.getTab("SmartDashboard");
 
-        shuffleboardTab.add("Pigeon Heading", Robot.pigeon.get360Heading());
+        if (Robot.fullDashboard) {
+            shuffleboardTab.add("Pigeon Heading", Robot.pigeon.get360Heading());
 
-        shuffleboardTab.add("BotHead", (x) -> {
-                    x.setSmartDashboardType("Gyro");
-                    x.addDoubleProperty("Value", () -> Robot.pigeon.getCompassHeading(), null);
-                })
-                .withPosition(5, 0);
-
+            shuffleboardTab.add("BotHead", (x) -> {
+                        x.setSmartDashboardType("Gyro");
+                        x.addDoubleProperty("Value", () -> Robot.pigeon.getCompassHeading(), null);
+                    })
+                    .withPosition(5, 0);
+            SmartDashboard.putData("Reset", new Reset0());
+//            SmartDashboard.putData("Reset 180", new Reset180());
+        }
         autoModeChooser.addOption("NONE", autoMode.NONE);
 //        autoModeChooser.addOption("Circle", autoMode.CIRCLE);
         autoModeChooser.setDefaultOption("Mobility", autoMode.MOBILITY);
@@ -36,6 +39,8 @@ public class UiSmartDashboard {
 //        autoModeChooser.addOption("2SRC+S", autoMode.TWO_SRC_S);
 //        autoModeChooser.addOption("2SRC+8", autoMode.TWO_SRC_8);
 //        autoModeChooser.addOption("2SRC+7", autoMode.TWO_SRC_7); // TODO: testing need, I'm not sure about this
+        autoModeChooser.addOption("2W+8+7", autoMode.TWO_W_8_7);
+
         autoModeChooser.addOption("3W+8+7", autoMode.THREE_W_8_7);
         autoModeChooser.addOption("3W+7+8", autoMode.THREE_W_7_8);
         autoModeChooser.addOption("3W+7+6", autoMode.THREE_W_7_6);
@@ -45,10 +50,12 @@ public class UiSmartDashboard {
 
         autoModeChooser.addOption("5CTR+C+S+A+4", autoMode.FIVE_CTR_C_S_A_4);
         autoModeChooser.addOption("5CTR+C+S+A+5", autoMode.FIVE_CTR_C_S_A_5);
+        autoModeChooser.addOption("5CTR+C+S+A+6", autoMode.FIVE_CTR_C_S_A_6);
+
+        autoModeChooser.addOption("Shooter Test", autoMode.SHOOTER_TEST);
 //        autoModeChooser.addOption("2SCSplit+6", autoMode.TWO_SCSPLIT_SIX);
 //        autoModeChooser.addOption("4AMP+A+C+S", autoMode.FOUR_AMP_A_C_S);
 //        autoModeChooser.addOption("Line Test", autoMode.LINE_TEST);
-
 
         shuffleboardTab.add("Auto Select", autoModeChooser)
                 .withWidget(BuiltInWidgets.kComboBoxChooser)
@@ -75,9 +82,7 @@ public class UiSmartDashboard {
         delayChooser.addOption("14", delay.DELAY_14);
         delayChooser.addOption("15", delay.DELAY_15);
 
-        SmartDashboard.putData("Reset", new Reset0());
-        SmartDashboard.putData("Reset 180", new Reset180());
-        
+
         shuffleboardTab.add("Delay", delayChooser)
                 .withPosition(7, 0)
                 .withSize(1, 1);
@@ -91,7 +96,6 @@ public class UiSmartDashboard {
         shuffleboardTab.addBoolean("Aligned", Robot.diagnostics::getTargetAligned);
 
         shuffleboardTab.addBoolean("Manual", Robot::getManualControlMode);
-
     }
 
     public void updateUI() {

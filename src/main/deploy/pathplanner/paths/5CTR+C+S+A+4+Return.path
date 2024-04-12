@@ -4,24 +4,24 @@
     {
       "anchor": {
         "x": 8.05,
-        "y": 7.45
+        "y": 7.52
       },
       "prevControl": null,
       "nextControl": {
         "x": 5.187422524417699,
-        "y": 7.417317298737161
+        "y": 7.48731729873716
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 2.0606605315774735,
-        "y": 6.268066781147808
+        "x": 2.5167325548326307,
+        "y": 6.139431082280968
       },
       "prevControl": {
-        "x": 4.095443404562026,
-        "y": 6.876162812154685
+        "x": 3.8732544701556657,
+        "y": 6.712444649960525
       },
       "nextControl": null,
       "isLocked": false,
@@ -31,12 +31,30 @@
   "rotationTargets": [
     {
       "waypointRelativePos": 0.3,
-      "rotationDegrees": 10.048272868626869,
+      "rotationDegrees": 12.280497745414417,
       "rotateFast": false
     }
   ],
   "constraintZones": [],
-  "eventMarkers": [],
+  "eventMarkers": [
+    {
+      "name": "RevFlywheel",
+      "waypointRelativePos": 0.7,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "AutonRevFlywheel"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
   "globalConstraints": {
     "maxVelocity": 3.5,
     "maxAcceleration": 3.5,
@@ -45,7 +63,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 16.699244233993543,
+    "rotation": 8.880659150520374,
     "rotateFast": false
   },
   "reversed": false,

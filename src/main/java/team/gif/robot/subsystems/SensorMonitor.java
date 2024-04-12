@@ -4,8 +4,10 @@
 
 package team.gif.robot.subsystems;
 
+import edu.wpi.first.math.filter.Debouncer;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import team.gif.robot.Constants;
 import team.gif.robot.RobotMap;
 
 public class SensorMonitor extends SubsystemBase {
@@ -16,6 +18,7 @@ public class SensorMonitor extends SubsystemBase {
     private DigitalInput collectorSensorPhysical;
     private DigitalInput indexerSensorPhysical;
     private DigitalInput shooterSensorPhysical;
+    private Debouncer indexerSensorDebouncer;
 
     // The subsystem decreases the number of times the sensor is read every period to 1
     // Hopefully this will prevent overruns
@@ -23,23 +26,25 @@ public class SensorMonitor extends SubsystemBase {
         collectorSensorPhysical = new DigitalInput(RobotMap.SENSOR_COLLECTOR_PORT);
         indexerSensorPhysical = new DigitalInput(RobotMap.MIDDLE_SENSOR_PORT);
         shooterSensorPhysical = new DigitalInput(RobotMap.SHOOTER_SENSOR_PORT);
+
+        indexerSensorDebouncer = new Debouncer(Constants.Indexer.INDEXER_ONE_DEBOUNCE, Debouncer.DebounceType.kFalling);
     }
 
     public void updateSensors() {
         setCollectorSensorState(collectorSensorPhysical.get());
-        setIndexerSensorState(indexerSensorPhysical.get());
+        setIndexerSensorState(indexerSensorDebouncer.calculate(indexerSensorPhysical.get()));
         setShooterSensorState(shooterSensorPhysical.get());
     }
 
-    public boolean getCollectorSensorState() {
+    public boolean collector() {
         return collectorSensor;
     }
 
-    public boolean getIndexerSensorState() {
+    public boolean indexer() {
         return indexerSensor;
     }
 
-    public boolean getShooterSensorState() {
+    public boolean shooter() {
         return shooterSensor;
     }
 

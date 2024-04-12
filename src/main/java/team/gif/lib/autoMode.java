@@ -9,6 +9,7 @@ public enum autoMode {
     TWO_SRC_8(0),
     TWO_SRC_S(0),
     THREE_AMP_A_4_5(0),
+    TWO_W_8_7(0),
     THREE_W_8_7(0),
     THREE_W_7_8(0),
     THREE_W_7_6(0),
@@ -18,6 +19,8 @@ public enum autoMode {
     FIVE_SRC_S_C_A_4(0),
     FIVE_CTR_C_S_A_4(0),
     FIVE_CTR_C_S_A_5(0),
+    FIVE_CTR_C_S_A_6(0),
+    SHOOTER_TEST(0),
     LINE_TEST(0),
     TWO_SCSPLIT_SIX(0),
     ;

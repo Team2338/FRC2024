@@ -19,7 +19,7 @@ import edu.wpi.first.math.util.Units;
  */
 public final class Constants {
 
-    public static final double debounceDefault = 0.020;
+    public static final double DEBOUNCE_DEFAULT = 0.020;
 
     public static final class Drivetrain { // ToDo tune - remove when done
         //public static final double DRIVE_WHEEL_RADIUS = 0.05; // meters? Must be unit of velocity
@@ -276,9 +276,17 @@ public final class Constants {
     public static final class Shooter { // ToDo tune - remove when done (tuned for 5800RPM)
         public static final int TRAP_RPM = 1000;
         public static final int IDLE_RPM = 1000;
+        public static final int MIN_SAFEGUARD_RPM = 500;
+
+        //Pass
+        public static final double RPM_PASS = 6200;//6200;
+        public static final double RPM_MIN_PASS = 4000;
+        public static final double FF_PASS = 0.000155; // gets to 6100    // 0.000130;  // 5800 RPM
+        public static final double kP_PASS = 0.00030;//0.0100;               // 0.0006;    // 5800 RPM
+        public static final double kI_PASS = 0.000;//0.001;               // 0.0000015; // 5800 RPM
 
         //Wall
-        public static final double RPM_WALL = 6200;
+        public static final double RPM_WALL = 6200;//6200;
         public static final double RPM_MIN_WALL = 4200;
         public static final double FF_WALL = 0.000155; // gets to 6100    // 0.000130;  // 5800 RPM
         public static final double kP_WALL = 0.00030;//0.0100;               // 0.0006;    // 5800 RPM
@@ -292,14 +300,14 @@ public final class Constants {
         public static final double kI_CLOSE = 0.000;//0.001;               // 0.0000015; // 5800 RPM
 
         //Near
-        public static final double RPM_NEAR = 6200;
-        public static final double RPM_MIN_NEAR = 4500;
+        public static final double RPM_NEAR = 6200;//6200;
+        public static final double RPM_MIN_NEAR = 5000;//4500;
         public static final double FF_NEAR = 0.000155; // gets to 6100    // 0.000130;  // 5800 RPM
         public static final double kP_NEAR = 0.00030;//0.0100;               // 0.0006;    // 5800 RPM
         public static final double kI_NEAR = 0.000;//0.001;               // 0.0000015; // 5800 RPM
 
         //Mid
-        public static final double RPM_MID = 6200;
+        public static final double RPM_MID = 6200;//6200;
         public static final double RPM_MIN_MID = 5600;
         public static final double FF_MID = 0.000155; // gets to 6100    // 0.000130;  // 5800 RPM
         public static final double kP_MID = 0.00030;//0.0100;               // 0.0006;    // 5800 RPM
@@ -353,44 +361,64 @@ public final class Constants {
         public static final double FF_AMP = 0.000145; // gets to 1800
         public static final double kP_AMP = 0.00030;
         public static final double kI_AMP = 0.00000;
+
+        //Trap - only used for testing purposes. Trap shot is handled manually through % power, not PID
+        public static final double RPM_TRAP = 0;
+        public static final double RPM_MIN_TRAP = 0;
+        public static final double FF_TRAP = 0.00;
+        public static final double kP_TRAP = 0.00;
+        public static final double kI_TRAP = 0.00;
+
+        //Auto
+        public static final double RPM_AUTOSHOT = 6200;
+        public static final double RPM_MIN_AUTOSHOT = 4200;
+        public static final double FF_AUTOSHOT = 0.000155; // gets to 1800
+        public static final double kP_AUTOSHOT = 0.00030;
+        public static final double kI_AUTOSHOT = 0.00000;
     }
 
     public static final class Wrist { // tuned 02/22
         public static final double INCREASE_ANGLE_PWR_PERC = 0.1;
-        public static final double INCREASE_ANGLE_PWR_PERC_CALIBRATION = 0.1;
-        public static final double DECREASE_ANGLE_PWR_PERC = 0.1;
-        public static final double DECREASE_ANGLE_PWR_PERC_CALIBRATION = 0.015;
-        public static final double FF = 0.0157; // 0.020 too much; // 0.007 too little;
-        public static final double kP = 1.0; // 0.9 works pretty well; // 0.5; //1.0
-        public static final double kI = 0.0000;
+        public static final double INCREASE_ANGLE_PWR_PERC_CALIBRATION = 0.07;//0.1;
+        public static final double DECREASE_ANGLE_PWR_PERC = 0.015; // shooter falls on own now
+        public static final double DECREASE_ANGLE_PWR_PERC_CALIBRATION = 0.005;//0.015;
+        // FF determined by removing PID and recording needed % power to hold at 90 degrees
+        // 0.05 moves the wrist, 0.04 held pretty well, .043 also works
+        public static final double FF = 0.043;
+        public static final double kP = 2.0; // we want to get the wrist to the desired position quickly ToDo needs to move faster to avoid note going under indexer
+        public static final double kI = 0.000;
         public static final double kD = 0.0000;
 
         // Encoder setpoints and values
         // These are the encoder specific values
-        public static final double ENCODER_OFFSET_ABSOLUTE = -0.458349609375;//-0.237890625;//-0.1290039;//-0.850439; // this is determined either manually or via the auto-calibration
-        public static final double ABSOLUTE_PER_DEGREE = 0.008333;
+        public static final double ENCODER_OFFSET_ABSOLUTE = -0.627294921875;// this is determined either manually or via the auto-calibration
+        public static final double ABSOLUTE_PER_DEGREE = 0.00647249; // 0.008333;
         // These are the values we want the bot to utilize
         public static final double KILL_LIMIT_ABSOLUTE = 0.87;
         public static final double MAX_LIMIT_ABSOLUTE = 0.80; // largest value of encoder we want to allow, needs to be < 1.0
         public static final double MIN_LIMIT_ABSOLUTE = 0.105; // lowest value of encoder we want to allow, needs to be > HARD_STOP
         public static final double HARD_STOP_ABSOLUTE = 0.10; // value of encoder at lower limit hard stop
-        public static final double MIN_LIMIT_DEGREES = 46.2; // this is calculated during manual calibration from reading the 90 degree value, provides a relationship between Degrees and Absolute
+        public static final double MIN_LIMIT_DEGREES = 28.2; // 46.2; // this is calculated during manual calibration from reading the 90 degree value, provides a relationship between Degrees and Absolute
         public static final double MAX_LIMIT_DEGREES = (MAX_LIMIT_ABSOLUTE - MIN_LIMIT_ABSOLUTE)/ABSOLUTE_PER_DEGREE+MIN_LIMIT_DEGREES; // Convert MAX_LIMIT, for reference only
-        public static final double SETPOINT_FAR3_ABSOLUTE = (80.0 - MIN_LIMIT_DEGREES) * ABSOLUTE_PER_DEGREE + MIN_LIMIT_ABSOLUTE;
-        public static final double SETPOINT_FAR2_ABSOLUTE = (76.0 - MIN_LIMIT_DEGREES) * ABSOLUTE_PER_DEGREE + MIN_LIMIT_ABSOLUTE;
-        public static final double SETPOINT_FAR_ABSOLUTE  = (72.0 - MIN_LIMIT_DEGREES) * ABSOLUTE_PER_DEGREE + MIN_LIMIT_ABSOLUTE; // number in degrees, value in absolute
-        public static final double SETPOINT_MIDMIDFAR_ABSOLUTE  = (71.0 - MIN_LIMIT_DEGREES) * ABSOLUTE_PER_DEGREE + MIN_LIMIT_ABSOLUTE; // number in degrees, value in absolute
-        public static final double SETPOINT_MIDFAR_ABSOLUTE  = (70.0 - MIN_LIMIT_DEGREES) * ABSOLUTE_PER_DEGREE + MIN_LIMIT_ABSOLUTE; // number in degrees, value in absolute
-        public static final double SETPOINT_MID_ABSOLUTE  = (68.0 - MIN_LIMIT_DEGREES) * ABSOLUTE_PER_DEGREE + MIN_LIMIT_ABSOLUTE; // number in degrees, value in absolute
-        public static final double SETPOINT_MIDDLE_ABSOLUTE  = (66.0 - MIN_LIMIT_DEGREES) * ABSOLUTE_PER_DEGREE + MIN_LIMIT_ABSOLUTE; // number in degrees, value in absolute
-        public static final double SETPOINT_NEAR_ABSOLUTE = (64.0 - MIN_LIMIT_DEGREES) * ABSOLUTE_PER_DEGREE + MIN_LIMIT_ABSOLUTE; // number in degrees, value in absolute
-        public static final double SETPOINT_CLOSE_ABSOLUTE = (55.0 - MIN_LIMIT_DEGREES) * ABSOLUTE_PER_DEGREE + MIN_LIMIT_ABSOLUTE; // number in degrees, value in absolute
-        public static final double SETPOINT_WALL_ABSOLUTE = (49.0 - MIN_LIMIT_DEGREES) * ABSOLUTE_PER_DEGREE + MIN_LIMIT_ABSOLUTE; // number in degrees, value in absolute
-        public static final double SETPOINT_COLLECT_ABSOLUTE = (48.0 - MIN_LIMIT_DEGREES) * ABSOLUTE_PER_DEGREE + MIN_LIMIT_ABSOLUTE; // number in degrees, value in absolute
-        public static final double SETPOINT_TRAP_ABSOLUTE = (92.0 - MIN_LIMIT_DEGREES) * ABSOLUTE_PER_DEGREE + MIN_LIMIT_ABSOLUTE; // number in degrees, value in absolute
-        public static final double SETPOINT_TRAP_FINAL_ABSOLUTE = (64.0 - MIN_LIMIT_DEGREES) * ABSOLUTE_PER_DEGREE + MIN_LIMIT_ABSOLUTE; // number in degrees, value in absolute
-        public static final double SETPOINT_AMP_ABSOLUTE = (125.0 - MIN_LIMIT_DEGREES) * ABSOLUTE_PER_DEGREE + MIN_LIMIT_ABSOLUTE; // number in degrees, value in absolute
-        public static final double SAFE_STAGE_DEGREES = 50;
+        public static final double SETPOINT_FAR3_ABSOLUTE = (71.71 - MIN_LIMIT_DEGREES) * ABSOLUTE_PER_DEGREE + MIN_LIMIT_ABSOLUTE;
+        public static final double SETPOINT_FAR2_ABSOLUTE = (66.57 - MIN_LIMIT_DEGREES) * ABSOLUTE_PER_DEGREE + MIN_LIMIT_ABSOLUTE;
+        public static final double SETPOINT_FAR_ABSOLUTE  = (62.5 - MIN_LIMIT_DEGREES) * ABSOLUTE_PER_DEGREE + MIN_LIMIT_ABSOLUTE; // number in degrees, value in absolute
+        public static final double SETPOINT_MIDMIDFAR_ABSOLUTE  = (60.12 - MIN_LIMIT_DEGREES) * ABSOLUTE_PER_DEGREE + MIN_LIMIT_ABSOLUTE; // number in degrees, value in absolute
+        public static final double SETPOINT_MIDFAR_ABSOLUTE  = (58.84 - MIN_LIMIT_DEGREES) * ABSOLUTE_PER_DEGREE + MIN_LIMIT_ABSOLUTE; // number in degrees, value in absolute
+        public static final double SETPOINT_MID_ABSOLUTE  = (56.27 - MIN_LIMIT_DEGREES) * ABSOLUTE_PER_DEGREE + MIN_LIMIT_ABSOLUTE; // number in degrees, value in absolute
+        public static final double SETPOINT_MIDDLE_ABSOLUTE  = (53.69 - MIN_LIMIT_DEGREES) * ABSOLUTE_PER_DEGREE + MIN_LIMIT_ABSOLUTE; // number in degrees, value in absolute
+        public static final double SETPOINT_NEAR_ABSOLUTE = (51.12 - MIN_LIMIT_DEGREES) * ABSOLUTE_PER_DEGREE + MIN_LIMIT_ABSOLUTE; // number in degrees, value in absolute
+        public static final double SETPOINT_CLOSE_ABSOLUTE = (39.53 - MIN_LIMIT_DEGREES) * ABSOLUTE_PER_DEGREE + MIN_LIMIT_ABSOLUTE; // number in degrees, value in absolute
+        public static final double SETPOINT_WALL_ABSOLUTE = (31.80 - MIN_LIMIT_DEGREES) * ABSOLUTE_PER_DEGREE + MIN_LIMIT_ABSOLUTE; // number in degrees, value in absolute
+        public static final double SETPOINT_PASS_ABSOLUTE = (55 - MIN_LIMIT_DEGREES) * ABSOLUTE_PER_DEGREE + MIN_LIMIT_ABSOLUTE; // number in degrees, value in absolute
+        public static final double SETPOINT_COLLECT_ABSOLUTE = (30.51 - MIN_LIMIT_DEGREES) * ABSOLUTE_PER_DEGREE + MIN_LIMIT_ABSOLUTE; // number in degrees, value in absolute
+        public static final double SETPOINT_TRAP_ABSOLUTE = (102 - MIN_LIMIT_DEGREES) * ABSOLUTE_PER_DEGREE + MIN_LIMIT_ABSOLUTE; //87.16 // number in degrees, value in absolute
+        public static final double SETPOINT_TRAP_FINAL_ABSOLUTE = (51.12 - MIN_LIMIT_DEGREES) * ABSOLUTE_PER_DEGREE + MIN_LIMIT_ABSOLUTE; // number in degrees, value in absolute
+        public static final double SETPOINT_AMP_ABSOLUTE = (129.65 - MIN_LIMIT_DEGREES) * ABSOLUTE_PER_DEGREE + MIN_LIMIT_ABSOLUTE; // number in degrees, value in absolute
+        public static final double SETPOINT_AUTOSHOT_ABSOLUTE = SETPOINT_WALL_ABSOLUTE;
+        public static final double SAFE_STAGE_DEGREES = 33;
+
+        public static final double MIN_COLLECT = (90.0 - MIN_LIMIT_DEGREES) * ABSOLUTE_PER_DEGREE + MIN_LIMIT_ABSOLUTE;
     }
 
     public static final class Indexer { // ToDo tune - remove when done
@@ -405,6 +433,8 @@ public final class Constants {
 
         public static final double INDEXER_TWO_FF = 0.0000; //remove?
         public static final double INDEXER_TWO_kP = 0.0000; //remove?
+
+        public static final double INDEXER_ONE_DEBOUNCE = 0.040;
     }
 
     public static final class Collector { // ToDo tune - remove when done
@@ -429,6 +459,7 @@ public final class Constants {
         public static final double SAFE_STAGE_POS = 0.4;
         public static final double TRAP_POS = 52.500;
         public static final double HOME_POS = 0.0;
+        //public static final double MIN_COLLECT = (12.0 * TICKS_PER_INCH) + LIMIT_MIN;
     }
 
     public static final class Climber {

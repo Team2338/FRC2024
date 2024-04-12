@@ -63,7 +63,7 @@ public class Robot extends TimedRobot {
     public static DriveSwerve driveSwerve;
     private static TelemetryFileLogger telemetryLogger;
     public static EventFileLogger eventLogger;
-    public static SensorMonitor sensorMonitor;
+    public static SensorMonitor sensors;
     public static Shooter shooter;
     public static Wrist wrist;
     public static Indexer indexer;
@@ -74,6 +74,15 @@ public class Robot extends TimedRobot {
     public static LEDSubsystem ledSubsystem;
 
     public static shootParams nextShot;
+    public static shootParams autoType;
+
+    public static boolean autoParamsDirtyFlag;
+    public static double autoWristAngleAbs;
+    public static double autoShooterRPM;
+    public static double autoShooterMinRPM;
+    public static double autoShooterFF;
+    public static double autoShooterkP;
+//    public static double autoShooterkI;
 
     public static boolean isCompBot = true; //includes 2023 bot
 
@@ -83,6 +92,7 @@ public class Robot extends TimedRobot {
     public static boolean manualControlMode;
 
     public static boolean killAutoAlign;
+    public static double initialAutonomousAngleAdjust;
 
     //https://github.com/mjansen4857/pathplanner/tree/main/examples/java/src/main/java/frc/robot
 
@@ -97,16 +107,17 @@ public class Robot extends TimedRobot {
         eventLogger.init();
 
         telemetryLogger = new TelemetryFileLogger();
-//        addMetricsToLogger();
+        addMetricsToLogger();
 
         // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
         // autonomous chooser on the dashboard.
         elapsedTime = new Timer();
 
-        limelightShooter = new Limelight("limelight-shooter");
         limelightCollector = new Limelight("limelight-collect");
+        limelightShooter = new Limelight("limelight-shooter");
+        limelightShooter.setDistanceEstimatorParams(35,16.50,57,4);
 
-        sensorMonitor = new SensorMonitor();
+        sensors = new SensorMonitor();
 
         if (isCompBot) {
             pigeon = new Pigeon(RobotMap.PIGEON_ID);
@@ -123,6 +134,14 @@ public class Robot extends TimedRobot {
         }
 
         nextShot = shootParams.WALL;
+        autoType = shootParams.AUTO;
+        autoParamsDirtyFlag = true;
+        autoWristAngleAbs = 0;
+        autoShooterRPM = 0;
+        autoShooterMinRPM = 0;
+        autoShooterFF = 0;
+        autoShooterkP = 0;
+//        autoShooterkI = 0;
 
         shooter = new Shooter();
 
@@ -153,9 +172,10 @@ public class Robot extends TimedRobot {
 
         manualControlMode = false;
         runningAutonomousMode = false;
+        initialAutonomousAngleAdjust = 0;
 
         //Increase the speed the sensors update at to 10ms, with offset of 5 ms from teleopPeriodic to avoid conflicts
-        addPeriodic(() -> sensorMonitor.updateSensors(), 0.01, 0.005);
+        addPeriodic(() -> sensors.updateSensors(), 0.01, 0.005);
     }
 
     /**
@@ -206,10 +226,25 @@ public class Robot extends TimedRobot {
 
         autonomousCommand = robotContainer.getAutonomousCommand(chosenAuto);
 
+        wrist.disableAutoAngle();
+
         elapsedTime.reset();
         elapsedTime.start();
         runAutoScheduler = true;
-        System.out.println("Autonomous Init");
+        autoParamsDirtyFlag = true;
+
+        // Autos may start with a heading other than 0, but bot starts with 0 heading, Need to adjust pigeon.
+        // Can't adjust pigeon heading here because it causes a problem with PathPlanner initial pose
+        // Store the value to be used during wristAutoAngle
+        var alliance = DriverStation.getAlliance();
+        if (alliance.isPresent()) {
+            if (alliance.get() == DriverStation.Alliance.Red) {
+                initialAutonomousAngleAdjust =  -1 * robotContainer.getAutonomousInitialHeading();
+            } else {
+                initialAutonomousAngleAdjust = robotContainer.getAutonomousInitialHeading();
+            }
+        }
+        System.out.println("Autonomous Init heading " + initialAutonomousAngleAdjust);
     }
 
     /** This function is called periodically during autonomous. */
@@ -238,25 +273,20 @@ public class Robot extends TimedRobot {
         runningAutonomousMode = false;
 
         // Autos may start with a heading other than 0, but bot starts with 0 heading, Need to adjust pigeon.
-        var alliance = DriverStation.getAlliance();
-        if( alliance.isPresent() ) {
-            if (alliance.get() == DriverStation.Alliance.Red) {
-                Robot.pigeon.resetPigeonPosition(Robot.pigeon.get360Heading() - robotContainer.getAutonomousInitialHeading());
-            } else {
-                Robot.pigeon.resetPigeonPosition(Robot.pigeon.get360Heading() + robotContainer.getAutonomousInitialHeading());
-            }
-        }
+        Robot.pigeon.resetPigeonPosition(Robot.pigeon.get360Heading() + initialAutonomousAngleAdjust);
+
+        autoParamsDirtyFlag = true;
     }
 
     /** This function is called periodically during operator control. */
     @Override
     public void teleopPeriodic() {
         double timeLeft = DriverStation.getMatchTime();
-        oi.setRumble((timeLeft <= 40.0 && timeLeft >= 36.0) ||
-                (timeLeft <= 25.0 && timeLeft >= 21.0) ||
+        oi.setRumble((timeLeft <= 25.0 && timeLeft >= 21.0) ||
+                (timeLeft <= 15.0 && timeLeft >= 12.0) ||
                 (timeLeft <= 5.0 && timeLeft >= 3.0));
 
-//        shooter.updateShooterPID(); // used for tuning shooter PID using the dashboard
+        telemetryLogger.run();
     }
 
     @Override
@@ -279,10 +309,14 @@ public class Robot extends TimedRobot {
 
     private void addMetricsToLogger() {
         telemetryLogger.addMetric("TimeStamp", Timer::getFPGATimestamp);
-        telemetryLogger.addMetric("Driver_Left_Y", () -> -Robot.oi.driver.getLeftY());
-        telemetryLogger.addMetric("Driver_Left_X", () -> Robot.oi.driver.getLeftX());
-        telemetryLogger.addMetric("Driver_Angle", () -> Math.atan(-Robot.oi.driver.getLeftY() / Robot.oi.driver.getLeftX()));
-        telemetryLogger.addMetric("Driver_Right_X", () -> Robot.oi.driver.getRightX());
+        telemetryLogger.addMetric("Target_RPM", () -> shooter.getTargetRPM());
+        telemetryLogger.addMetric("RPM_Actual", () -> shooter.getShooterRPM());
+        telemetryLogger.addMetric("Target_Wrist", () -> wrist.absoluteToDegrees(wrist.getTargetPosition()));
+        telemetryLogger.addMetric("Wrist_Actual", () -> wrist.absoluteToDegrees(wrist.getPosition()));
+        telemetryLogger.addMetric("Shooter_Sensor", () -> sensors.shooter());
+        telemetryLogger.addMetric("Distance", () -> limelightShooter.getDistance());
+        telemetryLogger.addMetric("YOffset", () -> limelightShooter.getYOffset());
+        telemetryLogger.init();
     }
 
     public static void cancelAuto() {

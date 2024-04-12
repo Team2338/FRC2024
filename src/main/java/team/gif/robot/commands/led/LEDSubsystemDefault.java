@@ -30,7 +30,7 @@ public class LEDSubsystemDefault extends Command {
         // Solid Green: Ready to shoot
 
         // if the robot is attempting to collect and does not have a game piece, flash the LEDs
-        if (Robot.collector.getPreSensorState() || Robot.sensorMonitor.getCollectorSensorState() || (Robot.sensorMonitor.getIndexerSensorState() && !Robot.sensorMonitor.getShooterSensorState())) {
+        if (Robot.collector.getPreSensorState() || Robot.sensors.collector() || (Robot.sensors.indexer() && !Robot.sensors.shooter())) {
             flashCounter++;
             if ( flashCounter < flashLength/2*50) {
                 Robot.ledSubsystem.setNoteCollecting(); // first half of flash length
@@ -40,10 +40,10 @@ public class LEDSubsystemDefault extends Command {
             if (flashCounter >= flashLength*50){ // need to reset the flash counter at the end of the length
                 flashCounter = 0;
             }
-        } else if (Robot.collector.getCollectingState() && (!Robot.sensorMonitor.getCollectorSensorState() || !Robot.collector.getPreSensorState())) {
+        } else if (Robot.collector.getCollectingState() && (!Robot.sensors.collector() || !Robot.collector.getPreSensorState())) {
             Robot.ledSubsystem.setNoteCollecting();
         } else {
-            if (Robot.sensorMonitor.getShooterSensorState()) {
+            if (Robot.sensors.shooter()) {
                 Robot.ledSubsystem.setNoteCollected();
             } else {
                 Robot.ledSubsystem.setNoteEmpty();

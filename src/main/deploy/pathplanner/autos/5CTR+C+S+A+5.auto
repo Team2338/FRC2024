@@ -18,44 +18,19 @@
           }
         },
         {
-          "type": "path",
-          "data": {
-            "pathName": "5CTR+C-Away"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "AutonWristMiddle"
-          }
-        },
-        {
-          "type": "parallel",
+          "type": "race",
           "data": {
             "commands": [
               {
-                "type": "named",
+                "type": "path",
                 "data": {
-                  "name": "AutonShoot"
+                  "pathName": "5CTR+C-Away"
                 }
               },
               {
-                "type": "sequential",
+                "type": "named",
                 "data": {
-                  "commands": [
-                    {
-                      "type": "wait",
-                      "data": {
-                        "waitTime": 1.0
-                      }
-                    },
-                    {
-                      "type": "path",
-                      "data": {
-                        "pathName": "5CTR+C+S"
-                      }
-                    }
-                  ]
+                  "name": "AutonRevFlywheel"
                 }
               }
             ]
@@ -64,32 +39,51 @@
         {
           "type": "named",
           "data": {
-            "name": "AutonWristMiddle"
+            "name": "AutonShoot"
           }
         },
         {
-          "type": "parallel",
+          "type": "race",
           "data": {
             "commands": [
               {
-                "type": "named",
+                "type": "path",
                 "data": {
-                  "name": "AutonShoot"
+                  "pathName": "5CTR+C+S"
                 }
               },
+              {
+                "type": "named",
+                "data": {
+                  "name": "AutonRevFlywheel"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "AutonShoot"
+          }
+        },
+        {
+          "type": "race",
+          "data": {
+            "commands": [
               {
                 "type": "path",
                 "data": {
                   "pathName": "5CTR+C+S+A"
                 }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "AutonRevFlywheel"
+                }
               }
             ]
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "AutonWristMidMidFar"
           }
         },
         {
@@ -105,11 +99,11 @@
           }
         },
         {
-          "type": "parallel",
+          "type": "race",
           "data": {
             "commands": [
               {
-                "type": "parallel",
+                "type": "sequential",
                 "data": {
                   "commands": [
                     {
@@ -119,40 +113,40 @@
                       }
                     },
                     {
-                      "type": "sequential",
+                      "type": "named",
                       "data": {
-                        "commands": [
-                          {
-                            "type": "named",
-                            "data": {
-                              "name": "AutonWristNear"
-                            }
-                          },
-                          {
-                            "type": "named",
-                            "data": {
-                              "name": "AutonRevFlywheel"
-                            }
-                          }
-                        ]
+                        "name": "AutonRotate"
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "AutonShoot"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "sequential",
+                "data": {
+                  "commands": [
+                    {
+                      "type": "wait",
+                      "data": {
+                        "waitTime": 0.25
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "AutonNoNote"
                       }
                     }
                   ]
                 }
               }
             ]
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "AutonRotate"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "AutonShoot"
           }
         }
       ]
