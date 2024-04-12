@@ -278,6 +278,13 @@ public final class Constants {
         public static final int IDLE_RPM = 1000;
         public static final int MIN_SAFEGUARD_RPM = 500;
 
+        //Pass
+        public static final double RPM_PASS = 6200;//6200;
+        public static final double RPM_MIN_PASS = 4000;
+        public static final double FF_PASS = 0.000155; // gets to 6100    // 0.000130;  // 5800 RPM
+        public static final double kP_PASS = 0.00030;//0.0100;               // 0.0006;    // 5800 RPM
+        public static final double kI_PASS = 0.000;//0.001;               // 0.0000015; // 5800 RPM
+
         //Wall
         public static final double RPM_WALL = 6200;//6200;
         public static final double RPM_MIN_WALL = 4200;
@@ -403,6 +410,7 @@ public final class Constants {
         public static final double SETPOINT_NEAR_ABSOLUTE = (51.12 - MIN_LIMIT_DEGREES) * ABSOLUTE_PER_DEGREE + MIN_LIMIT_ABSOLUTE; // number in degrees, value in absolute
         public static final double SETPOINT_CLOSE_ABSOLUTE = (39.53 - MIN_LIMIT_DEGREES) * ABSOLUTE_PER_DEGREE + MIN_LIMIT_ABSOLUTE; // number in degrees, value in absolute
         public static final double SETPOINT_WALL_ABSOLUTE = (31.80 - MIN_LIMIT_DEGREES) * ABSOLUTE_PER_DEGREE + MIN_LIMIT_ABSOLUTE; // number in degrees, value in absolute
+        public static final double SETPOINT_PASS_ABSOLUTE = (55 - MIN_LIMIT_DEGREES) * ABSOLUTE_PER_DEGREE + MIN_LIMIT_ABSOLUTE; // number in degrees, value in absolute
         public static final double SETPOINT_COLLECT_ABSOLUTE = (30.51 - MIN_LIMIT_DEGREES) * ABSOLUTE_PER_DEGREE + MIN_LIMIT_ABSOLUTE; // number in degrees, value in absolute
         public static final double SETPOINT_TRAP_ABSOLUTE = (102 - MIN_LIMIT_DEGREES) * ABSOLUTE_PER_DEGREE + MIN_LIMIT_ABSOLUTE; //87.16 // number in degrees, value in absolute
         public static final double SETPOINT_TRAP_FINAL_ABSOLUTE = (51.12 - MIN_LIMIT_DEGREES) * ABSOLUTE_PER_DEGREE + MIN_LIMIT_ABSOLUTE; // number in degrees, value in absolute

@@ -253,6 +253,13 @@ public class Wrist extends SubsystemBase {
     }
 
     /**
+     * Sets the next shot parameters for the Near setpoint defined in constants.java. Does not move wrist.
+     */
+    public void setNextShotPass() {
+        Robot.nextShot = shootParams.PASS;
+    }
+
+    /**
      * Sets the next shot parameters for the Close setpoint defined in constants.java. Does not move wrist.
      */
     public void setNextShotClose() {

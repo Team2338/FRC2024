@@ -87,7 +87,7 @@ public class Robot extends TimedRobot {
     public static boolean isCompBot = true; //includes 2023 bot
 
     public static boolean competitionMode = true;
-    public static boolean fullDashboard = true;//!competitionMode;
+    public static boolean fullDashboard = false;//!competitionMode;
 
     public static boolean manualControlMode;
 
@@ -231,6 +231,7 @@ public class Robot extends TimedRobot {
         elapsedTime.reset();
         elapsedTime.start();
         runAutoScheduler = true;
+        autoParamsDirtyFlag = true;
 
         // Autos may start with a heading other than 0, but bot starts with 0 heading, Need to adjust pigeon.
         // Can't adjust pigeon heading here because it causes a problem with PathPlanner initial pose
@@ -273,14 +274,16 @@ public class Robot extends TimedRobot {
 
         // Autos may start with a heading other than 0, but bot starts with 0 heading, Need to adjust pigeon.
         Robot.pigeon.resetPigeonPosition(Robot.pigeon.get360Heading() + initialAutonomousAngleAdjust);
+
+        autoParamsDirtyFlag = true;
     }
 
     /** This function is called periodically during operator control. */
     @Override
     public void teleopPeriodic() {
         double timeLeft = DriverStation.getMatchTime();
-        oi.setRumble((timeLeft <= 40.0 && timeLeft >= 36.0) ||
-                (timeLeft <= 25.0 && timeLeft >= 21.0) ||
+        oi.setRumble((timeLeft <= 25.0 && timeLeft >= 21.0) ||
+                (timeLeft <= 15.0 && timeLeft >= 12.0) ||
                 (timeLeft <= 5.0 && timeLeft >= 3.0));
 
         telemetryLogger.run();

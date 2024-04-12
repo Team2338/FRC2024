@@ -202,8 +202,8 @@ public class OI {
 
         aStart.and(aDPadUp).whileTrue(new WristAngleUp());
         aStart.and(aDPadDown).whileTrue(new WristAngleDown());
-        aStart.and(aDPadLeft).onTrue(new InstantCommand(Robot.shooter::setPipeline1));
-        aStart.and(aDPadRight).onTrue(new InstantCommand(Robot.shooter::setPipeline2));
+        aStart.and(aDPadRight).onTrue(new InstantCommand(Robot.wrist::setNextShotPass).andThen(new InstantCommand(Robot.wrist::disableAutoAngle)).andThen(new SetWristPos()));
+//        aStart.and(aDPadRight).onTrue(new InstantCommand(Robot.shooter::setPipeline2));
         aY.and(aBack.negate()).onTrue(new InstantCommand(Robot.shooter::setPipeline0));
 //        aStart.and(aDPadRight).onTrue(new InstantCommand(Robot.wrist::BumpAngle));
 
