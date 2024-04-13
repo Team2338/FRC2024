@@ -129,6 +129,14 @@ public class Shooter extends SubsystemBase {
 //        pidShooter.setI(shooterKI);
     }
 
+    public double getShooterAppliedOutput() {
+        return shooterMotor.getAppliedOutput();
+    }
+
+    public double getShooterOutputCurrent() {
+        return shooterMotor.getOutputCurrent();
+    }
+
     public double getShooterMotorTemp() {
         return shooterMotor.getMotorTemperature();
     }

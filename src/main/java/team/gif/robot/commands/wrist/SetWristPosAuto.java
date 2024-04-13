@@ -16,9 +16,10 @@ public class SetWristPosAuto extends Command {
     @Override
     public void initialize() {
         double time = Timer.getFPGATimestamp();
-        System.out.println(time - Robot.dcLeftPadTime);
-        if (time - Robot.dcLeftPadTime < 300) {
+        if (time - Robot.dcLeftPadTime < .300) {
+            System.out.println("double pass: " + (time - Robot.dcLeftPadTime));
             Robot.wrist.setNextShotPass();
+            Robot.wrist.disableAutoAngle();
         }
         Robot.dcLeftPadTime = time;
 //        Robot.nextShot = shootParams.AUTOSHOT;
@@ -27,6 +28,10 @@ public class SetWristPosAuto extends Command {
     // Called every time the scheduler runs (~20ms) while the command is scheduled
     @Override
     public void execute() {
+        if (Robot.nextShot == shootParams.PASS) {
+            new SetWristPos().schedule();
+            return;
+        }
         if (Robot.sensors.shooter()) {
             Robot.wrist.setWristAuto();
 //            Robot.wrist.PIDWristMove();
