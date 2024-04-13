@@ -1,5 +1,6 @@
 package team.gif.robot.commands.wrist;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import team.gif.lib.shootParams;
 import team.gif.robot.Robot;
@@ -14,6 +15,12 @@ public class SetWristPosAuto extends Command {
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
+        double time = Timer.getFPGATimestamp();
+        System.out.println(time - Robot.dcLeftPadTime);
+        if (time - Robot.dcLeftPadTime < 300) {
+            Robot.wrist.setNextShotPass();
+        }
+        Robot.dcLeftPadTime = time;
 //        Robot.nextShot = shootParams.AUTOSHOT;
     }
 
