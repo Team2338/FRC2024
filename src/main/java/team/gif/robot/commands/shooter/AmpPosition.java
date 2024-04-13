@@ -20,6 +20,7 @@ public class AmpPosition extends Command {
         Robot.nextShot = shootParams.AMP;
         isComplete = false;
         Robot.wrist.disableAutoAngle();
+        Robot.autoType = shootParams.AUTO;
     }
 
     // Called every time the scheduler runs (~20ms) while the command is scheduled

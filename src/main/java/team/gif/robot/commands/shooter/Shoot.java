@@ -107,6 +107,7 @@ public class Shoot extends Command {
                 Robot.indexer.setIndexer(0, Constants.Indexer.INDEXER_TWO_SHOOT_PERC);
                 System.out.println("Firing  " + minRPM + " " +
                                                 Robot.shooter.getShooterRPM() + " " +
+                        Robot.shooter.getShooterAppliedOutput() + " " +
                                                 Robot.wrist.absoluteToDegrees(Robot.autoWristAngleAbs) + " " +
                                                 Robot.wrist.absoluteToDegrees(wristCurrent) + " " +
                                                 Robot.wrist.isWristWithinTolerance() + " " +
@@ -123,7 +124,7 @@ public class Shoot extends Command {
             // not ready to fire, continue to rev the flywheel
             System.out.println("Revving " + minRPM + " " +
                                             Robot.shooter.getShooterRPM() + " " +
-                                            Robot.shooter.getShooterAppliedOutput() +
+                                            Robot.shooter.getShooterAppliedOutput() + " " +
                                             Robot.wrist.absoluteToDegrees(Robot.autoWristAngleAbs) + " " +
                     Robot.wrist.absoluteToDegrees(wristCurrent) + " " +
                                             Robot.wrist.isWristWithinTolerance() + " " +

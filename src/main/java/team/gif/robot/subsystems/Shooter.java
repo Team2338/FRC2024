@@ -198,6 +198,7 @@ public class Shooter extends SubsystemBase {
             // Local use only. Only purpose is to store the shot to compare next to current to
             // know if new PID values need to be sent to motor controller
             currentShot = Robot.nextShot;
+            Robot.autoParamsDirtyFlag = false;
         }
     }
 
