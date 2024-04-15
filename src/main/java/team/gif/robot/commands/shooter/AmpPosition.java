@@ -8,6 +8,7 @@ import team.gif.robot.Robot;
 public class AmpPosition extends Command {
 
     boolean isComplete;
+    double commandCounter;
 
     public AmpPosition() {
         super();
@@ -21,12 +22,14 @@ public class AmpPosition extends Command {
         isComplete = false;
         Robot.wrist.disableAutoAngle();
         Robot.autoType = shootParams.AUTO;
+        Robot.flapper.setVertical();
+        commandCounter = 0;
     }
 
     // Called every time the scheduler runs (~20ms) while the command is scheduled
     @Override
     public void execute() {
-        if (Robot.sensors.shooter()) {
+        if ((commandCounter++ > 0.5 * 50) &&  Robot.sensors.shooter()) {
             Robot.elevator.setTargetPosition(Constants.Elevator.AMP_POS);
 
             Robot.wrist.setTargetPosition(Robot.nextShot.getWristAngle());

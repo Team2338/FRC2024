@@ -25,6 +25,7 @@ import team.gif.robot.subsystems.Climber;
 import team.gif.robot.subsystems.Collector;
 import team.gif.robot.subsystems.Diagnostics;
 import team.gif.robot.subsystems.Elevator;
+import team.gif.robot.subsystems.Flapper;
 import team.gif.robot.subsystems.Indexer;
 import team.gif.robot.subsystems.LEDSubsystem;
 import team.gif.robot.subsystems.SensorMonitor;
@@ -72,6 +73,7 @@ public class Robot extends TimedRobot {
     public static Climber climber;
     public static Diagnostics diagnostics;
     public static LEDSubsystem ledSubsystem;
+    public static Flapper flapper;
 
     public static shootParams nextShot;
     public static shootParams autoType;
@@ -164,6 +166,7 @@ public class Robot extends TimedRobot {
         diagnostics = new Diagnostics();
         ledSubsystem = new LEDSubsystem();
         ledSubsystem.setDefaultCommand(new LEDSubsystemDefault());
+        flapper = new Flapper(8);
 
         robotContainer = new RobotContainer();
 
@@ -230,6 +233,8 @@ public class Robot extends TimedRobot {
 
         autonomousCommand = robotContainer.getAutonomousCommand(chosenAuto);
 
+        flapper.setVertical();
+
         wrist.disableAutoAngle();
 
         elapsedTime.reset();
@@ -281,6 +286,8 @@ public class Robot extends TimedRobot {
 
         autoParamsDirtyFlag = true;
         dcLeftPadTime = 0;
+
+        flapper.setHorizontal();
     }
 
     /** This function is called periodically during operator control. */
