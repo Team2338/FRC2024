@@ -18,6 +18,7 @@ import team.gif.robot.commands.collector.CollectorManualControl;
 import team.gif.robot.commands.driveModes.EnableBoost;
 import team.gif.robot.commands.driveModes.EnableRobotOrientedMode;
 import team.gif.robot.commands.drivetrain.AutoStrafeStage;
+import team.gif.robot.commands.drivetrain.CreateNewPigeon;
 import team.gif.robot.commands.drivetrain.MoveAwaySlow;
 import team.gif.robot.commands.drivetrain.MoveCloserSlow;
 import team.gif.robot.commands.drivetrain.MoveLeftSlow;
@@ -140,7 +141,8 @@ public class OI {
         dRBump.whileTrue(new EnableRobotOrientedMode());
         dY.whileTrue(new CollectorManualControl());
 
-        dX.whileTrue(new AutoRotateStage(120).andThen(new AutoStrafeStage()));
+        dX.onTrue(new CreateNewPigeon());
+//        dX.whileTrue(new AutoRotateStage(120).andThen(new AutoStrafeStage()));
         dB.whileTrue(new AutoRotateStage(240).andThen(new AutoStrafeStage()));
 //        dY.whileTrue(new AutoRotateStage(0).andThen(new AutoStrafeStage()));
         dA.onTrue(new AutoRotate());
@@ -168,7 +170,8 @@ public class OI {
 
         // manual control
         aA.and(aBack.negate().and(aStart.negate())).whileTrue(new CollectorManualControl());
-        aB.and(aBack.negate()).whileTrue(new CollectorManualControl().alongWith(new IndexerManualControl())); // used when sensors fail
+//        aB.and(aBack.negate()).whileTrue(new CollectorManualControl().alongWith(new IndexerManualControl())); // used when sensors fail
+        aB.and(aBack.negate()).whileTrue(new InstantCommand(Robot.wrist::setNextShotPass).andThen(new InstantCommand(Robot.wrist::disableAutoAngle)).andThen(new SetWristPos()));
         aStart.and(aBack).toggleOnTrue(new ToggleManualControl());
 
         //wrist
