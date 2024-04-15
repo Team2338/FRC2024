@@ -375,6 +375,14 @@ public final class Constants {
         public static final double FF_AUTOSHOT = 0.000155; // gets to 1800
         public static final double kP_AUTOSHOT = 0.00030;
         public static final double kI_AUTOSHOT = 0.00000;
+
+        //Pass
+        public static final double RPM_IDLE = 1000;//6200;
+        public static final double RPM_MIN_IDLE = 1000;
+        public static final double FF_IDLE = 0.000155; // gets to 6100    // 0.000130;  // 5800 RPM
+        public static final double kP_IDLE = 0.00030;//0.0100;               // 0.0006;    // 5800 RPM
+        public static final double kI_IDLE = 0.000;//0.001;               // 0.0000015; // 5800 RPM
+
     }
 
     public static final class Wrist { // tuned 02/22

@@ -76,9 +76,10 @@ public class Shooter extends SubsystemBase {
         }
     }
 
-
     public void setShooterRPMIdle() {
-        setShooterRPM(Constants.Shooter.IDLE_RPM);
+        pidShooter.setFF(Constants.Shooter.FF_IDLE);
+        pidShooter.setP(Constants.Shooter.kP_IDLE);
+        setShooterRPM(Constants.Shooter.RPM_IDLE);
     }
 
     /**
