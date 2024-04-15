@@ -104,7 +104,7 @@ public class Shoot extends Command {
                 commandCounter >= 1.0*50     ||  // force shot after designated time
                 isFiring) {                      // once the robot begins to fire, continue to fire and don't change angle
             if (Robot.shooter.getShooterRPM() > Constants.Shooter.MIN_SAFEGUARD_RPM) { // Safeguard ... On occasion, shooter does not rotate, don't want indexer jamming note through
-                Robot.indexer.setIndexer(0, Constants.Indexer.INDEXER_TWO_SHOOT_PERC);
+                Robot.indexer.setIndexerTwo(Constants.Indexer.INDEXER_TWO_SHOOT_PERC);
                 System.out.println("Firing  " + minRPM + " " +
                                                 Robot.shooter.getShooterRPM() + " " +
                         Robot.shooter.getShooterAppliedOutput() + " " +
