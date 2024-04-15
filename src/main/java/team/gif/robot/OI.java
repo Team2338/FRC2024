@@ -194,7 +194,7 @@ public class OI {
         //aX.and(aBack.negate()).whileTrue(new ForceShoot());
 
         aRTrigger.onTrue(new AmpPosition()); // goes to position and revs flywheel
-        aLTrigger.onTrue(new Shoot().andThen(new MoveElevatorToBottom())); // shoots and returns to home
+        aLTrigger.onTrue(new Shoot().andThen(new MoveElevatorToBottom()).andThen(new WaitCommand(0.5).andThen(new InstantCommand(Robot.flapper::setHorizontal)))); // shoots and returns to home
 //        aY.and(aBack.negate()).whileTrue(new LoadFromSource());
 
         aBack.and(aA).onTrue(new RaiseClimberToTop());
@@ -207,7 +207,8 @@ public class OI {
         aStart.and(aDPadDown).whileTrue(new WristAngleDown());
         aStart.and(aDPadRight).onTrue(new InstantCommand(Robot.wrist::setNextShotPass).andThen(new InstantCommand(Robot.wrist::disableAutoAngle)).andThen(new SetWristPos()));
 //        aStart.and(aDPadRight).onTrue(new InstantCommand(Robot.shooter::setPipeline2));
-        aY.and(aBack.negate()).onTrue(new InstantCommand(Robot.shooter::setPipeline0));
+//        aY.and(aBack.negate()).onTrue(new InstantCommand(Robot.shooter::setPipeline0));
+        aY.and(aBack.negate()).onTrue(new InstantCommand(Robot.flapper::setHorizontal));
 //        aStart.and(aDPadRight).onTrue(new InstantCommand(Robot.wrist::BumpAngle));
 
         // auto sensor actions
