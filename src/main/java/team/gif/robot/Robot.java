@@ -205,7 +205,7 @@ public class Robot extends TimedRobot {
                 CommandScheduler.getInstance().disable();
             }
             if (diagnostics.getShooterMotorTempHot()) {
-                shooter.stop();
+                shooter.fullStop();
             }
             if (diagnostics.getIndexerMotorTempHot()) {
                 indexer.stopIndexerCoast();

@@ -25,7 +25,6 @@ import team.gif.robot.commands.drivetrain.MoveRightSlow;
 import team.gif.robot.commands.elevator.MoveElevatorToBottom;
 import team.gif.robot.commands.elevator.MoveElevatorToTop;
 import team.gif.robot.commands.indexer.IndexerManualControl;
-import team.gif.robot.commands.shooter.TrapShoot;
 import team.gif.robot.commands.toggleManualControl.ToggleManualControl;
 import team.gif.robot.commands.wrist.CalibrateAngle;
 import team.gif.robot.commands.shooter.RevFlyWheels;
@@ -152,7 +151,7 @@ public class OI {
 
 //        dLTrigger.and(dRTrigger).whileTrue(new AutoClimb());
         dRTrigger.whileTrue(new RevFlyWheels());
-        dRTrigger.onFalse(new InstantCommand(Robot.shooter::stop));
+        dRTrigger.onFalse(new InstantCommand(Robot.shooter::stopIdle));
         dLTrigger.onTrue(new Shoot().andThen(new WaitCommand(0.25).andThen(new MoveElevatorToBottom()))); //.andThen(new InstantCommand(Robot.wrist::setWristCollectPosition)));
 
         // calibrations
@@ -185,7 +184,7 @@ public class OI {
 
         //shooter
         aRBump.whileTrue(new RevFlyWheels());
-        aRBump.onFalse(new InstantCommand(Robot.shooter::stop));
+        aRBump.onFalse(new InstantCommand(Robot.shooter::stopIdle));
         aLBump.onTrue(new Shoot().andThen(new WaitCommand(0.25).andThen(new MoveElevatorToBottom()))); //.andThen(new InstantCommand(Robot.wrist::setWristCollectPosition)));
         aX.and(aBack.negate()).whileTrue(new ForceShoot());
         //aX.and(aBack.negate()).whileTrue(new ForceShoot());

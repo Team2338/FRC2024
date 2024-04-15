@@ -31,7 +31,7 @@ public class TrapShoot extends Command {
             Robot.shooter.setShooterRPM(Constants.Shooter.TRAP_RPM);
         } else {
             System.out.println("Trap Shooting Stop");
-            Robot.shooter.stop();
+            Robot.shooter.fullStop();
         }
 
         // after being held for N seconds, rotate the wrist back to a safer position

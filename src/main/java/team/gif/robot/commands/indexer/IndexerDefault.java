@@ -65,6 +65,16 @@ public class IndexerDefault extends Command {
             Robot.indexer.setIndexing(false);
         }
 
+        // 6
+        if (Robot.sensors.collector() && !Robot.sensors.indexer() && Robot.sensors.shooter()) {
+            Robot.indexer.setIndexing(false);
+        }
+
+        // all 3 triggered
+        if (Robot.sensors.collector() && !Robot.sensors.indexer() && Robot.sensors.shooter()) {
+            Robot.indexer.setIndexing(false);
+        }
+
         // For Champs, if collector is running, run the indexers
         // Originally the indexers would wait until a note was detected to reduce battery
         // usage, but occasionally the note would collect but not index. Adding this prevents
