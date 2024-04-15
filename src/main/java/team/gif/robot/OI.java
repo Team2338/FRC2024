@@ -18,6 +18,7 @@ import team.gif.robot.commands.collector.CollectorManualControl;
 import team.gif.robot.commands.driveModes.EnableBoost;
 import team.gif.robot.commands.driveModes.EnableRobotOrientedMode;
 import team.gif.robot.commands.drivetrain.AutoStrafeStage;
+import team.gif.robot.commands.drivetrain.CreateNewPigeon;
 import team.gif.robot.commands.drivetrain.MoveAwaySlow;
 import team.gif.robot.commands.drivetrain.MoveCloserSlow;
 import team.gif.robot.commands.drivetrain.MoveLeftSlow;
@@ -139,7 +140,8 @@ public class OI {
         dRBump.whileTrue(new EnableRobotOrientedMode());
         dY.whileTrue(new CollectorManualControl());
 
-        dX.whileTrue(new AutoRotateStage(120).andThen(new AutoStrafeStage()));
+//        dX.whileTrue(new AutoRotateStage(120).andThen(new AutoStrafeStage()));
+        dX.onTrue(new CreateNewPigeon());
         dB.whileTrue(new AutoRotateStage(240).andThen(new AutoStrafeStage()));
 //        dY.whileTrue(new AutoRotateStage(0).andThen(new AutoStrafeStage()));
         dA.onTrue(new AutoRotate());

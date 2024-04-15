@@ -83,6 +83,11 @@ public class IndexerDefault extends Command {
             Robot.indexer.setIndexing(true);
         }
 
+        // override sensors if left stick is pushed in
+        if (Robot.oi.aux.getHID().getLeftStickButton()) {
+            Robot.indexer.setIndexing(true);
+        }
+
         // Bot is indexing. Run the indexers
         if (Robot.indexer.isIndexing()) {
             Robot.indexer.setIndexer(Constants.Indexer.INDEXER_ONE_COLLECT_PERC, Constants.Indexer.INDEXER_TWO_COLLECT_PERC);
