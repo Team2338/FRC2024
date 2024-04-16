@@ -45,6 +45,7 @@ public class CollectorDefault extends Command {
         // 4. Stage 1 Sensor and Shooter Sensor - Nothing
         // 5. Shooter Sensor - Nothing
         // 6. Collector Sensor and Shooter Sensor - Reverse Collector and Stage 1 Indexer (?)
+        // 7. Collector Sensor, Stage 1 Sensor, and Shooter Sensor - Reverse Collector
 
 //        if (limelightDetectedOrExtension) {
 //            collect = true;
@@ -69,8 +70,8 @@ public class CollectorDefault extends Command {
             reverse = false;
         }
 
-        // 6
-        if (Robot.sensors.collector() && !Robot.sensors.indexer() && Robot.sensors.shooter()) {
+        // 6-7
+        if (Robot.sensors.collector() && Robot.sensors.shooter()) {
             collect = true;
             reverse = true;
         }

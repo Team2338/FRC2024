@@ -33,7 +33,7 @@ public class ForceShoot extends Command {
     // Called every time the scheduler runs (~20ms) while the command is scheduled
     @Override
     public void execute() {
-        Robot.indexer.setIndexer(0, Constants.Indexer.INDEXER_TWO_SHOOT_PERC);
+        Robot.indexer.setIndexerTwo(Constants.Indexer.INDEXER_TWO_SHOOT_PERC);
     }
 
     // Return true when the command should end, false if it should continue. Runs every ~20ms.

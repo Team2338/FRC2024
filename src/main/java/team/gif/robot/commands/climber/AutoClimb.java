@@ -28,6 +28,7 @@ public class AutoClimb extends Command {
         counter = 0;
 
         new ToggleCollectorDefault().schedule();
+        Robot.flapper.setHorizontal();
     }
 
     // Called every time the scheduler runs (~20ms) while the command is scheduled

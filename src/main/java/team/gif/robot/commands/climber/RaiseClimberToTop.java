@@ -18,6 +18,7 @@ public class RaiseClimberToTop extends Command {
 //        Robot.climber.setDefaultCommand(new ClimberPIDControl());
         new ToggleCollectorDefault().schedule();
         Robot.climber.removeDefaultCommand();
+        Robot.flapper.setVertical();
     }
 
     // Called every time the scheduler runs (~20ms) while the command is scheduled

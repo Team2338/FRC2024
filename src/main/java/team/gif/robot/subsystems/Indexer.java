@@ -37,6 +37,10 @@ public class Indexer extends SubsystemBase {
         isIndexing = false;
     }
 
+    public void setIndexerTwo(double stageTwoPercent) {
+        stageTwoMotor.set(stageTwoPercent);
+    }
+
     public void setIndexer(double stageOnePercent, double stageTwoPercent) {
         stageOneMotor.set(stageOnePercent); // 2024 bot
         stageTwoMotor.set(stageTwoPercent);

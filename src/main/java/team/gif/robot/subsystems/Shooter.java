@@ -76,9 +76,10 @@ public class Shooter extends SubsystemBase {
         }
     }
 
-
     public void setShooterRPMIdle() {
-        setShooterRPM(Constants.Shooter.IDLE_RPM);
+        pidShooter.setFF(Constants.Shooter.FF_IDLE);
+        pidShooter.setP(Constants.Shooter.kP_IDLE);
+        setShooterRPM(Constants.Shooter.RPM_IDLE);
     }
 
     /**
@@ -127,6 +128,14 @@ public class Shooter extends SubsystemBase {
         pidShooter.setFF(shooterFF);
         pidShooter.setP(shooterKP);
 //        pidShooter.setI(shooterKI);
+    }
+
+    public double getShooterAppliedOutput() {
+        return shooterMotor.getAppliedOutput();
+    }
+
+    public double getShooterOutputCurrent() {
+        return shooterMotor.getOutputCurrent();
     }
 
     public double getShooterMotorTemp() {
@@ -190,6 +199,7 @@ public class Shooter extends SubsystemBase {
             // Local use only. Only purpose is to store the shot to compare next to current to
             // know if new PID values need to be sent to motor controller
             currentShot = Robot.nextShot;
+            Robot.autoParamsDirtyFlag = false;
         }
     }
 

@@ -25,6 +25,7 @@ import team.gif.robot.subsystems.Climber;
 import team.gif.robot.subsystems.Collector;
 import team.gif.robot.subsystems.Diagnostics;
 import team.gif.robot.subsystems.Elevator;
+import team.gif.robot.subsystems.Flapper;
 import team.gif.robot.subsystems.Indexer;
 import team.gif.robot.subsystems.LEDSubsystem;
 import team.gif.robot.subsystems.SensorMonitor;
@@ -72,6 +73,7 @@ public class Robot extends TimedRobot {
     public static Climber climber;
     public static Diagnostics diagnostics;
     public static LEDSubsystem ledSubsystem;
+    public static Flapper flapper;
 
     public static shootParams nextShot;
     public static shootParams autoType;
@@ -93,6 +95,8 @@ public class Robot extends TimedRobot {
 
     public static boolean killAutoAlign;
     public static double initialAutonomousAngleAdjust;
+
+    public static double dcLeftPadTime;
 
     //https://github.com/mjansen4857/pathplanner/tree/main/examples/java/src/main/java/frc/robot
 
@@ -162,6 +166,7 @@ public class Robot extends TimedRobot {
         diagnostics = new Diagnostics();
         ledSubsystem = new LEDSubsystem();
         ledSubsystem.setDefaultCommand(new LEDSubsystemDefault());
+        flapper = new Flapper(8);
 
         robotContainer = new RobotContainer();
 
@@ -176,6 +181,8 @@ public class Robot extends TimedRobot {
 
         //Increase the speed the sensors update at to 10ms, with offset of 5 ms from teleopPeriodic to avoid conflicts
         addPeriodic(() -> sensors.updateSensors(), 0.01, 0.005);
+
+        dcLeftPadTime =0;
     }
 
     /**
@@ -245,6 +252,7 @@ public class Robot extends TimedRobot {
             }
         }
         System.out.println("Autonomous Init heading " + initialAutonomousAngleAdjust);
+        flapper.setVertical();
     }
 
     /** This function is called periodically during autonomous. */
@@ -276,6 +284,8 @@ public class Robot extends TimedRobot {
         Robot.pigeon.resetPigeonPosition(Robot.pigeon.get360Heading() + initialAutonomousAngleAdjust);
 
         autoParamsDirtyFlag = true;
+        dcLeftPadTime = 0;
+        flapper.setHorizontal();
     }
 
     /** This function is called periodically during operator control. */
@@ -293,6 +303,7 @@ public class Robot extends TimedRobot {
     public void testInit() {
         // Cancels all running commands at the start of test mode.
         CommandScheduler.getInstance().cancelAll();
+
     }
 
     /** This function is called periodically during test mode. */

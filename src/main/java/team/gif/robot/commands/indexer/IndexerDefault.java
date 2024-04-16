@@ -26,12 +26,14 @@ public class IndexerDefault extends Command {
     public void execute() {
 
         //-------- Possible States --------
-        // 1. Only Collector Sensor - Run Collector and Stage 1 Indexer
-        // 2. Collector Sensor and Stage 1 Sensor - Run Collector, Stage 1-2 Indexer
+        // 0. No sensors active
+        // 1. Only Collector Sensor - Run Stage 1-2 Indexer
+        // 2. Collector Sensor and Stage 1 Sensor - Run Stage 1-2 Indexer
         // 3. Stage 1 Sensor - Run Stage 1-2 Indexer
         // 4. Stage 1 Sensor and Shooter Sensor - Nothing
         // 5. Shooter Sensor - Nothing
-        // 6. Collector Sensor and Shooter Sensor - Reverse Collector and Stage 1 Indexer (?)
+        // 6. Collector Sensor and Shooter Sensor - Nothing
+        // 7. Collector Sensor, Stage 1 Sensor, and Shooter Sensor - Nothing
 
         // 0
         if (!Robot.sensors.collector() && !Robot.sensors.indexer() && !Robot.sensors.shooter()) {
@@ -61,6 +63,24 @@ public class IndexerDefault extends Command {
         // 5
         if (!Robot.sensors.collector() && !Robot.sensors.indexer() && Robot.sensors.shooter()) {
             Robot.indexer.setIndexing(false);
+        }
+
+        //
+        if (Robot.sensors.collector() && Robot.sensors.indexer() && Robot.sensors.shooter()) {
+            Robot.indexer.setIndexing(false);
+        }
+
+        // For Champs, if collector is running, run the indexers
+        // Originally the indexers would wait until a note was detected to reduce battery
+        // usage, but occasionally the note would collect but not index. Adding this prevents
+        // the note from jamming between collector and indexer 1, and battery drain should be minimal
+        if (Robot.collector.getCollectingState()) {
+            Robot.indexer.setIndexing(true);
+        }
+
+        // manual override of running indexer
+        if (Robot.oi.aux.getHID().getLeftStickButton()) {
+            Robot.indexer.setIndexing(true);
         }
 
         // Bot is indexing. Run the indexers
