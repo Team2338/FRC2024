@@ -254,7 +254,6 @@ public class Robot extends TimedRobot {
             }
         }
         System.out.println("Autonomous Init heading " + initialAutonomousAngleAdjust);
-        flapper.setVertical();
     }
 
     /** This function is called periodically during autonomous. */
