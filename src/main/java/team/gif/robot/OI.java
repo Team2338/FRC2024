@@ -26,7 +26,6 @@ import team.gif.robot.commands.drivetrain.MoveRightSlow;
 import team.gif.robot.commands.elevator.MoveElevatorToBottom;
 import team.gif.robot.commands.elevator.MoveElevatorToTop;
 import team.gif.robot.commands.indexer.IndexerManualControl;
-import team.gif.robot.commands.shooter.TrapShoot;
 import team.gif.robot.commands.toggleManualControl.ToggleManualControl;
 import team.gif.robot.commands.wrist.CalibrateAngle;
 import team.gif.robot.commands.shooter.RevFlyWheels;
@@ -141,8 +140,8 @@ public class OI {
         dRBump.whileTrue(new EnableRobotOrientedMode());
         dY.whileTrue(new CollectorManualControl());
 
-        dX.onTrue(new CreateNewPigeon());
 //        dX.whileTrue(new AutoRotateStage(120).andThen(new AutoStrafeStage()));
+        dX.onTrue(new CreateNewPigeon());
         dB.whileTrue(new AutoRotateStage(240).andThen(new AutoStrafeStage()));
 //        dY.whileTrue(new AutoRotateStage(0).andThen(new AutoStrafeStage()));
         dA.onTrue(new AutoRotate());
@@ -194,7 +193,7 @@ public class OI {
         //aX.and(aBack.negate()).whileTrue(new ForceShoot());
 
         aRTrigger.onTrue(new AmpPosition()); // goes to position and revs flywheel
-        aLTrigger.onTrue(new Shoot().andThen(new MoveElevatorToBottom()).andThen(new WaitCommand(0.5).andThen(new InstantCommand(Robot.flapper::setHorizontal)))); // shoots and returns to home
+        aLTrigger.onTrue(new Shoot().andThen(new MoveElevatorToBottom().andThen(new WaitCommand(0.5).andThen(new InstantCommand(Robot.flapper::setHorizontal))))); // shoots and returns to home
 //        aY.and(aBack.negate()).whileTrue(new LoadFromSource());
 
         aBack.and(aA).onTrue(new RaiseClimberToTop());

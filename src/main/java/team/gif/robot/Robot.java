@@ -233,6 +233,8 @@ public class Robot extends TimedRobot {
 
         autonomousCommand = robotContainer.getAutonomousCommand(chosenAuto);
 
+        flapper.setVertical();
+
         wrist.disableAutoAngle();
 
         elapsedTime.reset();
@@ -252,7 +254,6 @@ public class Robot extends TimedRobot {
             }
         }
         System.out.println("Autonomous Init heading " + initialAutonomousAngleAdjust);
-        flapper.setVertical();
     }
 
     /** This function is called periodically during autonomous. */
@@ -285,6 +286,7 @@ public class Robot extends TimedRobot {
 
         autoParamsDirtyFlag = true;
         dcLeftPadTime = 0;
+
         flapper.setHorizontal();
     }
 
