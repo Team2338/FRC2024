@@ -170,7 +170,7 @@ public class OI {
         // manual control
         aA.and(aBack.negate().and(aStart.negate())).whileTrue(new CollectorManualControl());
 //        aB.and(aBack.negate()).whileTrue(new CollectorManualControl().alongWith(new IndexerManualControl())); // used when sensors fail
-        aB.and(aBack.negate()).whileTrue(new InstantCommand(Robot.wrist::setNextShotPass).andThen(new InstantCommand(Robot.wrist::disableAutoAngle)).andThen(new SetWristPos())); // used when sensors fail
+        aB.and(aBack.negate()).whileTrue(new InstantCommand(Robot.wrist::setNextShotPass).andThen(new InstantCommand(Robot.wrist::disableAutoAngle)).andThen(new SetWristPos()));
         aStart.and(aBack).toggleOnTrue(new ToggleManualControl());
 
         //wrist

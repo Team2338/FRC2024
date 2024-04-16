@@ -89,7 +89,7 @@ public class Robot extends TimedRobot {
     public static boolean isCompBot = true; //includes 2023 bot
 
     public static boolean competitionMode = true;
-    public static boolean fullDashboard = true;//!competitionMode;
+    public static boolean fullDashboard = false;//!competitionMode;
 
     public static boolean manualControlMode;
 
