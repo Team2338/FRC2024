@@ -65,7 +65,12 @@ public class IndexerDefault extends Command {
             Robot.indexer.setIndexing(false);
         }
 
-        //
+        // 6
+        if (Robot.sensors.collector() && !Robot.sensors.indexer() && Robot.sensors.shooter()) {
+            Robot.indexer.setIndexing(false);
+        }
+
+        // all 3 triggered
         if (Robot.sensors.collector() && Robot.sensors.indexer() && Robot.sensors.shooter()) {
             Robot.indexer.setIndexing(false);
         }
@@ -78,7 +83,7 @@ public class IndexerDefault extends Command {
             Robot.indexer.setIndexing(true);
         }
 
-        // manual override of running indexer
+        // override sensors if left stick is pushed in
         if (Robot.oi.aux.getHID().getLeftStickButton()) {
             Robot.indexer.setIndexing(true);
         }

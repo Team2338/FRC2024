@@ -275,7 +275,6 @@ public final class Constants {
 
     public static final class Shooter { // ToDo tune - remove when done (tuned for 5800RPM)
         public static final int TRAP_RPM = 1000;
-        public static final int IDLE_RPM = 1000;
         public static final int MIN_SAFEGUARD_RPM = 500;
 
         //Pass
@@ -376,9 +375,8 @@ public final class Constants {
         public static final double kP_AUTOSHOT = 0.00030;
         public static final double kI_AUTOSHOT = 0.00000;
 
-        //Pass
+        //Idle
         public static final double RPM_IDLE = 1000;//6200;
-        public static final double RPM_MIN_IDLE = 1000;
         public static final double FF_IDLE = 0.000155; // gets to 6100    // 0.000130;  // 5800 RPM
         public static final double kP_IDLE = 0.00030;//0.0100;               // 0.0006;    // 5800 RPM
         public static final double kI_IDLE = 0.000;//0.001;               // 0.0000015; // 5800 RPM
@@ -399,7 +397,7 @@ public final class Constants {
 
         // Encoder setpoints and values
         // These are the encoder specific values
-        public static final double ENCODER_OFFSET_ABSOLUTE = -0.627294921875;// this is determined either manually or via the auto-calibration
+        public static final double ENCODER_OFFSET_ABSOLUTE = -0.627783203125;// this is determined either manually or via the auto-calibration
         public static final double ABSOLUTE_PER_DEGREE = 0.00647249; // 0.008333;
         // These are the values we want the bot to utilize
         public static final double KILL_LIMIT_ABSOLUTE = 0.87;

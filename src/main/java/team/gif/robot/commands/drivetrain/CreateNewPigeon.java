@@ -11,7 +11,7 @@ public class CreateNewPigeon extends Command {
     @Override
     public void initialize() {
         Robot.pigeon = new Pigeon(RobotMap.PIGEON_ID);
-        System.out.println("Creating new pigeon");
+        System.out.println("New pigeon manually instantiated");
     }
 
     // Called every time the scheduler runs (~20ms) while the command is scheduled

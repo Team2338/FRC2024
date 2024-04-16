@@ -47,8 +47,12 @@ public class Shooter extends SubsystemBase {
 //        pidShooter.setReference(rpm, CANSparkBase.ControlType.kVelocity); // Leave for shooter Neo
         targetRPM = rpm;
         pidShooter.setReference(rpm, CANSparkFlex.ControlType.kVelocity);
+        printPID("SetShooterRPM");
     }
 
+    public void printPID(String s){
+        System.out.println(s + " " + targetRPM + " " + pidShooter.getFF() + " " + pidShooter.getP());
+    }
     /**
      * Gets the shooter target velocity (RPM)
      *
@@ -164,8 +168,8 @@ public class Shooter extends SubsystemBase {
 //        pidShooter = shooterNeo.getPIDController(); // Leave for shooter Neo
         pidShooter = shooterMotor.getPIDController();
 
-        pidShooter.setFF(Robot.nextShot.getFF());
-        pidShooter.setP(Robot.nextShot.getP());
+        pidShooter.setFF(Constants.Shooter.FF_IDLE);
+        pidShooter.setP(Constants.Shooter.kP_IDLE);
 //        pidShooter.setI(Robot.nextShot.getI());
         pidShooter.setOutputRange(0,1);
         pidShooter.setIAccum(0.0);
