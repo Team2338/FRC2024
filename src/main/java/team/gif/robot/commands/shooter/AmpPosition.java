@@ -7,8 +7,8 @@ import team.gif.robot.Robot;
 
 public class AmpPosition extends Command {
 
-    double commandCounter;
-    boolean isComplete;
+    private double commandCounter;
+    private boolean isComplete;
 
     public AmpPosition() {
         super();
@@ -23,6 +23,7 @@ public class AmpPosition extends Command {
         Robot.wrist.disableAutoAngle();
         Robot.autoType = shootParams.AUTO;
         Robot.flapper.setVertical();
+        commandCounter = 0;
     }
 
     // Called every time the scheduler runs (~20ms) while the command is scheduled

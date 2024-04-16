@@ -17,7 +17,7 @@ public class Flapper extends SubsystemBase {
     }
 
     public void setHorizontal() {
-        servo.set(0.65);
+        servo.set(0.7);
     }
 
     public void setVertical() {
