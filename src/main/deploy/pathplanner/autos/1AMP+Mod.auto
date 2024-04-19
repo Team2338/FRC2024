@@ -1,0 +1,31 @@
+{
+  "version": 1.0,
+  "startingPose": {
+    "position": {
+      "x": 0.7,
+      "y": 6.63
+    },
+    "rotation": 58.5
+  },
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "named",
+          "data": {
+            "name": "AutonShoot"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "1AMP+Mod"
+          }
+        }
+      ]
+    }
+  },
+  "folder": "TBD",
+  "choreoAuto": false
+}
