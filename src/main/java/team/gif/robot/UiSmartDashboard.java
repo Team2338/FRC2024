@@ -46,6 +46,7 @@ public class UiSmartDashboard {
         autoModeChooser.addOption("3W+7+8", autoMode.THREE_W_7_8);
         autoModeChooser.addOption("3W+7+6", autoMode.THREE_W_7_6);
         autoModeChooser.addOption("3W+6+7", autoMode.THREE_W_6_7);
+        autoModeChooser.addOption("3CTR+C+S", autoMode.THREE_CTR_C_S);
 
         autoModeChooser.addOption("4CTR+C+S+A-4", autoMode.FOUR_CTR_C_S_A_4);
 
