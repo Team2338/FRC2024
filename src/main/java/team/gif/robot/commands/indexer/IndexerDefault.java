@@ -63,6 +63,7 @@ public class IndexerDefault extends Command {
         // 5
         if (!Robot.sensors.collector() && !Robot.sensors.indexer() && Robot.sensors.shooter()) {
             Robot.indexer.setIndexing(false);
+            System.out.println("shooter only");
         }
 
         // 6
@@ -80,6 +81,7 @@ public class IndexerDefault extends Command {
         // usage, but occasionally the note would collect but not index. Adding this prevents
         // the note from jamming between collector and indexer 1, and battery drain should be minimal
         if (Robot.collector.getCollectingState()) {
+            System.out.println("collecting");
             Robot.indexer.setIndexing(true);
         }
 

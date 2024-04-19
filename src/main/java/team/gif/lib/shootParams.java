@@ -17,7 +17,7 @@ public enum shootParams {
 
     TRAP(Constants.Wrist.SETPOINT_TRAP_ABSOLUTE, Constants.Shooter.RPM_TRAP, Constants.Shooter.RPM_MIN_TRAP, Constants.Shooter.FF_TRAP, Constants.Shooter.kP_TRAP, Constants.Shooter.kI_TRAP),
     AMP(Constants.Wrist.SETPOINT_AMP_ABSOLUTE, Constants.Shooter.RPM_AMP, Constants.Shooter.RPM_MIN_AMP, Constants.Shooter.FF_AMP, Constants.Shooter.kP_AMP, Constants.Shooter.kI_AMP),
-    AUTO(0,0,0,0,0,0);
+    AUTO(0,Constants.Shooter.RPM_AUTOSHOT, Constants.Shooter.RPM_MIN_AUTOSHOT, Constants.Shooter.FF_AUTOSHOT, Constants.Shooter.kP_AUTOSHOT, Constants.Shooter.kI_AUTOSHOT);
 
     private double wristAngle;
     private double shooterRPM;

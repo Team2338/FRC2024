@@ -97,17 +97,18 @@ public class Shoot extends Command {
         double tolerance = 1.5*Constants.Wrist.ABSOLUTE_PER_DEGREE;
         double wristCurrent = Robot.wrist.getPosition();
         double delta = Math.abs(wristCurrent - Robot.wrist.getTargetPosition());
+        double waitTime = Robot.runningAutonomousMode ? 2.0 : 1.0;
 
         if ( ((Robot.shooter.getShooterRPM() >= minRPM) &&
                     Robot.wrist.isWristWithinTolerance() &&
                     Robot.sensors.shooter()) ||  // RPM and wrist within tolerance and has note in shooter
-                commandCounter >= 1.0*50     ||  // force shot after designated time
+                commandCounter >= waitTime*50     ||  // force shot after designated time
                 isFiring) {                      // once the robot begins to fire, continue to fire and don't change angle
             if (Robot.shooter.getShooterRPM() > Constants.Shooter.MIN_SAFEGUARD_RPM) { // Safeguard ... On occasion, shooter does not rotate, don't want indexer jamming note through
                 Robot.indexer.setIndexerTwo(Constants.Indexer.INDEXER_TWO_SHOOT_PERC);
                 System.out.println("Firing  " + minRPM + " " +
                                                 Robot.shooter.getShooterRPM() + " " +
-                        Robot.shooter.getShooterAppliedOutput() + " " +
+                                                Robot.shooter.getShooterAppliedOutput() + " " +
                                                 Robot.wrist.absoluteToDegrees(Robot.autoWristAngleAbs) + " " +
                                                 Robot.wrist.absoluteToDegrees(wristCurrent) + " " +
                                                 Robot.wrist.isWristWithinTolerance() + " " +
@@ -126,7 +127,7 @@ public class Shoot extends Command {
                                             Robot.shooter.getShooterRPM() + " " +
                                             Robot.shooter.getShooterAppliedOutput() + " " +
                                             Robot.wrist.absoluteToDegrees(Robot.autoWristAngleAbs) + " " +
-                    Robot.wrist.absoluteToDegrees(wristCurrent) + " " +
+                                            Robot.wrist.absoluteToDegrees(wristCurrent) + " " +
                                             Robot.wrist.isWristWithinTolerance() + " " +
                                             Robot.sensors.shooter() + " " +
                                             delta);

@@ -29,6 +29,9 @@ public class CollectorManualControl extends Command {
     // Return true when the command should end, false if it should continue. Runs every ~20ms.
     @Override
     public boolean isFinished() {
+        if (Robot.sensors.indexer()) { // hack for the note moving too far into the indexer when the button is being held
+            return true;
+        }
         return false;
     }
 

@@ -134,6 +134,14 @@ public class Shooter extends SubsystemBase {
 //        pidShooter.setI(shooterKI);
     }
 
+    /**
+     * used for tuning shooter PID on the dashboard
+     */
+    public void updateShooterTrapPID() {
+        pidShooter.setFF(Constants.Shooter.FF_TRAP);
+        pidShooter.setP(Constants.Shooter.kP_TRAP);
+    }
+
     public double getShooterAppliedOutput() {
         return shooterMotor.getAppliedOutput();
     }

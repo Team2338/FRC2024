@@ -279,7 +279,7 @@ public final class Constants {
 
         //Pass
         public static final double RPM_PASS = 6200;//6200;
-        public static final double RPM_MIN_PASS = 4000;
+        public static final double RPM_MIN_PASS = 4400;//4000;
         public static final double FF_PASS = 0.000155; // gets to 6100    // 0.000130;  // 5800 RPM
         public static final double kP_PASS = 0.00030;//0.0100;               // 0.0006;    // 5800 RPM
         public static final double kI_PASS = 0.000;//0.001;               // 0.0000015; // 5800 RPM
@@ -300,7 +300,7 @@ public final class Constants {
 
         //Near
         public static final double RPM_NEAR = 6200;//6200;
-        public static final double RPM_MIN_NEAR = 5000;//4500;
+        public static final double RPM_MIN_NEAR = 5600;//4500;
         public static final double FF_NEAR = 0.000155; // gets to 6100    // 0.000130;  // 5800 RPM
         public static final double kP_NEAR = 0.00030;//0.0100;               // 0.0006;    // 5800 RPM
         public static final double kI_NEAR = 0.000;//0.001;               // 0.0000015; // 5800 RPM
@@ -364,8 +364,8 @@ public final class Constants {
         //Trap - only used for testing purposes. Trap shot is handled manually through % power, not PID
         public static final double RPM_TRAP = 0;
         public static final double RPM_MIN_TRAP = 0;
-        public static final double FF_TRAP = 0.00;
-        public static final double kP_TRAP = 0.00;
+        public static final double FF_TRAP = 0.000155;
+        public static final double kP_TRAP = 0.00030;
         public static final double kI_TRAP = 0.00;
 
         //Auto
