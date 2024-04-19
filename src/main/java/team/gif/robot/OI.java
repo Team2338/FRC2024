@@ -25,6 +25,7 @@ import team.gif.robot.commands.drivetrain.MoveLeftSlow;
 import team.gif.robot.commands.drivetrain.MoveRightSlow;
 import team.gif.robot.commands.elevator.MoveElevatorToBottom;
 import team.gif.robot.commands.elevator.MoveElevatorToTop;
+import team.gif.robot.commands.indexer.FullIndexerReverse;
 import team.gif.robot.commands.indexer.IndexerManualControl;
 import team.gif.robot.commands.toggleManualControl.ToggleManualControl;
 import team.gif.robot.commands.wrist.CalibrateAngle;
@@ -142,7 +143,8 @@ public class OI {
 
 //        dX.whileTrue(new AutoRotateStage(120).andThen(new AutoStrafeStage()));
         dX.onTrue(new CreateNewPigeon());
-        dB.whileTrue(new AutoRotateStage(240).andThen(new AutoStrafeStage()));
+        //dB.whileTrue(new AutoRotateStage(240).andThen(new AutoStrafeStage()));
+        dB.whileTrue(new FullIndexerReverse());
 //        dY.whileTrue(new AutoRotateStage(0).andThen(new AutoStrafeStage()));
         dA.onTrue(new AutoRotate());
 

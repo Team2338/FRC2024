@@ -435,7 +435,7 @@ public final class Constants {
         public static final double INDEXER_TWO_TRAP_PERC = 0.6;  // not tuned
 
         public static final double INDEXER_ONE_EJECT_PERC = 0.8;
-        public static final double INDEXER_TWO_EJECT_PERC = 0.2;
+        public static final double INDEXER_TWO_EJECT_PERC = 0.6;//0.2;
 
         public static final double INDEXER_TWO_FF = 0.0000; //remove?
         public static final double INDEXER_TWO_kP = 0.0000; //remove?
