@@ -21,6 +21,7 @@ public enum autoMode {
     FIVE_CTR_C_S_A_5(0),
     FIVE_CTR_C_S_A_6(0),
     SHOOTER_TEST(0),
+    ONE_AMP_MOB(0),
     LINE_TEST(0),
     TWO_SCSPLIT_SIX(0),
     ;
