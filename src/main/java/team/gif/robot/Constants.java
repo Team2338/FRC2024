@@ -397,7 +397,7 @@ public final class Constants {
 
         // Encoder setpoints and values
         // These are the encoder specific values
-        public static final double ENCODER_OFFSET_ABSOLUTE = -0.627783203125;// this is determined either manually or via the auto-calibration
+        public static final double ENCODER_OFFSET_ABSOLUTE = -0.74130859375;// this is determined either manually or via the auto-calibration
         public static final double ABSOLUTE_PER_DEGREE = 0.00647249; // 0.008333;
         // These are the values we want the bot to utilize
         public static final double KILL_LIMIT_ABSOLUTE = 0.87;
