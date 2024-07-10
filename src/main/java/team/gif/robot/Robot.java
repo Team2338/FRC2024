@@ -36,6 +36,7 @@ import team.gif.robot.subsystems.SwerveDrivetrainMK3;
 import team.gif.robot.subsystems.drivers.Limelight;
 import team.gif.robot.subsystems.drivers.Pigeon;
 import team.gif.robot.commands.drivetrainPbot.DrivePracticeSwerve;
+import team.gif.robot.LimelightHelpers;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -89,7 +90,7 @@ public class Robot extends TimedRobot {
     public static boolean isCompBot = true; //includes 2023 bot
 
     public static boolean competitionMode = true;
-    public static boolean fullDashboard = false;//!competitionMode;
+    public static boolean fullDashboard = true;//!competitionMode;
 
     public static boolean manualControlMode;
 
@@ -200,6 +201,7 @@ public class Robot extends TimedRobot {
         // block in order for anything in the Command-based framework to work.
         CommandScheduler.getInstance().run();
         uiSmartDashboard.updateUI();
+        LimelightHelpers.SetRobotOrientation("limelight-shooter", pigeon.get360Heading(),0,0,0,0,0);
 
         // only stop the motors during practice
         if (!competitionMode) {
