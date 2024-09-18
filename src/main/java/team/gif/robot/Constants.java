@@ -19,6 +19,8 @@ import edu.wpi.first.math.util.Units;
  */
 public final class Constants {
 
+    public static final int example = 1;
+
     public static final double DEBOUNCE_DEFAULT = 0.020;
 
     public static final class Drivetrain { // ToDo tune - remove when done
