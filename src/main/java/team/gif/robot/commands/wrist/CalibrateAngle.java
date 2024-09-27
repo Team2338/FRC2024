@@ -71,7 +71,7 @@ public class CalibrateAngle extends Command {
                 moveCount++;
             }
 
-            if (stallCount == 4) {
+            if (stallCount == 6) { // increase from 4, couldn't cal at R2OC and possible aborting before motor could react
                 // The wrist should be able to move, so we
                 // should never enter this loop. Indicates the
                 // wrist is stuck.

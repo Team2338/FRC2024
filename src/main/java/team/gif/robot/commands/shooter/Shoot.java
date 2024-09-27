@@ -1,8 +1,10 @@
 package team.gif.robot.commands.shooter;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import team.gif.lib.shootParams;
 import team.gif.robot.Constants;
 import team.gif.robot.Robot;
+import team.gif.robot.commands.elevator.MoveElevatorToBottom;
 import team.gif.robot.commands.indexer.IndexerDefault;
 
 public class Shoot extends Command {
@@ -10,6 +12,7 @@ public class Shoot extends Command {
     double fireCounter;
     double commandCounter;
     boolean indexingRequired;
+    boolean moveElevator;
 
     /**
      * Creates a new Shoot command. Pass in true in for auto mode.
@@ -34,6 +37,7 @@ public class Shoot extends Command {
         fireCounter = 0;
         commandCounter = 0;
         indexingRequired = false;
+        moveElevator = false;
 
         Robot.indexer.stopIndexerCoast();
         //We need to remove the default command if we are in autonomous mode
@@ -62,7 +66,7 @@ public class Shoot extends Command {
         if (!isFiring) {
             // In autonomous, allow robot to grab note within a specified time period, if not successful abort
             if (Robot.runningAutonomousMode && !Robot.diagnostics.getRobotHasNote()) {
-                if (commandCounter > 0.2 * 50) {
+                if (commandCounter > 0.4 * 50) {
                     fireCounter = 300;
                 }
                 return;
@@ -97,17 +101,18 @@ public class Shoot extends Command {
         double tolerance = 1.5*Constants.Wrist.ABSOLUTE_PER_DEGREE;
         double wristCurrent = Robot.wrist.getPosition();
         double delta = Math.abs(wristCurrent - Robot.wrist.getTargetPosition());
+        double waitTime = Robot.runningAutonomousMode ? 2.0 : 1.0;
 
         if ( ((Robot.shooter.getShooterRPM() >= minRPM) &&
                     Robot.wrist.isWristWithinTolerance() &&
                     Robot.sensors.shooter()) ||  // RPM and wrist within tolerance and has note in shooter
-                commandCounter >= 1.0*50     ||  // force shot after designated time
+                commandCounter >= waitTime*50     ||  // force shot after designated time
                 isFiring) {                      // once the robot begins to fire, continue to fire and don't change angle
             if (Robot.shooter.getShooterRPM() > Constants.Shooter.MIN_SAFEGUARD_RPM) { // Safeguard ... On occasion, shooter does not rotate, don't want indexer jamming note through
                 Robot.indexer.setIndexerTwo(Constants.Indexer.INDEXER_TWO_SHOOT_PERC);
                 System.out.println("Firing  " + minRPM + " " +
                                                 Robot.shooter.getShooterRPM() + " " +
-                        Robot.shooter.getShooterAppliedOutput() + " " +
+                                                Robot.shooter.getShooterAppliedOutput() + " " +
                                                 Robot.wrist.absoluteToDegrees(Robot.autoWristAngleAbs) + " " +
                                                 Robot.wrist.absoluteToDegrees(wristCurrent) + " " +
                                                 Robot.wrist.isWristWithinTolerance() + " " +
@@ -126,18 +131,24 @@ public class Shoot extends Command {
                                             Robot.shooter.getShooterRPM() + " " +
                                             Robot.shooter.getShooterAppliedOutput() + " " +
                                             Robot.wrist.absoluteToDegrees(Robot.autoWristAngleAbs) + " " +
-                    Robot.wrist.absoluteToDegrees(wristCurrent) + " " +
+                                            Robot.wrist.absoluteToDegrees(wristCurrent) + " " +
                                             Robot.wrist.isWristWithinTolerance() + " " +
                                             Robot.sensors.shooter() + " " +
                                             delta);
             Robot.shooter.configMotorControllerAndRev();
+        }
+
+        if (Robot.nextShot == shootParams.AMP && fireCounter > (0.10*50) && !moveElevator) {
+            new MoveElevatorToBottom().schedule();
+            moveElevator = true;
         }
     }
 
     // Return true when the command should end, false if it should continue. Runs every ~20ms.
     @Override
     public boolean isFinished() {
-        return fireCounter > (0.10*50); // need to run the indexer for 0.25 seconds to push note through
+        double timer = Robot.nextShot == shootParams.AMP ? 0.20 : 0.10;
+        return fireCounter > (timer*50); // need to run the indexer for 0.25 seconds to push note through
     }
 
     // Called when the command ends or is interrupted.

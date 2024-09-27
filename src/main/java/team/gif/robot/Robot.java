@@ -228,6 +228,8 @@ public class Robot extends TimedRobot {
     public void autonomousInit() {
         runningAutonomousMode = true;
 
+        autoType = shootParams.AUTO;
+
         chosenAuto = uiSmartDashboard.autoModeChooser.getSelected();
         chosenDelay = uiSmartDashboard.delayChooser.getSelected();
 
@@ -253,7 +255,7 @@ public class Robot extends TimedRobot {
                 initialAutonomousAngleAdjust = robotContainer.getAutonomousInitialHeading();
             }
         }
-        System.out.println("Autonomous Init heading " + initialAutonomousAngleAdjust);
+        System.out.println("Autonomous Init " + alliance.get() + " heading " + initialAutonomousAngleAdjust);
     }
 
     /** This function is called periodically during autonomous. */

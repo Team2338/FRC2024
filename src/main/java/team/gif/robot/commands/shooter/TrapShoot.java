@@ -20,6 +20,7 @@ public class TrapShoot extends Command {
         finished = false;
         wristEngaged = false;
         counter = 0;
+        Robot.shooter.updateShooterTrapPID();
     }
 
     // Called every time the scheduler runs (~20ms) while the command is scheduled

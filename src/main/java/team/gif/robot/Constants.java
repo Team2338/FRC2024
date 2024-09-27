@@ -279,7 +279,7 @@ public final class Constants {
 
         //Pass
         public static final double RPM_PASS = 6200;//6200;
-        public static final double RPM_MIN_PASS = 4000;
+        public static final double RPM_MIN_PASS = 4400;//4000;
         public static final double FF_PASS = 0.000155; // gets to 6100    // 0.000130;  // 5800 RPM
         public static final double kP_PASS = 0.00030;//0.0100;               // 0.0006;    // 5800 RPM
         public static final double kI_PASS = 0.000;//0.001;               // 0.0000015; // 5800 RPM
@@ -300,7 +300,7 @@ public final class Constants {
 
         //Near
         public static final double RPM_NEAR = 6200;//6200;
-        public static final double RPM_MIN_NEAR = 5000;//4500;
+        public static final double RPM_MIN_NEAR = 5600;//4500;
         public static final double FF_NEAR = 0.000155; // gets to 6100    // 0.000130;  // 5800 RPM
         public static final double kP_NEAR = 0.00030;//0.0100;               // 0.0006;    // 5800 RPM
         public static final double kI_NEAR = 0.000;//0.001;               // 0.0000015; // 5800 RPM
@@ -364,8 +364,8 @@ public final class Constants {
         //Trap - only used for testing purposes. Trap shot is handled manually through % power, not PID
         public static final double RPM_TRAP = 0;
         public static final double RPM_MIN_TRAP = 0;
-        public static final double FF_TRAP = 0.00;
-        public static final double kP_TRAP = 0.00;
+        public static final double FF_TRAP = 0.000155;
+        public static final double kP_TRAP = 0.00030;
         public static final double kI_TRAP = 0.00;
 
         //Auto
@@ -397,7 +397,7 @@ public final class Constants {
 
         // Encoder setpoints and values
         // These are the encoder specific values
-        public static final double ENCODER_OFFSET_ABSOLUTE = -0.627783203125;// this is determined either manually or via the auto-calibration
+        public static final double ENCODER_OFFSET_ABSOLUTE = -0.131201171875;// this is determined either manually or via the auto-calibration
         public static final double ABSOLUTE_PER_DEGREE = 0.00647249; // 0.008333;
         // These are the values we want the bot to utilize
         public static final double KILL_LIMIT_ABSOLUTE = 0.87;
@@ -435,7 +435,7 @@ public final class Constants {
         public static final double INDEXER_TWO_TRAP_PERC = 0.6;  // not tuned
 
         public static final double INDEXER_ONE_EJECT_PERC = 0.8;
-        public static final double INDEXER_TWO_EJECT_PERC = 0.2;
+        public static final double INDEXER_TWO_EJECT_PERC = 0.6;//0.2;
 
         public static final double INDEXER_TWO_FF = 0.0000; //remove?
         public static final double INDEXER_TWO_kP = 0.0000; //remove?
