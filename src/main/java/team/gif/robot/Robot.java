@@ -152,20 +152,20 @@ public class Robot extends TimedRobot {
         try {
             wrist = new Wrist();
         } catch (Exception e) { throw new RuntimeException(e); }
-        wrist.setDefaultCommand(new WristAnglePIDControl());
+//        wrist.setDefaultCommand(new WristAnglePIDControl());
 
         indexer = new Indexer();
-        indexer.setDefaultCommand(new IndexerDefault());
+//        indexer.setDefaultCommand(new IndexerDefault());
         collector = new Collector();
-        collector.setDefaultCommand(new CollectorDefault());
+//        collector.setDefaultCommand(new CollectorDefault());
         elevator = new Elevator();
-        elevator.setDefaultCommand(new ElevatorPIDControl());
+//        elevator.setDefaultCommand(new ElevatorPIDControl());
         climber = new Climber();
         climber.setTargetPosition(climber.getPosition());
-        climber.setDefaultCommand(new ClimberPIDHold());
+//        climber.setDefaultCommand(new ClimberPIDHold());
         diagnostics = new Diagnostics();
         ledSubsystem = new LEDSubsystem();
-        ledSubsystem.setDefaultCommand(new LEDSubsystemDefault());
+//        ledSubsystem.setDefaultCommand(new LEDSubsystemDefault());
         flapper = new Flapper(8);
 
         robotContainer = new RobotContainer();

@@ -129,9 +129,11 @@ public class OI {
         *   aX.onTrue(new PrintCommand("aX"));
         */
 
-        /**
-         * Driver Controller
-         */
+        /* -------------------- Start mass comment --------------------
+
+        //---------------------
+        //| Driver Controller |
+        //---------------------
 
         // driver controls
         dLBump.whileTrue(new EnableBoost());
@@ -165,9 +167,9 @@ public class OI {
         dStart.and(dDPadDown).toggleOnTrue(new ToggleCollectorDefault());
         dStart.and(dBack).onTrue(new CalibrateAngle());
 
-        /**
-         *  Aux Controller
-         */
+        //------------------
+        //| Aux Controller |
+        //------------------
 
         // manual control
         aA.and(aBack.negate().and(aStart.negate())).whileTrue(new CollectorManualControl());
@@ -221,6 +223,20 @@ public class OI {
         // testing purposes
 //        dY.whileTrue(new RaiseClimber());
 //        dX.whileTrue(new LowerClimber());
+
+        ------------------ End mass comment */
+
+        dStart.and(dDPadUp).onTrue(new InstantCommand(Robot.pigeon::resetPigeonPosition).ignoringDisable(true));
+        dLBump.whileTrue(new EnableBoost());
+        dRBump.whileTrue(new EnableRobotOrientedMode());
+        dDPadUp.and(dStart.negate()).whileTrue(new MoveCloserSlow());
+        dDPadDown.and(dStart.negate()).whileTrue(new MoveAwaySlow());
+        dDPadLeft.and(dStart.negate()).whileTrue(new MoveRightSlow());
+        dDPadRight.and(dStart.negate()).whileTrue(new MoveLeftSlow());
+
+
+
+
     }
 
     public void setRumble(boolean rumble){
